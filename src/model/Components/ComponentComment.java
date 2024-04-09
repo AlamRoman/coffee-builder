@@ -1,5 +1,5 @@
 package model.Components;
 
-public class ComponentComment {
+public class ComponentComment extends AlgorithmComponent{
 
 }
