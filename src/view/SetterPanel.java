@@ -12,5 +12,5 @@ public class SetterPanel extends JPanel {
 	public SetterPanel() {
 
 	}
-
+	
 }
