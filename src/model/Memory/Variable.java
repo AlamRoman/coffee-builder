@@ -6,13 +6,29 @@ public class Variable<T> {
 	
 	private String type;
 	private String name;
-	private T value;
+	private Object value;
 	
-	public Variable(String type, String name, T value) {
+	public Variable(String type, String name, Object value) {
 		super();
 		this.type = type;
 		this.name = name;
-		this.value = value;
+		
+		switch (type) {
+			case "Integer": {
+				this.value = (Integer) value;
+				break;
+			}
+			case "String": {
+				this.value = (String) value;			
+					break;
+			}
+			case "Double": {
+				this.value = (Double) value;
+				break;
+			}
+		
+		}
+		
 	}
 
 	public String getType() {
@@ -31,7 +47,7 @@ public class Variable<T> {
 		this.name = name;
 	}
 
-	public T getValue() {
+	public Object getValue() {
 		return value;
 	}
 
