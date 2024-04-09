@@ -4,5 +4,8 @@ import model.Memory.Variable;
 
 public class ComponentInput extends AlgorithmComponent{
 
-	private Variable<T> var;
+	private String nomeVariabile;
+	private Variable var;
+	private Variable newVar;
+	
 }
