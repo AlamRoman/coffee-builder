@@ -1,5 +1,5 @@
 package model.Components;
 
-public class ComponentStart {
+public class ComponentStart extends AlgorithmComponent{
 
 }
