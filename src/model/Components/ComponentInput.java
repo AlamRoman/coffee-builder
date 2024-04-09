@@ -13,30 +13,19 @@ public class ComponentInput extends AlgorithmComponent{
 	public ComponentInput(AlgorithmComponent nextComponent1, AlgorithmComponent nextComponent2, MemoryStorage memory, String nomeVariabile, Object inputValue) {
 		super(nextComponent1, nextComponent2, memory);
 		
-		this.nomeVariabile = nomeVariabile;
-		this.inputValue = inputValue;
+		this.nomeVariabile = "";
+		this.inputValue = null;
 		
 	}
 	
-	public void setVar() throws Exceptions{
+	public void execute() throws Exceptions{
 		finalVar = super.getMemory().getVariableByName(nomeVariabile);
 		
 		finalVar.setValue(inputValue);
 	}
-
-	public String getNomeVariabile() {
-		return nomeVariabile;
-	}
-
-	public void setNomeVariabile(String nomeVariabile) {
+	
+	public void set(String nomeVariabile, Object inputValue) {
 		this.nomeVariabile = nomeVariabile;
-	}
-
-	public Object getInputValue() {
-		return inputValue;
-	}
-
-	public void setInputValue(Object inputValue) {
 		this.inputValue = inputValue;
 	}
 }
