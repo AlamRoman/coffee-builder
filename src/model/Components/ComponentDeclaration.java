@@ -33,14 +33,14 @@ public class ComponentDeclaration {
 		this.isset = true;
 	}
 	
-	public void execute() {
+	public void execute() throws Exceptions {
 		if(isset){
 			try {			
 				MS.addVariable(getVariable());
 			}catch(Exception e) {
 				//Handle exception...
 			}
-			throw new Exceptions(Exceptions.COMPONENT_NOT_SET)
+			throw new Exceptions(Exceptions.COMPONENT_NOT_SET);
 		}
 		
 	}
