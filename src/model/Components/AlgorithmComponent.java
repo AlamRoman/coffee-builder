@@ -1,14 +1,18 @@
 package model.Components;
 
+import model.Memory.MemoryStorage;
+
 public class AlgorithmComponent {
 
 	private AlgorithmComponent nextComponent1;
 	private AlgorithmComponent nextComponent2;
+	private MemoryStorage memory;
 	
-	public AlgorithmComponent(AlgorithmComponent nextComponent1, AlgorithmComponent nextComponent2) {
+	public AlgorithmComponent(AlgorithmComponent nextComponent1, AlgorithmComponent nextComponent2, MemoryStorage memory) {
 		super();
 		this.nextComponent1 = nextComponent1;
 		this.nextComponent2 = nextComponent2;
+		this.memory = memory;
 	}
 
 	public AlgorithmComponent getNextComponent1() {
@@ -25,6 +29,14 @@ public class AlgorithmComponent {
 
 	public void setNextComponent2(AlgorithmComponent nextComponent2) {
 		this.nextComponent2 = nextComponent2;
+	}
+
+	public MemoryStorage getMemory() {
+		return memory;
+	}
+
+	public void setMemory(MemoryStorage memory) {
+		this.memory = memory;
 	}
 	
 	
