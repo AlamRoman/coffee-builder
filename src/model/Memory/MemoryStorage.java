@@ -25,7 +25,7 @@ public class MemoryStorage {
 		}
 	}
 	
-	public Variable getVariable(String name) throws Exceptions{
+	public Variable getVariableByName(String name) throws Exceptions{
 		
 		for (Variable temp : memory) {
 			

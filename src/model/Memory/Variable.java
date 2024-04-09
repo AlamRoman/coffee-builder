@@ -2,27 +2,27 @@ package model.Memory;
 
 import java.util.Objects;
 
-public class Variable<T> {
+public class Variable{
 	
-	private String type;
+	private Type type;
 	private String name;
 	private Object value;
 	
-	public Variable(String type, String name, Object value) {
+	public Variable(Type type, String name, Object value) {
 		super();
 		this.type = type;
 		this.name = name;
 		
 		switch (type) {
-			case "Integer": {
+			case Integer: {
 				this.value = (Integer) value;
 				break;
 			}
-			case "String": {
+			case String: {
 				this.value = (String) value;			
 					break;
 			}
-			case "Double": {
+			case Double: {
 				this.value = (Double) value;
 				break;
 			}
@@ -31,11 +31,11 @@ public class Variable<T> {
 		
 	}
 
-	public String getType() {
+	public Type getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(Type type) {
 		this.type = type;
 	}
 
@@ -51,8 +51,22 @@ public class Variable<T> {
 		return value;
 	}
 
-	public void setValue(T value) {
-		this.value = value;
+	public void setValue(Object value) {
+		
+		switch (type) {
+			case Integer: {
+				this.value = (Integer) value;
+				break;
+			}
+			case String: {
+				this.value = (String) value;			
+					break;
+			}
+			case Double: {
+				this.value = (Double) value;
+				break;
+			}
+		}
 	}
 
 	@Override
@@ -71,7 +85,5 @@ public class Variable<T> {
 		Variable other = (Variable) obj;
 		return Objects.equals(name, other.name);
 	}
-	
-	
 
 }
