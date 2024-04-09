@@ -1,4 +1,4 @@
-package model;
+package model.Memory;
 
 import java.util.Objects;
 

@@ -1,6 +1,8 @@
-package model;
+package model.Memory;
 
 import java.util.HashSet;
+
+import model.Exceptions;
 
 public class MemoryStorage {
 	
@@ -13,7 +15,8 @@ public class MemoryStorage {
 	
 	public void addVariable(Variable var) throws Exceptions{
 		if(!memory.add(var)) {
-			throw new Exeptions
+			throw new Exceptions(Exceptions.EXISTING_VARIABLE);
+		}
 	}
 	
 	
