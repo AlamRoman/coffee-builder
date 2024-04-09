@@ -13,8 +13,8 @@ public class ComponentDeclaration extends AlgorithmComponent{
 	private MemoryStorage MS;
 	private Boolean isset;
 	
-	public ComponentDeclaration() {
-		super();
+	public ComponentDeclaration(AlgorithmComponent nextComponent1, AlgorithmComponent nextComponent2, MemoryStorage MS) {
+		super(nextComponent1, nextComponent2, MS);
 		this.type = "";
 		this.variableName = "";
 		this.isset = false;
