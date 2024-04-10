@@ -23,3 +23,19 @@
 hs_err_pid*
 replay_pid*
 /bin/
+
+# eclipse specific
+*.pydevproject
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
