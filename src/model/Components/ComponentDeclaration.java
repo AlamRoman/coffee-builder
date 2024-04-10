@@ -12,7 +12,6 @@ public class ComponentDeclaration extends AlgorithmComponent{
 	private String variableName;
 	private String value;
 	private MemoryStorage MS;
-	private Boolean isset;
 	
 	public ComponentDeclaration(AlgorithmComponent nextComponent1, AlgorithmComponent nextComponent2, MemoryStorage MS) {
 		super(nextComponent1, nextComponent2, MS);
