@@ -10,6 +10,8 @@ public class ComponentOutput extends AlgorithmComponent{
 
 	public ComponentOutput(AlgorithmComponent nextComponent1, AlgorithmComponent nextComponent2, MemoryStorage memory) {
 		super(nextComponent1, nextComponent2, memory);
+		
+		outPutText = "";
 	}
 	
 	public void set(String outPut) throws Exceptions{
