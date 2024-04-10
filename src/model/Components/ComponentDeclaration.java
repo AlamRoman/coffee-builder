@@ -29,19 +29,14 @@ public class ComponentDeclaration extends AlgorithmComponent{
 	public void set(Type type, String variableName) {
 		this.type = type;
 		this.variableName = variableName;
-		this.isset = true;
 	}
 	
 	public void execute() throws Exceptions {
-		if(isset){
 			try {			
 				MS.addVariable(getVariable());
 			}catch(Exception e) {
 				//Handle exception...
 			}
-		}else {
-			throw new Exceptions(Exceptions.COMPONENT_NOT_SET);			
-		}
 		
 	}
 	
