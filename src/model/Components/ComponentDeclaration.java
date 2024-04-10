@@ -2,12 +2,13 @@ package model.Components;
 
 import model.Exceptions;
 import model.Memory.MemoryStorage;
+import model.Memory.Type;
 import model.Memory.Variable;
 import view.Panel;
 
 public class ComponentDeclaration extends AlgorithmComponent{
 
-	private String type;
+	private Type type;
 	private String variableName;
 	private String value;
 	private MemoryStorage MS;
@@ -15,17 +16,17 @@ public class ComponentDeclaration extends AlgorithmComponent{
 	
 	public ComponentDeclaration(AlgorithmComponent nextComponent1, AlgorithmComponent nextComponent2, MemoryStorage MS) {
 		super(nextComponent1, nextComponent2, MS);
-		this.type = "";
+		this.type = null;
 		this.variableName = "";
 		this.isset = false;
 		this.MS = MS.getInstance();
 	}
 	
 	public Variable getVariable() {
-		return new Variable(this.type, this.variableName);
+		return new Variable(this.type, this.variableName, this.value);
 	}
 	
-	public void set(String type, String variableName) {
+	public void set(Type type, String variableName) {
 		this.type = type;
 		this.variableName = variableName;
 		this.isset = true;

@@ -10,7 +10,7 @@ public class SetterPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public SetterPanel() {
-
+	
 	}
 	
 }
