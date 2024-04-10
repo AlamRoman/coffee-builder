@@ -17,7 +17,6 @@ public class ComponentDeclaration extends AlgorithmComponent{
 		super(nextComponent1, nextComponent2, MS);
 		this.type = null;
 		this.variableName = "";
-		this.isset = false;
 		this.MS = MS.getInstance();
 	}
 	
