@@ -1,5 +1,6 @@
 package model.Components;
 
+import model.Exceptions;
 import model.Memory.MemoryStorage;
 
 public class ComponentStart extends AlgorithmComponent{
@@ -9,9 +10,13 @@ public class ComponentStart extends AlgorithmComponent{
 	public ComponentStart(AlgorithmComponent nextComponent) {
 		super(nextComponent, null, null);
 	}
-	
-	public void execute() {
+
+	@Override
+	public void execute() throws Exceptions {
+		// TODO Auto-generated method stub
 		MemoryStorage MS = MemoryStorage.getInstance();
 		super.setMemory(MS);
 	}
+	
+	
 }

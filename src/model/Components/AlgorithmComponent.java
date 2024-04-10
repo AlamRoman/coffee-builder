@@ -1,8 +1,9 @@
 package model.Components;
 
+import model.Exceptions;
 import model.Memory.MemoryStorage;
 
-public class AlgorithmComponent {
+public abstract class AlgorithmComponent {
 
 	private AlgorithmComponent nextComponent1;
 	private AlgorithmComponent nextComponent2;
@@ -14,6 +15,8 @@ public class AlgorithmComponent {
 		this.nextComponent2 = nextComponent2;
 		this.memory = memory;
 	}
+	
+	public abstract void execute() throws Exceptions;
 
 	public AlgorithmComponent getNextComponent1() {
 		return nextComponent1;
