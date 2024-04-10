@@ -12,13 +12,11 @@ public class ComponentDeclaration extends AlgorithmComponent{
 	private String variableName;
 	private String value;
 	private MemoryStorage MS;
-	private Boolean isset;
 	
 	public ComponentDeclaration(AlgorithmComponent nextComponent1, AlgorithmComponent nextComponent2, MemoryStorage MS) {
 		super(nextComponent1, nextComponent2, MS);
 		this.type = null;
 		this.variableName = "";
-		this.isset = false;
 		this.MS = MS.getInstance();
 	}
 	
@@ -29,19 +27,14 @@ public class ComponentDeclaration extends AlgorithmComponent{
 	public void set(Type type, String variableName) {
 		this.type = type;
 		this.variableName = variableName;
-		this.isset = true;
 	}
 	
 	public void execute() throws Exceptions {
-		if(isset){
 			try {			
 				MS.addVariable(getVariable());
 			}catch(Exception e) {
 				//Handle exception...
 			}
-		}else {
-			throw new Exceptions(Exceptions.COMPONENT_NOT_SET);			
-		}
 		
 	}
 	
