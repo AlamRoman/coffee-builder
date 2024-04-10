@@ -7,7 +7,7 @@ public class Exceptions extends Exception{
 	public static final String NON_EXISTING_VARIABLE = "The variable not exists, try whit another name";
 	public static final String UNMATCH_TYPE = "The variable type and the type of the value/variable aren't the same!";
 	public static final String CONVERSION_ERROR = "The value cannot be converted";
-	public static final String STRING_ERROR = "Strings don't support that operation!";
+	public static final String STRING_ERROR = "Strings don't support this operation!";
 
 	public Exceptions(String s) {
 		super(s);

@@ -41,10 +41,9 @@ public class ComponentOperation extends AlgorithmComponent{
 		
 		finalVariable = super.getMemory().getVariableByName(finalVariableName);
 		
-		try {
-			variable1 = super.getMemory().getVariableByName(variable1Name);
-		} catch (Exception e) {
-			variable1.setValue(null);
+		if(variable1Name.startsWith("$")) {
+			variable1 = super.getMemory().getVariableByName(variable1Name.substring(1));
+		}else{
 			try {
 				switch (finalVariable.getType()) {
 				case  Double: {
@@ -63,47 +62,36 @@ public class ComponentOperation extends AlgorithmComponent{
 					break;
 					}
 				}
-				if(variable1.getValue()==null) {
-					throw new Exceptions(Exceptions.NON_EXISTING_VARIABLE);
-				}
 			} catch (Exception e2) {
 				throw new Exceptions(Exceptions.CONVERSION_ERROR);
 			}
-			
 		}
 		
-
-		try {
-			variable2 = super.getMemory().getVariableByName(variable2Name);
-		} catch (Exception e) {
-			variable2.setValue(null);
+		if(variable2Name.startsWith("$")) {
+			variable2 = super.getMemory().getVariableByName(variable2Name.substring(1));
+		}else{
 			try {
 				switch (finalVariable.getType()) {
 				case  Double: {
 					variable2.setType(Type.Double);
-					variable2.setValue(Double.parseDouble(variable1Name));
+					variable2.setValue(Double.parseDouble(variable2Name));
 					break;
 					}
 				case  Integer: {
 					variable2.setType(Type.Integer);
-					variable2.setValue(Integer.parseInt(variable1Name));
+					variable1.setValue(Integer.parseInt(variable2Name));
 					break;
 					}
 				case  String: {
 					variable2.setType(Type.String);
-					variable2.setValue(variable1Name);
+					variable2.setValue(variable2Name);
 					break;
 					}
-				}
-				if(variable2.getValue()==null) {
-					throw new Exceptions(Exceptions.NON_EXISTING_VARIABLE);
 				}
 			} catch (Exception e2) {
 				throw new Exceptions(Exceptions.CONVERSION_ERROR);
 			}
-			
 		}
-		
 		
 		if(finalVariable.getType().equals(variable1.getType()) && finalVariable.getType().equals(variable1.getType())) {
 			
@@ -111,37 +99,45 @@ public class ComponentOperation extends AlgorithmComponent{
 			case  String: {
 				
 				if(operation != TipoOperazioni.PIU) {
-					throw new Exceptions(Exceptions.NON_EXISTING_VARIABLE);
+					throw new Exceptions(Exceptions.STRING_ERROR);
 				}
 				
-					finalVariable.setValue( variable1.getValue() + variable2.getValue() );
+				finalVariable.setValue( (String) variable1.getValue() + (String) variable2.getValue() );
 				
 				break;
 				}
 			
 			default: {
 				
+				Type temp=finalVariable.getType();
+				finalVariable.setType(Type.Double);
+				
 				switch (operation) {
 				case  PIU: {
-					finalVariable.setValue( variable1.getValue() + variable2.getValue() );
+					finalVariable.setValue( (Double) variable1.getValue() + (Double) variable2.getValue() );
 					break;
 					}
 				case  MENO: {
-					finalVariable.setValue( variable1.getValue() - variable2.getValue() );
+					finalVariable.setValue( (Double) variable1.getValue() - (Double) variable2.getValue() );
 					break;
 					}
 				case  DIV: {
-					finalVariable.setValue( variable1.getValue() / variable2.getValue() );
+					finalVariable.setValue( (Double) variable1.getValue() / (Double) variable2.getValue() );
 					break;
 					}
 				case  MOD: {
-					finalVariable.setValue( variable1.getValue() % variable2.getValue() );
+					finalVariable.setValue( (Double) variable1.getValue() % (Double) variable2.getValue() );
 					break;
 					}
 				case  PER: {
-					finalVariable.setValue( variable1.getValue() * variable2.getValue() );
+					finalVariable.setValue( (Double) variable1.getValue() * (Double) variable2.getValue() );
 					break;
 					}
+				}
+				
+				if(temp==Type.Integer) {
+					finalVariable.setType(Type.Integer);
+					finalVariable.setValue(Integer.parseInt(finalVariable.getValue().toString()));
 				}
 				
 				break;
