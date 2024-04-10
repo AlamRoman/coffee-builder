@@ -86,4 +86,7 @@ public class Variable{
 		return Objects.equals(name, other.name);
 	}
 
+	public String getValueString() {
+		return value.toString();
+	}
 }
