@@ -19,6 +19,10 @@ public class MemoryStorage {
 		return instance;
 	}
 	
+	public static void destroyInstance() {
+		instance = null;
+	}
+	
 	public void addVariable(Variable var) throws Exceptions{
 		if(!memory.add(var)) {
 			throw new Exceptions(Exceptions.EXISTING_VARIABLE);
