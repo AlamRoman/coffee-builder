@@ -41,4 +41,8 @@ public class ComponentOutput extends Component{
 	public String execute() {
 		return outPutText;
 	}
+	
+	public Component getNextComponent() {
+		return super.getNextComponent1();
+	}
 }

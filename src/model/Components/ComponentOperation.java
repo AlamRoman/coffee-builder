@@ -153,6 +153,9 @@ public class ComponentOperation extends Component{
 		
 	}
 	
+	public Component getNextComponent() {
+		return super.getNextComponent1();
+	}
 	
 	
 }

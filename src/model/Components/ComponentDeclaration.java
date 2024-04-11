@@ -40,4 +40,8 @@ public class ComponentDeclaration extends Component{
 		
 	}
 	
+	public Component getNextComponent() {
+		return super.getNextComponent1();
+	}
+	
 }

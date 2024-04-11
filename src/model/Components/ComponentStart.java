@@ -17,6 +17,9 @@ public class ComponentStart extends Component{
 		MemoryStorage MS = MemoryStorage.getInstance();
 		super.setMemory(MS);
 	}
+	public Component getNextComponent() {
+		return super.getNextComponent1();
+	}
 	
 	
 }
