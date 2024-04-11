@@ -21,6 +21,12 @@ public class ComponentStart extends Component{
 	public Component getNextComponent() {
 		return super.getNextComponent1();
 	}
+
+	@Override
+	public String print() {
+		// TODO Auto-generated method stub
+		return "START";
+	}
 	
 	
 }
