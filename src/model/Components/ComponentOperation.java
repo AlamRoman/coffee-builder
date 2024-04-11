@@ -156,6 +156,46 @@ public class ComponentOperation extends Component{
 	public Component getNextComponent() {
 		return super.getNextComponent1();
 	}
+
+	
+	public String print() {
+		
+		String out="OPERATION ";
+		
+		out+=finalVariableName;
+		
+		out+=" = ";
+		out+=variable1Name;
+		out+=" ";
+		
+		switch (operation) {
+		case  PIU: {
+			out+="+";
+			break;
+			}
+		case  MENO: {
+			out+="-";
+			break;
+			}
+		case  DIV: {
+			out+="/";
+			break;
+			}
+		case  MOD: {
+			out+="%";
+			break;
+			}
+		case  PER: {
+			out+="*";
+			break;
+			}
+		}
+		
+		out+=" ";
+		out+=variable2Name;
+		
+		return out;
+	}
 	
 	
 }

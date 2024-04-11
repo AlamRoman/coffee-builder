@@ -16,5 +16,11 @@ public class ComponentEnd extends Component{
 	public Component getNextComponent() {
 		return null;
 	}
+
+	@Override
+	public String print() {
+		// TODO Auto-generated method stub
+		return "END";
+	}
 	
 }

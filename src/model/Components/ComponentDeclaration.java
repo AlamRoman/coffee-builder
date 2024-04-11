@@ -43,5 +43,17 @@ public class ComponentDeclaration extends Component{
 	public Component getNextComponent() {
 		return super.getNextComponent1();
 	}
+
+	public String print() {
+		String out="DECLARATION ";
+		
+		out+=variableName;
+		
+		out+=" = ";
+		out+= value.toString();
+		
+		return out;
+		
+	}
 	
 }
