@@ -29,12 +29,14 @@ public class ComponentDeclaration extends AlgorithmComponent{
 		this.variableName = variableName;
 	}
 	
-	public void execute() throws Exceptions {
+	public Object execute() throws Exceptions {
 			try {			
 				MS.addVariable(getVariable());
 			}catch(Exception e) {
 				//Handle exception...
 			}
+			
+			return null;
 		
 	}
 	

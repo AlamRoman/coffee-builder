@@ -37,7 +37,7 @@ public class ComponentOperation extends AlgorithmComponent{
 		
 	}
 	
-	public void execute() throws Exceptions {
+	public Object execute() throws Exceptions {
 		
 		finalVariable = super.getMemory().getVariableByName(finalVariableName);
 		
@@ -148,6 +148,8 @@ public class ComponentOperation extends AlgorithmComponent{
 		}else {
 			throw new Exceptions(Exceptions.UNMATCH_TYPE);
 		}
+		
+		return null;
 		
 	}
 	

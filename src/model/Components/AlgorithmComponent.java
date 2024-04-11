@@ -16,7 +16,7 @@ public abstract class AlgorithmComponent {
 		this.memory = memory;
 	}
 	
-	public abstract void execute() throws Exceptions;
+	public abstract Object execute() throws Exceptions;
 
 	public AlgorithmComponent getNextComponent1() {
 		return nextComponent1;

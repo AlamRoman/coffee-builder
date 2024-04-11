@@ -27,7 +27,7 @@ public class ComponentAssign extends AlgorithmComponent{
 		
 	}
 	
-	public void execute() throws Exceptions {
+	public Object execute() throws Exceptions {
 		
 		finalVariable = super.getMemory().getVariableByName(variableName);
 		
@@ -40,6 +40,8 @@ public class ComponentAssign extends AlgorithmComponent{
 		}else {
 			throw new Exceptions(Exceptions.UNMATCH_TYPE);
 		}
+		
+		return null;
 	}
 	
 	

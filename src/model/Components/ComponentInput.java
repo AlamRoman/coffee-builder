@@ -18,10 +18,12 @@ public class ComponentInput extends AlgorithmComponent{
 		
 	}
 	
-	public void execute() throws Exceptions{
+	public Object execute() throws Exceptions{
 		finalVar = super.getMemory().getVariableByName(nomeVariabile);
 		
 		finalVar.setValue(inputValue);
+		
+		return null;
 	}
 	
 	public void set(String nomeVariabile, Object inputValue) {

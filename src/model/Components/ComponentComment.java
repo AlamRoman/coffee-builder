@@ -13,11 +13,11 @@ public class ComponentComment extends AlgorithmComponent{
 		this.comment = comment;
 	}
 
-	public String getComment() {
+	public String execute() {
 		return comment;
 	}
 
-	public void setComment(String comment) {
+	public void set(String comment) {
 		this.comment = comment;
 	}
 	
