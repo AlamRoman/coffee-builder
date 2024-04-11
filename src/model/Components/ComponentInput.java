@@ -4,13 +4,13 @@ import model.Exceptions;
 import model.Memory.MemoryStorage;
 import model.Memory.Variable;
 
-public class ComponentInput extends AlgorithmComponent{
+public class ComponentInput extends Component{
 
 	private Variable finalVar;
 	private String nomeVariabile;
 	private Object inputValue;
 	
-	public ComponentInput(AlgorithmComponent nextComponent1, AlgorithmComponent nextComponent2, MemoryStorage memory, String nomeVariabile, Object inputValue) {
+	public ComponentInput(Component nextComponent1, Component nextComponent2, MemoryStorage memory, String nomeVariabile, Object inputValue) {
 		super(nextComponent1, nextComponent2, memory);
 		
 		this.nomeVariabile = "";

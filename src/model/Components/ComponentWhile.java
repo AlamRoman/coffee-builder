@@ -1,5 +1,5 @@
 package model.Components;
 
-public class ComponentWhile extends AlgorithmComponent{
+public class ComponentWhile extends Component{
 
 }

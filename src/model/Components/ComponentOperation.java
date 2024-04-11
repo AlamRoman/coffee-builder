@@ -6,7 +6,7 @@ import model.Memory.TipoOperazioni;
 import model.Memory.Type;
 import model.Memory.Variable;
 
-public class ComponentOperation extends AlgorithmComponent{
+public class ComponentOperation extends Component{
 
 	private String finalVariableName;
 	private String variable1Name;
@@ -17,7 +17,7 @@ public class ComponentOperation extends AlgorithmComponent{
 	private Variable variable1;
 	private Variable variable2;
 
-	public ComponentOperation(AlgorithmComponent nextComponent1, AlgorithmComponent nextComponent2, MemoryStorage memory) {
+	public ComponentOperation(Component nextComponent1, Component nextComponent2, MemoryStorage memory) {
 		
 		super(nextComponent1, nextComponent2, memory);
 		

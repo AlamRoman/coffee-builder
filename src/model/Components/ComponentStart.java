@@ -3,11 +3,11 @@ package model.Components;
 import model.Exceptions;
 import model.Memory.MemoryStorage;
 
-public class ComponentStart extends AlgorithmComponent{
+public class ComponentStart extends Component{
 
-	private AlgorithmComponent nextComponent;
+	private Component nextComponent;
 	
-	public ComponentStart(AlgorithmComponent nextComponent) {
+	public ComponentStart(Component nextComponent) {
 		super(nextComponent, null, null);
 	}
 

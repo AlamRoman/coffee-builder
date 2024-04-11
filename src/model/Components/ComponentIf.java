@@ -1,5 +1,5 @@
 package model.Components;
 
-public class ComponentIf extends AlgorithmComponent{
+public class ComponentIf extends Component{
 
 }

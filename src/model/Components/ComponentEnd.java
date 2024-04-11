@@ -2,7 +2,7 @@ package model.Components;
 
 import model.Memory.MemoryStorage;
 
-public class ComponentEnd extends AlgorithmComponent{
+public class ComponentEnd extends Component{
 
 	public ComponentEnd() {
 		super(null, null, null);

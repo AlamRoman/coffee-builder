@@ -4,11 +4,11 @@ import model.Exceptions;
 import model.Memory.MemoryStorage;
 import model.Memory.Variable;
 
-public class ComponentOutput extends AlgorithmComponent{
+public class ComponentOutput extends Component{
 
 	private String outPutText;
 
-	public ComponentOutput(AlgorithmComponent nextComponent1, AlgorithmComponent nextComponent2, MemoryStorage memory) {
+	public ComponentOutput(Component nextComponent1, Component nextComponent2, MemoryStorage memory) {
 		super(nextComponent1, nextComponent2, memory);
 		
 		outPutText = "";

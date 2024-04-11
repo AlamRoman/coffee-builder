@@ -5,13 +5,13 @@ import model.Memory.MemoryStorage;
 import model.Memory.Type;
 import model.Memory.Variable;
 
-public class ComponentAssign extends AlgorithmComponent{
+public class ComponentAssign extends Component{
 
 	private Object value;
 	private String variableName;
 	private Variable finalVariable;
 	
-	public ComponentAssign(AlgorithmComponent nextComponent1, AlgorithmComponent nextComponent2, MemoryStorage memory,
+	public ComponentAssign(Component nextComponent1, Component nextComponent2, MemoryStorage memory,
 			String value, String variableName) {
 		
 		super(nextComponent1, nextComponent2, memory);

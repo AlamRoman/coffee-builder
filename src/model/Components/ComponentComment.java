@@ -2,11 +2,11 @@ package model.Components;
 
 import model.Memory.MemoryStorage;
 
-public class ComponentComment extends AlgorithmComponent{
+public class ComponentComment extends Component{
 
 	private String comment;
 
-	public ComponentComment(AlgorithmComponent nextComponent1, AlgorithmComponent nextComponent2, MemoryStorage memory,
+	public ComponentComment(Component nextComponent1, Component nextComponent2, MemoryStorage memory,
 			String comment) {
 		super(nextComponent1, nextComponent2, memory);
 		
