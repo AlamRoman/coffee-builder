@@ -19,6 +19,8 @@ public abstract class Component {
 	public abstract Object execute() throws Exceptions;
 	
 	public abstract Component getNextComponent();
+	
+	public abstract String print();
 
 	public Component getNextComponent1() {
 		return nextComponent1;

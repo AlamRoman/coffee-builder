@@ -49,6 +49,18 @@ public class ComponentAssign extends Component{
 		return super.getNextComponent1();
 	}
 	
+	public String print() {
+		String out="ASSIGN ";
+		
+		out+=variableName;
+		
+		out+=" = ";
+		out+= value.toString();
+		
+		return out;
+		
+	}
+	
 	
 
 }

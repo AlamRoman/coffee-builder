@@ -12,10 +12,11 @@ public class ComponentStart extends Component{
 	}
 
 	@Override
-	public void execute() throws Exceptions {
+	public Object execute() throws Exceptions {
 		// TODO Auto-generated method stub
 		MemoryStorage MS = MemoryStorage.getInstance();
 		super.setMemory(MS);
+		return  null;
 	}
 	public Component getNextComponent() {
 		return super.getNextComponent1();
