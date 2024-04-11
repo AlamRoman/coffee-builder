@@ -6,6 +6,7 @@ import model.Memory.Variable;
 
 public class ComponentOutput extends Component{
 
+	private String rawOutPutString;
 	private String outPutText;
 
 	public ComponentOutput(Component nextComponent1, Component nextComponent2, MemoryStorage memory) {
@@ -18,6 +19,8 @@ public class ComponentOutput extends Component{
 		//this function creates an output string with the values of the variables in it
 		//example: "The number is : $var" 
 		//if var = 5, output = "The number is : 5" 
+		
+		rawOutPutString = outPut;
 		
 		outPutText = "";
 		
@@ -44,5 +47,14 @@ public class ComponentOutput extends Component{
 	
 	public Component getNextComponent() {
 		return super.getNextComponent1();
+	}
+
+	@Override
+	public String print() {
+		String out = "OUT ";
+		
+		out += rawOutPutString;
+		
+		return out;
 	}
 }

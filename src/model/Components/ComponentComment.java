@@ -25,7 +25,14 @@ public class ComponentComment extends Component{
 	public Component getNextComponent() {
 		return super.getNextComponent1();
 	}
-	
-	
+
+	@Override
+	public String print() {
+		String out = "COMMENT ";
+		
+		out += comment;
+		
+		return out;
+	}
 	
 }

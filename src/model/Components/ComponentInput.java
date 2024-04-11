@@ -35,6 +35,15 @@ public class ComponentInput extends Component{
 	public Component getNextComponent() {
 		return super.getNextComponent1();
 	}
+
+	@Override
+	public String print() {
+		String out = "IN ";
+		
+		out += "$" + finalVar.getName();
+		
+		return out;
+	}
 	
 	
 }
