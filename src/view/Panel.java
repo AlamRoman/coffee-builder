@@ -15,16 +15,6 @@ public class Panel extends JPanel {
 	 * Create the panel.
 	 */
 	public Panel() {
-		setLayout(new BorderLayout(0, 0));
-		
-		JToolBar toolBar = new JToolBar();
-		add(toolBar, BorderLayout.NORTH);
-		
-		JPanel panel = new JPanel();
-		add(panel, BorderLayout.SOUTH);
-		
-		JTextArea textArea = new JTextArea();
-		panel.add(textArea);
 
 	}
 

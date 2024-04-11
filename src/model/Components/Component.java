@@ -3,7 +3,7 @@ package model.Components;
 import model.Exceptions;
 import model.Memory.MemoryStorage;
 
-public abstract class Component {
+public class Component {
 
 	private Component nextComponent1;
 	private Component nextComponent2;
@@ -16,11 +16,17 @@ public abstract class Component {
 		this.memory = memory;
 	}
 	
-	public abstract Object execute() throws Exceptions;
+	public Object execute() throws Exceptions {
+		return null;
+	}
 	
-	public abstract Component getNextComponent();
+	public Component getNextComponent() {
+		return null;
+	}
 	
-	public abstract String print();
+	public String print() {
+		return null;
+	}
 
 	public Component getNextComponent1() {
 		return nextComponent1;

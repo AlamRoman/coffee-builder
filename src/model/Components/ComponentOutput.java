@@ -21,28 +21,30 @@ public class ComponentOutput extends Component{
 		//if var = 5, output = "The number is : 5" 
 		
 		rawOutPutString = outPut;
-		
-		outPutText = "";
-		
-		String[] words = outPut.split(" ");
-		
-		for (int i = 0; i < words.length; i++) {
-			
-			if (words[i].charAt(0) == '$') {
-				
-				String varName = words[i].substring(1);
-				
-				Variable var = super.getMemory().getVariableByName(varName);
-				
-				words[i] = var.getValueString();
-			}
-		}
-		
-		outPutText = String.join(" ", words);
+	
 	}
 	
-	public String execute() {
-		return outPutText;
+	public String execute() throws Exceptions {
+		
+		outPutText = "";
+			
+			String[] words = rawOutPutString.split(" ");
+			
+			for (int i = 0; i < words.length; i++) {
+				
+				if (words[i].charAt(0) == '$') {
+					
+					String varName = words[i].substring(1);
+					
+					Variable var = super.getMemory().getVariableByName(varName);
+					
+					words[i] = var.getValueString();
+				}
+			}
+			
+			outPutText = String.join(" ", words);
+			
+			return outPutText;
 	}
 	
 	public Component getNextComponent() {
