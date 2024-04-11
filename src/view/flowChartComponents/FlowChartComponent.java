@@ -1,4 +1,4 @@
-package view.FlowChartComponent;
+package view.flowChartComponents;
 
 public class FlowChartComponent {
 
