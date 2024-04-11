@@ -1,27 +1,21 @@
 package view;
 
 import javax.swing.JPanel;
-import javax.swing.BoxLayout;
-import javax.swing.JFrame;
 import javax.swing.JScrollPane;
-import java.awt.BorderLayout;
-import javax.swing.JToolBar;
 import javax.swing.JTextArea;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JToggleButton;
 
 public class Panel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private JTextArea outputArea;
+	private JToggleButton executeButton;
+	private JTextArea debuggerText;
 
-	/**
-	 * Create the panel.
-	 */
 	public Panel() {
 
 		this.setMaximumSize(getMaximumSize());
@@ -32,16 +26,16 @@ public class Panel extends JPanel {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
-		JButton avviaButton = new JButton("avvia");
-		avviaButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		GridBagConstraints gbc_avviaButton = new GridBagConstraints();
-		gbc_avviaButton.insets = new Insets(0, 0, 5, 5);
-		gbc_avviaButton.gridx = 0;
-		gbc_avviaButton.gridy = 0;
-		add(avviaButton, gbc_avviaButton);
+		JPanel panel = new JPanel();
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.insets = new Insets(0, 0, 5, 5);
+		gbc_panel.fill = GridBagConstraints.BOTH;
+		gbc_panel.gridx = 0;
+		gbc_panel.gridy = 0;
+		add(panel, gbc_panel);
+		
+		executeButton = new JToggleButton("avvia");
+		panel.add(executeButton);
 		
 		JLabel lblNewLabel = new JLabel("Debugger");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
@@ -67,7 +61,7 @@ public class Panel extends JPanel {
 		gbc_scrollPane_2.gridy = 2;
 		add(scrollPane_2, gbc_scrollPane_2);
 		
-		JTextArea debuggerText = new JTextArea();
+		debuggerText = new JTextArea();
 		debuggerText.setEditable(false);
 		scrollPane_2.setViewportView(debuggerText);
 		
@@ -85,10 +79,28 @@ public class Panel extends JPanel {
 		gbc_scrollPane_1.gridy = 4;
 		add(scrollPane_1, gbc_scrollPane_1);
 		
-		JTextArea outputArea = new JTextArea();
+		outputArea = new JTextArea();
 		outputArea.setEditable(false);
 		scrollPane_1.setViewportView(outputArea);
 		
 	}
+
+	public String getOutputArea() {
+		return outputArea.getText();
+	}
+
+	public void setOutputArea(String text) {
+		outputArea.setText(text);
+	}
+
+	public String getDebuggerText() {
+		return debuggerText.getText();
+	}
+
+	public void setDebuggerText(String text) {
+		debuggerText.setText(text);
+	}
+	
+	
 
 }
