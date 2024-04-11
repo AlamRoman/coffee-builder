@@ -43,6 +43,11 @@ public class ComponentAssign extends Component{
 		
 		return null;
 	}
+
+	@Override
+	public Component getNextComponent() {
+		return super.getNextComponent1();
+	}
 	
 	
 

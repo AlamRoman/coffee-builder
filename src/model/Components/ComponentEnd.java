@@ -8,8 +8,13 @@ public class ComponentEnd extends Component{
 		super(null, null, null);
 	}
 	
-	public void execute() {
+	public Object execute() {
 		MemoryStorage.destroyInstance();
+		return null;
+	}
+	
+	public Component getNextComponent() {
+		return null;
 	}
 	
 }
