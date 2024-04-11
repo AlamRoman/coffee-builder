@@ -20,5 +20,12 @@ public class ComponentComment extends Component{
 	public void set(String comment) {
 		this.comment = comment;
 	}
+
+	@Override
+	public Component getNextComponent() {
+		return super.getNextComponent1();
+	}
+	
+	
 	
 }

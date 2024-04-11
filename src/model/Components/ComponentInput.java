@@ -30,4 +30,11 @@ public class ComponentInput extends Component{
 		this.nomeVariabile = nomeVariabile;
 		this.inputValue = inputValue;
 	}
+
+	@Override
+	public Component getNextComponent() {
+		return super.getNextComponent1();
+	}
+	
+	
 }
