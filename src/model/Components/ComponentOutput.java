@@ -59,4 +59,12 @@ public class ComponentOutput extends Component{
 		
 		return out;
 	}
+
+	public String getRawOutPutString() {
+		return rawOutPutString;
+	}
+
+	public void setRawOutPutString(String rawOutPutString) {
+		this.rawOutPutString = rawOutPutString;
+	}
 }

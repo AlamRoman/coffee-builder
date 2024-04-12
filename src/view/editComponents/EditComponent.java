@@ -5,16 +5,29 @@ import javax.swing.JPanel;
 
 public class EditComponent extends JFrame{
 
-	private JPanel contentPane;
+	private JPanel panel;
+
 	private String componentName;
 	
-	public EditComponent() {
+	public EditComponent(String componentName) {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(200, 250);
 		setTitle(componentName);
-		
-		contentPane = new JPanel();
-		
-		setContentPane(contentPane);
+	}
+
+	public String getComponentName() {
+		return componentName;
+	}
+
+	public void setComponentName(String componentName) {
+		this.componentName = componentName;
+	}
+	
+	public JPanel getPanel() {
+		return panel;
+	}
+
+	public void setPanel(JPanel panel) {
+		this.panel = panel;
 	}
 }

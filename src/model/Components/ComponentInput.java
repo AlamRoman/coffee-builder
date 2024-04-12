@@ -44,6 +44,13 @@ public class ComponentInput extends Component{
 		
 		return out;
 	}
-	
+
+	public String getNomeVariabile() {
+		return nomeVariabile;
+	}
+
+	public void setNomeVariabile(String nomeVariabile) {
+		this.nomeVariabile = nomeVariabile;
+	}
 	
 }
