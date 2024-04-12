@@ -153,5 +153,13 @@ public class Condition {
         }
 		return null;
 	}
+
+	@Override
+	public String toString() {
+		return "Condition [MS=" + MS + ", firstTerm=" + firstTerm + ", symbol=" + symbol + ", secondTerm=" + secondTerm
+				+ "]";
+	}
+	
+	
 	
 }

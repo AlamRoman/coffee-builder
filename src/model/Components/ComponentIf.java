@@ -2,12 +2,13 @@ package model.Components;
 
 import model.Exceptions;
 import model.Memory.MemoryStorage;
+import model.Memory.RelationalOperators;
 
 public class ComponentIf extends Component{
 	
 	private String term1;
 	private String term2;
-	private String operand;
+	private RelationalOperators operand;
 	private Component nextComponent;
 	private Condition C;
 
@@ -17,11 +18,11 @@ public class ComponentIf extends Component{
 		
 	}
 	
-	public void set(String term1, String term2, String operand) {
+	public void set(String term1, String term2, RelationalOperators operand) {
 		this.term1 = term1;
 		this.term2 = term2;
-		this.operand = operand;
-		this.C = new Condition(getMemory(), term1, operand, term2);
+		this.operand = operand; 
+		this.C = new Condition(getMemory(), term1, operand.symbol, term2);
 	}
 	
 	@Override
