@@ -22,20 +22,27 @@ public class Condition {
 	public boolean resolve() throws Exceptions {
 		Variable firstVar = null;
 		Variable secondVar = null;
-		if(firstTerm.startsWith("$")){
-			firstVar = MS.getVariableByName(firstTerm.substring(1));
-		}else {
-			firstVar = getVariableFromTerm(firstTerm);
+		if(firstTerm != null) {
+			if(firstTerm.startsWith("$")){
+				firstVar = MS.getVariableByName(firstTerm.substring(1));
+			}else {
+				firstVar = getVariableFromTerm(firstTerm);
+			}			
 		}
-		if(secondTerm.startsWith("$")) {
-			secondVar = MS.getVariableByName(secondTerm.substring(1));
-		}else {
-			secondVar = getVariableFromTerm(secondTerm);
+		if(secondTerm != null) {
+			if(secondTerm.startsWith("$")) {
+				secondVar = MS.getVariableByName(secondTerm.substring(1));
+			}else {
+				secondVar = getVariableFromTerm(secondTerm);
+			}		
+		}
+		if(symbol == null) {
+			symbol = "";
 		}
 		switch (symbol) {
 		case "!": {
 			//Controlla se il tipo è un'altra condizione o se il valore ritornato da MS è un intero 0 o 1
-			if(firstVar == null) throw new Exceptions(Exceptions.NOT_CONDITION_MISSING_TERM);
+			if(firstVar == null) throw new Exceptions(Exceptions.MISSING_ARGUMENTS);
 			if(firstVar.getType() == Type.Integer || firstVar.getType() == Type.Double) {
 				if((Integer)firstVar.getValue() > 0) {
 					return !true;
@@ -43,7 +50,7 @@ public class Condition {
 					return !false;
 				}	
 			}else {
-				throw new Exceptions(Exceptions.NOT_CONDITION_IS_STRING);
+				throw new Exceptions(Exceptions.TERM_IS_STRING);
 			}
 		}
 		case ">": {
@@ -114,11 +121,24 @@ public class Condition {
 			}
 		}
 		default:
+			if(firstVar == null) throw new Exceptions(Exceptions.MISSING_ARGUMENTS);
+			if(firstVar.getType() == Type.Integer || firstVar.getType() == Type.Double) {
+				if((Integer)firstVar.getValue() > 0) {
+					return true;
+				}else {
+					return false;
+				}	
+			}else {
+				if(firstVar.getType() == Type.String) {
+					throw new Exceptions(Exceptions.TERM_IS_STRING);
+				}
+			}
 			throw new Exceptions(Exceptions.INVALID_CONDITION_SYMBOL);
 		}
 	}
 
 	private Variable getVariableFromTerm(String term) {
+		if(term == null) return null;
 		String cleanedTerm = term.trim().toLowerCase();
 		if (cleanedTerm.matches(".*[a-z].*") && cleanedTerm.matches("[a-z0-9]+")) {
             return new Variable(Type.String, term, term);

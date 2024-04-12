@@ -11,8 +11,7 @@ public class Exceptions extends Exception{
 	public static final String CONVERSION_ERROR = "The value cannot be converted";
 	public static final String STRING_ERROR = "Strings don't support this operation!";
 	public static final String INVALID_CONDITION_SYMBOL = "The condition symbol used is not valid";
-	public static final String NOT_CONDITION_IS_STRING = "Invalid String to Boolean conversion in NOT condition";
-	public static final String NOT_CONDITION_MISSING_TERM = "Missing the term in NOT condition";
+	public static final String TERM_IS_STRING = "Invalid String to Boolean conversion in NOT condition";
 	public static final String MISSING_ARGUMENTS = "Missing one or more term in a condition";
 	public static final String CONDITION_TERMS_NOT_NUMBER = "One or more term is not a number (invalid for '<', '>', '<=', '>=')";
 	

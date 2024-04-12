@@ -9,7 +9,7 @@ import model.Components.Condition;
 public class Main {
 
 	public static void main(String[] args) {
-		Condition C = new Condition(null, "cia1o", "==", "cia1o");
+		Condition C = new Condition(null, "1", "!", null);
 		try {
 			System.out.println(C.resolve());
 		} catch (Exceptions e) {
