@@ -120,7 +120,7 @@ public class Condition {
 
 	private Variable getVariableFromTerm(String term) {
 		String cleanedTerm = term.trim().toLowerCase();
-		if (cleanedTerm.matches("[a-z]+")) {
+		if (cleanedTerm.matches(".*[a-z].*") && cleanedTerm.matches("[a-z0-9]+")) {
             return new Variable(Type.String, term, term);
         }
 		if (cleanedTerm.matches("\\d+")) {
