@@ -8,6 +8,12 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.JToggleButton;
+import javax.swing.JSpinner;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComponent;
+
+import java.awt.Color;
 
 public class Panel extends JPanel {
 
@@ -15,6 +21,8 @@ public class Panel extends JPanel {
 	private JTextArea outputArea;
 	private JToggleButton executeButton;
 	private JTextArea debuggerText;
+	private JButton nextButton;
+	private JComponent millisecondi;
 
 	public Panel() {
 
@@ -33,9 +41,50 @@ public class Panel extends JPanel {
 		gbc_panel.gridx = 0;
 		gbc_panel.gridy = 0;
 		add(panel, gbc_panel);
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWidths = new int[]{159, 55, 0, 0, 0, 74, 53, 0, 0};
+		gbl_panel.rowHeights = new int[]{21, 0};
+		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		panel.setLayout(gbl_panel);
 		
-		executeButton = new JToggleButton("avvia");
-		panel.add(executeButton);
+		executeButton = new JToggleButton("start");
+		executeButton.setBackground(new Color(255, 255, 255));
+		GridBagConstraints gbc_executeButton = new GridBagConstraints();
+		gbc_executeButton.insets = new Insets(0, 0, 0, 5);
+		gbc_executeButton.anchor = GridBagConstraints.NORTHWEST;
+		gbc_executeButton.gridx = 1;
+		gbc_executeButton.gridy = 0;
+		panel.add(executeButton, gbc_executeButton);
+		
+		JButton endButton = new JButton("end");
+		GridBagConstraints gbc_endButton = new GridBagConstraints();
+		gbc_endButton.insets = new Insets(0, 0, 0, 5);
+		gbc_endButton.gridx = 2;
+		gbc_endButton.gridy = 0;
+		panel.add(endButton, gbc_endButton);
+		
+		JLabel lblNewLabel_2 = new JLabel("Millisecondi:");
+		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
+		gbc_lblNewLabel_2.insets = new Insets(0, 0, 0, 5);
+		gbc_lblNewLabel_2.gridx = 5;
+		gbc_lblNewLabel_2.gridy = 0;
+		panel.add(lblNewLabel_2, gbc_lblNewLabel_2);
+		
+		millisecondi = new JSpinner();
+		millisecondi.setToolTipText("");
+		GridBagConstraints gbc_millisecondi = new GridBagConstraints();
+		gbc_millisecondi.fill = GridBagConstraints.HORIZONTAL;
+		gbc_millisecondi.insets = new Insets(0, 0, 0, 5);
+		gbc_millisecondi.gridx = 6;
+		gbc_millisecondi.gridy = 0;
+		panel.add(millisecondi, gbc_millisecondi);
+		
+		nextButton = new JButton("next");
+		GridBagConstraints gbc_nextButton = new GridBagConstraints();
+		gbc_nextButton.gridx = 7;
+		gbc_nextButton.gridy = 0;
+		panel.add(nextButton, gbc_nextButton);
 		
 		JLabel lblNewLabel = new JLabel("Debugger");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
@@ -101,6 +150,9 @@ public class Panel extends JPanel {
 		debuggerText.setText(text);
 	}
 	
+	public int getMillisecondi() {
+		return millisecondi.getComponentCount();
+	}
 	
 
 }
