@@ -1,8 +1,8 @@
 package view.editComponents;
 
-public class EditIf extends EditComponent{
+public class EditAssign extends EditComponent{
 
-	public EditIf(String componentName) {
+	public EditAssign(String componentName) {
 		super(componentName);
 		// TODO Auto-generated constructor stub
 	}
