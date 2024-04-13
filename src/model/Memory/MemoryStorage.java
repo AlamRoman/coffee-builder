@@ -34,10 +34,10 @@ public class MemoryStorage {
 	
 	public Variable getVariableByName(String name) throws Exceptions{
 		
-		System.out.println("Getting variable with name: " + name);
+		System.out.println("[MEMORY] : Getting variable with name: " + name + " from the memory table");
 		showMemory();
 		for (Variable temp : memory) {
-			System.out.println("Checking if " + temp.getName() + " == " + name);
+			System.out.println("[MEMORY] : Checking if " + temp.getName() + " == " + name);
 			if(temp.getName().equals(name)) {
 				return temp;
 			}
@@ -52,10 +52,10 @@ public class MemoryStorage {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("MEMORY TABLE\n");
-        sb.append(String.format("%-15s %-15s %-15s\n", "Type", "VariableName", "Value"));
-        sb.append("-----------------------------------\n");
+        sb.append(String.format("%-25s %-25s %-25s\n", "Type", "VariableName", "Value"));
+        sb.append("--------------------------------------------------------------\n");
         for (Variable var : memory) {
-            sb.append(String.format("%-15s %-15s %-15s\n", var.getType(), var.getName(), var.getValue()));
+            sb.append(String.format("%-25s %-25s %-25s\n", var.getType(), var.getName(), var.getValue()));
         }
         return sb.toString();
     }

@@ -44,6 +44,7 @@ public class ComponentOperation extends Component{
 		if(variableFirstOperandName.startsWith("$")) {
 			variable1 = super.getMemory().getVariableByName(variableFirstOperandName.substring(1));
 		}else{
+			System.out.println("[C-Op] : Checking if '" + finalVariable.getType() + "' is valid (Double, Integer, String)");
 			try {
 				switch (finalVariable.getType()) {
 				case  Double: {
@@ -61,15 +62,18 @@ public class ComponentOperation extends Component{
 					variable1.setValue(variableFirstOperandName);
 					break;
 					}
+				default:
+					throw new Exceptions(Exceptions.CONVERSION_ERROR);
 				}
-			} catch (Exception e2) {
-				throw new Exceptions(Exceptions.CONVERSION_ERROR);
+			} catch (Exception e) {
+				System.err.println(e.getMessage());
 			}
 		}
 		
 		if(variableSecondOperandName.startsWith("$")) {
 			variable2 = super.getMemory().getVariableByName(variableSecondOperandName.substring(1));
 		}else{
+			System.out.println("[C-Op] : Checking if '" + finalVariable.getType() + "' is valid (Double, Integer, String)");
 			try {
 				switch (finalVariable.getType()) {
 				case  Double: {
@@ -87,9 +91,11 @@ public class ComponentOperation extends Component{
 					variable2.setValue(variableSecondOperandName);
 					break;
 					}
+				default:
+					throw new Exceptions(Exceptions.CONVERSION_ERROR);
 				}
-			} catch (Exception e2) {
-				throw new Exceptions(Exceptions.CONVERSION_ERROR);
+			} catch (Exception e) {
+				System.err.println(e.getMessage());
 			}
 		}
 		
