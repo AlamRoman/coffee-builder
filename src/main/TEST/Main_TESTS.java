@@ -25,7 +25,7 @@ public class Main_TESTS {
 		System.out.println("\nOPERATION TEST--------\n");
 		
 		ComponentOperation operation = new ComponentOperation(end, null, MEMORY);
-		operation.set("num1", "1", "1", TipoOperazioni.PIU);
+		operation.set("stringHelloWorld", "2.0", "2.0", TipoOperazioni.PIU);
 		
 		System.out.println("\nDECLARE AND ASSIGN TEST--------\n");
 		
@@ -68,6 +68,8 @@ public class Main_TESTS {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
 	}
 
 }

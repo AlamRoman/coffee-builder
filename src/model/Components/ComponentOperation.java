@@ -25,7 +25,10 @@ public class ComponentOperation extends Component{
 		variableFirstOperandName="";
 		variableSecondOperandName="";
 		variableName="";
-		
+		variable1=null;
+		variable2=null;
+		finalVariable=null;
+	
 	}
 
 	public void set(String variableName, String variableFirstOperandName, String variableSecondOperandName, TipoOperazioni operation) {
@@ -38,85 +41,92 @@ public class ComponentOperation extends Component{
 	}
 	
 	public Object execute() throws Exceptions {
+		
 		System.out.println("Executing: " + this.getClass().getSimpleName());
+		
 		finalVariable = super.getMemory().getVariableByName(variableName);
 		
+		
+		
 		if(variableFirstOperandName.startsWith("$")) {
+			
 			variable1 = super.getMemory().getVariableByName(variableFirstOperandName.substring(1));
+			
 		}else{
+			
 			System.out.println("[C-Op] : Checking if '" + finalVariable.getType() + "' is valid (Double, Integer, String)");
-			try {
-				switch (finalVariable.getType()) {
-				case  Double: {
-					variable1.setType(Type.Double);
-					variable1.setValue(Double.parseDouble(variableFirstOperandName));
-					break;
-					}
-				case  Integer: {
-					variable1.setType(Type.Integer);
-					variable1.setValue(Integer.parseInt(variableFirstOperandName));
-					break;
-					}
-				case  String: {
-					variable1.setType(Type.String);
-					variable1.setValue(variableFirstOperandName);
-					break;
-					}
-				default:
-					throw new Exceptions(Exceptions.CONVERSION_ERROR);
-				}
-			} catch (Exception e) {
-				System.err.println(e.getMessage());
+			variable1 = getVariableFromTerm(variableFirstOperandName);
+			if(variable1==null) {
+				variable1 = new Variable(Type.String, "" , variableSecondOperandName);
 			}
+			
 		}
+		
+		
+		
 		
 		if(variableSecondOperandName.startsWith("$")) {
+			
 			variable2 = super.getMemory().getVariableByName(variableSecondOperandName.substring(1));
+		
 		}else{
+			
 			System.out.println("[C-Op] : Checking if '" + finalVariable.getType() + "' is valid (Double, Integer, String)");
-			try {
-				switch (finalVariable.getType()) {
-				case  Double: {
-					variable2.setType(Type.Double);
-					variable2.setValue(Double.parseDouble(variableSecondOperandName));
-					break;
-					}
-				case  Integer: {
-					variable2.setType(Type.Integer);
-					variable1.setValue(Integer.parseInt(variableSecondOperandName));
-					break;
-					}
-				case  String: {
-					variable2.setType(Type.String);
-					variable2.setValue(variableSecondOperandName);
-					break;
-					}
-				default:
-					throw new Exceptions(Exceptions.CONVERSION_ERROR);
-				}
-			} catch (Exception e) {
-				System.err.println(e.getMessage());
+			variable2 = getVariableFromTerm(variableSecondOperandName);
+		
+			if(variable2==null) {
+				variable2 = new Variable(Type.String, "" , variableSecondOperandName);
 			}
+			
 		}
 		
-		if(finalVariable.getType().equals(variable1.getType()) && finalVariable.getType().equals(variable1.getType())) {
+		
+		if(finalVariable.getType().equals(variable1.getType()) && finalVariable.getType().equals(variable2.getType())) {
 			
 			switch (finalVariable.getType()) {
+			
 			case  String: {
 				
 				if(operation != TipoOperazioni.PIU) {
 					throw new Exceptions(Exceptions.STRING_ERROR);
 				}
 				
-				finalVariable.setValue( (String) variable1.getValue() + (String) variable2.getValue() );
+				finalVariable.setValue( variable1.getValue().toString() + variable2.getValue().toString() );
 				
 				break;
+				
 				}
 			
-			default: {
+			case  Integer: {
 				
-				Type temp=finalVariable.getType();
-				finalVariable.setType(Type.Double);
+				switch (operation) {
+				case  PIU: {
+					finalVariable.setValue( (int) variable1.getValue() + (int) variable2.getValue() );
+					break;
+					}
+				case  MENO: {
+					finalVariable.setValue( (int) variable1.getValue() - (int) variable2.getValue() );
+					break;
+					}
+				case  DIV: {
+					finalVariable.setValue( (int) variable1.getValue() / (int) variable2.getValue() );
+					break;
+					}
+				case  MOD: {
+					finalVariable.setValue( (int) variable1.getValue() % (int) variable2.getValue() );
+					break;
+					}
+				case  PER: {
+					finalVariable.setValue( (int) variable1.getValue() * (int) variable2.getValue() );
+					break;
+					}
+				}
+				
+				break;
+				
+			}
+			
+			case Double: {
 				
 				switch (operation) {
 				case  PIU: {
@@ -141,20 +151,22 @@ public class ComponentOperation extends Component{
 					}
 				}
 				
-				if(temp==Type.Integer) {
-					finalVariable.setType(Type.Integer);
-					finalVariable.setValue(Integer.parseInt(finalVariable.getValue().toString()));
-				}
-				
 				break;
 				}
+			
 			}
 			
 			
-		}else {
+		}else{
+			
 			throw new Exceptions(Exceptions.UNMATCH_TYPE);
+		
 		}
+		
 		System.out.println("Executed.");
+		
+		super.getMemory().showMemory();
+		
 		return null;
 		
 	}
@@ -201,6 +213,29 @@ public class ComponentOperation extends Component{
 		out+=variableSecondOperandName;
 		
 		return out;
+	}
+	
+	private Variable getVariableFromTerm(String term) {
+		
+		if(term == null) return null;
+		
+		String cleanedTerm = term.trim().toLowerCase();
+		
+		if (cleanedTerm.matches(".*[a-z].*") && cleanedTerm.matches("[a-z0-9]+")) {
+            return new Variable(Type.String, term, term);
+        }
+		
+		if (cleanedTerm.matches("-?\\d*\\.\\d+")) {
+            double doubleValue = Double.parseDouble(term);
+            return new Variable(Type.Double, term, doubleValue);
+        }
+		
+		if (cleanedTerm.matches("\\d+")) {
+            int integerValue = Integer.parseInt(term);
+            return new Variable(Type.Integer, term, integerValue);
+        }
+		
+		return null;
 	}
 	
 	
