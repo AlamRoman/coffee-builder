@@ -35,4 +35,7 @@ public class ComponentComment extends Component{
 		return out;
 	}
 	
+	public String getCommentString() {
+		return comment;
+	}
 }
