@@ -8,9 +8,9 @@ import model.Memory.Variable;
 
 public class ComponentOperation extends Component{
 
-	private String finalVariableName;
-	private String variable1Name;
-	private String variable2Name;
+	private String variableName;
+	private String variableFirstOperandName;
+	private String variableSecondOperandName;
 	private TipoOperazioni operation;
 	
 	private Variable finalVariable;
@@ -22,43 +22,43 @@ public class ComponentOperation extends Component{
 		super(nextComponent1, nextComponent2, memory);
 		
 		operation=null;
-		variable1Name="";
-		variable2Name="";
-		finalVariableName="";
+		variableFirstOperandName="";
+		variableSecondOperandName="";
+		variableName="";
 		
 	}
 
-	public void set(String finalVariableName, String variable1Name, String variable2Name, TipoOperazioni operation) {
+	public void set(String variableName, String variableFirstOperandName, String variableSecondOperandName, TipoOperazioni operation) {
 		
-		this.finalVariableName = finalVariableName;
-		this.variable1Name = variable1Name;
-		this.variable2Name = variable2Name;
+		this.variableName = variableName;
+		this.variableFirstOperandName = variableFirstOperandName;
+		this.variableSecondOperandName = variableSecondOperandName;
 		this.operation = operation;
 		
 	}
 	
 	public Object execute() throws Exceptions {
+		System.out.println("Executing: " + this.getClass().getSimpleName());
+		finalVariable = super.getMemory().getVariableByName(variableName);
 		
-		finalVariable = super.getMemory().getVariableByName(finalVariableName);
-		
-		if(variable1Name.startsWith("$")) {
-			variable1 = super.getMemory().getVariableByName(variable1Name.substring(1));
+		if(variableFirstOperandName.startsWith("$")) {
+			variable1 = super.getMemory().getVariableByName(variableFirstOperandName.substring(1));
 		}else{
 			try {
 				switch (finalVariable.getType()) {
 				case  Double: {
 					variable1.setType(Type.Double);
-					variable1.setValue(Double.parseDouble(variable1Name));
+					variable1.setValue(Double.parseDouble(variableFirstOperandName));
 					break;
 					}
 				case  Integer: {
 					variable1.setType(Type.Integer);
-					variable1.setValue(Integer.parseInt(variable1Name));
+					variable1.setValue(Integer.parseInt(variableFirstOperandName));
 					break;
 					}
 				case  String: {
 					variable1.setType(Type.String);
-					variable1.setValue(variable1Name);
+					variable1.setValue(variableFirstOperandName);
 					break;
 					}
 				}
@@ -67,24 +67,24 @@ public class ComponentOperation extends Component{
 			}
 		}
 		
-		if(variable2Name.startsWith("$")) {
-			variable2 = super.getMemory().getVariableByName(variable2Name.substring(1));
+		if(variableSecondOperandName.startsWith("$")) {
+			variable2 = super.getMemory().getVariableByName(variableSecondOperandName.substring(1));
 		}else{
 			try {
 				switch (finalVariable.getType()) {
 				case  Double: {
 					variable2.setType(Type.Double);
-					variable2.setValue(Double.parseDouble(variable2Name));
+					variable2.setValue(Double.parseDouble(variableSecondOperandName));
 					break;
 					}
 				case  Integer: {
 					variable2.setType(Type.Integer);
-					variable1.setValue(Integer.parseInt(variable2Name));
+					variable1.setValue(Integer.parseInt(variableSecondOperandName));
 					break;
 					}
 				case  String: {
 					variable2.setType(Type.String);
-					variable2.setValue(variable2Name);
+					variable2.setValue(variableSecondOperandName);
 					break;
 					}
 				}
@@ -148,7 +148,7 @@ public class ComponentOperation extends Component{
 		}else {
 			throw new Exceptions(Exceptions.UNMATCH_TYPE);
 		}
-		
+		System.out.println("Executed.");
 		return null;
 		
 	}
@@ -162,10 +162,10 @@ public class ComponentOperation extends Component{
 		
 		String out="OPERATION ";
 		
-		out+=finalVariableName;
+		out+=variableName;
 		
 		out+=" = ";
-		out+=variable1Name;
+		out+=variableFirstOperandName;
 		out+=" ";
 		
 		switch (operation) {
@@ -192,7 +192,7 @@ public class ComponentOperation extends Component{
 		}
 		
 		out+=" ";
-		out+=variable2Name;
+		out+=variableSecondOperandName;
 		
 		return out;
 	}
