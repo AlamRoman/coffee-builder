@@ -30,12 +30,14 @@ public class ComponentDeclaration extends Component{
 	}
 	
 	public Object execute() throws Exceptions {
-			try {			
+			try {
+				System.out.println("Executing: " + this.getClass().getSimpleName());
 				MS.addVariable(getVariable());
-			}catch(Exception e) {
+			}catch(Exceptions e) {
 				//Handle exception...
+				System.err.println(e.getMessage());
 			}
-			
+			System.out.println("Executed.");
 			return null;
 		
 	}

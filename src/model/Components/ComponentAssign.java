@@ -11,8 +11,7 @@ public class ComponentAssign extends Component{
 	private String variableName;
 	private Variable finalVariable;
 	
-	public ComponentAssign(Component nextComponent1, Component nextComponent2, MemoryStorage memory,
-			String value, String variableName) {
+	public ComponentAssign(Component nextComponent1, Component nextComponent2, MemoryStorage memory) {
 		
 		super(nextComponent1, nextComponent2, memory);
 		this.value=null;
@@ -20,7 +19,7 @@ public class ComponentAssign extends Component{
 		
 	}
 	
-	public void set(String value, String variableName) {
+	public void set(Object value, String variableName) {
 		
 		this.value=value;
 		this.variableName=variableName;
@@ -28,8 +27,11 @@ public class ComponentAssign extends Component{
 	}
 	
 	public Object execute() throws Exceptions {
-		
+		System.out.println("Executing: " + this.getClass().getSimpleName());
 		finalVariable = super.getMemory().getVariableByName(variableName);
+		
+//		System.out.println("Variable type: " + finalVariable.getType());
+//	    System.out.println("Value type: " + value.getClass().getSimpleName());
 		
 		if(value instanceof String && finalVariable.getType()==Type.String) {
 			finalVariable.setValue(value);
@@ -38,9 +40,10 @@ public class ComponentAssign extends Component{
 		}else if(value instanceof Double && finalVariable.getType()==Type.Double){
 			finalVariable.setValue(value);
 		}else {
-			throw new Exceptions(Exceptions.UNMATCH_TYPE);
+			throw new Exceptions(Exceptions.UNMATCH_TYPE, "| thrown in " + this.getClass().getSimpleName());
 		}
-		
+		System.out.println("Executed.");
+		super.getMemory().showMemory();
 		return null;
 	}
 

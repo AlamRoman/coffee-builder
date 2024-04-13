@@ -89,4 +89,11 @@ public class Variable{
 	public String getValueString() {
 		return value.toString();
 	}
+
+	@Override
+	public String toString() {
+		return "V(" + type +", " + name + ", " + value +")";
+	}
+	
+	
 }

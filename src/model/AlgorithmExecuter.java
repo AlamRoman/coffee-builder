@@ -21,7 +21,8 @@ public class AlgorithmExecuter {
 			result = (String) component.execute();
 			
 			if(result!=null) {
-				//metodo aggiorna output
+				System.out.println(result);
+				result = null;
 			}
 			
 			component=component.getNextComponent();
