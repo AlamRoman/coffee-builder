@@ -11,7 +11,6 @@ public class EditComponent extends JFrame{
 	
 	public EditComponent(String componentName) {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(200, 250);
 		setTitle(componentName);
 	}
 

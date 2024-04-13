@@ -17,8 +17,11 @@ public class EditInput extends EditComponent{
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
 	
+	private String inputVarName;
+	
 	public EditInput(ComponentInput componentInput) {
 		super("Input");
+		panel = new JPanel();
 		this.setContentPane(panel);
 		this.componentInput = componentInput;
 		getContentPane().setLayout(null);
@@ -32,7 +35,9 @@ public class EditInput extends EditComponent{
 		getContentPane().add(textFieldVarName);
 		textFieldVarName.setColumns(10);
 		
-		textFieldVarName.setText(componentInput.getNomeVariabile());
+		inputVarName = componentInput.getNomeVariabile();
+		
+		textFieldVarName.setText(inputVarName);
 		
 		lblNewLabel = new JLabel("$");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -45,4 +50,13 @@ public class EditInput extends EditComponent{
 		lblNewLabel_1.setBounds(19, 31, 277, 11);
 		getContentPane().add(lblNewLabel_1);
 	}
+
+	public String getInputVarName() {
+		return inputVarName;
+	}
+
+	public void setInputVarName(String inputVarName) {
+		this.inputVarName = inputVarName;
+	}
+	
 }

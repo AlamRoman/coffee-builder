@@ -237,6 +237,21 @@ public class ComponentOperation extends Component{
 		
 		return null;
 	}
-	
+
+	public String getVariableName() {
+		return variableName;
+	}
+
+	public String getVariableFirstOperandName() {
+		return variableFirstOperandName;
+	}
+
+	public String getVariableSecondOperandName() {
+		return variableSecondOperandName;
+	}
+
+	public TipoOperazioni getOperation() {
+		return operation;
+	}
 	
 }

@@ -34,8 +34,11 @@ public class EditOutput extends EditComponent{
 		getContentPane().add(btnSave, BorderLayout.SOUTH);
 	}
 
-	public void setTest(String s) {
+	public void setText(String s) {
 		textArea.setText(s);
 	}
 	
+	public String getText() {
+		return textArea.getText();
+	}
 }
