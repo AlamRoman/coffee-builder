@@ -25,7 +25,8 @@ public class ComponentOperation extends Component{
 		
 		super(nextComponent1, nextComponent2, memory);
 		
-		operation=null;
+		//initial values
+		operation=TipoOperazioni.PIU;
 		variableFirstOperandName="";
 		variableSecondOperandName="";
 		variableName="";

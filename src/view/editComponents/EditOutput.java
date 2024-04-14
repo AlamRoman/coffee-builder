@@ -28,7 +28,7 @@ public class EditOutput extends EditComponent{
 		textArea = new JTextArea();
 		scrollPane.setViewportView(textArea);
 		
-		textArea.setText(componentOutput.getRawOutPutString());
+		textArea.setText(componentOutput.getRawOutputString());
 		
 		JButton btnSave = new JButton("Save");
 		getContentPane().add(btnSave, BorderLayout.SOUTH);

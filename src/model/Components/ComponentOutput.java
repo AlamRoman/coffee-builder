@@ -66,7 +66,7 @@ public class ComponentOutput extends Component{
 		return out;
 	}
 
-	public String getRawOutPutString() {
+	public String getRawOutputString() {
 		return rawOutPutString;
 	}
 
