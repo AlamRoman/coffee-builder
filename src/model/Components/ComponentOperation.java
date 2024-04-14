@@ -55,7 +55,7 @@ public class ComponentOperation extends Component{
 		}else{
 			
 			System.out.println("[C-Op] : Checking if '" + finalVariable.getType() + "' is valid (Double, Integer, String)");
-			variable1 = getVariableFromTerm(variableFirstOperandName);
+			variable1 = getVariableFromTerm(finalVariable, variableFirstOperandName);
 			if(variable1==null) {
 				variable1 = new Variable(Type.String, "" , variableSecondOperandName);
 			}
@@ -72,7 +72,7 @@ public class ComponentOperation extends Component{
 		}else{
 			
 			System.out.println("[C-Op] : Checking if '" + finalVariable.getType() + "' is valid (Double, Integer, String)");
-			variable2 = getVariableFromTerm(variableSecondOperandName);
+			variable2 = getVariableFromTerm(finalVariable, variableSecondOperandName);
 		
 			if(variable2==null) {
 				variable2 = new Variable(Type.String, "" , variableSecondOperandName);
@@ -215,27 +215,37 @@ public class ComponentOperation extends Component{
 		return out;
 	}
 	
-	private Variable getVariableFromTerm(String term) {
+	private Variable getVariableFromTerm(Variable variable, String term) {
 		
 		if(term == null) return null;
 		
+		Variable v = null;
 		String cleanedTerm = term.trim().toLowerCase();
 		
+		if(variable != null) {
+			if(variable.getType() == Type.String) {
+				v = new Variable(Type.String, term, term);
+				System.out.println("[" + this.getClass().getSimpleName() + "]: returning variable from getVariableFromTerm("+ term +", " + variable + ") >> " + v);
+				return v;
+			}
+		}
 		if (cleanedTerm.matches(".*[a-z].*") && cleanedTerm.matches("[a-z0-9]+")) {
-            return new Variable(Type.String, term, term);
-        }
+			v =  new Variable(Type.String, term, term);
+		}
 		
 		if (cleanedTerm.matches("-?\\d*\\.\\d+")) {
-            double doubleValue = Double.parseDouble(term);
-            return new Variable(Type.Double, term, doubleValue);
-        }
+			double doubleValue = Double.parseDouble(term);
+			v =  new Variable(Type.Double, term, doubleValue);
+		}
 		
 		if (cleanedTerm.matches("\\d+")) {
-            int integerValue = Integer.parseInt(term);
-            return new Variable(Type.Integer, term, integerValue);
-        }
+			int integerValue = Integer.parseInt(term);
+			v =  new Variable(Type.Integer, term, integerValue);
+		}	
+
 		
-		return null;
+		System.out.println("[" + this.getClass().getSimpleName() + "]: returning variable from getVariableFromTerm("+ term +", " + variable + ") >> " + v);
+		return v;
 	}
 
 	public String getVariableName() {

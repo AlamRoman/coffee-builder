@@ -24,12 +24,18 @@ public class Main_TESTS {
 		
 		System.out.println("\nOPERATION TEST--------\n");
 		
-		ComponentOperation operation = new ComponentOperation(end, null, MEMORY);
-		operation.set("stringHelloWorld", "2.0", "2.0", TipoOperazioni.PIU);
+		ComponentOperation operation_2 = new ComponentOperation(end, null, MEMORY);
+		operation_2.set("num4", "2.0", "2.0", TipoOperazioni.PIU);
+		ComponentOperation operation_1 = new ComponentOperation(operation_2, null, MEMORY);
+		operation_1.set("stringHelloWorld", "2.0", "2.0", TipoOperazioni.PIU);
 		
 		System.out.println("\nDECLARE AND ASSIGN TEST--------\n");
 		
-		ComponentAssign assign_4 = new ComponentAssign(operation, null, MEMORY);
+		ComponentAssign assign_5 = new ComponentAssign(operation_1, null, MEMORY);
+		assign_5.set(0.0, "num4");
+		ComponentDeclaration declare_5 = new ComponentDeclaration(assign_5, null, MEMORY);
+		declare_5.set(Type.Double, "num4");
+		ComponentAssign assign_4 = new ComponentAssign(declare_5, null, MEMORY);
 		assign_4.set("Hello, world!", "stringHelloWorld");
 		ComponentDeclaration declare_4 = new ComponentDeclaration(assign_4, null, MEMORY);
 		declare_4.set(Type.String, "stringHelloWorld");
