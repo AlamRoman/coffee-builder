@@ -1,5 +1,6 @@
 package model.Components;
 
+import model.Color;
 import model.DebuggerConsole;
 import model.Exceptions;
 import model.Memory.MemoryStorage;
@@ -184,8 +185,14 @@ public class Condition {
 
 	@Override
 	public String toString() {
-		return "Condition [MS=" + MS + ", firstTerm=" + firstTerm + ", symbol=" + symbol + ", secondTerm=" + secondTerm
-				+ "]";
+		String out = "";
+		if(firstTerm != null && secondTerm == null && symbol != null) {
+			out = symbol + firstTerm;
+		}else {
+			out = firstTerm + " " + symbol + " " + secondTerm;
+		}
+		DebuggerConsole.getInstance().printCustomMSGColorLog(referenceTypeMessage + "-PRINT-OUTPUT", Color.PURPLE, "Showing: '" + out + "' to the panel");
+		return out;
 	}
 	
 	

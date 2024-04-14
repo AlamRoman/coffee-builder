@@ -1,5 +1,6 @@
 package model.Components;
 
+import model.Color;
 import model.DebuggerConsole;
 import model.Exceptions;
 import model.Memory.MemoryStorage;
@@ -20,7 +21,7 @@ public class ComponentIf extends Component{
 		
 	}
 	
-	public void set(String term1, String term2, RelationalOperators operand) {
+	public void set(String term1, RelationalOperators operand, String term2) {
 		this.term1 = term1;
 		this.term2 = term2;
 		this.operand = operand; 
@@ -42,6 +43,13 @@ public class ComponentIf extends Component{
 	@Override
 	public Component getNextComponent() {
 		return nextComponent;
+	}
+	
+	public String print() {
+		String out = "IF ";
+		out += C.toString();
+		DebuggerConsole.getInstance().printCustomMSGColorLog(referenceTypeMessage + "-PRINT-OUTPUT", Color.PURPLE, "Showing: '" + out + "' to the panel");
+		return out;
 	}
 
 }

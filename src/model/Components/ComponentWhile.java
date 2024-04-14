@@ -1,5 +1,6 @@
 package model.Components;
 
+import model.Color;
 import model.DebuggerConsole;
 import model.Exceptions;
 import model.Memory.MemoryStorage;
@@ -42,6 +43,13 @@ public class ComponentWhile extends Component{
 	@Override
 	public Component getNextComponent() {
 		return nextComponent;
+	}
+
+	public String print() {
+		String out = "WHILE ";
+		out += C.toString();
+		DebuggerConsole.getInstance().printCustomMSGColorLog(referenceTypeMessage + "-PRINT-OUTPUT", Color.PURPLE, "Showing: '" + out + "' to the panel");
+		return out;
 	}
 
 }
