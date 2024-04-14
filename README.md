@@ -4,5 +4,24 @@
 
 # COFFEE-BUILDER
 
-A brief description of what this project does and who it's for
+An algorithm creator and editor fully coded in Java that lets you use different components such as:
+
+- Declaration
+- Assignment
+- If
+- While
+- Output
+- Input
+- Comment
+ 
+
+
+## Program made by:
+
+- [@Sossics](https://www.github.com/sossics)
+- [@AlamRoman](https://github.com/AlamRoman)
+- [@Effeemme06](https://github.com/Effeemme06)
+
+
+## Usage/Examples
 
