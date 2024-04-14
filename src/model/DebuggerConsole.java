@@ -58,6 +58,14 @@ public class DebuggerConsole {
 		addLine(s);
 		addLineToFinalLog(s);
 	}
+	
+	public void printCustomMSGColorLog(String messageType, String color, String message) {
+		if(!checkIfOperational(Thread.currentThread().getStackTrace()[2].getClassName())) return;
+		String s = Color.GREEN_BOLD + "#" + Thread.currentThread().getStackTrace()[2].getLineNumber() + " in " + Thread.currentThread().getStackTrace()[2].getClassName() + "[" + Thread.currentThread().getStackTrace()[2].getMethodName() + "()]" + Color.PURPLE + ((Debug.SHOW_CALLERS && Thread.currentThread().getStackTrace().length == 4)?(" from " + Thread.currentThread().getStackTrace()[3].getClassName() + "[" + Thread.currentThread().getStackTrace()[3].getClassName() + "()]"):"") + Color.WHITE + " [" + Color.CYAN_BOLD_BRIGHT + messageType + Color.WHITE + "]" + Color.RESET + " : " + color + message + Color.RESET;
+		System.out.println(s);
+		addLine(s);
+		addLineToFinalLog(s);
+	}
 
 	private boolean checkIfOperational(String className) {
 		// TODO Auto-generated method stub
