@@ -83,7 +83,7 @@ public class ComponentOperation extends Component{
 			
 		}
 		
-		
+		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Checking if " + finalVariable.getType() + " == " + variable1.getType() + " AND " + finalVariable.getType() + " == " + variable2.getType() + " (" + finalVariable.getType().equals(variable1.getType()) + ", " + finalVariable.getType().equals(variable2.getType()) + ") >> " + (finalVariable.getType().equals(variable1.getType()) && finalVariable.getType().equals(variable2.getType())));
 		if(finalVariable.getType().equals(variable1.getType()) && finalVariable.getType().equals(variable2.getType())) {
 			
 			switch (finalVariable.getType()) {
@@ -245,7 +245,7 @@ public class ComponentOperation extends Component{
 			int integerValue = Integer.parseInt(term);
 			v =  new Variable(Type.Integer, term, integerValue);
 		}	
-
+//		super.getMemory().showMemory();
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "returning variable from getVariableFromTerm("+ term +", " + variable + ") >> " + v);
 		return v;
 	}
