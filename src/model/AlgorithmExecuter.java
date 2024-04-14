@@ -4,6 +4,7 @@ import model.Components.Component;
 
 public class AlgorithmExecuter {
 	
+	private static final String referenceType = "EXECUTER";
 	private Component component;
 
 	public AlgorithmExecuter() {
@@ -26,7 +27,7 @@ public class AlgorithmExecuter {
 			}
 			
 			component=component.getNextComponent();
-			
+			DebuggerConsole.getInstance().printCustomMSGColorLog(referenceType, Color.RED_UNDERLINED, "PASSING EXECUTION TO COMPONENT: " + component.getClass().getSimpleName());
 		}
 		
 	}
