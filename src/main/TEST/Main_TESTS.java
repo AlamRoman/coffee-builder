@@ -11,6 +11,7 @@ import model.Components.ComponentEnd;
 import model.Components.ComponentIf;
 import model.Components.ComponentOperation;
 import model.Components.ComponentStart;
+import model.Components.ComponentWhile;
 import model.Components.Condition;
 import model.Memory.MemoryStorage;
 import model.Memory.RelationalOperators;
@@ -41,11 +42,27 @@ public class Main_TESTS {
 		ComponentDeclaration declare_4 = new ComponentDeclaration(assign_4, null, MEMORY);
 		declare_4.set(Type.String, "stringHelloWorld");
 		
-		ComponentAssign assign_false = new ComponentAssign(declare_4, null, MEMORY);
+		//-----WHILE TEST---------------------------------
+		ComponentWhile _while = new ComponentWhile(declare_4, MEMORY);
+		_while.set("$num3", RelationalOperators.LESS_THAN_EQUAL_TO, "10");
+
+		//-----REQUIRED COMPONENTS FOR WHILE TEST---------
+		//-----------------IF TRUE EXECUTE THIS:------
+		ComponentOperation operation_true_while = new ComponentOperation(_while, null, MEMORY);
+		operation_true_while.set("num3", "num3", "1", TipoOperazioni.PIU);
+		_while.setNextComponent1(operation_true_while);
+		
+		
+		
+		//-----REQUIRED COMPONENTS FOR IF TEST---------
+		//-----------------IF FALSE EXECUTE THIS:------
+		ComponentAssign assign_false = new ComponentAssign(_while, null, MEMORY);
 		assign_false.set(100, "num1");
-		ComponentAssign assign_true = new ComponentAssign(declare_4, null, MEMORY);
+		//-----------------IF TRUE EXECUTE THIS:------
+		ComponentAssign assign_true = new ComponentAssign(_while, null, MEMORY);
 		assign_true.set(100, "num2");
 		
+		//-----IF TEST---------------------------------
 		ComponentIf _if = new ComponentIf(assign_true, assign_false, MEMORY);
 		_if.set("0", RelationalOperators.NOT, null);
 		
