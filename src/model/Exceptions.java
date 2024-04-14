@@ -24,11 +24,11 @@ public class Exceptions extends Exception{
 	}
 
 	public Exceptions(String s, Component c, String customMsg) {
-		super(s + " (" + c.getClass().getSimpleName() +", " + customMsg + ")");
+		super("[" + getClassThrowingException() + ", " + getLineNumber() + "] " + s + " (" + c.getClass().getSimpleName() +", " + customMsg + ")");
 	}
 	
 	public Exceptions(String s, String customMsg) {
-		super(s + " " +  customMsg);
+		super("[" + getClassThrowingException() + ", " + getLineNumber() + "] " + s + " " +  customMsg);
 	}
 	
 	private static int getLineNumber() {

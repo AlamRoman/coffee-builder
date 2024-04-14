@@ -1,6 +1,7 @@
 package model;
 
 import model.Components.Component;
+import model.Memory.MemoryStorage;
 
 public class AlgorithmExecuter {
 	
@@ -27,9 +28,10 @@ public class AlgorithmExecuter {
 			}
 			
 			component=component.getNextComponent();
-			DebuggerConsole.getInstance().printCustomMSGColorLog(referenceType, Color.RED_UNDERLINED, "PASSING EXECUTION TO COMPONENT: " + component.getClass().getSimpleName());
+			if(component != null)DebuggerConsole.getInstance().printCustomMSGColorLog(referenceType, Color.RED_UNDERLINED, "PASSING EXECUTION TO COMPONENT: " + component.getClass().getSimpleName());
 		}
-		
+		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType, "Execution complete. Memory:");
+//		MemoryStorage.getInstance().showMemory();
 	}
 
 }
