@@ -8,10 +8,12 @@ import model.Exceptions;
 import model.Components.ComponentAssign;
 import model.Components.ComponentDeclaration;
 import model.Components.ComponentEnd;
+import model.Components.ComponentIf;
 import model.Components.ComponentOperation;
 import model.Components.ComponentStart;
 import model.Components.Condition;
 import model.Memory.MemoryStorage;
+import model.Memory.RelationalOperators;
 import model.Memory.TipoOperazioni;
 import model.Memory.Type;
 
@@ -30,8 +32,6 @@ public class Main_TESTS {
 		operation_2.set("num4", "2.0", "2.0", TipoOperazioni.PIU);
 		ComponentOperation operation_1 = new ComponentOperation(operation_2, null, MEMORY);
 		operation_1.set("stringHelloWorld", "2.0", "2.0", TipoOperazioni.PIU);
-		
-		
 		ComponentAssign assign_5 = new ComponentAssign(operation_1, null, MEMORY);
 		assign_5.set(0.0, "num4");
 		ComponentDeclaration declare_5 = new ComponentDeclaration(assign_5, null, MEMORY);
@@ -40,7 +40,16 @@ public class Main_TESTS {
 		assign_4.set("Hello, world!", "stringHelloWorld");
 		ComponentDeclaration declare_4 = new ComponentDeclaration(assign_4, null, MEMORY);
 		declare_4.set(Type.String, "stringHelloWorld");
-		ComponentAssign assign_3 = new ComponentAssign(declare_4, null, MEMORY);
+		
+		ComponentAssign assign_false = new ComponentAssign(declare_4, null, MEMORY);
+		assign_false.set(100, "num1");
+		ComponentAssign assign_true = new ComponentAssign(declare_4, null, MEMORY);
+		assign_true.set(100, "num2");
+		
+		ComponentIf _if = new ComponentIf(assign_true, assign_false, MEMORY);
+		_if.set("0", RelationalOperators.NOT, null);
+		
+		ComponentAssign assign_3 = new ComponentAssign(_if, null, MEMORY);
 		assign_3.set(2, "num3");
 		ComponentDeclaration declare_3 = new ComponentDeclaration(assign_3, null, MEMORY);
 		declare_3.set(Type.Integer, "num3");
@@ -82,6 +91,8 @@ public class Main_TESTS {
 		DebuggerConsole.getInstance().printDefaultInfoLog("TEST-DEFAULT-INFO", "Viva la patata");
 		DebuggerConsole.getInstance().printDefaultSuccessLog("TEST-SUCCESS-INFO", "Viva la patata");
 		DebuggerConsole.getInstance().printDefaultErrorLog("TEST-ERROR-INFO", "Viva la patata");
+		System.out.println(_if.print());
+//		System.out.println(_while.print());
 		
 	}
 
