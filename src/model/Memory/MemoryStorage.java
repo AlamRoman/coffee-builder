@@ -41,6 +41,7 @@ public class MemoryStorage {
 		for (Variable temp : memory) {
 			DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Checking if " + temp.getName() + " == " + name);
 			if(temp.getName().equals(name)) {
+				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage, "Returning: " + temp);
 				return temp;
 			}
 			

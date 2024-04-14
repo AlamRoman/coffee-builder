@@ -16,11 +16,11 @@ public class Exceptions extends Exception{
 	public static final String CONDITION_TERMS_NOT_NUMBER = "One or more term is not a number (invalid for '<', '>', '<=', '>=')";
 	
 	public Exceptions(String s) {
-		super(s);
+		super("[" + getClassThrowingException() + ", " + getLineNumber() + "] " + s);
 	}
 	
 	public Exceptions(String s, Component c) {
-		super(s + " (" + c.getClass().getSimpleName() +")");
+		super("[" + getClassThrowingException() + ", " + getLineNumber() + "] " + s + " (in: " + c.getClass().getSimpleName() +")");
 	}
 
 	public Exceptions(String s, Component c, String customMsg) {
@@ -30,5 +30,13 @@ public class Exceptions extends Exception{
 	public Exceptions(String s, String customMsg) {
 		super(s + " " +  customMsg);
 	}
+	
+	private static int getLineNumber() {
+        return Thread.currentThread().getStackTrace()[3].getLineNumber();
+    }
+	
+	private static String getClassThrowingException() {
+        return Thread.currentThread().getStackTrace()[3].getClassName();
+    }
 	
 }
