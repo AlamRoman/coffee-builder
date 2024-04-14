@@ -1,5 +1,6 @@
 
-![coffeBuilder](https://github.com/AlamRoman/coffee-builder/assets/88334651/e8a34146-23f1-4dd3-82a4-c8e56db85cac)
+![coffeBuilder](https://github.com/AlamRoman/coffee-builder/assets/88334651/d1523d19-322a-4d8f-b26c-c0fa36fe064e)
+
 
 # COFFEE-BUILDER
 
