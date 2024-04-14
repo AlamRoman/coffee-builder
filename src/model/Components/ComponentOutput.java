@@ -27,7 +27,7 @@ public class ComponentOutput extends Component{
 	}
 	
 	public String execute() throws Exceptions {
-		DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread(), referenceTypeMessage , "Executing...");
+		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage , "Executing...");
 		
 		outPutText = "";
 			
@@ -47,7 +47,7 @@ public class ComponentOutput extends Component{
 			
 			outPutText = String.join(" ", words);
 			
-			DebuggerConsole.getInstance().printDefaultSuccessLog(Thread.currentThread(), referenceTypeMessage , "Executed.");
+			DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Executed.");
 			return outPutText;
 	}
 	

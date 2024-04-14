@@ -15,6 +15,6 @@ public class Debug {
 	public final static boolean MEMORY_DEBUG = false;
 	public final static boolean VARIABLE_DEBUG = false;
 	
-	public final static boolean SHOW_CALLERS = false;
+	public final static boolean SHOW_CALLERS = true;
 	
 }

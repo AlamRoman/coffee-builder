@@ -33,13 +33,13 @@ public class ComponentDeclaration extends Component{
 	
 	public Object execute() throws Exceptions {
 			try {
-				DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread(), referenceTypeMessage , "Executing...");
+				DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage , "Executing...");
 				MS.addVariable(getVariable());
 			}catch(Exceptions e) {
 				//Handle exception...
 				System.err.println(e.getMessage());
 			}
-			DebuggerConsole.getInstance().printDefaultSuccessLog(Thread.currentThread(), referenceTypeMessage , "Executed.");
+			DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Executed.");
 			return null;
 		
 	}

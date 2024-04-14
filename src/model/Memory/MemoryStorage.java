@@ -27,19 +27,19 @@ public class MemoryStorage {
 	}
 	
 	public void addVariable(Variable var) throws Exceptions{
-		DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread(), referenceTypeMessage, "Adding variable " + var + " to the memory");
+		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Adding variable " + var + " to the memory");
 		if(!memory.add(var)) {
 			throw new Exceptions(Exceptions.EXISTING_VARIABLE, "| thrown in " + this.getClass().getSimpleName());
 		}
-		DebuggerConsole.getInstance().printDefaultSuccessLog(Thread.currentThread(), referenceTypeMessage, "Added");
+		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage, "Added");
 //		showMemory();
 	}
 	
 	public Variable getVariableByName(String name) throws Exceptions{
-		DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread(), referenceTypeMessage, "Getting variable with name: " + name + " from the memory table");
+		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Getting variable with name: " + name + " from the memory table");
 //		showMemory();
 		for (Variable temp : memory) {
-			DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread(), referenceTypeMessage, "Checking if " + temp.getName() + " == " + name);
+			DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Checking if " + temp.getName() + " == " + name);
 			if(temp.getName().equals(name)) {
 				return temp;
 			}

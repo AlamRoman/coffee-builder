@@ -78,10 +78,10 @@ public class Main_TESTS {
 		}
 		
 		DebuggerConsole.getInstance().printLog(Color.BLUE_BOLD_BRIGHT, "TEST", Color.RED_BOLD, "Viva la patata");
-		DebuggerConsole.getInstance().printInfoLog(Thread.currentThread(), Color.BLUE_BOLD_BRIGHT, "TEST-INFO-LOG", Color.RED_BOLD, "Viva la patata");
-		DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread(), "TEST-DEFAULT-INFO", "Viva la patata");
-		DebuggerConsole.getInstance().printDefaultSuccessLog(Thread.currentThread(), "TEST-SUCCESS-INFO", "Viva la patata");
-		DebuggerConsole.getInstance().printDefaultErrorLog(Thread.currentThread(), "TEST-ERROR-INFO", "Viva la patata");
+		DebuggerConsole.getInstance().printInfoLog(Color.BLUE_BOLD_BRIGHT, "TEST-INFO-LOG", Color.RED_BOLD, "Viva la patata");
+		DebuggerConsole.getInstance().printDefaultInfoLog("TEST-DEFAULT-INFO", "Viva la patata");
+		DebuggerConsole.getInstance().printDefaultSuccessLog("TEST-SUCCESS-INFO", "Viva la patata");
+		DebuggerConsole.getInstance().printDefaultErrorLog("TEST-ERROR-INFO", "Viva la patata");
 		
 	}
 

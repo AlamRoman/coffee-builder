@@ -29,12 +29,12 @@ public class ComponentAssign extends Component{
 	}
 	
 	public Object execute() throws Exceptions {
-		DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread(), referenceTypeMessage , "Executing...");
+		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage , "Executing...");
 		finalVariable = super.getMemory().getVariableByName(variableName);
 		
 //		System.out.println("Variable type: " + finalVariable.getType());
 //	    System.out.println("Value type: " + value.getClass().getSimpleName());
-		DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread(), referenceTypeMessage , "Assigning " + value.toString() + " to the variable '" + finalVariable + "'");
+		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage , "Assigning " + value.toString() + " to the variable '" + finalVariable + "'");
 		if(value instanceof String && finalVariable.getType()==Type.String) {
 			finalVariable.setValue(value);
 		}else if(value instanceof Integer && finalVariable.getType()==Type.Integer){
@@ -44,7 +44,7 @@ public class ComponentAssign extends Component{
 		}else {
 			throw new Exceptions(Exceptions.UNMATCH_TYPE, "| thrown in " + this.getClass().getSimpleName());
 		}
-		DebuggerConsole.getInstance().printDefaultSuccessLog(Thread.currentThread(), referenceTypeMessage , "Executed.");
+		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Executed.");
 //		super.getMemory().showMemory();
 		return null;
 	}

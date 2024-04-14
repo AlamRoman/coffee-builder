@@ -21,12 +21,12 @@ public class ComponentInput extends Component{
 	}
 	
 	public Object execute() throws Exceptions{
-		DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread(), referenceTypeMessage , "Executing...");
+		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage , "Executing...");
 		finalVar = super.getMemory().getVariableByName(nomeVariabile);
 		
 		finalVar.setValue(inputValue);
 		
-		DebuggerConsole.getInstance().printDefaultSuccessLog(Thread.currentThread(), referenceTypeMessage , "Executed.");
+		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Executed.");
 		return null;
 	}
 	

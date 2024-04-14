@@ -29,13 +29,13 @@ public class ComponentWhile extends Component{
 	
 	@Override
 	public Object execute() throws Exceptions {
-		DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread(), referenceTypeMessage , "Executing...");
+		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage , "Executing...");
 		if(C.resolve()) {
 			nextComponent = getNextComponent1();
 		}else {
 			nextComponent = getNextComponent2();
 		}
-		DebuggerConsole.getInstance().printDefaultSuccessLog(Thread.currentThread(), referenceTypeMessage , "Executed.");
+		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Executed.");
 		return null;
 	}
 	
