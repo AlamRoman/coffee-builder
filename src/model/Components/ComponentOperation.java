@@ -46,7 +46,7 @@ public class ComponentOperation extends Component{
 	
 	public Object execute() throws Exceptions {
 		
-		DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread().getStackTrace()[1].getLineNumber(), this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[2], referenceTypeMessage, "Executing...");
+		DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread(), referenceTypeMessage, "Executing...");
 		
 		finalVariable = super.getMemory().getVariableByName(variableName);
 		
@@ -57,7 +57,7 @@ public class ComponentOperation extends Component{
 			variable1 = super.getMemory().getVariableByName(variableFirstOperandName.substring(1));
 			
 		}else{
-			DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread().getStackTrace()[1].getLineNumber(), this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[2], referenceTypeMessage, "Checking if '" + finalVariable.getType() + "' is valid (Double, Integer, String)");
+			DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread(), referenceTypeMessage, "Checking if '" + finalVariable.getType() + "' is valid (Double, Integer, String)");
 			variable1 = getVariableFromTerm(finalVariable, variableFirstOperandName);
 			if(variable1==null) {
 				variable1 = new Variable(Type.String, "" , variableSecondOperandName);
@@ -74,7 +74,7 @@ public class ComponentOperation extends Component{
 		
 		}else{
 			
-			DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread().getStackTrace()[1].getLineNumber(), this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[2], referenceTypeMessage, "Checking if '" + finalVariable.getType() + "' is valid (Double, Integer, String)");
+			DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread(), referenceTypeMessage, "Checking if '" + finalVariable.getType() + "' is valid (Double, Integer, String)");
 			variable2 = getVariableFromTerm(finalVariable, variableSecondOperandName);
 		
 			if(variable2==null) {
@@ -166,7 +166,7 @@ public class ComponentOperation extends Component{
 		
 		}
 		
-		DebuggerConsole.getInstance().printDefaultSuccessLog(Thread.currentThread().getStackTrace()[1].getLineNumber(), this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[2], referenceTypeMessage, "Executed.");
+		DebuggerConsole.getInstance().printDefaultSuccessLog(Thread.currentThread(), referenceTypeMessage, "Executed.");
 		
 //		super.getMemory().showMemory();
 		
@@ -228,7 +228,7 @@ public class ComponentOperation extends Component{
 		if(variable != null) {
 			if(variable.getType() == Type.String) {
 				v = new Variable(Type.String, term, term);
-				DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread().getStackTrace()[1].getLineNumber(), this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[2], referenceTypeMessage, "returning variable from getVariableFromTerm("+ term +", " + variable + ") >> " + v);
+				DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread(), referenceTypeMessage, "returning variable from getVariableFromTerm("+ term +", " + variable + ") >> " + v);
 				return v;
 			}
 		}
@@ -246,7 +246,7 @@ public class ComponentOperation extends Component{
 			v =  new Variable(Type.Integer, term, integerValue);
 		}	
 
-		DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread().getStackTrace()[1].getLineNumber(), this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[2], referenceTypeMessage, "returning variable from getVariableFromTerm("+ term +", " + variable + ") >> " + v);
+		DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread(), referenceTypeMessage, "returning variable from getVariableFromTerm("+ term +", " + variable + ") >> " + v);
 		return v;
 	}
 

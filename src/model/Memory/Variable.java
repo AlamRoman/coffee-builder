@@ -70,7 +70,7 @@ public class Variable{
 				break;
 			}
 		}
-		DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread().getStackTrace()[1].getLineNumber(), this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[2], referenceTypeMessage , "Assigned.");
+		DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread(), referenceTypeMessage , "Assigned.");
 	}
 
 	@Override

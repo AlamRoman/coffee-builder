@@ -1,11 +1,13 @@
 package model.Components;
 
+import model.DebuggerConsole;
 import model.Exceptions;
 import model.Memory.MemoryStorage;
 import model.Memory.Variable;
 
 public class ComponentOutput extends Component{
 
+	private static final String referenceTypeMessage = "C-OUTPUT";
 	private String rawOutPutString;
 	private String outPutText;
 
@@ -25,6 +27,7 @@ public class ComponentOutput extends Component{
 	}
 	
 	public String execute() throws Exceptions {
+		DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread(), referenceTypeMessage , "Executing...");
 		
 		outPutText = "";
 			
@@ -44,6 +47,7 @@ public class ComponentOutput extends Component{
 			
 			outPutText = String.join(" ", words);
 			
+			DebuggerConsole.getInstance().printDefaultSuccessLog(Thread.currentThread(), referenceTypeMessage , "Executed.");
 			return outPutText;
 	}
 	

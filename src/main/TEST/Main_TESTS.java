@@ -1,6 +1,9 @@
 package main.TEST;
 
 import model.AlgorithmExecuter;
+import model.Color;
+import model.Debug;
+import model.DebuggerConsole;
 import model.Exceptions;
 import model.Components.ComponentAssign;
 import model.Components.ComponentDeclaration;
@@ -22,14 +25,12 @@ public class Main_TESTS {
 		ComponentEnd end = new ComponentEnd();
 		AlgorithmExecuter EXECUTER = new AlgorithmExecuter();
 		
-		System.out.println("\nOPERATION TEST--------\n");
 		
 		ComponentOperation operation_2 = new ComponentOperation(end, null, MEMORY);
 		operation_2.set("num4", "2.0", "2.0", TipoOperazioni.PIU);
 		ComponentOperation operation_1 = new ComponentOperation(operation_2, null, MEMORY);
 		operation_1.set("stringHelloWorld", "2.0", "2.0", TipoOperazioni.PIU);
 		
-		System.out.println("\nDECLARE AND ASSIGN TEST--------\n");
 		
 		ComponentAssign assign_5 = new ComponentAssign(operation_1, null, MEMORY);
 		assign_5.set(0.0, "num4");
@@ -52,7 +53,6 @@ public class Main_TESTS {
 		ComponentDeclaration declare_1 = new ComponentDeclaration(assign_1, null, MEMORY);
 		declare_1.set(Type.Integer, "num1");
 		ComponentStart start = new ComponentStart(declare_1);
-		MEMORY.toString();
 		
 		//EXECUTE--------------------------------------
 		
@@ -62,6 +62,8 @@ public class Main_TESTS {
 			// TODO Auto-generated catch block
 			System.err.println(e.getMessage());
 		}
+		
+		MEMORY.showMemory();
 		
 		//OUT OF EXECUTION TESTS------------------------
 		
@@ -75,6 +77,11 @@ public class Main_TESTS {
 			e.printStackTrace();
 		}
 		
+		DebuggerConsole.getInstance().printLog(Color.BLUE_BOLD_BRIGHT, "TEST", Color.RED_BOLD, "Viva la patata");
+		DebuggerConsole.getInstance().printInfoLog(Thread.currentThread(), Color.BLUE_BOLD_BRIGHT, "TEST-INFO-LOG", Color.RED_BOLD, "Viva la patata");
+		DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread(), "TEST-DEFAULT-INFO", "Viva la patata");
+		DebuggerConsole.getInstance().printDefaultSuccessLog(Thread.currentThread(), "TEST-SUCCESS-INFO", "Viva la patata");
+		DebuggerConsole.getInstance().printDefaultErrorLog(Thread.currentThread(), "TEST-ERROR-INFO", "Viva la patata");
 		
 	}
 

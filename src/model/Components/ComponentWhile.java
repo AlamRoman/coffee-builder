@@ -1,11 +1,13 @@
 package model.Components;
 
+import model.DebuggerConsole;
 import model.Exceptions;
 import model.Memory.MemoryStorage;
 import model.Memory.RelationalOperators;
 
 public class ComponentWhile extends Component{
 	
+	private static final String referenceTypeMessage = "C-WHILE";
 	private String term1;
 	private String term2;
 	private RelationalOperators operand;
@@ -27,11 +29,13 @@ public class ComponentWhile extends Component{
 	
 	@Override
 	public Object execute() throws Exceptions {
+		DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread(), referenceTypeMessage , "Executing...");
 		if(C.resolve()) {
 			nextComponent = getNextComponent1();
 		}else {
 			nextComponent = getNextComponent2();
 		}
+		DebuggerConsole.getInstance().printDefaultSuccessLog(Thread.currentThread(), referenceTypeMessage , "Executed.");
 		return null;
 	}
 	

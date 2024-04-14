@@ -1,11 +1,13 @@
 package model.Components;
 
+import model.DebuggerConsole;
 import model.Exceptions;
 import model.Memory.MemoryStorage;
 import model.Memory.Variable;
 
 public class ComponentInput extends Component{
 
+	private static final String referenceTypeMessage = "C-INPUT";
 	private Variable finalVar;
 	private String nomeVariabile;
 	private Object inputValue;
@@ -19,10 +21,12 @@ public class ComponentInput extends Component{
 	}
 	
 	public Object execute() throws Exceptions{
+		DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread(), referenceTypeMessage , "Executing...");
 		finalVar = super.getMemory().getVariableByName(nomeVariabile);
 		
 		finalVar.setValue(inputValue);
 		
+		DebuggerConsole.getInstance().printDefaultSuccessLog(Thread.currentThread(), referenceTypeMessage , "Executed.");
 		return null;
 	}
 	

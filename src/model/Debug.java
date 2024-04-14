@@ -2,31 +2,19 @@ package model;
 
 public class Debug {
 
-	public static String getCallerClassName() { 
-        StackTraceElement[] stElements = Thread.currentThread().getStackTrace();
-        for (int i=1; i<stElements.length; i++) {
-            StackTraceElement ste = stElements[i];
-            if (!ste.getClassName().equals(Debug.class.getName()) && ste.getClassName().indexOf("java.lang.Thread")!=0) {
-                return ste.getClassName();
-            }
-        }
-        return null;
-     }
+	public final static boolean FORCE_DEBUG = true;
+	public final static boolean COMPONENT_ADD_DEBUG = false;
+	public final static boolean COMPONENT_ASSIGN_DEBUG = false;
+	public final static boolean COMPONENT_COMMENT_DEBUG = false;
+	public final static boolean COMPONENT_DECLARATION_DEBUG = false;
+	public final static boolean COMPONENT_IF_DEBUG = false;
+	public final static boolean COMPONENT_INPUT_DEBUG = false;
+	public final static boolean COMPONENT_OPERATION_DEBUG = false;
+	public final static boolean COMPONENT_OUTPUT_DEBUG = false;
+	public final static boolean COMPONENT_WHILE_DEBUG = false;
+	public final static boolean MEMORY_DEBUG = false;
+	public final static boolean VARIABLE_DEBUG = false;
 	
-	public static String getCallerCallerClassName() { 
-	    StackTraceElement[] stElements = Thread.currentThread().getStackTrace();
-	    String callerClassName = null;
-	    for (int i=1; i<stElements.length; i++) {
-	        StackTraceElement ste = stElements[i];
-	        if (!ste.getClassName().equals(Debug.class.getName())&& ste.getClassName().indexOf("java.lang.Thread")!=0) {
-	            if (callerClassName==null) {
-	                callerClassName = ste.getClassName();
-	            } else if (!callerClassName.equals(ste.getClassName())) {
-	                return ste.getClassName();
-	            }
-	        }
-	    }
-	    return null;
-	 }
+	public final static boolean SHOW_CALLERS = false;
 	
 }
