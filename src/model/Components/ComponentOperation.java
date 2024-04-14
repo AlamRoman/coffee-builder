@@ -214,7 +214,7 @@ public class ComponentOperation extends Component{
 		
 		out+=" ";
 		out+=variableSecondOperandName;
-		
+		DebuggerConsole.getInstance().printCustomMSGColorLog(referenceTypeMessage + "-PRINT-OUTPUT", Color.PURPLE, "Showing: '" + out + "' to the panel");
 		return out;
 	}
 	
