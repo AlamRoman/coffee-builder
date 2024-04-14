@@ -5,6 +5,7 @@ import model.Color;
 import model.Debug;
 import model.DebuggerConsole;
 import model.Exceptions;
+import model.Components.ComponentAdd;
 import model.Components.ComponentAssign;
 import model.Components.ComponentDeclaration;
 import model.Components.ComponentEnd;
@@ -26,6 +27,7 @@ public class Main_TESTS {
 		
 		MemoryStorage MEMORY = MemoryStorage.getInstance();
 		ComponentEnd end = new ComponentEnd();
+		ComponentAdd ADD__1 = new ComponentAdd();
 		AlgorithmExecuter EXECUTER = new AlgorithmExecuter();
 		
 		
@@ -44,12 +46,12 @@ public class Main_TESTS {
 		
 		//-----WHILE TEST---------------------------------
 		ComponentWhile _while = new ComponentWhile(declare_4, MEMORY);
-		_while.set("$num3", RelationalOperators.LESS_THAN_EQUAL_TO, "10");
+		_while.set("$num3", RelationalOperators.LESS_THAN, "10");
 
 		//-----REQUIRED COMPONENTS FOR WHILE TEST---------
 		//-----------------IF TRUE EXECUTE THIS:------
 		ComponentOperation operation_true_while = new ComponentOperation(_while, null, MEMORY);
-		operation_true_while.set("num3", "num3", "1", TipoOperazioni.PIU);
+		operation_true_while.set("num3", "$num3", "1", TipoOperazioni.PIU);
 		_while.setNextComponent1(operation_true_while);
 		
 		
@@ -64,7 +66,7 @@ public class Main_TESTS {
 		
 		//-----IF TEST---------------------------------
 		ComponentIf _if = new ComponentIf(assign_true, assign_false, MEMORY);
-		_if.set("0", RelationalOperators.NOT, null);
+		_if.set("1", RelationalOperators.NOT, null);
 		
 		ComponentAssign assign_3 = new ComponentAssign(_if, null, MEMORY);
 		assign_3.set(2, "num3");
