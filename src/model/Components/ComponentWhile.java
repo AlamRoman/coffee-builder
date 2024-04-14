@@ -15,13 +15,14 @@ public class ComponentWhile extends Component{
 	private Component nextComponent;
 	private Condition C;
 
-	public ComponentWhile(Component nextComponent1, Component nextComponent2, MemoryStorage memory) {
-		super(nextComponent1, nextComponent2, memory);
+	public ComponentWhile(Component nextComponent2, MemoryStorage memory) {
+		super(null, nextComponent2, memory);
+		setNextComponent1(this);
 		// TODO Auto-generated constructor stub
 		
 	}
 	
-	public void set(String term1, String term2, RelationalOperators operand) {
+	public void set(String term1, RelationalOperators operand, String term2) {
 		this.term1 = term1;
 		this.term2 = term2;
 		this.operand = operand; 
@@ -37,6 +38,7 @@ public class ComponentWhile extends Component{
 			nextComponent = getNextComponent2();
 		}
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Executed.");
+		super.getMemory().showMemory();
 		return null;
 	}
 	
