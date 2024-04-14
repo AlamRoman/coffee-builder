@@ -9,7 +9,7 @@ public class ComponentEnd extends Component{
 	}
 	
 	public Object execute() {
-		MemoryStorage.destroyInstance();
+		MemoryStorage.getInstance().destroyVariables();
 		return null;
 	}
 	
