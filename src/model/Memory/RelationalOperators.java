@@ -2,6 +2,7 @@ package model.Memory;
 
 public enum RelationalOperators {
 	
+	NOT("!"),
 	GREATER_THAN(">"),
 	LESS_THAN("<"),
 	EQUAL_TO("=="),
