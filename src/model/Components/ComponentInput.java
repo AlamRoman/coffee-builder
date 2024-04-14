@@ -1,5 +1,7 @@
 package model.Components;
 
+import java.util.Scanner;
+
 import model.DebuggerConsole;
 import model.Exceptions;
 import model.Memory.MemoryStorage;
@@ -12,7 +14,7 @@ public class ComponentInput extends Component{
 	private String nomeVariabile;
 	private Object inputValue;
 	
-	public ComponentInput(Component nextComponent1, Component nextComponent2, MemoryStorage memory, String nomeVariabile, Object inputValue) {
+	public ComponentInput(Component nextComponent1, Component nextComponent2, MemoryStorage memory) {
 		super(nextComponent1, nextComponent2, memory);
 		
 		this.nomeVariabile = "";
@@ -20,19 +22,28 @@ public class ComponentInput extends Component{
 		
 	}
 	
-	public Object execute() throws Exceptions{
+	public Object execute() throws Exceptions {
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage , "Executing...");
 		finalVar = super.getMemory().getVariableByName(nomeVariabile);
-		
+		requestInput();
 		finalVar.setValue(inputValue);
 		
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Executed.");
 		return null;
 	}
 	
-	public void set(String nomeVariabile, Object inputValue) {
+	public void set(String nomeVariabile) {
 		this.nomeVariabile = nomeVariabile;
-		this.inputValue = inputValue;
+	}
+	
+	public void setInputValue(Object o) {
+		inputValue = o;
+	}
+	
+	public void requestInput() {
+		Scanner s = new Scanner(System.in);
+		System.out.print("Insert a number: ");
+		setInputValue(s.nextInt());
 	}
 
 	@Override

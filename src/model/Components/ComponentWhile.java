@@ -38,7 +38,7 @@ public class ComponentWhile extends Component{
 			nextComponent = getNextComponent2();
 		}
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Executed.");
-		super.getMemory().showMemory();
+//		super.getMemory().showMemory();
 		return null;
 	}
 	

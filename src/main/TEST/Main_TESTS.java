@@ -7,10 +7,13 @@ import model.DebuggerConsole;
 import model.Exceptions;
 import model.Components.ComponentAdd;
 import model.Components.ComponentAssign;
+import model.Components.ComponentComment;
 import model.Components.ComponentDeclaration;
 import model.Components.ComponentEnd;
 import model.Components.ComponentIf;
+import model.Components.ComponentInput;
 import model.Components.ComponentOperation;
+import model.Components.ComponentOutput;
 import model.Components.ComponentStart;
 import model.Components.ComponentWhile;
 import model.Components.Condition;
@@ -30,8 +33,11 @@ public class Main_TESTS {
 		ComponentAdd ADD__1 = new ComponentAdd();
 		AlgorithmExecuter EXECUTER = new AlgorithmExecuter();
 		
-		
-		ComponentOperation operation_2 = new ComponentOperation(end, null, MEMORY);
+		ComponentComment comment_1 = new ComponentComment(end, null, MEMORY);
+		comment_1.set("This is a comment");
+		ComponentOutput output_1 = new ComponentOutput(comment_1, null, MEMORY);
+		output_1.set("Mi piace la patata $num1");
+		ComponentOperation operation_2 = new ComponentOperation(output_1, null, MEMORY);
 		operation_2.set("num4", "2.0", "2.0", TipoOperazioni.PIU);
 		ComponentOperation operation_1 = new ComponentOperation(operation_2, null, MEMORY);
 		operation_1.set("stringHelloWorld", "2.0", "2.0", TipoOperazioni.PIU);
@@ -46,7 +52,7 @@ public class Main_TESTS {
 		
 		//-----WHILE TEST---------------------------------
 		ComponentWhile _while = new ComponentWhile(declare_4, MEMORY);
-		_while.set("$num3", RelationalOperators.LESS_THAN, "10");
+		_while.set("$num3", RelationalOperators.NOT, "10");
 
 		//-----REQUIRED COMPONENTS FOR WHILE TEST---------
 		//-----------------IF TRUE EXECUTE THIS:------
@@ -66,7 +72,7 @@ public class Main_TESTS {
 		
 		//-----IF TEST---------------------------------
 		ComponentIf _if = new ComponentIf(assign_true, assign_false, MEMORY);
-		_if.set("1", RelationalOperators.NOT, null);
+		_if.set("0", RelationalOperators.NOT, null);
 		
 		ComponentAssign assign_3 = new ComponentAssign(_if, null, MEMORY);
 		assign_3.set(2, "num3");
@@ -76,9 +82,11 @@ public class Main_TESTS {
 		assign_2.set(2, "num2");
 		ComponentDeclaration declare_2 = new ComponentDeclaration(assign_2, null, MEMORY);
 		declare_2.set(Type.Integer, "num2");
-		ComponentAssign assign_1 = new ComponentAssign(declare_2, null, MEMORY);
-		assign_1.set(2, "num1");
-		ComponentDeclaration declare_1 = new ComponentDeclaration(assign_1, null, MEMORY);
+//		ComponentAssign assign_1 = new ComponentAssign(declare_2, null, MEMORY);
+//		assign_1.set(2, "num1");
+		ComponentInput input_1 = new ComponentInput(declare_2, null, MEMORY);
+		input_1.set("num1");
+		ComponentDeclaration declare_1 = new ComponentDeclaration(input_1, null, MEMORY);
 		declare_1.set(Type.Integer, "num1");
 		ComponentStart start = new ComponentStart(declare_1);
 		
@@ -91,26 +99,24 @@ public class Main_TESTS {
 			System.err.println(e.getMessage());
 		}
 		
-		MEMORY.showMemory();
-		
 		//OUT OF EXECUTION TESTS------------------------
-		
-		System.out.println("\nCONDITION.class--------\n");
-		
-		Condition C = new Condition(null, "0", "<", "1");
-		try {
-			System.out.println(C.toString() + " | " +  C.resolve());
-		} catch (Exceptions e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		DebuggerConsole.getInstance().printLog(Color.BLUE_BOLD_BRIGHT, "TEST", Color.RED_BOLD, "Viva la patata");
-		DebuggerConsole.getInstance().printInfoLog(Color.BLUE_BOLD_BRIGHT, "TEST-INFO-LOG", Color.RED_BOLD, "Viva la patata");
-		DebuggerConsole.getInstance().printDefaultInfoLog("TEST-DEFAULT-INFO", "Viva la patata");
-		DebuggerConsole.getInstance().printDefaultSuccessLog("TEST-SUCCESS-INFO", "Viva la patata");
-		DebuggerConsole.getInstance().printDefaultErrorLog("TEST-ERROR-INFO", "Viva la patata");
-		System.out.println(_if.print());
+//		
+//		System.out.println("\nCONDITION.class--------\n");
+//		
+//		Condition C = new Condition(null, "0", "<", "1");
+//		try {
+//			System.out.println(C.toString() + " | " +  C.resolve());
+//		} catch (Exceptions e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		DebuggerConsole.getInstance().printLog(Color.BLUE_BOLD_BRIGHT, "TEST", Color.RED_BOLD, "Viva la patata");
+//		DebuggerConsole.getInstance().printInfoLog(Color.BLUE_BOLD_BRIGHT, "TEST-INFO-LOG", Color.RED_BOLD, "Viva la patata");
+//		DebuggerConsole.getInstance().printDefaultInfoLog("TEST-DEFAULT-INFO", "Viva la patata");
+//		DebuggerConsole.getInstance().printDefaultSuccessLog("TEST-SUCCESS-INFO", "Viva la patata");
+//		DebuggerConsole.getInstance().printDefaultErrorLog("TEST-ERROR-INFO", "Viva la patata");
+//		System.out.println(_if.print());
 //		System.out.println(_while.print());
 		
 	}

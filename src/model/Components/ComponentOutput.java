@@ -1,5 +1,6 @@
 package model.Components;
 
+import model.Color;
 import model.DebuggerConsole;
 import model.Exceptions;
 import model.Memory.MemoryStorage;
@@ -17,7 +18,7 @@ public class ComponentOutput extends Component{
 		outPutText = "";
 	}
 	
-	public void set(String outPut) throws Exceptions{
+	public void set(String outPut){
 		//this function creates an output string with the values of the variables in it
 		//example: "The number is : $var" 
 		//if var = 5, output = "The number is : 5" 
@@ -47,6 +48,7 @@ public class ComponentOutput extends Component{
 			
 			outPutText = String.join(" ", words);
 			
+			DebuggerConsole.getInstance().printCustomMSGColorLog(referenceTypeMessage, Color.WHITE, outPutText);
 			DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Executed.");
 			return outPutText;
 	}
