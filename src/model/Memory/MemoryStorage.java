@@ -2,12 +2,15 @@ package model.Memory;
 
 import java.util.HashSet;
 import java.util.Iterator;
+
+import model.DebuggerConsole;
 import model.Exceptions;
 
 public class MemoryStorage {
 	
 	HashSet<Variable> memory;
 	private static MemoryStorage instance;
+	private static final String referenceTypeMessage = "MEMORY";
 
 	public MemoryStorage() {
 		super();
@@ -24,20 +27,19 @@ public class MemoryStorage {
 	}
 	
 	public void addVariable(Variable var) throws Exceptions{
-		System.out.println("Adding variable " + var + " to the memory");
+		DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread().getStackTrace()[1].getLineNumber(), this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[2], referenceTypeMessage, "Adding variable " + var + " to the memory");
 		if(!memory.add(var)) {
 			throw new Exceptions(Exceptions.EXISTING_VARIABLE, "| thrown in " + this.getClass().getSimpleName());
 		}
-		System.out.println("Added.");
-		showMemory();
+		DebuggerConsole.getInstance().printDefaultSuccessLog(Thread.currentThread().getStackTrace()[1].getLineNumber(), this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[2], referenceTypeMessage, "Added");
+//		showMemory();
 	}
 	
 	public Variable getVariableByName(String name) throws Exceptions{
-		
-		System.out.println("[MEMORY] : Getting variable with name: " + name + " from the memory table");
-		showMemory();
+		DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread().getStackTrace()[1].getLineNumber(), this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[2], referenceTypeMessage, "Getting variable with name: " + name + " from the memory table");
+//		showMemory();
 		for (Variable temp : memory) {
-			System.out.println("[MEMORY] : Checking if " + temp.getName() + " == " + name);
+			DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread().getStackTrace()[1].getLineNumber(), this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[2], referenceTypeMessage, "Checking if " + temp.getName() + " == " + name);
 			if(temp.getName().equals(name)) {
 				return temp;
 			}

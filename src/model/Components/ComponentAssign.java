@@ -1,5 +1,6 @@
 package model.Components;
 
+import model.DebuggerConsole;
 import model.Exceptions;
 import model.Memory.MemoryStorage;
 import model.Memory.Type;
@@ -7,6 +8,7 @@ import model.Memory.Variable;
 
 public class ComponentAssign extends Component{
 
+	private static final String referenceTypeMessage = "C-ASSIGN";
 	private Object value;
 	private String variableName;
 	private Variable finalVariable;
@@ -27,12 +29,12 @@ public class ComponentAssign extends Component{
 	}
 	
 	public Object execute() throws Exceptions {
-		System.out.println("Executing: " + this.getClass().getSimpleName());
+		DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread().getStackTrace()[1].getLineNumber(), this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[2], referenceTypeMessage , "Executing...");
 		finalVariable = super.getMemory().getVariableByName(variableName);
 		
 //		System.out.println("Variable type: " + finalVariable.getType());
 //	    System.out.println("Value type: " + value.getClass().getSimpleName());
-		
+		DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread().getStackTrace()[1].getLineNumber(), this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[2], referenceTypeMessage , "Assigning" + value.toString() + "to the variable '" + finalVariable + "'");
 		if(value instanceof String && finalVariable.getType()==Type.String) {
 			finalVariable.setValue(value);
 		}else if(value instanceof Integer && finalVariable.getType()==Type.Integer){
@@ -42,8 +44,8 @@ public class ComponentAssign extends Component{
 		}else {
 			throw new Exceptions(Exceptions.UNMATCH_TYPE, "| thrown in " + this.getClass().getSimpleName());
 		}
-		System.out.println("Executed.");
-		super.getMemory().showMemory();
+		DebuggerConsole.getInstance().printDefaultSuccessLog(Thread.currentThread().getStackTrace()[1].getLineNumber(), this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[2], referenceTypeMessage , "Executed.");
+//		super.getMemory().showMemory();
 		return null;
 	}
 

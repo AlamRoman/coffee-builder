@@ -1,5 +1,6 @@
 package model.Components;
 
+import model.DebuggerConsole;
 import model.Exceptions;
 import model.Memory.MemoryStorage;
 import model.Memory.Type;
@@ -12,6 +13,7 @@ public class ComponentDeclaration extends Component{
 	private String variableName;
 	private String value;
 	private MemoryStorage MS;
+	private static final String referenceTypeMessage = "C-DECL";
 	
 	public ComponentDeclaration(Component nextComponent1, Component nextComponent2, MemoryStorage MS) {
 		super(nextComponent1, nextComponent2, MS);
@@ -31,13 +33,13 @@ public class ComponentDeclaration extends Component{
 	
 	public Object execute() throws Exceptions {
 			try {
-				System.out.println("Executing: " + this.getClass().getSimpleName());
+				DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread().getStackTrace()[1].getLineNumber(), this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[2], referenceTypeMessage , "Executing...");
 				MS.addVariable(getVariable());
 			}catch(Exceptions e) {
 				//Handle exception...
 				System.err.println(e.getMessage());
 			}
-			System.out.println("Executed.");
+			DebuggerConsole.getInstance().printDefaultSuccessLog(Thread.currentThread().getStackTrace()[1].getLineNumber(), this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[2], referenceTypeMessage , "Executed.");
 			return null;
 		
 	}

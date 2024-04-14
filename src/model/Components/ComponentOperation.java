@@ -1,5 +1,8 @@
 package model.Components;
 
+import model.Debug;
+import model.Color;
+import model.DebuggerConsole;
 import model.Exceptions;
 import model.Memory.MemoryStorage;
 import model.Memory.TipoOperazioni;
@@ -16,6 +19,7 @@ public class ComponentOperation extends Component{
 	private Variable finalVariable;
 	private Variable variable1;
 	private Variable variable2;
+	private static final String referenceTypeMessage = "C-OP";
 
 	public ComponentOperation(Component nextComponent1, Component nextComponent2, MemoryStorage memory) {
 		
@@ -42,7 +46,7 @@ public class ComponentOperation extends Component{
 	
 	public Object execute() throws Exceptions {
 		
-		System.out.println("Executing: " + this.getClass().getSimpleName());
+		DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread().getStackTrace()[1].getLineNumber(), this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[2], referenceTypeMessage, "Executing...");
 		
 		finalVariable = super.getMemory().getVariableByName(variableName);
 		
@@ -53,8 +57,7 @@ public class ComponentOperation extends Component{
 			variable1 = super.getMemory().getVariableByName(variableFirstOperandName.substring(1));
 			
 		}else{
-			
-			System.out.println("[C-Op] : Checking if '" + finalVariable.getType() + "' is valid (Double, Integer, String)");
+			DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread().getStackTrace()[1].getLineNumber(), this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[2], referenceTypeMessage, "Checking if '" + finalVariable.getType() + "' is valid (Double, Integer, String)");
 			variable1 = getVariableFromTerm(finalVariable, variableFirstOperandName);
 			if(variable1==null) {
 				variable1 = new Variable(Type.String, "" , variableSecondOperandName);
@@ -71,7 +74,7 @@ public class ComponentOperation extends Component{
 		
 		}else{
 			
-			System.out.println("[C-Op] : Checking if '" + finalVariable.getType() + "' is valid (Double, Integer, String)");
+			DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread().getStackTrace()[1].getLineNumber(), this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[2], referenceTypeMessage, "Checking if '" + finalVariable.getType() + "' is valid (Double, Integer, String)");
 			variable2 = getVariableFromTerm(finalVariable, variableSecondOperandName);
 		
 			if(variable2==null) {
@@ -163,9 +166,9 @@ public class ComponentOperation extends Component{
 		
 		}
 		
-		System.out.println("Executed.");
+		DebuggerConsole.getInstance().printDefaultSuccessLog(Thread.currentThread().getStackTrace()[1].getLineNumber(), this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[2], referenceTypeMessage, "Executed.");
 		
-		super.getMemory().showMemory();
+//		super.getMemory().showMemory();
 		
 		return null;
 		
@@ -225,7 +228,7 @@ public class ComponentOperation extends Component{
 		if(variable != null) {
 			if(variable.getType() == Type.String) {
 				v = new Variable(Type.String, term, term);
-				System.out.println("[" + this.getClass().getSimpleName() + "]: returning variable from getVariableFromTerm("+ term +", " + variable + ") >> " + v);
+				DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread().getStackTrace()[1].getLineNumber(), this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[2], referenceTypeMessage, "returning variable from getVariableFromTerm("+ term +", " + variable + ") >> " + v);
 				return v;
 			}
 		}
@@ -243,8 +246,7 @@ public class ComponentOperation extends Component{
 			v =  new Variable(Type.Integer, term, integerValue);
 		}	
 
-		
-		System.out.println("[" + this.getClass().getSimpleName() + "]: returning variable from getVariableFromTerm("+ term +", " + variable + ") >> " + v);
+		DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread().getStackTrace()[1].getLineNumber(), this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[2], referenceTypeMessage, "returning variable from getVariableFromTerm("+ term +", " + variable + ") >> " + v);
 		return v;
 	}
 

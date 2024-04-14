@@ -2,8 +2,11 @@ package model.Memory;
 
 import java.util.Objects;
 
+import model.DebuggerConsole;
+
 public class Variable{
 	
+	private static final String referenceTypeMessage = "VAR";
 	private Type type;
 	private String name;
 	private Object value;
@@ -67,6 +70,7 @@ public class Variable{
 				break;
 			}
 		}
+		DebuggerConsole.getInstance().printDefaultInfoLog(Thread.currentThread().getStackTrace()[1].getLineNumber(), this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[2], referenceTypeMessage , "Assigned.");
 	}
 
 	@Override
