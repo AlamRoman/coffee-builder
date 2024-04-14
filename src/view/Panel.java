@@ -6,8 +6,14 @@ import javax.swing.JTextArea;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
 import javax.swing.JLabel;
 import javax.swing.JToggleButton;
+import javax.swing.UIManager;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.JSpinner;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -19,7 +25,7 @@ public class Panel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTextArea outputArea;
-	private JToggleButton executeButton;
+	private CustomToggleButton executeButton;
 	private JTextArea debuggerText;
 	private JButton nextButton;
 	private JComponent millisecondi;
@@ -48,7 +54,8 @@ public class Panel extends JPanel {
 		gbl_panel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
-		executeButton = new JToggleButton("start");
+		executeButton = new CustomToggleButton("start", Color.red, Color.green);
+		
 		executeButton.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_executeButton = new GridBagConstraints();
 		gbc_executeButton.insets = new Insets(0, 0, 0, 5);
