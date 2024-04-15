@@ -30,6 +30,7 @@ public class Panel extends JPanel {
 	private JTextArea debuggerText;
 	private JButton nextButton;
 	private JComponent millisecondi;
+	private JRadioButton rdbtnAutoRun;
 
 	public Panel() {
 
@@ -56,6 +57,7 @@ public class Panel extends JPanel {
 		panel.setLayout(gbl_panel);
 		
 		executeButton = new CustomToggleButton("start", Color.red, Color.green);
+		executeButton.setFocusable(false);
 		
 		executeButton.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_executeButton = new GridBagConstraints();
@@ -66,6 +68,7 @@ public class Panel extends JPanel {
 		panel.add(executeButton, gbc_executeButton);
 		
 		JButton endButton = new JButton("end");
+		endButton.setFocusable(false);
 		GridBagConstraints gbc_endButton = new GridBagConstraints();
 		gbc_endButton.insets = new Insets(0, 0, 0, 5);
 		gbc_endButton.gridx = 2;
@@ -88,7 +91,8 @@ public class Panel extends JPanel {
 		gbc_millisecondi.gridy = 0;
 		panel.add(millisecondi, gbc_millisecondi);
 		
-		JRadioButton rdbtnAutoRun = new JRadioButton("Auto run");
+		rdbtnAutoRun = new JRadioButton("Auto run");
+		rdbtnAutoRun.setFocusable(false);
 		rdbtnAutoRun.setSelected(true);
 		GridBagConstraints gbc_rdbtnAutoRun = new GridBagConstraints();
 		gbc_rdbtnAutoRun.insets = new Insets(0, 0, 0, 5);
@@ -148,6 +152,15 @@ public class Panel extends JPanel {
 		outputArea.setEditable(false);
 		scrollPane_1.setViewportView(outputArea);
 		
+		updateBtnNext();
+	}
+	
+	public void updateBtnNext() {
+		if (rdbtnAutoRun.isSelected()) {
+			nextButton.setEnabled(false);
+		}else {
+			nextButton.setEnabled(true);
+		}
 	}
 
 	public String getOutputArea() {

@@ -65,7 +65,5 @@ public class ComponentAssign extends Component{
 		return out;
 		
 	}
-	
-	
 
 }
