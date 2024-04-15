@@ -7,8 +7,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controller.FlowChartController;
 import model.Components.ComponentDeclaration;
 import model.Components.ComponentEnd;
+import model.Components.ComponentIf;
+import model.Components.ComponentOutput;
+import model.Memory.RelationalOperators;
+import view.flowChartComponents.ParallelogramPanel;
 
 public class Frame extends JFrame {
 
@@ -33,6 +38,9 @@ public class Frame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 	    setExtendedState(JFrame.MAXIMIZED_BOTH);
+//	    ComponentOutput output = new ComponentOutput(null, null, null);
+//	    output.set("ciao");
+//		contentPane = new ParallelogramPanel(output, new FlowChartController());
 		contentPane = new Panel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
