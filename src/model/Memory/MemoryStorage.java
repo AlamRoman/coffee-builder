@@ -7,6 +7,7 @@ import java.util.HashSet;
 import model.DebuggerConsole;
 import model.Exceptions;
 import model.Components.Component;
+import model.Components.ComponentAdd;
 import model.Components.ComponentEnd;
 import model.Components.ComponentStart;
 
@@ -53,10 +54,25 @@ public class MemoryStorage {
 		
 	}
 	
-	public void addComponent(Component c) {
-		components.add(c);
-		Collections.swap(components, components.size()-2, components.size()-1);
+	public void addComponent(Component c, int index) {
+		ComponentAdd addAfter = new ComponentAdd();
+		components.add(index, c);
+		components.add(index+1, addAfter);
+		updateComponentConnections(index);
 		
+	}
+	// E = C
+	// F = C_ADD
+	// A > B > C | + E, F | > D components.get(index-1).setNextComponent1(components.get(index));
+	//A > B > C > E | + F| > D components.get(index).setNextComponent1(components.get(index));
+	//A > B > C > E > F > D
+	
+	private void updateComponentConnections(int index) {
+		//Supponendo siano componenti semplici e non while o if:
+		//index = 5 | (4,5) > (5,6), (6,7)
+		for (int i = index - 1; i <= index + 1; i++) {
+		    components.get(i).setNextComponent1(components.get(i + 1));
+		}
 	}
 
 	public static MemoryStorage getInstance() {
