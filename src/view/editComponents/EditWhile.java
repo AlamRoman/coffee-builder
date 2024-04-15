@@ -28,9 +28,7 @@ public class EditWhile extends EditComponent{
 		this.componentWhile  = componentWhile;
 		setSize(312, 162);
 		panel.setLayout(null);
-		
-		setVisible(true);
-		
+
 		JButton btnSave = new JButton("Save");
 		btnSave.setBounds(0, 105, 297, 19);
 		panel.add(btnSave);
@@ -94,13 +92,5 @@ public class EditWhile extends EditComponent{
 		String selected = (String)comboBoxOperator.getSelectedItem();
 		
 		return operators.get(selected);
-	}
-
-	public static void main(String[] args) {
-		
-		ComponentWhile comp = new ComponentWhile(null, null);
-		comp.set("$var1", RelationalOperators.GREATER_THAN_EQUAL_TO, "$var2");
-
-		EditWhile ed = new EditWhile(comp);
 	}
 }

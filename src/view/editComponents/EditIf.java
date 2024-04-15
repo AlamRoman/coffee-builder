@@ -30,7 +30,6 @@ public class EditIf extends EditComponent{
 		this.setContentPane(panel);
 		panel.setLayout(null);
 		setSize(312, 162);
-		setVisible(true);
 		JButton btnSave = new JButton("Save");
 		btnSave.setBounds(0, 105, 297, 19);
 		panel.add(btnSave);
@@ -95,12 +94,5 @@ public class EditIf extends EditComponent{
 		String selected = (String)comboBoxOperator.getSelectedItem();
 		
 		return operators.get(selected);
-	}
-	
-	public static void main(String[] args) {
-		
-		ComponentIf comp = new ComponentIf(null, null, null);
-		comp.set("$var1", RelationalOperators.GREATER_THAN_EQUAL_TO, "$var2");
-		EditIf ed = new EditIf(comp);
 	}
 }
