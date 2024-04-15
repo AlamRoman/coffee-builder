@@ -20,6 +20,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 
 import java.awt.Color;
+import javax.swing.JRadioButton;
 
 public class Panel extends JPanel {
 
@@ -48,9 +49,9 @@ public class Panel extends JPanel {
 		gbc_panel.gridy = 0;
 		add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{159, 55, 0, 0, 0, 74, 53, 0, 0};
+		gbl_panel.columnWidths = new int[]{159, 55, 0, 0, 0, 74, 53, 0, 0, 0};
 		gbl_panel.rowHeights = new int[]{21, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_panel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
@@ -87,9 +88,17 @@ public class Panel extends JPanel {
 		gbc_millisecondi.gridy = 0;
 		panel.add(millisecondi, gbc_millisecondi);
 		
+		JRadioButton rdbtnAutoRun = new JRadioButton("Auto run");
+		rdbtnAutoRun.setSelected(true);
+		GridBagConstraints gbc_rdbtnAutoRun = new GridBagConstraints();
+		gbc_rdbtnAutoRun.insets = new Insets(0, 0, 0, 5);
+		gbc_rdbtnAutoRun.gridx = 7;
+		gbc_rdbtnAutoRun.gridy = 0;
+		panel.add(rdbtnAutoRun, gbc_rdbtnAutoRun);
+		
 		nextButton = new JButton("next");
 		GridBagConstraints gbc_nextButton = new GridBagConstraints();
-		gbc_nextButton.gridx = 7;
+		gbc_nextButton.gridx = 8;
 		gbc_nextButton.gridy = 0;
 		panel.add(nextButton, gbc_nextButton);
 		
