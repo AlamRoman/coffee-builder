@@ -5,7 +5,7 @@ import model.Color;
 import model.DebuggerConsole;
 import model.Exceptions;
 import model.Memory.MemoryStorage;
-import model.Memory.TipoOperazioni;
+import model.Memory.OperationType;
 import model.Memory.Type;
 import model.Memory.Variable;
 
@@ -14,7 +14,7 @@ public class ComponentOperation extends Component{
 	private String variableName;
 	private String variableFirstOperandName;
 	private String variableSecondOperandName;
-	private TipoOperazioni operation;
+	private OperationType operation;
 	
 	private Variable finalVariable;
 	private Variable variable1;
@@ -26,7 +26,7 @@ public class ComponentOperation extends Component{
 		super(nextComponent1, nextComponent2, memory);
 		
 		//initial values
-		operation=TipoOperazioni.PIU;
+		operation=OperationType.ADD;
 		variableFirstOperandName="";
 		variableSecondOperandName="";
 		variableName="";
@@ -36,7 +36,7 @@ public class ComponentOperation extends Component{
 	
 	}
 
-	public void set(String variableName, String variableFirstOperandName, String variableSecondOperandName, TipoOperazioni operation) {
+	public void set(String variableName, String variableFirstOperandName, String variableSecondOperandName, OperationType operation) {
 		
 		this.variableName = variableName;
 		this.variableFirstOperandName = variableFirstOperandName;
@@ -91,7 +91,7 @@ public class ComponentOperation extends Component{
 			
 			case  String: {
 				
-				if(operation != TipoOperazioni.PIU) {
+				if(operation != OperationType.ADD) {
 					throw new Exceptions(Exceptions.STRING_ERROR);
 				}
 				
@@ -104,11 +104,11 @@ public class ComponentOperation extends Component{
 			case  Integer: {
 				
 				switch (operation) {
-				case  PIU: {
+				case  ADD: {
 					finalVariable.setValue( (int) variable1.getValue() + (int) variable2.getValue() );
 					break;
 					}
-				case  MENO: {
+				case  SUB: {
 					finalVariable.setValue( (int) variable1.getValue() - (int) variable2.getValue() );
 					break;
 					}
@@ -120,7 +120,7 @@ public class ComponentOperation extends Component{
 					finalVariable.setValue( (int) variable1.getValue() % (int) variable2.getValue() );
 					break;
 					}
-				case  PER: {
+				case  MUL: {
 					finalVariable.setValue( (int) variable1.getValue() * (int) variable2.getValue() );
 					break;
 					}
@@ -133,11 +133,11 @@ public class ComponentOperation extends Component{
 			case Double: {
 				
 				switch (operation) {
-				case  PIU: {
+				case  ADD: {
 					finalVariable.setValue( (Double) variable1.getValue() + (Double) variable2.getValue() );
 					break;
 					}
-				case  MENO: {
+				case  SUB: {
 					finalVariable.setValue( (Double) variable1.getValue() - (Double) variable2.getValue() );
 					break;
 					}
@@ -149,7 +149,7 @@ public class ComponentOperation extends Component{
 					finalVariable.setValue( (Double) variable1.getValue() % (Double) variable2.getValue() );
 					break;
 					}
-				case  PER: {
+				case  MUL: {
 					finalVariable.setValue( (Double) variable1.getValue() * (Double) variable2.getValue() );
 					break;
 					}
@@ -191,11 +191,11 @@ public class ComponentOperation extends Component{
 		out+=" ";
 		
 		switch (operation) {
-		case  PIU: {
+		case  ADD: {
 			out+="+";
 			break;
 			}
-		case  MENO: {
+		case  SUB: {
 			out+="-";
 			break;
 			}
@@ -207,7 +207,7 @@ public class ComponentOperation extends Component{
 			out+="%";
 			break;
 			}
-		case  PER: {
+		case  MUL: {
 			out+="*";
 			break;
 			}
@@ -263,7 +263,7 @@ public class ComponentOperation extends Component{
 		return variableSecondOperandName;
 	}
 
-	public TipoOperazioni getOperation() {
+	public OperationType getOperation() {
 		return operation;
 	}
 	

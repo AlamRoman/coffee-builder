@@ -4,7 +4,7 @@ import javax.swing.JPanel;
 
 import model.Components.ComponentIf;
 import model.Memory.RelationalOperators;
-import model.Memory.TipoOperazioni;
+import model.Memory.OperationType;
 
 import java.awt.BorderLayout;
 import java.util.HashMap;

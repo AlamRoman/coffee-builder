@@ -19,10 +19,10 @@ import model.Components.ComponentWhile;
 import model.Components.Condition;
 import model.Memory.MemoryStorage;
 import model.Memory.RelationalOperators;
-import model.Memory.TipoOperazioni;
+import model.Memory.OperationType;
 import model.Memory.Type;
 
-public class Main_TESTS {
+public class AlgorithmTester {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -38,9 +38,9 @@ public class Main_TESTS {
 		ComponentOutput output_1 = new ComponentOutput(comment_1, null, MEMORY);
 		output_1.set("Mi piace la patata $num1");
 		ComponentOperation operation_2 = new ComponentOperation(output_1, null, MEMORY);
-		operation_2.set("num4", "2.0", "2.0", TipoOperazioni.PIU);
+		operation_2.set("num4", "2.0", "2.0", OperationType.ADD);
 		ComponentOperation operation_1 = new ComponentOperation(operation_2, null, MEMORY);
-		operation_1.set("stringHelloWorld", "2.0", "2.0", TipoOperazioni.PIU);
+		operation_1.set("stringHelloWorld", "2.0", "2.0", OperationType.ADD);
 		ComponentAssign assign_5 = new ComponentAssign(operation_1, null, MEMORY);
 		assign_5.set(0.0, "num4");
 		ComponentDeclaration declare_5 = new ComponentDeclaration(assign_5, null, MEMORY);
@@ -57,7 +57,7 @@ public class Main_TESTS {
 		//-----REQUIRED COMPONENTS FOR WHILE TEST---------
 		//-----------------IF TRUE EXECUTE THIS:------
 		ComponentOperation operation_true_while = new ComponentOperation(_while, null, MEMORY);
-		operation_true_while.set("num3", "$num3", "1", TipoOperazioni.PIU);
+		operation_true_while.set("num3", "$num3", "1", OperationType.ADD);
 		_while.setNextComponent1(operation_true_while);
 		
 		

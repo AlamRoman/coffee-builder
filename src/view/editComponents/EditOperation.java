@@ -3,7 +3,7 @@ package view.editComponents;
 import javax.swing.JPanel;
 
 import model.Components.ComponentOperation;
-import model.Memory.TipoOperazioni;
+import model.Memory.OperationType;
 
 import javax.swing.JButton;
 import java.awt.BorderLayout;
@@ -25,7 +25,7 @@ public class EditOperation extends EditComponent{
 	private JTextField textFieldVar2;
 	private JComboBox<String> comboBoxOperator;
 	
-	private HashMap<String, TipoOperazioni> operators;
+	private HashMap<String, OperationType> operators;
 
 	public EditOperation(ComponentOperation componentOperation) {
 		super("Operation");
@@ -52,7 +52,7 @@ public class EditOperation extends EditComponent{
 		//comboBox
 		operators = new HashMap<>();
 		
-		for (TipoOperazioni op : TipoOperazioni.values()) {
+		for (OperationType op : OperationType.values()) {
 			operators.put(op.symbol, op);
 		}
 		
@@ -100,7 +100,7 @@ public class EditOperation extends EditComponent{
 		return textFieldVar2.getText();
 	}
 	
-	public TipoOperazioni getOperazione() {
+	public OperationType getOperazione() {
 		String selected = (String)comboBoxOperator.getSelectedItem();
 		
 		return operators.get(selected);
