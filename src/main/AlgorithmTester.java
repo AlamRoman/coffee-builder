@@ -1,4 +1,4 @@
-package main.TEST;
+package main;
 
 import model.AlgorithmExecuter;
 import model.Color;
