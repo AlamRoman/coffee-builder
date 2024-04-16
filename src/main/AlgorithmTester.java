@@ -1,10 +1,13 @@
 package main;
 
+import java.util.concurrent.Semaphore;
+
 import model.AlgorithmExecuter;
 import model.Color;
 import model.Debug;
 import model.DebuggerConsole;
 import model.Exceptions;
+import model.Timer;
 import model.Components.ComponentAdd;
 import model.Components.ComponentAssign;
 import model.Components.ComponentComment;
@@ -28,10 +31,13 @@ public class AlgorithmTester {
 		// TODO Auto-generated method stub
 		//EXECUTION TESTS--------------------------------------
 		
+		Semaphore exec = new Semaphore(1);
+		Semaphore wait = new Semaphore(0);
 		MemoryStorage MEMORY = MemoryStorage.getInstance();
 		ComponentEnd end = new ComponentEnd();
 		ComponentAdd ADD__1 = new ComponentAdd();
 		AlgorithmExecuter EXECUTER = new AlgorithmExecuter();
+		Timer timer = new Timer(exec, wait);
 		
 		ComponentComment comment_1 = new ComponentComment(end, null, MEMORY);
 		comment_1.set("This is a comment");
@@ -93,6 +99,7 @@ public class AlgorithmTester {
 		//EXECUTE--------------------------------------
 		
 		try {
+			timer.set(1);
 			EXECUTER.start(start);
 		} catch (Exceptions e) {
 			// TODO Auto-generated catch block
