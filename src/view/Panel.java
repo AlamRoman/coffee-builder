@@ -122,6 +122,9 @@ public class Panel extends JPanel {
 		gbc_scrollPane.gridy = 1;
 		add(scrollPane, gbc_scrollPane);
 		
+		FlowChartContentPanel flowChartContenPane = new FlowChartContentPanel();
+		scrollPane.setViewportView(flowChartContenPane);
+		
 		JScrollPane scrollPane_2 = new JScrollPane();
 		GridBagConstraints gbc_scrollPane_2 = new GridBagConstraints();
 		gbc_scrollPane_2.insets = new Insets(0, 0, 5, 0);

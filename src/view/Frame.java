@@ -38,12 +38,8 @@ public class Frame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 	    setExtendedState(JFrame.MAXIMIZED_BOTH);
-//	    ComponentOutput output = new ComponentOutput(null, null, null);
-//	    output.set("ciao");
-//		contentPane = new ParallelogramPanel(output, new FlowChartController());
 		contentPane = new Panel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
 		setContentPane(contentPane);
 	}
 	

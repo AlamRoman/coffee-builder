@@ -1,5 +1,6 @@
 package view.flowChartComponents;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
@@ -35,6 +36,9 @@ public class ParallelogramPanel extends FlowChartPanel {
 	
 	@Override
 	protected void paintComponent(Graphics g) {
+		
+		setBackground(new Color(255, 255, 255));
+		
 	    super.paintComponent(g);
 	    Graphics2D g2d = (Graphics2D) g;
 	    
