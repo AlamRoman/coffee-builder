@@ -3,6 +3,7 @@ package model.Memory;
 import java.util.Objects;
 
 import model.DebuggerConsole;
+import model.Exceptions;
 
 public class Variable{
 	
@@ -99,5 +100,15 @@ public class Variable{
 		return "V(" + type +", " + name + ", " + value +")";
 	}
 	
-	
+	public static Type getTypeFromValue(Object value) throws Exceptions{
+		if (value instanceof Integer) {
+			return Type.Integer;
+		} else if (value instanceof String) {
+			return Type.String;
+		} else if (value instanceof Double) {
+			return Type.Double;
+		} else {
+			throw new Exceptions(Exceptions.UNKNOWN_TYPE);
+		}
+	}
 }

@@ -33,7 +33,9 @@ public class ComponentAssign extends Component{
 		try {
 			finalVariable = super.getMemory().getVariableByName(variableName);
 		} catch (Exceptions e) {
-			finalVariable = super.getMemory().addVariable(new Variable(null, variableName, null));
+			//if the final variable doesnt exist, creates a new variable
+			Type type = Variable.getTypeFromValue(value);
+			finalVariable = super.getMemory().addVariable(new Variable(type, variableName, null));
 		}
 		
 //		System.out.println("Variable type: " + finalVariable.getType());
