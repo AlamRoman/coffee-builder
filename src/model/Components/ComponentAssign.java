@@ -30,7 +30,11 @@ public class ComponentAssign extends Component{
 	
 	public Object execute() throws Exceptions {
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage , "Executing...");
-		finalVariable = super.getMemory().getVariableByName(variableName);
+		try {
+			finalVariable = super.getMemory().getVariableByName(variableName);
+		} catch (Exceptions e) {
+			finalVariable = super.getMemory().addVariable(new Variable(null, variableName, null));
+		}
 		
 //		System.out.println("Variable type: " + finalVariable.getType());
 //	    System.out.println("Value type: " + value.getClass().getSimpleName());

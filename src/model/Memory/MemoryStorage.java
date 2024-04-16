@@ -87,12 +87,13 @@ public class MemoryStorage {
 		instance = null;
 	}
 	
-	public void addVariable(Variable var) throws Exceptions{
+	public Variable addVariable(Variable var) throws Exceptions{
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Adding variable " + var + " to the memory");
 		if(!memory.add(var)) {
 			throw new Exceptions(Exceptions.EXISTING_VARIABLE, "| thrown in " + this.getClass().getSimpleName());
 		}
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage, "Added");
+		return memory.toArray(new Variable[memory.size()])[memory.size()];
 //		showMemory();
 	}
 	
