@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.JPanel;
 
+import model.Components.ComponentInput;
 import model.Components.ComponentOutput;
 import view.flowChartComponents.ParallelogramPanel;
 import java.awt.Color;
@@ -22,7 +23,7 @@ public class FlowChartContentPanel extends JPanel {
 	    output.set("ciao");
 		
 		ParallelogramPanel ciao = new ParallelogramPanel(output, null);
-		ciao.setBounds(122, 74, 160, 80);
+		ciao.setBounds(217, 143, 180, 80);
 		
 		add(ciao);
 	

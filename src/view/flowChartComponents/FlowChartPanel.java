@@ -2,11 +2,15 @@ package view.flowChartComponents;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Point;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.ViewportLayout;
+import javax.swing.plaf.FontUIResource;
 
 import controller.Controller;
 import controller.FlowChartController;
@@ -32,7 +36,8 @@ public class FlowChartPanel extends JPanel {
 	private final FlowChartController controller;
 	
 	public FlowChartPanel(Component associatedComponent, FlowChartController controller) {
-		setPreferredSize(new Dimension(200, 100));
+		setLayout(null);
+		setPreferredSize(new Dimension(180, 80));
 		this.controller = controller;
 		buttons = new JButton[4];
 		this.associatedComponent = associatedComponent;
@@ -58,20 +63,26 @@ public class FlowChartPanel extends JPanel {
 	private void createButtons(boolean top, boolean right, boolean bottom, boolean left) {
 		// TODO Auto-generated method stub
 		if(top) {
-			buttons[0] = new JButton("NEXT");
+			buttons[0] = new JButton("ADD");
+			buttons[0].setBounds(70, 0, 40, 20);
 		}
 		if(right) {
-			buttons[1] = new JButton("NEXT");
+			buttons[1] = new JButton("ADD");
+			buttons[1].setBounds(0, 30, 40, 20);
 		}
 		if(bottom) {
-			buttons[2] = new JButton("NEXT");
+			buttons[2] = new JButton("ADD");
+			buttons[2].setBounds(70, 60, 40, 20);
 		}
 		if(left) {
-			buttons[3] = new JButton("NEXT");
+			buttons[3] = new JButton("ADD");
+			buttons[3].setBounds(140, 30, 40, 20);
 		}
 		for(JButton btn : buttons) {
 			if(btn != null) {
-				btn.setSize(50, 20);
+				btn.setBorder(null);
+				btn.setPreferredSize(new Dimension(40, 20));
+				btn.setFont(new FontUIResource("Rubik", Font.PLAIN, 8));
 				btn.setActionCommand(ACTION_COMMAND_ADD_BUTTON);
 				btn.addActionListener(controller);
 				add(btn);
@@ -81,7 +92,7 @@ public class FlowChartPanel extends JPanel {
 	
 	private void addCenteredLabelWithComponentInfo() {
 		JLabel label = new JLabel(associatedComponent.print());
-		label.setLocation((int)getWidth()/2, (int)getHeight()/2);
+		label.setBounds(40, 30, 100, 20);
 		add(label);
 	}
 
