@@ -182,9 +182,7 @@ public class ComponentOperation extends Component{
 	
 	public String print() {
 		
-		String out="OPERATION ";
-		
-		out+=variableName;
+		String out= variableName;
 		
 		out+=" = ";
 		out+=variableFirstOperandName;

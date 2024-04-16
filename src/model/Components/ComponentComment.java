@@ -33,7 +33,7 @@ public class ComponentComment extends Component{
 
 	@Override
 	public String print() {
-		String out = "COMMENT ";
+		String out = "// ";
 		
 		out += comment;
 		

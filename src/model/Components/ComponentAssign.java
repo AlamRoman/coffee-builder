@@ -59,9 +59,7 @@ public class ComponentAssign extends Component{
 	}
 	
 	public String print() {
-		String out="ASSIGN ";
-		
-		out+=variableName;
+		String out="variableName";
 		
 		out+=" = ";
 		out+= value.toString();
