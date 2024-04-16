@@ -1,5 +1,6 @@
 package view.flowChartComponents;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
@@ -17,10 +18,12 @@ public class OvalPanel extends FlowChartPanel {
 	@Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        setBackground(new Color(255, 255, 255));
         Graphics2D g2d = (Graphics2D) g;
         
         // Disegna un ovale
-        g2d.drawOval(0, 0, getWidth() - 1, getHeight() - 1);
+        
+        g2d.drawOval(1, 1, getWidth() - 1, getHeight() - 1);
     }
 	
 }
