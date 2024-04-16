@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.ViewportLayout;
 import javax.swing.plaf.FontUIResource;
 
@@ -93,6 +94,7 @@ public class FlowChartPanel extends JPanel {
 	private void addCenteredLabelWithComponentInfo() {
 		JLabel label = new JLabel(associatedComponent.print());
 		label.setBounds(40, 30, 100, 20);
+		label.setHorizontalAlignment(SwingConstants.CENTER);
 		add(label);
 	}
 
