@@ -6,6 +6,8 @@ import javax.swing.JTextArea;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
@@ -100,6 +102,15 @@ public class Panel extends JPanel {
 		gbc_rdbtnAutoRun.gridy = 0;
 		panel.add(rdbtnAutoRun, gbc_rdbtnAutoRun);
 		
+		rdbtnAutoRun.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				updateAutoRunState();
+				
+			}
+		});
+		
 		nextButton = new JButton("next");
 		GridBagConstraints gbc_nextButton = new GridBagConstraints();
 		gbc_nextButton.gridx = 8;
@@ -155,14 +166,18 @@ public class Panel extends JPanel {
 		outputArea.setEditable(false);
 		scrollPane_1.setViewportView(outputArea);
 		
-		updateBtnNext();
+		updateAutoRunState();
 	}
 	
-	public void updateBtnNext() {
+	public void updateAutoRunState() {
 		if (rdbtnAutoRun.isSelected()) {
+			//auto run on
 			nextButton.setEnabled(false);
+			millisecondi.setEnabled(true);
 		}else {
+			//auto run off
 			nextButton.setEnabled(true);
+			millisecondi.setEnabled(false);
 		}
 	}
 
@@ -186,5 +201,7 @@ public class Panel extends JPanel {
 		return millisecondi.getComponentCount();
 	}
 	
-
+	public boolean isAutoRun() {
+		return rdbtnAutoRun.isSelected();
+	}
 }
