@@ -11,7 +11,6 @@ public class ComponentDeclaration extends Component{
 
 	private VariableType variableType;
 	private String variableName;
-	private String value;
 	private MemoryStorage MS;
 	private static final String referenceTypeMessage = "C-DECL";
 	
@@ -23,7 +22,7 @@ public class ComponentDeclaration extends Component{
 	}
 	
 	public Variable getVariable() {
-		return new Variable(this.variableType, this.variableName, this.value);
+		return new Variable(this.variableType, this.variableName, null);
 	}
 	
 	public void set(VariableType variableType, String variableName) {
@@ -49,15 +48,23 @@ public class ComponentDeclaration extends Component{
 	}
 
 	public String print() {
-		String out="DECLARATION ";
+		String out="$ ";
 		
 		out+=variableName;
 		
-		out+=" = ";
-		out+= value.toString();
-		
 		return out;
 		
+	}
+
+	public String getVariableName() {
+		return variableName;
+	}
+	
+	public String getTypeString() {
+		if (variableType != null) {
+			return variableType.name;
+		}
+		return null;
 	}
 	
 }

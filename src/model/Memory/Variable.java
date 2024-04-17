@@ -17,20 +17,23 @@ public class Variable{
 		this.variableType = variableType;
 		this.name = name;
 		
-		switch (variableType) {
-			case Integer: {
-				this.value = (Integer) value;
-				break;
-			}
-			case String: {
-				this.value = (String) value;			
+		if (value != null) {
+			switch (variableType) {
+				case Integer: {
+					this.value = (Integer) value;
 					break;
+				}
+				case String: {
+					this.value = (String) value;			
+						break;
+				}
+				case Double: {
+					this.value = (Double) value;
+					break;
+				}
 			}
-			case Double: {
-				this.value = (Double) value;
-				break;
-			}
-		
+		}else {
+			this.value = null;
 		}
 		
 	}
