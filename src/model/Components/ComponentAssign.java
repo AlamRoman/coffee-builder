@@ -70,4 +70,22 @@ public class ComponentAssign extends Component{
 		
 	}
 
+	public String getValueString() {
+	    if (value != null) {
+	        if (value instanceof Integer || value instanceof Double) {
+	            return String.valueOf(value);
+	        } else if (value instanceof String) {
+	            return (String) value;
+	        } else {
+	            return "";
+	        }
+	    } else {
+	        return "";
+	    }
+	}
+
+	public String getVariableName() {
+		return variableName;
+	}
+
 }
