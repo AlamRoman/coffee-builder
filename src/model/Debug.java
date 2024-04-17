@@ -14,6 +14,8 @@ public class Debug {
 	public final static boolean COMPONENT_WHILE_DEBUG = false;
 	public final static boolean MEMORY_DEBUG = false;
 	public final static boolean VARIABLE_DEBUG = false;
+	public final static boolean SEMAPHORE_DEBUG = false;
+	
 	
 	public final static boolean SHOW_CALLERS = true;
 	

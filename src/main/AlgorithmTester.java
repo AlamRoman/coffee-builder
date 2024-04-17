@@ -31,8 +31,8 @@ public class AlgorithmTester {
 		// TODO Auto-generated method stub
 		//EXECUTION TESTS--------------------------------------
 		
-		Semaphore exec = new Semaphore(0);
-		Semaphore wait = new Semaphore(1);
+		Semaphore exec = new Semaphore(1);
+		Semaphore wait = new Semaphore(0);
 		MemoryStorage MEMORY = MemoryStorage.getInstance();
 		ComponentEnd end = new ComponentEnd();
 		ComponentAdd ADD__1 = new ComponentAdd();
@@ -97,11 +97,11 @@ public class AlgorithmTester {
 		//EXECUTE--------------------------------------
 		
 		try {
-			AlgorithmExecuter EXECUTER = new AlgorithmExecuter(exec, wait);
 			Timer timer = new Timer(exec, wait);
+			AlgorithmExecuter EXECUTER = new AlgorithmExecuter(exec, wait, timer);
 			timer.set(1000);
 			EXECUTER.start(start);
-		} catch (Exceptions e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.err.println(e.getMessage());
 		}
