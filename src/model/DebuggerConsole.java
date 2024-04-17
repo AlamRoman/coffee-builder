@@ -92,6 +92,12 @@ public class DebuggerConsole {
 			return Debug.MEMORY_DEBUG;
 		}else if(className.contains("variable")) {
 			return Debug.VARIABLE_DEBUG;
+		}else if(className.contains("algorithmexecuter")) {
+			return Debug.EXECUTER_DEBUG;
+		}else if(className.contains("timer")) {
+			return Debug.TIMER_DEBUG;
+		}else if(className.contains("condition")) {
+			return Debug.CONDITION_DEBUG;
 		}else {
 			if(messageType.contains("thread")) {
 				return Debug.SEMAPHORE_DEBUG;
