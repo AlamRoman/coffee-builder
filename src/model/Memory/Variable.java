@@ -8,16 +8,16 @@ import model.Exceptions;
 public class Variable{
 	
 	private static final String referenceTypeMessage = "VAR";
-	private Type type;
+	private VariableType variableType;
 	private String name;
 	private Object value;
 	
-	public Variable(Type type, String name, Object value) {
+	public Variable(VariableType variableType, String name, Object value) {
 		super();
-		this.type = type;
+		this.variableType = variableType;
 		this.name = name;
 		
-		switch (type) {
+		switch (variableType) {
 			case Integer: {
 				this.value = (Integer) value;
 				break;
@@ -35,12 +35,12 @@ public class Variable{
 		
 	}
 
-	public Type getType() {
-		return type;
+	public VariableType getType() {
+		return variableType;
 	}
 
-	public void setType(Type type) {
-		this.type = type;
+	public void setType(VariableType variableType) {
+		this.variableType = variableType;
 	}
 
 	public String getName() {
@@ -57,7 +57,7 @@ public class Variable{
 
 	public void setValue(Object value) {
 		
-		switch (type) {
+		switch (variableType) {
 			case Integer: {
 				this.value = (Integer) value;
 				break;
@@ -76,7 +76,7 @@ public class Variable{
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(name, type, value);
+		return Objects.hash(name, variableType, value);
 	}
 
 	@Override
@@ -97,16 +97,16 @@ public class Variable{
 
 	@Override
 	public String toString() {
-		return "V(" + type +", " + name + ", " + value +")";
+		return "V(" + variableType +", " + name + ", " + value +")";
 	}
 	
-	public static Type getTypeFromValue(Object value) throws Exceptions{
+	public static VariableType getTypeFromValue(Object value) throws Exceptions{
 		if (value instanceof Integer) {
-			return Type.Integer;
+			return VariableType.Integer;
 		} else if (value instanceof String) {
-			return Type.String;
+			return VariableType.String;
 		} else if (value instanceof Double) {
-			return Type.Double;
+			return VariableType.Double;
 		} else {
 			throw new Exceptions(Exceptions.UNKNOWN_TYPE);
 		}

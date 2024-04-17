@@ -23,6 +23,7 @@ public class EditAssign extends EditComponent{
 		panel = new JPanel();
 		this.setContentPane(panel);
 		panel.setLayout(null);
+		setSize(335, 131);
 		
 		JButton btnSave = new JButton("Save");
 		btnSave.setBounds(0, 75, 321, 19);
@@ -49,7 +50,6 @@ public class EditAssign extends EditComponent{
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_1.setBounds(10, 38, 40, 11);
 		panel.add(lblNewLabel_1);
-		setSize(335, 131);
 		
 		setPreviousValues();
 	}

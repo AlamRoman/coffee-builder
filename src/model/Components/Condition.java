@@ -4,7 +4,7 @@ import model.Color;
 import model.DebuggerConsole;
 import model.Exceptions;
 import model.Memory.MemoryStorage;
-import model.Memory.Type;
+import model.Memory.VariableType;
 import model.Memory.Variable;
 
 public class Condition {
@@ -52,7 +52,7 @@ public class Condition {
 			DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage , "Operand NOT");
 			//Controlla se il tipo è un'altra condizione o se il valore ritornato da MS è un intero 0 o 1
 			if(firstVar == null) throw new Exceptions(Exceptions.MISSING_ARGUMENTS);
-			if(firstVar.getType() == Type.Integer || firstVar.getType() == Type.Double) {
+			if(firstVar.getType() == VariableType.Integer || firstVar.getType() == VariableType.Double) {
 				if((Integer)firstVar.getValue() > 0) {
 					DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning false");
 					return !true;
@@ -70,10 +70,10 @@ public class Condition {
 			if(firstVar == null || secondVar == null) {
 				throw new Exceptions(Exceptions.MISSING_ARGUMENTS);
 			}
-			if(firstVar.getType() == Type.Double && secondVar.getType() == Type.Double) {
+			if(firstVar.getType() == VariableType.Double && secondVar.getType() == VariableType.Double) {
 				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning " + ((Double)firstVar.getValue() > (Double)secondVar.getValue()));
 				return (Double)firstVar.getValue() > (Double)secondVar.getValue();
-			}else if(firstVar.getType() == Type.Integer && secondVar.getType() == Type.Integer) {
+			}else if(firstVar.getType() == VariableType.Integer && secondVar.getType() == VariableType.Integer) {
 				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning " + ((Integer)firstVar.getValue() > (Integer)secondVar.getValue()));
 				return (Integer)firstVar.getValue() > (Integer)secondVar.getValue();
 			}else {
@@ -86,10 +86,10 @@ public class Condition {
 			if(firstVar == null || secondVar == null) {
 				throw new Exceptions(Exceptions.MISSING_ARGUMENTS);
 			}
-			if(firstVar.getType() == Type.Double && secondVar.getType() == Type.Double) {
+			if(firstVar.getType() == VariableType.Double && secondVar.getType() == VariableType.Double) {
 				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning " + ((Double)firstVar.getValue() >= (Double)secondVar.getValue()));
 				return (Double)firstVar.getValue() >= (Double)secondVar.getValue();
-			}else if(firstVar.getType() == Type.Integer && secondVar.getType() == Type.Integer) {
+			}else if(firstVar.getType() == VariableType.Integer && secondVar.getType() == VariableType.Integer) {
 				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning " + ((Integer)firstVar.getValue() >= (Integer)secondVar.getValue()));
 				return (Integer)firstVar.getValue() >= (Integer)secondVar.getValue();
 			}else {
@@ -102,10 +102,10 @@ public class Condition {
 			if(firstVar == null || secondVar == null) {
 				throw new Exceptions(Exceptions.MISSING_ARGUMENTS);
 			}
-			if(firstVar.getType() == Type.Double && secondVar.getType() == Type.Double) {
+			if(firstVar.getType() == VariableType.Double && secondVar.getType() == VariableType.Double) {
 				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning " + ((Double)firstVar.getValue() <= (Double)secondVar.getValue()));
 				return (Double)firstVar.getValue() <= (Double)secondVar.getValue();
-			}else if(firstVar.getType() == Type.Integer && secondVar.getType() == Type.Integer) {
+			}else if(firstVar.getType() == VariableType.Integer && secondVar.getType() == VariableType.Integer) {
 				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning " + ((Integer)firstVar.getValue() <= (Integer)secondVar.getValue()));
 				return (Integer)firstVar.getValue() <= (Integer)secondVar.getValue();
 			}else {
@@ -118,10 +118,10 @@ public class Condition {
 			if(firstVar == null || secondVar == null) {
 				throw new Exceptions(Exceptions.MISSING_ARGUMENTS);
 			}
-			if(firstVar.getType() == Type.Double && secondVar.getType() == Type.Double) {
+			if(firstVar.getType() == VariableType.Double && secondVar.getType() == VariableType.Double) {
 				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning " + ((Double)firstVar.getValue() < (Double)secondVar.getValue()));
 				return (Double)firstVar.getValue() < (Double)secondVar.getValue();
-			}else if(firstVar.getType() == Type.Integer && secondVar.getType() == Type.Integer) {
+			}else if(firstVar.getType() == VariableType.Integer && secondVar.getType() == VariableType.Integer) {
 				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning " + ((Integer)firstVar.getValue() < (Integer)secondVar.getValue()));
 				return (Integer)firstVar.getValue() < (Integer)secondVar.getValue();
 			}else {
@@ -134,10 +134,10 @@ public class Condition {
 			if(firstVar == null || secondVar == null) {
 				throw new Exceptions(Exceptions.MISSING_ARGUMENTS);
 			}
-			if(firstVar.getType() == Type.Double && secondVar.getType() == Type.Double) {
+			if(firstVar.getType() == VariableType.Double && secondVar.getType() == VariableType.Double) {
 				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning " + ((Double)firstVar.getValue() == (Double)secondVar.getValue()));
 				return (Double)firstVar.getValue() == (Double)secondVar.getValue();
-			}else if(firstVar.getType() == Type.Integer && secondVar.getType() == Type.Integer) {
+			}else if(firstVar.getType() == VariableType.Integer && secondVar.getType() == VariableType.Integer) {
 				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning " + ((Integer)firstVar.getValue() == (Integer)secondVar.getValue()));
 				return (Integer)firstVar.getValue() == (Integer)secondVar.getValue();
 			}else {
@@ -148,14 +148,14 @@ public class Condition {
 		}
 		default:
 			if(firstVar == null) throw new Exceptions(Exceptions.MISSING_ARGUMENTS);
-			if(firstVar.getType() == Type.Integer || firstVar.getType() == Type.Double) {
+			if(firstVar.getType() == VariableType.Integer || firstVar.getType() == VariableType.Double) {
 				if((Integer)firstVar.getValue() > 0) {
 					return true;
 				}else {
 					return false;
 				}	
 			}else {
-				if(firstVar.getType() == Type.String) {
+				if(firstVar.getType() == VariableType.String) {
 					throw new Exceptions(Exceptions.TERM_IS_STRING);
 				}
 			}
@@ -169,15 +169,15 @@ public class Condition {
 		String cleanedTerm = term.trim().toLowerCase();
 		Variable v = null;
 		if (cleanedTerm.matches(".*[a-z].*") && cleanedTerm.matches("[a-z0-9]+")) {
-            v = new Variable(Type.String, term, term);
+            v = new Variable(VariableType.String, term, term);
         }
 		if (cleanedTerm.matches("\\d+")) {
             int integerValue = Integer.parseInt(term);
-            v = new Variable(Type.Integer, term, integerValue);
+            v = new Variable(VariableType.Integer, term, integerValue);
         }
 		if (cleanedTerm.matches("-?\\d*\\.\\d+")) {
             double doubleValue = Double.parseDouble(term);
-            v = new Variable(Type.Double, term, doubleValue);
+            v = new Variable(VariableType.Double, term, doubleValue);
         }
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage, "Returning variable: " + v);
 		return v;

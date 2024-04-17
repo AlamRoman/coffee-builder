@@ -3,13 +3,13 @@ package model.Components;
 import model.DebuggerConsole;
 import model.Exceptions;
 import model.Memory.MemoryStorage;
-import model.Memory.Type;
+import model.Memory.VariableType;
 import model.Memory.Variable;
 import view.Panel;
 
 public class ComponentDeclaration extends Component{
 
-	private Type type;
+	private VariableType variableType;
 	private String variableName;
 	private String value;
 	private MemoryStorage MS;
@@ -17,17 +17,17 @@ public class ComponentDeclaration extends Component{
 	
 	public ComponentDeclaration(Component nextComponent1, Component nextComponent2, MemoryStorage MS) {
 		super(nextComponent1, nextComponent2, MS);
-		this.type = null;
+		this.variableType = null;
 		this.variableName = "";
 		this.MS = MS.getInstance();
 	}
 	
 	public Variable getVariable() {
-		return new Variable(this.type, this.variableName, this.value);
+		return new Variable(this.variableType, this.variableName, this.value);
 	}
 	
-	public void set(Type type, String variableName) {
-		this.type = type;
+	public void set(VariableType variableType, String variableName) {
+		this.variableType = variableType;
 		this.variableName = variableName;
 	}
 	
