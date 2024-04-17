@@ -23,7 +23,7 @@ import model.Components.Condition;
 import model.Memory.MemoryStorage;
 import model.Memory.RelationalOperators;
 import model.Memory.OperationType;
-import model.Memory.Type;
+import model.Memory.VariableType;
 
 public class AlgorithmTester {
 
@@ -50,11 +50,11 @@ public class AlgorithmTester {
 		ComponentAssign assign_5 = new ComponentAssign(operation_1, null, MEMORY);
 		assign_5.set(0.0, "num4");
 		ComponentDeclaration declare_5 = new ComponentDeclaration(assign_5, null, MEMORY);
-		declare_5.set(Type.Double, "num4");
+		declare_5.set(VariableType.Double, "num4");
 		ComponentAssign assign_4 = new ComponentAssign(declare_5, null, MEMORY);
 		assign_4.set("Hello, world!", "stringHelloWorld");
 		ComponentDeclaration declare_4 = new ComponentDeclaration(assign_4, null, MEMORY);
-		declare_4.set(Type.String, "stringHelloWorld");
+		declare_4.set(VariableType.String, "stringHelloWorld");
 		
 		//-----WHILE TEST---------------------------------
 		ComponentWhile _while = new ComponentWhile(declare_4, MEMORY);
@@ -83,17 +83,17 @@ public class AlgorithmTester {
 		ComponentAssign assign_3 = new ComponentAssign(_if, null, MEMORY);
 		assign_3.set(2, "num3");
 		ComponentDeclaration declare_3 = new ComponentDeclaration(assign_3, null, MEMORY);
-		declare_3.set(Type.Integer, "num3");
+		declare_3.set(VariableType.Integer, "num3");
 		ComponentAssign assign_2 = new ComponentAssign(declare_3, null, MEMORY);
 		assign_2.set(2, "num2");
 		ComponentDeclaration declare_2 = new ComponentDeclaration(assign_2, null, MEMORY);
-		declare_2.set(Type.Integer, "num2");
+		declare_2.set(VariableType.Integer, "num2");
 //		ComponentAssign assign_1 = new ComponentAssign(declare_2, null, MEMORY);
 //		assign_1.set(2, "num1");
 		ComponentInput input_1 = new ComponentInput(declare_2, null, MEMORY);
 		input_1.set("num1");
 		ComponentDeclaration declare_1 = new ComponentDeclaration(input_1, null, MEMORY);
-		declare_1.set(Type.Integer, "num1");
+		declare_1.set(VariableType.Integer, "num1");
 		ComponentStart start = new ComponentStart(declare_1);
 		
 		//EXECUTE--------------------------------------

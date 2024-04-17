@@ -6,7 +6,7 @@ import model.DebuggerConsole;
 import model.Exceptions;
 import model.Memory.MemoryStorage;
 import model.Memory.OperationType;
-import model.Memory.Type;
+import model.Memory.VariableType;
 import model.Memory.Variable;
 
 public class ComponentOperation extends Component{
@@ -61,7 +61,7 @@ public class ComponentOperation extends Component{
 			DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Checking if '" + finalVariable.getType() + "' is valid (Double, Integer, String)");
 			variable1 = getVariableFromTerm(finalVariable, variableFirstOperandName);
 			if(variable1==null) {
-				variable1 = new Variable(Type.String, "" , variableSecondOperandName);
+				variable1 = new Variable(VariableType.String, "" , variableSecondOperandName);
 			}
 			
 		}
@@ -79,7 +79,7 @@ public class ComponentOperation extends Component{
 			variable2 = getVariableFromTerm(finalVariable, variableSecondOperandName);
 		
 			if(variable2==null) {
-				variable2 = new Variable(Type.String, "" , variableSecondOperandName);
+				variable2 = new Variable(VariableType.String, "" , variableSecondOperandName);
 			}
 			
 		}
@@ -225,24 +225,24 @@ public class ComponentOperation extends Component{
 		String cleanedTerm = term.trim().toLowerCase();
 		
 		if(variable != null) {
-			if(variable.getType() == Type.String) {
-				v = new Variable(Type.String, term, term);
+			if(variable.getType() == VariableType.String) {
+				v = new Variable(VariableType.String, term, term);
 				DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "returning variable from getVariableFromTerm("+ term +", " + variable + ") >> " + v);
 				return v;
 			}
 		}
 		if (cleanedTerm.matches(".*[a-z].*") && cleanedTerm.matches("[a-z0-9]+")) {
-			v =  new Variable(Type.String, term, term);
+			v =  new Variable(VariableType.String, term, term);
 		}
 		
 		if (cleanedTerm.matches("-?\\d*\\.\\d+")) {
 			double doubleValue = Double.parseDouble(term);
-			v =  new Variable(Type.Double, term, doubleValue);
+			v =  new Variable(VariableType.Double, term, doubleValue);
 		}
 		
 		if (cleanedTerm.matches("\\d+")) {
 			int integerValue = Integer.parseInt(term);
-			v =  new Variable(Type.Integer, term, integerValue);
+			v =  new Variable(VariableType.Integer, term, integerValue);
 		}	
 //		super.getMemory().showMemory();
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "returning variable from getVariableFromTerm("+ term +", " + variable + ") >> " + v);
