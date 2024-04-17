@@ -20,7 +20,7 @@ public class ComponentIf extends Component{
 		//initial values
 		String term1 = "";
 		String term2 = "";
-		operator = RelationalOperators.EQUAL_TO;
+		operator = null;
 	}
 	
 	public void set(String term1, RelationalOperators operator, String term2) {

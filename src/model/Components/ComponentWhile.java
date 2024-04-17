@@ -22,7 +22,7 @@ public class ComponentWhile extends Component{
 		//initial values
 		this.term1 = "";
 		this.term2 = "";
-		this.operator = RelationalOperators.GREATER_THAN; 
+		this.operator = null; 
 		
 	}
 	

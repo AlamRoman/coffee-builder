@@ -67,7 +67,12 @@ public class EditWhile extends EditComponent{
 		textFieldTerm1.setText(componentWhile.getTerm1());
 		textFieldTerm2.setText(componentWhile.getTerm2());
 		
-		comboBoxOperator.setSelectedItem(componentWhile.getOperator().symbol);
+		if (componentWhile.getOperator() != null) {
+			comboBoxOperator.setSelectedItem(componentWhile.getOperator().symbol);
+		}else {
+			comboBoxOperator.setSelectedIndex(0);
+		}
+		
 	}
 	
 	public void controlOperator() {

@@ -69,7 +69,12 @@ public class EditIf extends EditComponent{
 		textFieldTerm1.setText(componentIf.getTerm1());
 		textFieldTerm2.setText(componentIf.getTerm2());
 		
-		comboBoxOperator.setSelectedItem(componentIf.getOperator().symbol);
+		
+		if (componentIf.getOperator() != null) {
+			comboBoxOperator.setSelectedItem(componentIf.getOperator().symbol);
+		}else {
+			comboBoxOperator.setSelectedIndex(0);
+		}	
 	}
 	
 	public void controlOperator() {

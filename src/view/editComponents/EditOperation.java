@@ -85,7 +85,12 @@ public class EditOperation extends EditComponent{
 		textFieldVar1.setText(componentOperation.getVariableFirstOperandName());
 		textFieldVar2.setText(componentOperation.getVariableSecondOperandName());
 		
-		comboBoxOperator.setSelectedItem(componentOperation.getOperation().symbol);
+		if (componentOperation.getOperation() != null) {
+			comboBoxOperator.setSelectedItem(componentOperation.getOperation().symbol);
+		}else {
+			comboBoxOperator.setSelectedIndex(0);
+		}
+
 	}
 	
 	public String getFinalVarName() {

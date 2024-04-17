@@ -26,7 +26,7 @@ public class ComponentOperation extends Component{
 		super(nextComponent1, nextComponent2, memory);
 		
 		//initial values
-		operation=OperationType.ADD;
+		operation=null;
 		variableFirstOperandName="";
 		variableSecondOperandName="";
 		variableName="";
@@ -184,9 +184,9 @@ public class ComponentOperation extends Component{
 		
 		String out= variableName;
 		
-		out+=" = ";
-		out+=variableFirstOperandName;
-		out+=" ";
+		out += " = ";
+		out += variableFirstOperandName;
+		out += " ";
 		
 		switch (operation) {
 		case  ADD: {
@@ -211,8 +211,9 @@ public class ComponentOperation extends Component{
 			}
 		}
 		
-		out+=" ";
-		out+=variableSecondOperandName;
+		out += " ";
+		out += variableSecondOperandName;
+		
 		DebuggerConsole.getInstance().printCustomMSGColorLog(referenceTypeMessage + "-PRINT-OUTPUT", Color.PURPLE, "Showing: '" + out + "' to the panel");
 		return out;
 	}
