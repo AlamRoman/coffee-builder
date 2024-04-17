@@ -25,7 +25,7 @@ public class AlgorithmExecuter implements Runnable{
 		this.T = new Thread(this, "EXECUTER");
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType, "Created.");
 	}
-	
+
 	public void start(Component start) throws Exceptions {
 		
 		result=null;

@@ -16,6 +16,9 @@ import javax.swing.JToggleButton;
 import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import controller.ContentPaneController;
+
 import javax.swing.JSpinner;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -33,6 +36,7 @@ public class Panel extends JPanel {
 	private JButton nextButton;
 	private JComponent millisecondi;
 	private JRadioButton rdbtnAutoRun;
+	private JButton endButton;
 
 	public Panel() {
 
@@ -59,6 +63,7 @@ public class Panel extends JPanel {
 		panel.setLayout(gbl_panel);
 		
 		executeButton = new CustomToggleButton("start", Color.red, Color.green);
+		executeButton.setActionCommand("START");
 		executeButton.setFocusable(false);
 		
 		executeButton.setBackground(new Color(255, 255, 255));
@@ -69,7 +74,8 @@ public class Panel extends JPanel {
 		gbc_executeButton.gridy = 0;
 		panel.add(executeButton, gbc_executeButton);
 		
-		JButton endButton = new JButton("end");
+		endButton = new JButton("end");
+		endButton.setActionCommand("END");
 		endButton.setFocusable(false);
 		GridBagConstraints gbc_endButton = new GridBagConstraints();
 		gbc_endButton.insets = new Insets(0, 0, 0, 5);
@@ -102,19 +108,21 @@ public class Panel extends JPanel {
 		gbc_rdbtnAutoRun.gridy = 0;
 		panel.add(rdbtnAutoRun, gbc_rdbtnAutoRun);
 		
-		rdbtnAutoRun.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				updateAutoRunState();
-				
-			}
-		});
+//		rdbtnAutoRun.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				updateAutoRunState();
+//				
+//			}
+//		});
 		
 		nextButton = new JButton("next");
+		nextButton.setActionCommand("NEXT");
 		GridBagConstraints gbc_nextButton = new GridBagConstraints();
 		gbc_nextButton.gridx = 8;
 		gbc_nextButton.gridy = 0;
+		nextButton.setEnabled(false);
 		panel.add(nextButton, gbc_nextButton);
 		
 		JLabel lblNewLabel = new JLabel("Debugger");
@@ -169,20 +177,20 @@ public class Panel extends JPanel {
 		outputArea.setEditable(false);
 		scrollPane_1.setViewportView(outputArea);
 		
-		updateAutoRunState();
+//		updateAutoRunState();
 	}
 	
-	public void updateAutoRunState() {
-		if (rdbtnAutoRun.isSelected()) {
-			//auto run on
-			nextButton.setEnabled(false);
-			millisecondi.setEnabled(true);
-		}else {
-			//auto run off
-			nextButton.setEnabled(true);
-			millisecondi.setEnabled(false);
-		}
-	}
+//	public void updateAutoRunState() {
+//		if (rdbtnAutoRun.isSelected()) {
+//			//auto run on
+//			nextButton.setEnabled(false);
+//			millisecondi.setEnabled(true);
+//		}else {
+//			//auto run off
+//			nextButton.setEnabled(true);
+//			millisecondi.setEnabled(false);
+//		}
+//	}
 
 	public String getOutputArea() {
 		return outputArea.getText();
@@ -200,11 +208,29 @@ public class Panel extends JPanel {
 		debuggerText.setText(text);
 	}
 	
-	public int getMillisecondi() {
+	public int getMilliseconds() {
 		return millisecondi.getComponentCount();
 	}
 	
 	public boolean isAutoRun() {
 		return rdbtnAutoRun.isSelected();
+	}
+
+	public void registerEvents(ContentPaneController controller) {
+		// TODO Auto-generated method stub
+		executeButton.addActionListener(controller);
+		endButton.addActionListener(controller);
+		nextButton.addActionListener(controller);
+		rdbtnAutoRun.addItemListener(controller);
+	}
+
+	public void setNextButtonUsable(boolean value) {
+		// TODO Auto-generated method stub
+		this.nextButton.setEnabled(value);
+	}
+	
+	public void setMillisecondsUsable(boolean value) {
+		// TODO Auto-generated method stub
+		this.millisecondi.setEnabled(value);
 	}
 }

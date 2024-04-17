@@ -18,20 +18,20 @@ import view.flowChartComponents.ParallelogramPanel;
 public class Frame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
+	private Panel contentPane;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Frame frame = new Frame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					Frame frame = new Frame();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	public Frame() {
 		setTitle("Coffee builder");
@@ -47,5 +47,10 @@ public class Frame extends JFrame {
 		
 		Frame ciao = new Frame();
 		}
+
+	public Panel getContentPanel() {
+		// TODO Auto-generated method stub
+		return this.contentPane;
+	}
 
 }

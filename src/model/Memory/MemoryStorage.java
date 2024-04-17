@@ -128,6 +128,22 @@ public class MemoryStorage {
 	public void showMemory() {
 		System.out.println("\n" + this.toString() + "\n");
 	}
+
+	public Component getStartComponent() {
+		// TODO Auto-generated method stub
+		return components.get(0);
+	}
+	
+	public Component getEndComponent() {
+		// TODO Auto-generated method stub
+		return components.get(components.size()-1);
+	}
+
+	public void initializeDefaultComponents() {
+		components.add(new ComponentEnd());
+		components.add(0, new ComponentStart(components.get(0)));
+		
+	}
 	
 	
 	
