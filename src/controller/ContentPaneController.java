@@ -32,13 +32,14 @@ public class ContentPaneController extends Controller{
 		// TODO Auto-generated method stub
 		switch(e.getActionCommand()) {
 			case "START":
-				if(panel.isAutoRun()) {
+				if(panel.isAutoRun() && panel.getStartStatus()) {
 					int ms = panel.getMilliseconds();
+					DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "User setted " + ms + "ms as the execution delay");
 					try {
 						DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Setting timer to " + ms + "ms");
 						super.getTimer().set(ms);
 						Component c = super.getMemory().getStartComponent();
-						DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Running the executer with start component: " + c);
+						DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Running the executer with start component: " + c.getClass().getSimpleName());
 						super.getExecuter().start(super.getMemory().getStartComponent());
 					} catch (Exceptions customException) {
 						JOptionPane.showMessageDialog(panel, customException.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
