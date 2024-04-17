@@ -113,20 +113,51 @@ public class MemoryStorage {
 		
 	}
 	
-	@Override
-    public String toString() {
+    public String printMemory() {
         StringBuilder sb = new StringBuilder();
-        sb.append("MEMORY TABLE\n");
+        sb.append(String.format("%-31s %s %-31s\n", "", "MEMORY TABLE", ""));
+        sb.append("--------------------------------------------------------------\n");
         sb.append(String.format("%-25s %-25s %-25s\n", "Type", "VariableName", "Value"));
         sb.append("--------------------------------------------------------------\n");
         for (Variable var : memory) {
             sb.append(String.format("%-25s %-25s %-25s\n", var.getType(), var.getName(), var.getValue()));
         }
+        sb.append("==============================================================\n");
         return sb.toString();
     }
 	
 	public void showMemory() {
-		System.out.println("\n" + this.toString() + "\n");
+		System.out.println("\n" + this.printMemory() + "\n");
+	}
+	
+	public String printComponents() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(String.format("%-44s %s %-44s\n", "", "COMPONENTS TABLE", ""));
+        sb.append("-------------------------------------------------------------------------------------------------\n");
+		sb.append(String.format("%-25s %-25s %-25s %-25s\n", "Index", "Class", "NComp1", "NComp2"));
+        sb.append("-------------------------------------------------------------------------------------------------\n");
+        
+        for (int i = 0; i < components.size(); i++) {
+            Component component = components.get(i);
+            String className = component.getClass().getSimpleName();
+            Component n1 = component.getNextComponent1();
+            Component n2 = component.getNextComponent2();
+            String nComp1 = (n1==null)?null:component.getNextComponent1().getClass().getSimpleName();
+            String nComp2 = (n2==null)?null:component.getNextComponent1().getClass().getSimpleName();
+            sb.append(String.format("%-25s %-25s %-25s %-25s\n", i, className, nComp1, nComp2));
+        }
+        sb.append("================================================================================================\n");
+        return sb.toString();
+    }
+	
+	public void showComponents() {
+		System.out.println("\n" + this.printComponents() + "\n");
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "\nMEMORY:\n" + printMemory() + "\n" + printComponents() + "\n";
 	}
 
 	public Component getStartComponent() {
@@ -143,6 +174,10 @@ public class MemoryStorage {
 		components.add(new ComponentEnd());
 		components.add(0, new ComponentStart(components.get(0)));
 		
+	}
+	
+	public void print() {
+		System.out.println(this.toString());
 	}
 	
 	
