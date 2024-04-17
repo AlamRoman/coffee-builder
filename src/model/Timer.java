@@ -21,6 +21,7 @@ public class Timer implements Runnable{
 	
 	public void set(int ms) {
 		this.ms = ms;
+		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType, "Setted timer to " + ms + "ms");
 		T.start();
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType+"-THREAD", "Started thread: " + T.getName());
 	}
