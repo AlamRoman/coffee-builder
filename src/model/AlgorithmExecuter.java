@@ -30,6 +30,7 @@ public class AlgorithmExecuter implements Runnable{
 		
 		result=null;
 		component = start;
+		DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Got ComponentStart from " + Thread.currentThread().getStackTrace()[2].getClassName());
 		T.start();
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType+"-THREAD", "Started thread: " + T.getName());
 	}
@@ -66,7 +67,7 @@ public class AlgorithmExecuter implements Runnable{
 					}
 					
 					//Se il prossimo componente è la fine del programma mostra la tabella della memoria in debug
-					if(component.getNextComponent() instanceof ComponentEnd) MemoryStorage.getInstance().showMemory();
+					if(component.getNextComponent() instanceof ComponentEnd) MemoryStorage.getInstance().print();
 					
 					component=component.getNextComponent(); //Passo all'esecutore il componente successivo
 					
