@@ -13,9 +13,11 @@ import java.awt.event.ItemListener;
 
 import javax.swing.JLabel;
 import javax.swing.JToggleButton;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.text.DefaultFormatter;
 
 import controller.ContentPaneController;
 
@@ -23,6 +25,7 @@ import javax.swing.JSpinner;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
+import javax.swing.JFormattedTextField;
 
 import java.awt.Color;
 import javax.swing.JRadioButton;
@@ -34,7 +37,7 @@ public class Panel extends JPanel {
 	private CustomToggleButton executeButton;
 	private JTextArea debuggerText;
 	private JButton nextButton;
-	private JComponent millisecondi;
+	private JSpinner millisecondi;
 	private JRadioButton rdbtnAutoRun;
 	private JButton endButton;
 
@@ -90,7 +93,7 @@ public class Panel extends JPanel {
 		gbc_lblNewLabel_2.gridy = 0;
 		panel.add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
-		millisecondi = new JSpinner();
+		millisecondi = new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 100));
 		millisecondi.setToolTipText("");
 		GridBagConstraints gbc_millisecondi = new GridBagConstraints();
 		gbc_millisecondi.fill = GridBagConstraints.HORIZONTAL;
@@ -209,7 +212,7 @@ public class Panel extends JPanel {
 	}
 	
 	public int getMilliseconds() {
-		return millisecondi.getComponentCount();
+		return (int)millisecondi.getValue();
 	}
 	
 	public boolean isAutoRun() {
@@ -232,5 +235,9 @@ public class Panel extends JPanel {
 	public void setMillisecondsUsable(boolean value) {
 		// TODO Auto-generated method stub
 		this.millisecondi.setEnabled(value);
+	}
+
+	public boolean getStartStatus() {
+		return executeButton.isSelected();
 	}
 }
