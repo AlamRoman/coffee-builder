@@ -93,7 +93,7 @@ public class MemoryStorage {
 			throw new Exceptions(Exceptions.EXISTING_VARIABLE, "| thrown in " + this.getClass().getSimpleName());
 		}
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage, "Added");
-		return memory.toArray(new Variable[memory.size()])[memory.size()];
+		return memory.toArray(new Variable[memory.size()])[memory.size()-1];
 //		showMemory();
 	}
 	

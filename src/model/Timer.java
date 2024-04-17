@@ -17,7 +17,7 @@ public class Timer implements Runnable{
 	
 	public void set(int ms) {
 		this.ms = ms;
-		T.run();
+		T.start();
 	}
 
 	@Override
