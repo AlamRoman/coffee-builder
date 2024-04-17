@@ -25,7 +25,6 @@ public class ComponentEnd extends Component{
 
 	@Override
 	public String print() {
-		// TODO Auto-generated method stub
 		return "END";
 	}
 	

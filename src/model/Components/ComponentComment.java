@@ -12,7 +12,7 @@ public class ComponentComment extends Component{
 	public ComponentComment(Component nextComponent1, Component nextComponent2, MemoryStorage memory) {
 		super(nextComponent1, nextComponent2, memory);
 		
-//		this.comment = comment;
+		this.comment = "";
 	}
 
 	public String execute() {

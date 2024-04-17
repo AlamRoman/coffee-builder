@@ -48,9 +48,9 @@ public class ComponentDeclaration extends Component{
 	}
 
 	public String print() {
-		String out="$ ";
+		String out = variableType.name + " $";
 		
-		out+=variableName;
+		out += variableName;
 		
 		return out;
 		

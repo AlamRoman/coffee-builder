@@ -29,7 +29,6 @@ public class ComponentStart extends Component{
 
 	@Override
 	public String print() {
-		// TODO Auto-generated method stub
 		return "START";
 	}
 	

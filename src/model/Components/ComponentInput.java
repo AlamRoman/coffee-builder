@@ -55,7 +55,7 @@ public class ComponentInput extends Component{
 	public String print() {
 		String out = "IN ";
 		
-		out += "$" + finalVar.getName();
+		out += "$" + nomeVariabile;
 		
 		return out;
 	}
