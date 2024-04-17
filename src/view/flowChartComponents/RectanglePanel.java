@@ -1,5 +1,6 @@
 package view.flowChartComponents;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
@@ -21,7 +22,8 @@ public class RectanglePanel extends FlowChartPanel {
         Graphics2D g2d = (Graphics2D) g;
         
         // Disegna un rettangolo
-        g2d.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
+        setBackground(new Color(255, 255, 255));
+        g2d.drawRect(1, 1, getWidth() - 2, getHeight() - 2);
     }
 
 }

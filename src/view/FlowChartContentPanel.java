@@ -2,39 +2,74 @@ package view;
 
 import javax.swing.JPanel;
 
+import model.Components.ComponentAssign;
+import model.Components.ComponentComment;
 import model.Components.ComponentEnd;
+import model.Components.ComponentIf;
 import model.Components.ComponentOutput;
 import model.Components.ComponentStart;
+import model.Components.ComponentWhile;
+import model.Memory.RelationalOperators;
 import view.flowChartComponents.OvalPanel;
 import view.flowChartComponents.ParallelogramPanel;
+import view.flowChartComponents.RectanglePanel;
+import view.flowChartComponents.RhombusPanel;
+
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Rectangle;
 
 public class FlowChartContentPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
-	/**
-	 * Create the panel.
-	 */
+	
+	        
+	        public Dimension getPreferredSize() {
+	            int maxX = 0;
+	            int maxY = 0;
+	            Component[] components = this.getComponents();
+	            for(int i = 0; i < components.length; i++){
+	                Rectangle bounds = components[i].getBounds();
+	                maxX = Math.max(maxX, (int)bounds.getMaxX());
+	                maxY = Math.max(maxY, (int)bounds.getMaxY());
+	            }   
+	            return new Dimension(maxX,maxY);
+	        }
+
+	
+	
 	public FlowChartContentPanel() {
 		setBackground(new Color(255, 255, 255));
 		setLayout(null);
+		
+		setSize(10000, 10000);
 		
 		
 		ComponentOutput output = new ComponentOutput(null, null, null);
 	    output.set("ciao");
 
 		ParallelogramPanel ciao = new ParallelogramPanel(output, null);
-		ciao.setBounds(217, 143, 180, 80);
-		ciao.setBounds(124, 54, 180, 80);
+		ciao.setBounds(100, 45, 180, 80);
 
 		OvalPanel ok = new OvalPanel(new ComponentStart(null), null);
-		ok.setBounds(0, 144, 180, 80);
+		ok.setBounds(100, 196, 180, 80);
 
 		OvalPanel ok2 = new OvalPanel(new ComponentEnd(), null);
-		ok2.setBounds(0, 0, 180, 80);
+		ok2.setBounds(100, 500, 180, 80);
+		
+		
+		RectanglePanel russo = new RectanglePanel(new ComponentComment(null, null, null), null);
+		russo.setBounds(100, 400, 180, 80);
+		
+		ComponentWhile tt = new ComponentWhile(null, null);
+		tt.set("ciao", RelationalOperators.EQUAL_TO, "ciao");
+		RhombusPanel alam = new RhombusPanel(tt, null);
+		alam.setBounds(100, 500, 180, 80);
 
 		add(ciao);
 		add(ok);
-		add(ok2);
+		add(alam);
+		add(russo);
 
 	}
 }
