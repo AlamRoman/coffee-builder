@@ -6,6 +6,7 @@ import model.Components.ComponentAssign;
 import model.Components.ComponentComment;
 import model.Components.ComponentEnd;
 import model.Components.ComponentIf;
+import model.Components.ComponentInput;
 import model.Components.ComponentOutput;
 import model.Components.ComponentStart;
 import model.Components.ComponentWhile;
@@ -49,25 +50,28 @@ public class FlowChartContentPanel extends JPanel {
 	    output.set("ciao");
 
 		ParallelogramPanel ciao = new ParallelogramPanel(output, null);
-		ciao.setBounds(100, 45, 180, 80);
+		ciao.setBounds(200, 130, 180, 80);
 
 		OvalPanel ok = new OvalPanel(new ComponentStart(null), null);
-		ok.setBounds(100, 196, 180, 80);
+		ok.setBounds(20, 20, 180, 80);
 
 		OvalPanel ok2 = new OvalPanel(new ComponentEnd(), null);
-		ok2.setBounds(100, 500, 180, 80);
+		ok2.setBounds(20, 15000, 180, 80);
 		
 		
 		RectanglePanel russo = new RectanglePanel(new ComponentComment(null, null, null), null);
-		russo.setBounds(100, 400, 180, 80);
+		russo.setBounds(200, 230, 180, 80);
 		
 		ComponentWhile tt = new ComponentWhile(null, null);
 		tt.set("ciao", RelationalOperators.EQUAL_TO, "ciao");
 		RhombusPanel alam = new RhombusPanel(tt, null);
-		alam.setBounds(100, 500, 180, 80);
+		alam.setBounds(200, 330, 180, 80);
 
+		
+		
 		add(ciao);
 		add(ok);
+		add(ok2);
 		add(alam);
 		add(russo);
 
