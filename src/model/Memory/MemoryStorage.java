@@ -6,7 +6,6 @@ import java.util.HashSet;
 import model.DebuggerConsole;
 import model.Exceptions;
 import model.Components.Component;
-import model.Components.ComponentAdd;
 import model.Components.ComponentEnd;
 import model.Components.ComponentStart;
 
@@ -54,9 +53,9 @@ public class MemoryStorage {
 	}
 	
 	public void addComponent(Component c, int index) {
-		ComponentAdd addAfter = new ComponentAdd();
+	//	ComponentAdd addAfter = new ComponentAdd();
 		components.add(index, c);
-		components.add(index+1, addAfter);
+	//	components.add(index+1, addAfter);
 		updateComponentConnections(index);
 		
 	}
