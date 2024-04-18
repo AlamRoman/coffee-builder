@@ -1,11 +1,13 @@
 package view.flowChartComponents;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -73,6 +75,15 @@ public class FlowChartPanel extends JPanel {
 		buttons[2].setBorder(null);
 		buttons[2].setPreferredSize(new Dimension(40, 20));
 		buttons[2].setFont(new FontUIResource("Rubik", Font.PLAIN, 8));
+		buttons[2].setBackground(Color.WHITE);
+		buttons[2].setForeground(Color.BLACK);
+		buttons[2].setBorder(BorderFactory.createCompoundBorder(
+				
+				BorderFactory.createLineBorder(Color.BLACK),
+				BorderFactory.createLineBorder(Color.WHITE, 4)
+				
+				));
+		buttons[2].setFocusPainted(false);
 		buttons[2].setActionCommand(ACTION_COMMAND_ADD_BUTTON);
 		buttons[2].addActionListener(controller);
 		add(buttons[2]);
