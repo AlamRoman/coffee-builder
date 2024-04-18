@@ -66,18 +66,22 @@ public class FlowChartPanel extends JPanel {
 		if(top) {
 			buttons[0] = new JButton("ADD");
 			buttons[0].setBounds(70, 0, 40, 20);
+			buttons[0].setFocusable(false);
 		}
 		if(right) {
 			buttons[1] = new JButton("ADD");
 			buttons[1].setBounds(0, 30, 40, 20);
+			buttons[1].setFocusable(false);
 		}
 		if(bottom) {
 			buttons[2] = new JButton("ADD");
 			buttons[2].setBounds(70, 60, 40, 20);
+			buttons[2].setFocusable(false);
 		}
 		if(left) {
 			buttons[3] = new JButton("ADD");
 			buttons[3].setBounds(140, 30, 40, 20);
+			buttons[3].setFocusable(false);
 		}
 		for(JButton btn : buttons) {
 			if(btn != null) {

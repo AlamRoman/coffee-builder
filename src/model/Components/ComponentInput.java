@@ -55,7 +55,9 @@ public class ComponentInput extends Component{
 	public String print() {
 		String out = "IN ";
 		
-		out += "$" + nomeVariabile;
+		if (nomeVariabile != null && !nomeVariabile.equals("")) {
+			out += "$" + nomeVariabile;
+		}
 		
 		return out;
 	}

@@ -66,6 +66,12 @@ public class FlowChartContentPanel extends JPanel {
 		tt.set("ciao", RelationalOperators.EQUAL_TO, "ciao");
 		RhombusPanel alam = new RhombusPanel(tt, null);
 		alam.setBounds(200, 330, 180, 80);
+		alam.setBounds(100, 500, 180, 80);
+		
+		ComponentInput ci = new ComponentInput(null, null, null);
+		ci.set("var");
+		ParallelogramPanel inputPanel = new ParallelogramPanel(ci, null);
+		inputPanel.setBounds(100, 700, 180, 80);
 
 		
 		
@@ -74,6 +80,7 @@ public class FlowChartContentPanel extends JPanel {
 		add(ok2);
 		add(alam);
 		add(russo);
+		add(inputPanel);
 
 	}
 }
