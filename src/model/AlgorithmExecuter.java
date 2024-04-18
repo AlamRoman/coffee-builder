@@ -2,6 +2,7 @@ package model;
 
 import java.util.concurrent.Semaphore;
 
+import controller.ContentPaneController;
 import model.Components.Component;
 import model.Components.ComponentEnd;
 import model.Memory.MemoryStorage;
@@ -15,7 +16,7 @@ public class AlgorithmExecuter implements Runnable{
 	private Thread T;
 	private Timer timer;
 	private String result;
-	
+	private ContentPaneController controller;
 
 	public AlgorithmExecuter(Semaphore exec, Semaphore wait, Timer timer) {
 		super();
@@ -53,6 +54,7 @@ public class AlgorithmExecuter implements Runnable{
 					//Eseguo il componente
 					try {
 						result=null;
+						callControllerUpdateTable();
 						result = (String) component.execute();
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
@@ -77,9 +79,24 @@ public class AlgorithmExecuter implements Runnable{
 					DebuggerConsole.getInstance().printDefaultInfoLog(referenceType+"-THREAD", "Semaphore execute acquired. ");
 				}
 				timer.stop();
+				callControllerDestroyVariables();
 				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType, "Execution completed.");
 //				MemoryStorage.getInstance().showMemory();
 		
+	}
+	
+	private void callControllerDestroyVariables() {
+		// TODO Auto-generated method stub
+		this.controller.deleteVariablesFromMemoryStorage();
+		
+	}
+
+	public void setController(ContentPaneController controller) {
+		this.controller = controller;
+	}
+	
+	public void callControllerUpdateTable() {
+		controller.updateTable();
 	}
 
 }

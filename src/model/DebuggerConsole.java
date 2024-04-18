@@ -29,7 +29,7 @@ public class DebuggerConsole {
 	
 	public void printInfoLog(String messageTypeColor, String messageType, String messageColor, String message) {
 		if(!checkIfOperational(Thread.currentThread().getStackTrace()[2].getClassName(), messageType)) return;
-		String s = Color.GREEN_BOLD + "#" + Thread.currentThread().getStackTrace()[2].getLineNumber() + " in " + Thread.currentThread().getStackTrace()[2].getClassName() + "[" + Thread.currentThread().getStackTrace()[2].getMethodName() + "()]" + Color.PURPLE + ((Debug.SHOW_CALLERS && Thread.currentThread().getStackTrace().length == 4)?(" from " + Thread.currentThread().getStackTrace()[3].getClassName() + "[" + Thread.currentThread().getStackTrace()[3].getClassName() + "()]"):"") + Color.WHITE + " [" + messageTypeColor + messageType + Color.WHITE + "]" + Color.RESET + " : " + messageColor + message + Color.RESET;
+		String s = Color.GREEN_BOLD + "#" + Thread.currentThread().getStackTrace()[2].getLineNumber() + " in " + Thread.currentThread().getStackTrace()[2].getClassName() + "[" + Thread.currentThread().getStackTrace()[2].getMethodName() + "()]" + Color.PURPLE + ((Debug.SHOW_CALLERS && Thread.currentThread().getStackTrace().length >= 4)?(" from " + Thread.currentThread().getStackTrace()[3].getClassName() + "[" + Thread.currentThread().getStackTrace()[3].getMethodName() + "()]{" + Thread.currentThread().getStackTrace()[3].getLineNumber() +"}"):"") + Color.WHITE + " [" + messageTypeColor + messageType + Color.WHITE + "]" + Color.RESET + " : " + messageColor + message + Color.RESET;
 		System.out.println(s);
 		addLine(s);
 		addLineToFinalLog(s);
@@ -37,7 +37,7 @@ public class DebuggerConsole {
 	
 	public void printDefaultInfoLog(String messageType, String message) {
 		if(!checkIfOperational(Thread.currentThread().getStackTrace()[2].getClassName(), messageType)) return;
-		String s = Color.GREEN_BOLD + "#" + Thread.currentThread().getStackTrace()[2].getLineNumber() + " in " + Thread.currentThread().getStackTrace()[2].getClassName() + "[" + Thread.currentThread().getStackTrace()[2].getMethodName() + "()]" + Color.PURPLE + ((Debug.SHOW_CALLERS && Thread.currentThread().getStackTrace().length == 4)?(" from " + Thread.currentThread().getStackTrace()[3].getClassName() + "[" + Thread.currentThread().getStackTrace()[3].getClassName() + "()]"):"") + Color.WHITE + " [" + Color.CYAN_BOLD_BRIGHT + messageType + Color.WHITE + "]" + Color.RESET + " : " + Color.YELLOW_BOLD_BRIGHT + message + Color.RESET;
+		String s = Color.GREEN_BOLD + "#" + Thread.currentThread().getStackTrace()[2].getLineNumber() + " in " + Thread.currentThread().getStackTrace()[2].getClassName() + "[" + Thread.currentThread().getStackTrace()[2].getMethodName() + "()]" + Color.PURPLE + ((Debug.SHOW_CALLERS && Thread.currentThread().getStackTrace().length >= 4)?(" from " + Thread.currentThread().getStackTrace()[3].getClassName() + "[" + Thread.currentThread().getStackTrace()[3].getMethodName() + "()]{" + Thread.currentThread().getStackTrace()[3].getLineNumber() +"}"):"") + Color.WHITE + " [" + Color.CYAN_BOLD_BRIGHT + messageType + Color.WHITE + "]" + Color.RESET + " : " + Color.YELLOW_BOLD_BRIGHT + message + Color.RESET;
 		System.out.println(s);
 		addLine(s);
 		addLineToFinalLog(s);
@@ -45,7 +45,7 @@ public class DebuggerConsole {
 	
 	public void printDefaultSuccessLog(String messageType, String message) {
 		if(!checkIfOperational(Thread.currentThread().getStackTrace()[2].getClassName(), messageType)) return;
-		String s = Color.GREEN_BOLD + "#" + Thread.currentThread().getStackTrace()[2].getLineNumber() + " in " + Thread.currentThread().getStackTrace()[2].getClassName() + "[" + Thread.currentThread().getStackTrace()[2].getMethodName() + "()]" + Color.PURPLE + ((Debug.SHOW_CALLERS && Thread.currentThread().getStackTrace().length == 4)?(" from " + Thread.currentThread().getStackTrace()[3].getClassName() + "[" + Thread.currentThread().getStackTrace()[3].getClassName() + "()]"):"") + Color.WHITE + " [" + Color.CYAN_BOLD_BRIGHT + messageType + Color.WHITE + "]" + Color.RESET + " : " + Color.GREEN_BOLD_BRIGHT + message + Color.RESET;
+		String s = Color.GREEN_BOLD + "#" + Thread.currentThread().getStackTrace()[2].getLineNumber() + " in " + Thread.currentThread().getStackTrace()[2].getClassName() + "[" + Thread.currentThread().getStackTrace()[2].getMethodName() + "()]" + Color.PURPLE + ((Debug.SHOW_CALLERS && Thread.currentThread().getStackTrace().length == 4)?(" from " + Thread.currentThread().getStackTrace()[3].getClassName() + "[" + Thread.currentThread().getStackTrace()[3].getMethodName() + "()]{" + Thread.currentThread().getStackTrace()[3].getLineNumber() +"}"):"") + Color.WHITE + " [" + Color.CYAN_BOLD_BRIGHT + messageType + Color.WHITE + "]" + Color.RESET + " : " + Color.GREEN_BOLD_BRIGHT + message + Color.RESET;
 		System.out.println(s);
 		addLine(s);
 		addLineToFinalLog(s);
@@ -53,7 +53,7 @@ public class DebuggerConsole {
 	
 	public void printDefaultErrorLog(String messageType, String message) {
 		if(!checkIfOperational(Thread.currentThread().getStackTrace()[2].getClassName(), messageType)) return;
-		String s = Color.GREEN_BOLD + "#" + Thread.currentThread().getStackTrace()[2].getLineNumber() + " in " + Thread.currentThread().getStackTrace()[2].getClassName() + "[" + Thread.currentThread().getStackTrace()[2].getMethodName() + "()]" + Color.PURPLE + ((Debug.SHOW_CALLERS && Thread.currentThread().getStackTrace().length == 4)?(" from " + Thread.currentThread().getStackTrace()[3].getClassName() + "[" + Thread.currentThread().getStackTrace()[3].getClassName() + "()]"):"") + Color.WHITE + " [" + Color.CYAN_BOLD_BRIGHT + messageType + Color.WHITE + "]" + Color.RESET + " : " + Color.RED_BOLD_BRIGHT + message + Color.RESET;
+		String s = Color.GREEN_BOLD + "#" + Thread.currentThread().getStackTrace()[2].getLineNumber() + " in " + Thread.currentThread().getStackTrace()[2].getClassName() + "[" + Thread.currentThread().getStackTrace()[2].getMethodName() + "()]" + Color.PURPLE + ((Debug.SHOW_CALLERS && Thread.currentThread().getStackTrace().length == 4)?(" from " + Thread.currentThread().getStackTrace()[3].getClassName() + "[" + Thread.currentThread().getStackTrace()[3].getMethodName() + "()]{" + Thread.currentThread().getStackTrace()[3].getLineNumber() +"}"):"") + Color.WHITE + " [" + Color.CYAN_BOLD_BRIGHT + messageType + Color.WHITE + "]" + Color.RESET + " : " + Color.RED_BOLD_BRIGHT + message + Color.RESET;
 		System.out.println(s);
 		addLine(s);
 		addLineToFinalLog(s);
@@ -61,7 +61,7 @@ public class DebuggerConsole {
 	
 	public void printCustomMSGColorLog(String messageType, String color, String message) {
 		if(!checkIfOperational(Thread.currentThread().getStackTrace()[2].getClassName(), messageType)) return;
-		String s = Color.GREEN_BOLD + "#" + Thread.currentThread().getStackTrace()[2].getLineNumber() + " in " + Thread.currentThread().getStackTrace()[2].getClassName() + "[" + Thread.currentThread().getStackTrace()[2].getMethodName() + "()]" + Color.PURPLE + ((Debug.SHOW_CALLERS && Thread.currentThread().getStackTrace().length == 4)?(" from " + Thread.currentThread().getStackTrace()[3].getClassName() + "[" + Thread.currentThread().getStackTrace()[3].getClassName() + "()]"):"") + Color.WHITE + " [" + Color.CYAN_BOLD_BRIGHT + messageType + Color.WHITE + "]" + Color.RESET + " : " + color + message + Color.RESET;
+		String s = Color.GREEN_BOLD + "#" + Thread.currentThread().getStackTrace()[2].getLineNumber() + " in " + Thread.currentThread().getStackTrace()[2].getClassName() + "[" + Thread.currentThread().getStackTrace()[2].getMethodName() + "()]" + Color.PURPLE + ((Debug.SHOW_CALLERS && Thread.currentThread().getStackTrace().length == 4)?(" from " + Thread.currentThread().getStackTrace()[3].getClassName() + "[" + Thread.currentThread().getStackTrace()[3].getMethodName() + "()]{" + Thread.currentThread().getStackTrace()[3].getLineNumber() +"}"):"") + Color.WHITE + " [" + Color.CYAN_BOLD_BRIGHT + messageType + Color.WHITE + "]" + Color.RESET + " : " + color + message + Color.RESET;
 		System.out.println(s);
 		addLine(s);
 		addLineToFinalLog(s);

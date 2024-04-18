@@ -13,8 +13,7 @@ public class ComponentEnd extends Component{
 	
 	public Object execute() {
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage , "Executing...");
-		MemoryStorage.getInstance().destroyVariables();
-		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Program ends. Memory deleted.");
+		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Program ends.");
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Executed.");
 		return null;
 	}

@@ -21,8 +21,7 @@ public class Main {
 		final Semaphore WAIT_S = new Semaphore(0);
 		final Timer TIMER = new Timer(EXECUTE_S, WAIT_S);
 		final AlgorithmExecuter ALGORITHM_EXECUTER = new AlgorithmExecuter(EXECUTE_S, WAIT_S, TIMER);
-		final MemoryStorage MEMORY = new MemoryStorage();
-		final ContentPaneController CONTROLLER = new ContentPaneController(ALGORITHM_EXECUTER, TIMER, MEMORY, MAIN_FRAME.getContentPanel());
+		final ContentPaneController CONTROLLER = new ContentPaneController(ALGORITHM_EXECUTER, TIMER, MAIN_FRAME.getContentPanel());
 		MAIN_FRAME.setVisible(true);
 	}
 	

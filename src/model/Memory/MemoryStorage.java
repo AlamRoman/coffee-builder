@@ -3,6 +3,11 @@ package model.Memory;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import model.Debug;
 import model.DebuggerConsole;
 import model.Exceptions;
 import model.Components.Component;
@@ -80,6 +85,7 @@ public class MemoryStorage {
 	
 	public void destroyVariables() {
 		memory.clear();
+		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Memory deleted.");
 	}
 	
 	public static void destroyInstance() {
@@ -149,6 +155,23 @@ public class MemoryStorage {
         return sb.toString();
     }
 	
+	public JTable createMemoryTable() {
+        // Creazione del modello della tabella
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Type");
+        model.addColumn("Variable Name");
+        model.addColumn("Value");
+
+        // Aggiunta delle righe alla tabella
+        for (Variable var : memory) {
+            model.addRow(new Object[]{var.getType(), var.getName(), var.getValue()});
+        }
+
+        // Creazione della JTable con il modello creato
+        JTable table = new JTable(model);
+        return table;
+    }
+	
 	public void showComponents() {
 		System.out.println("\n" + this.printComponents() + "\n");
 	}
@@ -169,7 +192,7 @@ public class MemoryStorage {
 		return components.get(components.size()-1);
 	}
 
-	public void initializeDefaultComponents() {
+	public void initializeDefaultComponents() throws Exceptions {
 		components.add(new ComponentEnd());
 		components.add(0, new ComponentStart(components.get(0)));
 		

@@ -22,6 +22,7 @@ import javax.swing.text.DefaultFormatter;
 import controller.ContentPaneController;
 
 import javax.swing.JSpinner;
+import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
@@ -40,6 +41,7 @@ public class Panel extends JPanel {
 	private JSpinner millisecondi;
 	private JRadioButton rdbtnAutoRun;
 	private JButton endButton;
+	private JScrollPane scrollPane_2;
 
 	public Panel() {
 
@@ -153,7 +155,7 @@ public class Panel extends JPanel {
 		FlowChartContentPanel flowChartContenPane = new FlowChartContentPanel();
 		scrollPane.setViewportView(flowChartContenPane);
 		
-		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2 = new JScrollPane();
 		GridBagConstraints gbc_scrollPane_2 = new GridBagConstraints();
 		gbc_scrollPane_2.insets = new Insets(0, 0, 5, 0);
 		gbc_scrollPane_2.fill = GridBagConstraints.BOTH;
@@ -221,6 +223,10 @@ public class Panel extends JPanel {
 	public boolean isAutoRun() {
 		return rdbtnAutoRun.isSelected();
 	}
+	
+	public void setMemoryTableInDebugPanel(JTable memoryTable) {
+        scrollPane_2.setViewportView(memoryTable);
+    }
 
 	public void registerEvents(ContentPaneController controller) {
 		// TODO Auto-generated method stub

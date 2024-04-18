@@ -3,6 +3,8 @@ package model.Components;
 import model.DebuggerConsole;
 import model.Exceptions;
 import model.Memory.MemoryStorage;
+import model.Memory.Variable;
+import model.Memory.VariableType;
 
 public class ComponentStart extends Component{
 
@@ -18,6 +20,11 @@ public class ComponentStart extends Component{
 		// TODO Auto-generated method stub
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage , "Executing...");
 		MemoryStorage MS = MemoryStorage.getInstance();
+		MS.destroyVariables();
+		//DELETE WHEN NOT TESTING-----------------------------------------------
+		MS.addVariable(new Variable(VariableType.String, "Ciao", "ciao"));
+		MS.addVariable(new Variable(VariableType.String, "Ciao2", "ciao2"));
+		//----------------------------------------------------------------------
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Program starts. Memory has been created.");
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Executed.");
 		super.setMemory(MS);

@@ -8,7 +8,6 @@ import model.Debug;
 import model.DebuggerConsole;
 import model.Exceptions;
 import model.Timer;
-import model.Components.ComponentAdd;
 import model.Components.ComponentAssign;
 import model.Components.ComponentComment;
 import model.Components.ComponentDeclaration;
@@ -35,7 +34,7 @@ public class AlgorithmTester {
 		Semaphore wait = new Semaphore(0);
 		MemoryStorage MEMORY = MemoryStorage.getInstance();
 		ComponentEnd end = new ComponentEnd();
-		ComponentAdd ADD__1 = new ComponentAdd();
+//		ComponentAdd ADD__1 = new ComponentAdd()
 		
 		ComponentComment comment_1 = new ComponentComment(end, null, MEMORY);
 		comment_1.set("This is a comment");

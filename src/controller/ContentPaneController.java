@@ -19,12 +19,21 @@ public class ContentPaneController extends Controller{
 	private static final String referenceType = "CP-CONTROLLER";
 	private Panel panel;
 
-	public ContentPaneController(AlgorithmExecuter ALGORITHM_EXECUTER, Timer TIMER, MemoryStorage MEMORY, Panel panel) {
-		super(ALGORITHM_EXECUTER, TIMER, MEMORY);
+	public ContentPaneController(AlgorithmExecuter ALGORITHM_EXECUTER, Timer TIMER, Panel panel) {
+		super(ALGORITHM_EXECUTER, TIMER, MemoryStorage.getInstance());
 		// TODO Auto-generated constructor stub
 		this.panel = panel;
 		panel.registerEvents(this);
-		super.getMemory().initializeDefaultComponents();
+		ALGORITHM_EXECUTER.setController(this);
+		
+		//REMOVE THIS TRY-CATCH BLOCK WHEN NOT TESTING~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		try {
+			super.getMemory().initializeDefaultComponents();
+//			updateTable();
+		} catch (Exceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -46,6 +55,7 @@ public class ContentPaneController extends Controller{
 					} catch (Exception exception) {
 						System.err.println(exception.getMessage());
 					}
+//					updateTable();
 				}
 				break;
 			case "END":
@@ -64,6 +74,17 @@ public class ContentPaneController extends Controller{
 			panel.setMillisecondsUsable(false);
 		}
 		
+	}
+
+	public void updateTable() {
+		// TODO Auto-generated method stub
+		DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Updating table...");
+		panel.setMemoryTableInDebugPanel(MemoryStorage.getInstance().createMemoryTable());
+		DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Table updated.");
+	}
+	
+	public void deleteVariablesFromMemoryStorage() {
+		MemoryStorage.getInstance().destroyVariables();
 	}
 
 }
