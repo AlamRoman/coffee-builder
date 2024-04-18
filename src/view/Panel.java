@@ -145,6 +145,9 @@ public class Panel extends JPanel {
 		
 		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		//scroll pane velocity
+		scrollPane.getVerticalScrollBar().setUnitIncrement(15);
+        scrollPane.getHorizontalScrollBar().setUnitIncrement(15); 
 		add(scrollPane, gbc_scrollPane);
 		
 		FlowChartContentPanel flowChartContenPane = new FlowChartContentPanel();

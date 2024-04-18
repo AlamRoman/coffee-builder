@@ -6,6 +6,7 @@ import model.Components.ComponentAssign;
 import model.Components.ComponentComment;
 import model.Components.ComponentEnd;
 import model.Components.ComponentIf;
+import model.Components.ComponentInput;
 import model.Components.ComponentOutput;
 import model.Components.ComponentStart;
 import model.Components.ComponentWhile;
@@ -65,11 +66,17 @@ public class FlowChartContentPanel extends JPanel {
 		tt.set("ciao", RelationalOperators.EQUAL_TO, "ciao");
 		RhombusPanel alam = new RhombusPanel(tt, null);
 		alam.setBounds(100, 500, 180, 80);
+		
+		ComponentInput ci = new ComponentInput(null, null, null);
+		ci.set("var");
+		ParallelogramPanel inputPanel = new ParallelogramPanel(ci, null);
+		inputPanel.setBounds(100, 700, 180, 80);
 
 		add(ciao);
 		add(ok);
 		add(alam);
 		add(russo);
+		add(inputPanel);
 
 	}
 }
