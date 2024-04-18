@@ -42,57 +42,41 @@ public class FlowChartPanel extends JPanel {
 		this.controller = controller;
 		buttons = new JButton[4];
 		this.associatedComponent = associatedComponent;
-		if(associatedComponent instanceof ComponentWhile) {
-			createButtons(false, true, true, false);
-		}else if(associatedComponent instanceof ComponentIf) {
-			createButtons(false, true, false, true);
-		}else if(associatedComponent instanceof ComponentStart) {
+		if(associatedComponent instanceof Component) {
 			createButtons(false, false, true, false);
-		}else if(associatedComponent instanceof ComponentEnd) {
-			createButtons(true, false, false, false);
-		}else if(associatedComponent instanceof ComponentAssign
-				|| associatedComponent instanceof ComponentDeclaration
-				|| associatedComponent instanceof ComponentOperation
-				|| associatedComponent instanceof ComponentOutput
-				|| associatedComponent instanceof ComponentInput
-				|| associatedComponent instanceof ComponentComment) {
-			createButtons(true, false, true, false);
 		}
 		addCenteredLabelWithComponentInfo();
 	}
 
 	private void createButtons(boolean top, boolean right, boolean bottom, boolean left) {
 		// TODO Auto-generated method stub
-		if(top) {
-			buttons[0] = new JButton("ADD");
-			buttons[0].setBounds(70, 0, 40, 20);
-			buttons[0].setFocusable(false);
-		}
-		if(right) {
-			buttons[1] = new JButton("ADD");
-			buttons[1].setBounds(0, 30, 40, 20);
-			buttons[1].setFocusable(false);
-		}
+//		if(top) {
+//			buttons[0] = new JButton("ADD");
+//			buttons[0].setBounds(70, 0, 40, 20);
+//			buttons[0].setFocusable(false);
+//		}
+//		if(right) {
+//			buttons[1] = new JButton("ADD");
+//			buttons[1].setBounds(0, 30, 40, 20);
+//			buttons[1].setFocusable(false);
+//		}
 		if(bottom) {
 			buttons[2] = new JButton("ADD");
 			buttons[2].setBounds(70, 60, 40, 20);
 			buttons[2].setFocusable(false);
 		}
-		if(left) {
-			buttons[3] = new JButton("ADD");
-			buttons[3].setBounds(140, 30, 40, 20);
-			buttons[3].setFocusable(false);
-		}
-		for(JButton btn : buttons) {
-			if(btn != null) {
-				btn.setBorder(null);
-				btn.setPreferredSize(new Dimension(40, 20));
-				btn.setFont(new FontUIResource("Rubik", Font.PLAIN, 8));
-				btn.setActionCommand(ACTION_COMMAND_ADD_BUTTON);
-				btn.addActionListener(controller);
-				add(btn);
-			}
-		}
+//		if(left) {
+//			buttons[3] = new JButton("ADD");
+//			buttons[3].setBounds(140, 30, 40, 20);
+//			buttons[3].setFocusable(false);
+//		}
+		buttons[2].setBorder(null);
+		buttons[2].setPreferredSize(new Dimension(40, 20));
+		buttons[2].setFont(new FontUIResource("Rubik", Font.PLAIN, 8));
+		buttons[2].setActionCommand(ACTION_COMMAND_ADD_BUTTON);
+		buttons[2].addActionListener(controller);
+		add(buttons[2]);
+		
 	}
 	
 	private void addCenteredLabelWithComponentInfo() {

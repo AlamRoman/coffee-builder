@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.JPanel;
 
+import controller.FlowChartController;
 import model.Components.ComponentAssign;
 import model.Components.ComponentComment;
 import model.Components.ComponentEnd;
@@ -49,28 +50,28 @@ public class FlowChartContentPanel extends JPanel {
 		ComponentOutput output = new ComponentOutput(null, null, null);
 	    output.set("ciao");
 
-		ParallelogramPanel ciao = new ParallelogramPanel(output, null);
+		ParallelogramPanel ciao = new ParallelogramPanel(output, FlowChartController.getIstance());
 		ciao.setBounds(200, 130, 180, 80);
 
-		OvalPanel ok = new OvalPanel(new ComponentStart(null), null);
+		OvalPanel ok = new OvalPanel(new ComponentStart(null), FlowChartController.getIstance());
 		ok.setBounds(20, 20, 180, 80);
 
-		OvalPanel ok2 = new OvalPanel(new ComponentEnd(), null);
+		OvalPanel ok2 = new OvalPanel(new ComponentEnd(), FlowChartController.getIstance());
 		ok2.setBounds(20, 15000, 180, 80);
 		
 		
-		RectanglePanel russo = new RectanglePanel(new ComponentComment(null, null, null), null);
+		RectanglePanel russo = new RectanglePanel(new ComponentComment(null, null, null), FlowChartController.getIstance());
 		russo.setBounds(200, 230, 180, 80);
 		
 		ComponentWhile tt = new ComponentWhile(null, null);
 		tt.set("ciao", RelationalOperators.EQUAL_TO, "ciao");
-		RhombusPanel alam = new RhombusPanel(tt, null);
+		RhombusPanel alam = new RhombusPanel(tt, FlowChartController.getIstance());
 		alam.setBounds(200, 330, 180, 80);
 		alam.setBounds(100, 500, 180, 80);
 		
 		ComponentInput ci = new ComponentInput(null, null, null);
 		ci.set("var");
-		ParallelogramPanel inputPanel = new ParallelogramPanel(ci, null);
+		ParallelogramPanel inputPanel = new ParallelogramPanel(ci, FlowChartController.getIstance());
 		inputPanel.setBounds(100, 700, 180, 80);
 
 		

@@ -4,10 +4,12 @@ import java.util.concurrent.Semaphore;
 
 import controller.ContentPaneController;
 import controller.Controller;
+import controller.FlowChartController;
 import model.AlgorithmExecuter;
 import model.Timer;
 import model.Memory.MemoryStorage;
 import model.Memory.RelationalOperators;
+import view.FlowChartContentPanel;
 import view.Frame;
 
 public class Main {
