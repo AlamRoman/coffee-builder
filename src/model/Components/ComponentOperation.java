@@ -181,38 +181,42 @@ public class ComponentOperation extends Component{
 
 	
 	public String print() {
-		
-		String out= variableName;
-		
-		out += " = ";
-		out += variableFirstOperandName;
-		out += " ";
-		
-		switch (operation) {
-		case  ADD: {
-			out+="+";
-			break;
+		String out = "";
+		try {
+			out += variableName;
+			
+			out += " = ";
+			out += variableFirstOperandName;
+			out += " ";
+			
+			switch (operation) {
+			case  ADD: {
+				out+="+";
+				break;
+				}
+			case  SUB: {
+				out+="-";
+				break;
+				}
+			case  DIV: {
+				out+="/";
+				break;
+				}
+			case  MOD: {
+				out+="%";
+				break;
+				}
+			case  MUL: {
+				out+="*";
+				break;
+				}
 			}
-		case  SUB: {
-			out+="-";
-			break;
-			}
-		case  DIV: {
-			out+="/";
-			break;
-			}
-		case  MOD: {
-			out+="%";
-			break;
-			}
-		case  MUL: {
-			out+="*";
-			break;
-			}
+			
+			out += " ";
+			out += variableSecondOperandName;
+		} catch (Exception e) {
+			out = "Operation";
 		}
-		
-		out += " ";
-		out += variableSecondOperandName;
 		
 		DebuggerConsole.getInstance().printCustomMSGColorLog(referenceTypeMessage + "-PRINT-OUTPUT", Color.PURPLE, "Showing: '" + out + "' to the panel");
 		return out;

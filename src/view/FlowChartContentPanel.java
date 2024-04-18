@@ -7,6 +7,7 @@ import model.Components.ComponentComment;
 import model.Components.ComponentEnd;
 import model.Components.ComponentIf;
 import model.Components.ComponentInput;
+import model.Components.ComponentOperation;
 import model.Components.ComponentOutput;
 import model.Components.ComponentStart;
 import model.Components.ComponentWhile;
@@ -72,6 +73,11 @@ public class FlowChartContentPanel extends JPanel {
 		ci.set("var");
 		ParallelogramPanel inputPanel = new ParallelogramPanel(ci, null);
 		inputPanel.setBounds(100, 700, 180, 80);
+		
+		ComponentOperation co = new ComponentOperation(null, null, null);
+		
+		RectanglePanel operationPanel = new RectanglePanel(co, null);
+		operationPanel.setBounds(100, 900, 180, 80);
 
 		
 		
@@ -81,6 +87,7 @@ public class FlowChartContentPanel extends JPanel {
 		add(alam);
 		add(russo);
 		add(inputPanel);
+		add(operationPanel);
 
 	}
 }
