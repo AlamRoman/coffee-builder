@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
+import java.util.concurrent.Semaphore;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -19,7 +20,7 @@ public class ContentPaneController extends Controller{
 	private static final String referenceType = "CP-CONTROLLER";
 	private Panel panel;
 
-	public ContentPaneController(AlgorithmExecuter ALGORITHM_EXECUTER, Timer TIMER, Panel panel) {
+	public ContentPaneController(AlgorithmExecuter ALGORITHM_EXECUTER, Timer TIMER, Semaphore execute, Semaphore wait, Panel panel) {
 		super(ALGORITHM_EXECUTER, TIMER, MemoryStorage.getInstance());
 		// TODO Auto-generated constructor stub
 		this.panel = panel;
@@ -41,22 +42,32 @@ public class ContentPaneController extends Controller{
 		// TODO Auto-generated method stub
 		switch(e.getActionCommand()) {
 			case "START":
-				if(panel.isAutoRun() && panel.getStartStatus()) {
-					int ms = panel.getMilliseconds();
-					DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "User setted " + ms + "ms as the execution delay");
-					try {
-						DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Setting timer to " + ms + "ms");
-						super.getTimer().set(ms);
-						Component c = super.getMemory().getStartComponent();
-						DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Running the executer with start component: " + c.getClass().getSimpleName());
-						super.getExecuter().start(super.getMemory().getStartComponent());
-					} catch (Exceptions customException) {
-						JOptionPane.showMessageDialog(panel, customException.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
-					} catch (Exception exception) {
-						System.err.println(exception.getMessage());
+				
+				if(panel.getExecuteButtonStatus()) {
+					//SE IL PROGRAMMA NON E' IN ESECUZIONE---------------------------------------------------------------------------
+					if(panel.isAutoRun()) {
+						//SE IL PROGRAMMA E' IN MODALITA' AUTORUN-------------------------------------------------------
+						int ms = panel.getMilliseconds();
+						DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "User setted " + ms + "ms as the execution delay");
+						try {
+							DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Setting timer to " + ms + "ms");
+							super.getTimer().set(ms);
+							Component c = super.getMemory().getStartComponent();
+							DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Running the executer with start component: " + c.getClass().getSimpleName());
+							super.getExecuter().start(super.getMemory().getStartComponent());
+						} catch (Exceptions customException) {
+							JOptionPane.showMessageDialog(panel, customException.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+						} catch (Exception exception) {
+							System.err.println(exception.getMessage());
+						}
+						//----------------------------------------------------------------------------------------------
+					}else{
+						//SE IL PROGRAMMA E' IN MODALITA' MANUAL--------------------------------------------------------
+						super.getTimer().setPanelInstance(panel.getPanelInstance());
+						//----------------------------------------------------------------------------------------------
 					}
-//					updateTable();
 				}
+				//IL PROGRAMMA E' ANCORA IN ESECUZIONE...
 				break;
 			case "END":
 				break;

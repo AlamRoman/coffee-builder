@@ -42,12 +42,14 @@ public class FlowChartController extends Controller{
 			JButton button = (JButton) source;
 			FCPanel = (FlowChartPanel) button.getParent();
 		}
-		//MOSTRA IL CMD
+//MOSTRA IL CMD--------------------------------------------
 //		System.out.println(e.getActionCommand());
-		//MOSTRA DA DOVE PROVIENE IL CMD
-		System.out.println(e.getSource());
-		//MOSTRA IL PANNELLO CHE CONTIENE IL BOTTONE PREMUTO
-		System.out.println(FCPanel);
+		
+//MOSTRA DA DOVE PROVIENE IL CMD---------------------------
+//		System.out.println(e.getSource());
+		
+//MOSTRA IL PANNELLO CHE CONTIENE IL BOTTONE PREMUTO-------
+//		System.out.println(FCPanel);
 		
 		switch (e.getActionCommand()) {
 		case "ADD": {

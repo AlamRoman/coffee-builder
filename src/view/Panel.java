@@ -254,7 +254,7 @@ public class Panel extends JPanel {
 		this.millisecondi.setEnabled(value);
 	}
 
-	public boolean getStartStatus() {
+	public boolean getExecuteButtonStatus() {
 		return executeButton.isSelected();
 	}
 }

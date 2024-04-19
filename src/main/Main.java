@@ -21,7 +21,7 @@ public class Main {
 		final Semaphore WAIT_S = new Semaphore(0);
 		final Timer TIMER = new Timer(EXECUTE_S, WAIT_S);
 		final AlgorithmExecuter ALGORITHM_EXECUTER = new AlgorithmExecuter(EXECUTE_S, WAIT_S, TIMER);
-		final ContentPaneController CONTROLLER = new ContentPaneController(ALGORITHM_EXECUTER, TIMER, MAIN_FRAME.getContentPanel());
+		final ContentPaneController CONTROLLER = new ContentPaneController(ALGORITHM_EXECUTER, TIMER, EXECUTE_S, WAIT_S, MAIN_FRAME.getContentPanel());
 		final FlowChartController CONTROLLER_FLOWCHART = new FlowChartController(ALGORITHM_EXECUTER, TIMER, MAIN_FRAME.getContentPanel().getFlowChartPanel());
 		MAIN_FRAME.setVisible(true);
 	}
