@@ -42,7 +42,6 @@ public class AlgorithmExecuter implements Runnable{
 		//Finche il componente non è nullo (arrivati alla fine)
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceType+"-THREAD", "Thread initialized. Running until 'component != null'");
 				while (component!=null) {
-					
 					DebuggerConsole.getInstance().printDefaultInfoLog(referenceType+"-THREAD", "Waiting wait Semaphore");
 					try {
 						wait.acquire();

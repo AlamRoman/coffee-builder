@@ -45,13 +45,13 @@ public class ContentPaneController extends Controller{
 				
 				if(panel.getExecuteButtonStatus()) {
 					//SE IL PROGRAMMA NON E' IN ESECUZIONE---------------------------------------------------------------------------
-					if(panel.isAutoRun()) {
+//					if(panel.isAutoRun()) {
 						//SE IL PROGRAMMA E' IN MODALITA' AUTORUN-------------------------------------------------------
 						int ms = panel.getMilliseconds();
 						DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "User setted " + ms + "ms as the execution delay");
 						try {
 							DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Setting timer to " + ms + "ms");
-							super.getTimer().set(ms);
+							super.getTimer().set(ms, panel.isAutoRun());
 							Component c = super.getMemory().getStartComponent();
 							DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Running the executer with start component: " + c.getClass().getSimpleName());
 							super.getExecuter().start(super.getMemory().getStartComponent());
@@ -61,13 +61,16 @@ public class ContentPaneController extends Controller{
 							System.err.println(exception.getMessage());
 						}
 						//----------------------------------------------------------------------------------------------
-					}else{
+//					}else{
 						//SE IL PROGRAMMA E' IN MODALITA' MANUAL--------------------------------------------------------
-						super.getTimer().setPanelInstance(panel.getPanelInstance());
 						//----------------------------------------------------------------------------------------------
-					}
+//					}
 				}
 				//IL PROGRAMMA E' ANCORA IN ESECUZIONE...
+				break;
+			case "NEXT":
+				DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Next button got clicked. Sending info to the timer");
+				super.getTimer().nextButtonGotClicked = true;
 				break;
 			case "END":
 				break;
@@ -97,5 +100,11 @@ public class ContentPaneController extends Controller{
 	public void deleteVariablesFromMemoryStorage() {
 		MemoryStorage.getInstance().destroyVariables();
 	}
+	
+//	public void nextButtonClicked() {
+//	    if (!panel.isAutoRun()) {
+//	        super.getTimer().next();
+//	    }
+//	}
 
 }
