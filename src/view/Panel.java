@@ -132,6 +132,7 @@ public class Panel extends JPanel {
 		gbc_nextButton.gridy = 0;
 		nextButton.setEnabled(false);
 		panel.add(nextButton, gbc_nextButton);
+		nextButton.setFocusable(false);
 		
 		JLabel lblNewLabel = new JLabel("Debugger");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();

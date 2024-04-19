@@ -12,6 +12,7 @@ import model.Components.ComponentOperation;
 import model.Components.ComponentOutput;
 import model.Components.ComponentStart;
 import model.Components.ComponentWhile;
+import model.Memory.OperationType;
 import model.Memory.RelationalOperators;
 import view.flowChartComponents.OvalPanel;
 import view.flowChartComponents.ParallelogramPanel;
@@ -74,7 +75,7 @@ public class FlowChartContentPanel extends JPanel {
 		inputPanel.setBounds(100, 700, 180, 80);
 		
 		ComponentOperation co = new ComponentOperation(null, null, null);
-		
+		co.set("$var1", "$var2", "$var3", OperationType.DIV);
 		RectanglePanel operationPanel = new RectanglePanel(co, null);
 		operationPanel.setBounds(100, 900, 180, 80);
 

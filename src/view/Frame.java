@@ -13,6 +13,7 @@ import model.Components.ComponentEnd;
 import model.Components.ComponentIf;
 import model.Components.ComponentOutput;
 import model.Memory.RelationalOperators;
+import view.editComponents.AddComponent;
 import view.flowChartComponents.ParallelogramPanel;
 
 public class Frame extends JFrame {
