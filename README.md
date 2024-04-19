@@ -14,7 +14,13 @@ An algorithm creator and editor fully coded in Java that lets you use different 
 - Input
 - Comment
  
+This program also gives you two different type of executions for your algorithm:
 
+- AutoRun: The program executes everything alone without the need to press any other button besides START, you can also set a delay between the execution of the components
+- Manual: After clicking the START button you can manually proceed with the step-by-step execution just by clicking the NEXT button
+
+The program also has two views, one is the debug view which shows all current variables generated step by step by the algorithm through all assignments, declarations and operations;
+the other one, Output, allows you to see all the program outputs via the OUTPUT component
 
 ## Program made by:
 
