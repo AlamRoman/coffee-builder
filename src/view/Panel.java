@@ -29,6 +29,8 @@ import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.JRadioButton;
 
 public class Panel extends JPanel {
@@ -42,6 +44,7 @@ public class Panel extends JPanel {
 	private JRadioButton rdbtnAutoRun;
 	private JButton endButton;
 	private JScrollPane scrollPane_2;
+	private FlowChartContentPanel flowChartContenPane;
 
 	public Panel() {
 
@@ -152,7 +155,7 @@ public class Panel extends JPanel {
         scrollPane.getHorizontalScrollBar().setUnitIncrement(15); 
 		add(scrollPane, gbc_scrollPane);
 		
-		FlowChartContentPanel flowChartContenPane = new FlowChartContentPanel();
+		flowChartContenPane = new FlowChartContentPanel();
 		scrollPane.setViewportView(flowChartContenPane);
 		
 		scrollPane_2 = new JScrollPane();
@@ -206,6 +209,10 @@ public class Panel extends JPanel {
 
 	public void setOutputArea(String text) {
 		outputArea.setText(text);
+	}
+	
+	public FlowChartContentPanel getFlowChartPanel() {
+		return this.flowChartContenPane;
 	}
 
 	public String getDebuggerText() {

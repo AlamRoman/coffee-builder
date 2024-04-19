@@ -33,10 +33,21 @@ public class FlowChartContentPanel extends JPanel {
 		setLayout(null);
 		
 		setSize(10000, 10000);
-		
-		
+
+	}
+	
+	public void setControllerAttribute(FlowChartController controller) {
+		this.FC_Controller = controller;
+		addComps();
+	}
+	
+	//METODO CHIAMATO D-O-P-O LA CONNESSIONE AL CONTROLLER
+	private void addComps() {
+		// TODO Auto-generated method stub
 		ComponentOutput output = new ComponentOutput(null, null, null);
 	    output.set("ciao");
+	    
+//	    System.out.println(FC_Controller);
 
 		ParallelogramPanel ciao = new ParallelogramPanel(output, FC_Controller);
 		ciao.setBounds(200, 130, 180, 80);
@@ -76,9 +87,8 @@ public class FlowChartContentPanel extends JPanel {
 		add(russo);
 		add(inputPanel);
 		add(operationPanel);
-
 	}
-	
+
 	public Dimension getPreferredSize() {
         int maxX = 0;
         int maxY = 0;
