@@ -42,6 +42,7 @@ public class FlowChartPanel extends JPanel {
 		setLayout(null);
 		setPreferredSize(new Dimension(180, 80));
 		this.controller = controller;
+		addMouseListener(controller);
 		buttons = new JButton[4];
 		this.associatedComponent = associatedComponent;
 		if(associatedComponent instanceof AlgorithmComponent) {
