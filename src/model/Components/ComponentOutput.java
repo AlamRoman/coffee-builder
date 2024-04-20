@@ -16,6 +16,7 @@ public class ComponentOutput extends AlgorithmComponent{
 		super(nextComponent1, nextComponent2, memory);
 		
 		outPutText = "";
+		rawOutPutString="";
 	}
 	
 	public void set(String outPut){
@@ -62,9 +63,9 @@ public class ComponentOutput extends AlgorithmComponent{
 
 	@Override
 	public String print() {
-		String out = "OUT ";
+		String out = "OUT \"";
 		
-		out += rawOutPutString;
+		out += rawOutPutString + "\"";
 		
 		return out;
 	}
