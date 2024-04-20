@@ -11,7 +11,7 @@ import model.AlgorithmExecuter;
 import model.DebuggerConsole;
 import model.Exceptions;
 import model.Timer;
-import model.Components.Component;
+import model.Components.AlgorithmComponent;
 import model.Memory.MemoryStorage;
 import view.Panel;
 
@@ -28,13 +28,13 @@ public class ContentPaneController extends Controller{
 		ALGORITHM_EXECUTER.setController(this);
 		
 		//REMOVE THIS TRY-CATCH BLOCK WHEN NOT TESTING~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		try {
-			super.getMemory().initializeDefaultComponents();
-//			updateTable();
-		} catch (Exceptions e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			super.getMemory().initializeDefaultComponents();
+////			updateTable();
+//		} catch (Exceptions e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class ContentPaneController extends Controller{
 						try {
 							DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Setting timer to " + ms + "ms");
 							super.getTimer().set(ms, panel.isAutoRun());
-							Component c = super.getMemory().getStartComponent();
+							AlgorithmComponent c = super.getMemory().getStartComponent();
 							DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Running the executer with start component: " + c.getClass().getSimpleName());
 							super.getExecuter().start(super.getMemory().getStartComponent());
 						} catch (Exceptions customException) {
@@ -99,6 +99,11 @@ public class ContentPaneController extends Controller{
 	
 	public void deleteVariablesFromMemoryStorage() {
 		MemoryStorage.getInstance().destroyVariables();
+	}
+
+	public void showErrorDialog(String message) {
+		// TODO Auto-generated method stub
+		JOptionPane.showMessageDialog(panel, message, "Errore", JOptionPane.ERROR_MESSAGE);
 	}
 	
 //	public void nextButtonClicked() {
