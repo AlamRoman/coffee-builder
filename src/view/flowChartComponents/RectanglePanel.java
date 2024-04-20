@@ -7,11 +7,11 @@ import java.awt.Graphics2D;
 import controller.Controller;
 import controller.FlowChartController;
 import model.ID;
-import model.Components.Component;
+import model.Components.AlgorithmComponent;
 
 public class RectanglePanel extends FlowChartPanel {
 	
-	public RectanglePanel(Component associatedComponent, FlowChartController controller) {
+	public RectanglePanel(AlgorithmComponent associatedComponent, FlowChartController controller) {
 		super(associatedComponent, controller);
 		// TODO Auto-generated constructor stub
 	}

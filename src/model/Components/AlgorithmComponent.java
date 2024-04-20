@@ -3,13 +3,13 @@ package model.Components;
 import model.Exceptions;
 import model.Memory.MemoryStorage;
 
-public class Component {
+public class AlgorithmComponent {
 
-	private Component nextComponent1;
-	private Component nextComponent2;
+	private AlgorithmComponent nextComponent1;
+	private AlgorithmComponent nextComponent2;
 	private MemoryStorage memory;
 	
-	public Component(Component nextComponent1, Component nextComponent2, MemoryStorage memory) {
+	public AlgorithmComponent(AlgorithmComponent nextComponent1, AlgorithmComponent nextComponent2, MemoryStorage memory) {
 		super();
 		this.nextComponent1 = nextComponent1;
 		this.nextComponent2 = nextComponent2;
@@ -20,7 +20,7 @@ public class Component {
 		return null;
 	}
 	
-	public Component getNextComponent() {
+	public AlgorithmComponent getNextComponent() {
 		return null;
 	}
 	
@@ -28,19 +28,19 @@ public class Component {
 		return null;
 	}
 
-	public Component getNextComponent1() {
+	public AlgorithmComponent getNextComponent1() {
 		return nextComponent1;
 	}
 
-	public void setNextComponent1(Component nextComponent1) {
+	public void setNextComponent1(AlgorithmComponent nextComponent1) {
 		this.nextComponent1 = nextComponent1;
 	}
 
-	public Component getNextComponent2() {
+	public AlgorithmComponent getNextComponent2() {
 		return nextComponent2;
 	}
 
-	public void setNextComponent2(Component nextComponent2) {
+	public void setNextComponent2(AlgorithmComponent nextComponent2) {
 		this.nextComponent2 = nextComponent2;
 	}
 

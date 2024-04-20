@@ -18,7 +18,7 @@ import javax.swing.plaf.FontUIResource;
 import controller.Controller;
 import controller.FlowChartController;
 import model.ID;
-import model.Components.Component;
+import model.Components.AlgorithmComponent;
 import model.Components.ComponentAssign;
 import model.Components.ComponentComment;
 import model.Components.ComponentDeclaration;
@@ -33,18 +33,18 @@ import model.Components.ComponentWhile;
 public class FlowChartPanel extends JPanel {
 
 	private static final String ACTION_COMMAND_ADD_BUTTON = "ADD_COMPONENT";
-	public Component associatedComponent;
+	public AlgorithmComponent associatedComponent;
 	private final ID id = new ID();
 	public JButton[] buttons;
 	private final FlowChartController controller;
 	
-	public FlowChartPanel(Component associatedComponent, FlowChartController controller) {
+	public FlowChartPanel(AlgorithmComponent associatedComponent, FlowChartController controller) {
 		setLayout(null);
 		setPreferredSize(new Dimension(180, 80));
 		this.controller = controller;
 		buttons = new JButton[4];
 		this.associatedComponent = associatedComponent;
-		if(associatedComponent instanceof Component) {
+		if(associatedComponent instanceof AlgorithmComponent) {
 			createButtons(false, false, true, false);
 		}
 		addCenteredLabelWithComponentInfo();

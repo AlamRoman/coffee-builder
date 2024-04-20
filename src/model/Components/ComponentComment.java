@@ -4,12 +4,12 @@ import model.Color;
 import model.DebuggerConsole;
 import model.Memory.MemoryStorage;
 
-public class ComponentComment extends Component{
+public class ComponentComment extends AlgorithmComponent{
 
 	private static final String referenceTypeMessage = "C-COMMENT";
 	private String comment;
 
-	public ComponentComment(Component nextComponent1, Component nextComponent2, MemoryStorage memory) {
+	public ComponentComment(AlgorithmComponent nextComponent1, AlgorithmComponent nextComponent2, MemoryStorage memory) {
 		super(nextComponent1, nextComponent2, memory);
 		
 		this.comment = "";
@@ -27,7 +27,7 @@ public class ComponentComment extends Component{
 	}
 
 	@Override
-	public Component getNextComponent() {
+	public AlgorithmComponent getNextComponent() {
 		return super.getNextComponent1();
 	}
 

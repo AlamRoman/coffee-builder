@@ -6,12 +6,12 @@ import model.Memory.MemoryStorage;
 import model.Memory.Variable;
 import model.Memory.VariableType;
 
-public class ComponentStart extends Component{
+public class ComponentStart extends AlgorithmComponent{
 
 	private static final String referenceTypeMessage = "C-START";
-	private Component nextComponent;
+	private AlgorithmComponent nextComponent;
 	
-	public ComponentStart(Component nextComponent) {
+	public ComponentStart(AlgorithmComponent nextComponent) {
 		super(nextComponent, null, null);
 	}
 
@@ -30,7 +30,7 @@ public class ComponentStart extends Component{
 		super.setMemory(MS);
 		return  null;
 	}
-	public Component getNextComponent() {
+	public AlgorithmComponent getNextComponent() {
 		return super.getNextComponent1();
 	}
 

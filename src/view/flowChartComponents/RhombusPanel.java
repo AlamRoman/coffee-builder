@@ -6,11 +6,11 @@ import java.awt.Graphics2D;
 
 import controller.Controller;
 import controller.FlowChartController;
-import model.Components.Component;
+import model.Components.AlgorithmComponent;
 
 public class RhombusPanel extends FlowChartPanel {
 
-	public RhombusPanel(Component associatedComponent, FlowChartController controller) {
+	public RhombusPanel(AlgorithmComponent associatedComponent, FlowChartController controller) {
 		super(associatedComponent, controller);
 		// TODO Auto-generated constructor stub
 	}

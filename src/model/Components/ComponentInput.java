@@ -7,14 +7,14 @@ import model.Exceptions;
 import model.Memory.MemoryStorage;
 import model.Memory.Variable;
 
-public class ComponentInput extends Component{
+public class ComponentInput extends AlgorithmComponent{
 
 	private static final String referenceTypeMessage = "C-INPUT";
 	private Variable finalVar;
 	private String nomeVariabile;
 	private Object inputValue;
 	
-	public ComponentInput(Component nextComponent1, Component nextComponent2, MemoryStorage memory) {
+	public ComponentInput(AlgorithmComponent nextComponent1, AlgorithmComponent nextComponent2, MemoryStorage memory) {
 		super(nextComponent1, nextComponent2, memory);
 		
 		this.nomeVariabile = "";
@@ -47,7 +47,7 @@ public class ComponentInput extends Component{
 	}
 
 	@Override
-	public Component getNextComponent() {
+	public AlgorithmComponent getNextComponent() {
 		return super.getNextComponent1();
 	}
 

@@ -6,13 +6,13 @@ import model.Exceptions;
 import model.Memory.MemoryStorage;
 import model.Memory.Variable;
 
-public class ComponentOutput extends Component{
+public class ComponentOutput extends AlgorithmComponent{
 
 	private static final String referenceTypeMessage = "C-OUTPUT";
 	private String rawOutPutString;
 	private String outPutText;
 
-	public ComponentOutput(Component nextComponent1, Component nextComponent2, MemoryStorage memory) {
+	public ComponentOutput(AlgorithmComponent nextComponent1, AlgorithmComponent nextComponent2, MemoryStorage memory) {
 		super(nextComponent1, nextComponent2, memory);
 		
 		outPutText = "";
@@ -22,8 +22,11 @@ public class ComponentOutput extends Component{
 		//this function creates an output string with the values of the variables in it
 		//example: "The number is : $var" 
 		//if var = 5, output = "The number is : 5" 
-		
-		rawOutPutString = outPut;
+		if(outPut != null) {
+			rawOutPutString = outPut;			
+		}else {
+			rawOutPutString = "";
+		}
 	
 	}
 	
@@ -53,7 +56,7 @@ public class ComponentOutput extends Component{
 			return outPutText;
 	}
 	
-	public Component getNextComponent() {
+	public AlgorithmComponent getNextComponent() {
 		return super.getNextComponent1();
 	}
 

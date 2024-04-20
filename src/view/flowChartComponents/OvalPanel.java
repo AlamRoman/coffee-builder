@@ -6,11 +6,11 @@ import java.awt.Graphics2D;
 
 import controller.Controller;
 import controller.FlowChartController;
-import model.Components.Component;
+import model.Components.AlgorithmComponent;
 
 public class OvalPanel extends FlowChartPanel {
 
-	public OvalPanel(Component associatedComponent, FlowChartController controller) {
+	public OvalPanel(AlgorithmComponent associatedComponent, FlowChartController controller) {
 		super(associatedComponent, controller);
 		// TODO Auto-generated constructor stub
 	}

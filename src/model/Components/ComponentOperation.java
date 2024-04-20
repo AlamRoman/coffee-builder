@@ -9,7 +9,7 @@ import model.Memory.OperationType;
 import model.Memory.VariableType;
 import model.Memory.Variable;
 
-public class ComponentOperation extends Component{
+public class ComponentOperation extends AlgorithmComponent{
 
 	private String variableName;
 	private String variableFirstOperandName;
@@ -21,7 +21,7 @@ public class ComponentOperation extends Component{
 	private Variable variable2;
 	private static final String referenceTypeMessage = "C-OP";
 
-	public ComponentOperation(Component nextComponent1, Component nextComponent2, MemoryStorage memory) {
+	public ComponentOperation(AlgorithmComponent nextComponent1, AlgorithmComponent nextComponent2, MemoryStorage memory) {
 		
 		super(nextComponent1, nextComponent2, memory);
 		
@@ -175,7 +175,7 @@ public class ComponentOperation extends Component{
 		
 	}
 	
-	public Component getNextComponent() {
+	public AlgorithmComponent getNextComponent() {
 		return super.getNextComponent1();
 	}
 

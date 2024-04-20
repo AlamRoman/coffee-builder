@@ -3,7 +3,7 @@ package model.Components;
 import model.DebuggerConsole;
 import model.Memory.MemoryStorage;
 
-public class ComponentEnd extends Component{
+public class ComponentEnd extends AlgorithmComponent{
 
 	private static final String referenceTypeMessage = "C-END";
 
@@ -18,7 +18,7 @@ public class ComponentEnd extends Component{
 		return null;
 	}
 	
-	public Component getNextComponent() {
+	public AlgorithmComponent getNextComponent() {
 		return null;
 	}
 

@@ -6,14 +6,14 @@ import java.awt.Graphics2D;
 
 import controller.Controller;
 import controller.FlowChartController;
-import model.Components.Component;
+import model.Components.AlgorithmComponent;
 
 public class ParallelogramPanel extends FlowChartPanel {
 	
 	private static final int OFFSET_WIDTH = 10;
 	private static final int BUTTON_TOP_OFFSET = 10;
 	
-	public ParallelogramPanel(Component associatedComponent, FlowChartController controller) {
+	public ParallelogramPanel(AlgorithmComponent associatedComponent, FlowChartController controller) {
 		super(associatedComponent, controller);
 		// TODO Auto-generated constructor stub
 	}
