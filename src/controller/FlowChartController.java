@@ -11,8 +11,17 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 
 import model.AlgorithmExecuter;
+import model.DebuggerConsole;
 import model.Timer;
-import model.Components.Component;
+import model.Components.AlgorithmComponent;
+import model.Components.ComponentAssign;
+import model.Components.ComponentComment;
+import model.Components.ComponentDeclaration;
+import model.Components.ComponentIf;
+import model.Components.ComponentInput;
+import model.Components.ComponentOperation;
+import model.Components.ComponentOutput;
+import model.Components.ComponentWhile;
 import model.Memory.MemoryStorage;
 import view.FlowChartContentPanel;
 import view.editComponents.AddComponent;
@@ -24,6 +33,7 @@ import view.flowChartComponents.RhombusPanel;
 
 public class FlowChartController extends Controller{
 	
+	private static final String referenceType = "FC-CONTROLLER";
 	private FlowChartContentPanel panel;
 	private FlowChartPanel FCPanel;
 	
@@ -32,6 +42,7 @@ public class FlowChartController extends Controller{
 		// TODO Auto-generated constructor stub
 		this.panel = panel;
 		this.panel.setControllerAttribute(this);
+		panel.updatePane(super.getMemory().getComponents());
 //		System.out.println(this.panel);
 //		System.out.println(this);
 	}
@@ -55,34 +66,47 @@ public class FlowChartController extends Controller{
 		
 		switch (e.getActionCommand()) {
 		case "ADD_COMPONENT": {
+			AlgorithmComponent newComponent = null;
 //			System.err.println(FCPanel.getParent().getParent().getParent().getParent().getParent().getParent().getParent());
 			AddComponent addComp = new AddComponent((JFrame)FCPanel.getParent().getParent().getParent().getParent().getParent().getParent().getParent());
 			String compName = addComp.showAddWindow();
 			if(compName != null) {
 				System.out.println(compName);
-				Component c = FCPanel.associatedComponent;
+				AlgorithmComponent c = FCPanel.associatedComponent;
 				int index = MemoryStorage.getInstance().getIndexOf(c);
-				switch(compName) {
-//				case "":
-//					break;
-//				case "":
-//					break;
-//				case "":
-//					break;
-//				case "":
-//					break;
-//				case "":
-//					break;
-//				case "":
-//					break;
-//				case "":
-//					break;
-//				case "":
-//					break;
-//				case "":
-//					break;
+				
+				if(index==-1) {
+					DebuggerConsole.getInstance().printDefaultErrorLog(referenceType, "The component (" + c + ") is not in the array of components");
+				}else {
+					switch(compName) {
+					case "Assign":
+						newComponent = new ComponentAssign(null, null, null);
+						break;
+					case "Declaration":
+						newComponent = new ComponentDeclaration(null, null, null);
+						break;
+					case "Operation":
+						newComponent = new ComponentOperation(null, null, null);
+						break;
+					case "Input":
+						newComponent = new ComponentInput(null, null, null);
+						break;
+					case "Output":
+						newComponent = new ComponentOutput(null, null, null);
+						break;
+					case "If":
+						newComponent = new ComponentIf(null, null, null);
+						break;
+					case "While":
+						newComponent = new ComponentWhile(null, null);
+						break;
+					case "Comment":
+						newComponent = new ComponentComment(null, null, null);
+						break;
+					}
+					MemoryStorage.getInstance().addComponent(newComponent, index+1);
+					panel.updatePane(MemoryStorage.getInstance().getComponents());
 				}
-				MemoryStorage.getInstance().addComponent(newComponent, index);
 			}
 			
 		break;
