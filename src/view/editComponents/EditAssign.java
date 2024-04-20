@@ -5,21 +5,25 @@ import javax.swing.JPanel;
 import model.Components.ComponentAssign;
 import java.awt.BorderLayout;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class EditAssign extends EditComponent{
 	
-	private ComponentAssign componentAssign;
+	private ValuesAssignComponent previousValues;
+	private ValuesAssignComponent newValues = null;
 	private JPanel panel;
 	private JTextField textFieldFinalVar;
 	private JTextField textFieldValue;
 	
-	public EditAssign(ComponentAssign componentAssign) {
-		super("Assign");
-		this.componentAssign = componentAssign;
+	public EditAssign(ValuesAssignComponent previousValues, JFrame parent) {
+		super("Assign", parent);
+		this.previousValues = previousValues;
 		panel = new JPanel();
 		this.setContentPane(panel);
 		panel.setLayout(null);
@@ -28,6 +32,20 @@ public class EditAssign extends EditComponent{
 		JButton btnSave = new JButton("Save");
 		btnSave.setBounds(0, 75, 321, 19);
 		panel.add(btnSave);
+		
+		btnSave.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String varName = "$" + textFieldFinalVar.getText();
+				String varValue = textFieldValue.getText();
+				
+				//result
+				newValues = new ValuesAssignComponent(varName, varValue);
+				
+				dispose();
+			}
+		});
 		
 		textFieldFinalVar = new JTextField();
 		textFieldFinalVar.setBounds(58, 35, 86, 17);
@@ -54,16 +72,52 @@ public class EditAssign extends EditComponent{
 		setPreviousValues();
 	}
 	
+	public ValuesAssignComponent showEditWindow() {
+		setVisible(true);
+		return getNewValues();
+	}
+	
 	private void setPreviousValues() {
-		textFieldFinalVar.setText(componentAssign.getVariableName());
-		textFieldValue.setText(componentAssign.getValueString());
+		textFieldFinalVar.setText(previousValues.getFinalVarName());
+		textFieldValue.setText(previousValues.getValue());
 	}
 	
-	public String getFinalVar() {
-		return textFieldFinalVar.getText();
+	public ValuesAssignComponent getNewValues() {
+		return this.newValues;
 	}
 	
-	public String getValue() {
-		return textFieldValue.getText();
+	public static class ValuesAssignComponent{
+		public String finalVarName;
+		public String value;
+		
+		public ValuesAssignComponent(String finalVarName, String value) {
+			this.finalVarName = finalVarName;
+			this.value = value;
+		}
+
+		public String getFinalVarName() {
+			return finalVarName;
+		}
+
+		public void setFinalVarName(String finalVarName) {
+			this.finalVarName = finalVarName;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		public void setValue(String value) {
+			this.value = value;
+		}
+	}
+	
+	public static void main(String[] args) {
+		ValuesAssignComponent va = new ValuesAssignComponent(null , null);
+		EditAssign ea = new EditAssign(va, null);
+		
+		ValuesAssignComponent s = ea.showEditWindow();
+		
+		System.out.println(s.getFinalVarName() + " = " + s.getValue());
 	}
 }

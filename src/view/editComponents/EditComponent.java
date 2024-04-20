@@ -1,16 +1,18 @@
 package view.editComponents;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class EditComponent extends JFrame{
+public class EditComponent extends JDialog{
 
 	private JPanel panel;
 
 	private String componentName;
 	
-	public EditComponent(String componentName) {
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	public EditComponent(String componentName, JFrame parent) {
+		super(parent, componentName, true);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle(componentName);
 	}
 
