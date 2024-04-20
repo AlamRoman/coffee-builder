@@ -201,6 +201,12 @@ public class MemoryStorage {
 	public void print() {
 		System.out.println(this.toString());
 	}
+
+	public int getIndexOf(Component c) {
+		// TODO Auto-generated method stub
+		return this.components.indexOf(c);
+		
+	}
 	
 	
 	

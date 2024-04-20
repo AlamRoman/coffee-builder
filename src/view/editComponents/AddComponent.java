@@ -1,11 +1,13 @@
 package view.editComponents;
 
+import java.awt.Container;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -16,7 +18,7 @@ public class AddComponent extends JDialog{
 	private DefaultListModel<String> model;
 	private ArrayList<String> componentNames;
 	
-	private String result="";
+	private String result=null;
 	
 	public AddComponent(JFrame parent) {
 		super(parent, "Add new", true);
