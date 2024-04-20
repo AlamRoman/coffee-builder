@@ -37,6 +37,7 @@ public class FlowChartPanel extends JPanel {
 	private final ID id = new ID();
 	public JButton[] buttons;
 	private final FlowChartController controller;
+	private JLabel label;
 	
 	public FlowChartPanel(AlgorithmComponent associatedComponent, FlowChartController controller) {
 		setLayout(null);
@@ -91,8 +92,12 @@ public class FlowChartPanel extends JPanel {
 		
 	}
 	
+	public void updateInnerInfo() {
+		label.setText(associatedComponent.print());
+	}
+	
 	private void addCenteredLabelWithComponentInfo() {
-		JLabel label = new JLabel(associatedComponent.print());
+		label = new JLabel(associatedComponent.print());
 		label.setBounds(40, 30, 100, 20);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		add(label);
