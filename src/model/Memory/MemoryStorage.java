@@ -10,7 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import model.Debug;
 import model.DebuggerConsole;
 import model.Exceptions;
-import model.Components.Component;
+import model.Components.AlgorithmComponent;
 import model.Components.ComponentEnd;
 import model.Components.ComponentStart;
 
@@ -38,29 +38,30 @@ public class MemoryStorage {
 //C, C_A, C, C_A, C,  C_A, C
 	
 	HashSet<Variable> memory;
-	ArrayList<Component> components;
+	ArrayList<AlgorithmComponent> algorithmComponents;
 	private static MemoryStorage instance;
 	private static final String referenceTypeMessage = "MEMORY";
 
 	public MemoryStorage() {
 		super();
 		this.memory = new HashSet<Variable>();
-		this.components = new ArrayList<Component>();
+		this.algorithmComponents = new ArrayList<AlgorithmComponent>();
 		initializeComponents();
 	}
 	
 	private void initializeComponents() {
 		// TODO Auto-generated method stub
-		components.add(new ComponentStart(null));
-		components.add(new ComponentEnd());
-		components.get(0).setNextComponent1(components.get(1));
+		algorithmComponents.add(new ComponentStart(null));
+		algorithmComponents.add(new ComponentEnd());
+		algorithmComponents.get(0).setNextComponent1(algorithmComponents.get(1));
+		showComponents();
 		
 	}
 	
-	public void addComponent(Component c, int index) {
-	//	ComponentAdd addAfter = new ComponentAdd();
-		components.add(index, c);
-	//	components.add(index+1, addAfter);
+	public void addComponent(AlgorithmComponent c, int index) {
+		showComponents();
+		algorithmComponents.add(index, c);
+		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage, "Added component at position " + index + ", updating connections...");
 		updateComponentConnections(index);
 		
 	}
@@ -71,11 +72,10 @@ public class MemoryStorage {
 	//A > B > C > E > F > D
 	
 	private void updateComponentConnections(int index) {
-		//Supponendo siano componenti semplici e non while o if:
-		//index = 5 | (4,5) > (5,6), (6,7)
-		for (int i = index - 1; i <= index + 1; i++) {
-		    components.get(i).setNextComponent1(components.get(i + 1));
-		}
+		algorithmComponents.get(index).setNextComponent1(algorithmComponents.get(index-1).getNextComponent1());
+		algorithmComponents.get(index-1).setNextComponent1(algorithmComponents.get(index));
+		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage, "Connections updated.");
+		showComponents();
 	}
 
 	public static MemoryStorage getInstance() {
@@ -138,20 +138,21 @@ public class MemoryStorage {
 	public String printComponents() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(String.format("%-44s %s %-44s\n", "", "COMPONENTS TABLE", ""));
-        sb.append("-------------------------------------------------------------------------------------------------\n");
-		sb.append(String.format("%-25s %-25s %-25s %-25s\n", "Index", "Class", "NComp1", "NComp2"));
-        sb.append("-------------------------------------------------------------------------------------------------\n");
+        sb.append("--------------------------------------------------------------------------------------------------------------\n");
+		sb.append(String.format("%-5s %-20s %-20s %-20s %-30s\n", "Index", "Class", "NComp1", "NComp2", "toString"));
+        sb.append("--------------------------------------------------------------------------------------------------------------\n");
         
-        for (int i = 0; i < components.size(); i++) {
-            Component component = components.get(i);
-            String className = component.getClass().getSimpleName();
-            Component n1 = component.getNextComponent1();
-            Component n2 = component.getNextComponent2();
-            String nComp1 = (n1==null)?null:component.getNextComponent1().getClass().getSimpleName();
-            String nComp2 = (n2==null)?null:component.getNextComponent1().getClass().getSimpleName();
-            sb.append(String.format("%-25s %-25s %-25s %-25s\n", i, className, nComp1, nComp2));
+        for (int i = 0; i < algorithmComponents.size(); i++) {
+            AlgorithmComponent algorithmComponent = algorithmComponents.get(i);
+            String className = algorithmComponent.getClass().getSimpleName();
+            AlgorithmComponent n1 = algorithmComponent.getNextComponent1();
+            AlgorithmComponent n2 = algorithmComponent.getNextComponent2();
+            String nComp1 = (n1==null)?null:algorithmComponent.getNextComponent1().getClass().getSimpleName();
+            String nComp2 = (n2==null)?null:algorithmComponent.getNextComponent1().getClass().getSimpleName();
+            String ts = algorithmComponent.toString();
+            sb.append(String.format("%-5s %-20s %-20s %-20s %-30s\n", i, className, nComp1, nComp2, ts));
         }
-        sb.append("================================================================================================\n");
+        sb.append("=============================================================================================================\n");
         return sb.toString();
     }
 	
@@ -182,30 +183,42 @@ public class MemoryStorage {
 		return "\nMEMORY:\n" + printMemory() + "\n" + printComponents() + "\n";
 	}
 
-	public Component getStartComponent() {
+	public AlgorithmComponent getStartComponent() {
 		// TODO Auto-generated method stub
-		return components.get(0);
+		return algorithmComponents.get(0);
 	}
 	
-	public Component getEndComponent() {
+	public AlgorithmComponent getEndComponent() {
 		// TODO Auto-generated method stub
-		return components.get(components.size()-1);
+		return algorithmComponents.get(algorithmComponents.size()-1);
 	}
 
-	public void initializeDefaultComponents() throws Exceptions {
-		components.add(new ComponentEnd());
-		components.add(0, new ComponentStart(components.get(0)));
-		
-	}
+//	public void initializeDefaultComponents() throws Exceptions {
+//		components.add(new ComponentEnd());
+//		components.add(0, new ComponentStart(components.get(0)));
+//		showComponents();
+//		
+//	}
 	
 	public void print() {
 		System.out.println(this.toString());
 	}
 
-	public int getIndexOf(Component c) {
+	public int getIndexOf(AlgorithmComponent c) {
 		// TODO Auto-generated method stub
-		return this.components.indexOf(c);
-		
+		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Searching for " + c + " in the memory...");
+		int idx = this.algorithmComponents.indexOf(c);
+		if(idx == -1) {
+			DebuggerConsole.getInstance().printDefaultErrorLog(referenceTypeMessage, "Not found.");
+		}else {
+			DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage, "Found at " + idx);
+		}
+		return idx;
+	}
+
+	public ArrayList<AlgorithmComponent> getComponents() {
+		// TODO Auto-generated method stub
+		return algorithmComponents;
 	}
 	
 	
