@@ -107,4 +107,8 @@ public class FlowChartPanel extends JPanel {
 		// TODO Auto-generated method stub
 		buttons[i].setLocation(x,y);
 	}
+	
+	public void updatePrint() {
+		label.setText(associatedComponent.print());
+	}
 }
