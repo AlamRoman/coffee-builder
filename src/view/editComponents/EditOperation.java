@@ -21,8 +21,8 @@ import java.util.Set;
 
 public class EditOperation extends EditComponent{
 	
-	private ValuesOperationCommponent oldValues;
-	private ValuesOperationCommponent newValues;
+	private ValuesOperationComponent oldValues;
+	private ValuesOperationComponent newValues;
 	private JPanel panel;
 	private JTextField textFieldFinalVar;
 	private JTextField textFieldVar1;
@@ -31,7 +31,7 @@ public class EditOperation extends EditComponent{
 	
 	private HashMap<String, OperationType> operators;
 
-	public EditOperation(ValuesOperationCommponent oldValues, JFrame parent) {
+	public EditOperation(ValuesOperationComponent oldValues, JFrame parent) {
 		super("Operation", parent);
 		panel = new JPanel();
 		this.setContentPane(panel);
@@ -51,7 +51,7 @@ public class EditOperation extends EditComponent{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//result
-				newValues = new ValuesOperationCommponent(getFinalVarName(), getVar1Name(), getVar2Name(), getOperazione());
+				newValues = new ValuesOperationComponent(getFinalVarName(), getVar1Name(), getVar2Name(), getOperazione());
 				
 				dispose();
 			}
@@ -111,7 +111,7 @@ public class EditOperation extends EditComponent{
 
 	}
 	
-	public ValuesOperationCommponent showEditWindow() {
+	public ValuesOperationComponent showEditWindow() {
 		setVisible(true);
 		
 		return this.newValues;
@@ -135,14 +135,14 @@ public class EditOperation extends EditComponent{
 		return operators.get(selected);
 	}
 	
-	public static class ValuesOperationCommponent{
+	public static class ValuesOperationComponent{
 
 		public String finalVar;
 		public String var1;
 		public String var2;
 		public OperationType operation;
 		
-		public ValuesOperationCommponent(String finalVar, String var1, String var2, OperationType operation) {
+		public ValuesOperationComponent(String finalVar, String var1, String var2, OperationType operation) {
 			this.finalVar = finalVar;
 			this.var1 = var1;
 			this.var2 = var2;
