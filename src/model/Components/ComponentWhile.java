@@ -6,16 +6,16 @@ import model.Exceptions;
 import model.Memory.MemoryStorage;
 import model.Memory.RelationalOperators;
 
-public class ComponentWhile extends Component{
+public class ComponentWhile extends AlgorithmComponent{
 	
 	private static final String referenceTypeMessage = "C-WHILE";
 	private String term1;
 	private String term2;
 	private RelationalOperators operator;
-	private Component nextComponent;
+	private AlgorithmComponent nextComponent;
 	private Condition C;
 
-	public ComponentWhile(Component nextComponent2, MemoryStorage memory) {
+	public ComponentWhile(AlgorithmComponent nextComponent2, MemoryStorage memory) {
 		super(null, nextComponent2, memory);
 		setNextComponent1(this);
 		
@@ -36,10 +36,14 @@ public class ComponentWhile extends Component{
 	@Override
 	public Object execute() throws Exceptions {
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage , "Executing...");
-		if(C.resolve()) {
-			nextComponent = getNextComponent1();
+		if(C != null) {
+			if(C.resolve()) {
+				nextComponent = getNextComponent1();
+			}else {
+				nextComponent = getNextComponent2();
+			}			
 		}else {
-			nextComponent = getNextComponent2();
+			throw new Exceptions(Exceptions.MISSING_ARGUMENTS);
 		}
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Executed.");
 //		super.getMemory().showMemory();
@@ -47,13 +51,15 @@ public class ComponentWhile extends Component{
 	}
 	
 	@Override
-	public Component getNextComponent() {
+	public AlgorithmComponent getNextComponent() {
 		return nextComponent;
 	}
 
 	public String print() {
 		String out = "WHILE ";
-		out += C.toString();
+		if(C != null) {
+			out += C.toString();			
+		}
 		DebuggerConsole.getInstance().printCustomMSGColorLog(referenceTypeMessage + "-PRINT-OUTPUT", Color.PURPLE, "Showing: '" + out + "' to the panel");
 		return out;
 	}

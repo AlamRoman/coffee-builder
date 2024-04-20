@@ -6,16 +6,16 @@ import model.Exceptions;
 import model.Memory.MemoryStorage;
 import model.Memory.RelationalOperators;
 
-public class ComponentIf extends Component{
+public class ComponentIf extends AlgorithmComponent{
 	
 	private static final String referenceTypeMessage = "C-IF";
 	private String term1;
 	private String term2;
 	private RelationalOperators operator;
-	private Component nextComponent;
+	private AlgorithmComponent nextComponent;
 	private Condition C;
 
-	public ComponentIf(Component nextComponent1, Component nextComponent2, MemoryStorage memory) {
+	public ComponentIf(AlgorithmComponent nextComponent1, AlgorithmComponent nextComponent2, MemoryStorage memory) {
 		super(nextComponent1, nextComponent2, memory);
 		//initial values
 		String term1 = "";
@@ -33,23 +33,29 @@ public class ComponentIf extends Component{
 	@Override
 	public Object execute() throws Exceptions {
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage , "Executing...");
-		if(C.resolve()) {
-			nextComponent = getNextComponent1();
+		if(C != null) {
+			if(C.resolve()) {
+				nextComponent = getNextComponent1();
+			}else {
+				nextComponent = getNextComponent2();
+			}			
 		}else {
-			nextComponent = getNextComponent2();
+			throw new Exceptions(Exceptions.MISSING_ARGUMENTS);
 		}
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Executed.");
 		return null;
 	}
 	
 	@Override
-	public Component getNextComponent() {
+	public AlgorithmComponent getNextComponent() {
 		return nextComponent;
 	}
 	
 	public String print() {
 		String out = "IF ";
-		out += C.toString();
+		if(C != null) {
+			out += C.toString();
+		}
 		DebuggerConsole.getInstance().printCustomMSGColorLog(referenceTypeMessage + "-PRINT-OUTPUT", Color.PURPLE, "Showing: '" + out + "' to the panel");
 		return out;
 	}

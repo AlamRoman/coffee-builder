@@ -7,14 +7,14 @@ import model.Memory.VariableType;
 import model.Memory.Variable;
 import view.Panel;
 
-public class ComponentDeclaration extends Component{
+public class ComponentDeclaration extends AlgorithmComponent{
 
 	private VariableType variableType;
 	private String variableName;
 	private MemoryStorage MS;
 	private static final String referenceTypeMessage = "C-DECL";
 	
-	public ComponentDeclaration(Component nextComponent1, Component nextComponent2, MemoryStorage MS) {
+	public ComponentDeclaration(AlgorithmComponent nextComponent1, AlgorithmComponent nextComponent2, MemoryStorage MS) {
 		super(nextComponent1, nextComponent2, MS);
 		this.variableType = null;
 		this.variableName = "";
@@ -43,14 +43,18 @@ public class ComponentDeclaration extends Component{
 		
 	}
 	
-	public Component getNextComponent() {
+	public AlgorithmComponent getNextComponent() {
 		return super.getNextComponent1();
 	}
 
 	public String print() {
-		String out = variableType.name + " $";
-		
-		out += variableName;
+		String out = "";
+		if(variableType != null) {
+			out += variableType.name + " $";
+		}
+		if(variableName != null) {
+			out += variableName;			
+		}
 		
 		return out;
 		
