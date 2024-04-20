@@ -158,7 +158,15 @@ public class MemoryStorage {
 	
 	public JTable createMemoryTable() {
         // Creazione del modello della tabella
-        DefaultTableModel model = new DefaultTableModel();
+        DefaultTableModel model = new DefaultTableModel() {
+        	
+        	@Override
+        	public boolean isCellEditable(int row, int column) {
+        		// TODO Auto-generated method stub
+        		return false;
+        	}
+        	
+        };
         model.addColumn("Type");
         model.addColumn("Variable Name");
         model.addColumn("Value");
