@@ -91,7 +91,7 @@ public class Panel extends JPanel {
 		gbc_endButton.gridy = 0;
 		panel.add(endButton, gbc_endButton);
 		
-		JLabel lblNewLabel_2 = new JLabel("Millisecondi:");
+		JLabel lblNewLabel_2 = new JLabel("Milliseconds:");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 0, 5);
 		gbc_lblNewLabel_2.gridx = 5;
