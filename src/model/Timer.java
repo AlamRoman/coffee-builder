@@ -19,11 +19,11 @@ public class Timer implements Runnable{
 		executeAcquired = false;
 		this.execute = exec;
 		this.wait = wait;
-		T = new Thread(this, "TIMER");
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType, "Created.");
 	}
 	
 	public void set(int ms, boolean autoRun) {
+		T = new Thread(this, "TIMER");
 		this.ms = ms;
 		this.autoRun = autoRun;
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType, "Setted timer to " + ms + "ms");

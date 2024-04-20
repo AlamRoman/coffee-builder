@@ -20,11 +20,15 @@ public class ContentPaneController extends Controller{
 	
 	private static final String referenceType = "CP-CONTROLLER";
 	private Panel panel;
+	private Semaphore execute;
+	private Semaphore wait;
 
 	public ContentPaneController(AlgorithmExecuter ALGORITHM_EXECUTER, Timer TIMER, Semaphore execute, Semaphore wait, Panel panel) {
 		super(ALGORITHM_EXECUTER, TIMER, MemoryStorage.getInstance());
 		// TODO Auto-generated constructor stub
 		this.panel = panel;
+		this.execute = execute;
+		this.wait = wait;
 		panel.registerEvents(this);
 		ALGORITHM_EXECUTER.setController(this);
 		
@@ -43,7 +47,7 @@ public class ContentPaneController extends Controller{
 		// TODO Auto-generated method stub
 		switch(e.getActionCommand()) {
 			case "START":
-				
+				DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "EXECUTE BUTTON GOT CLICKED=================");
 				if(panel.getExecuteButtonStatus()) {
 					//SE IL PROGRAMMA NON E' IN ESECUZIONE---------------------------------------------------------------------------
 //					if(panel.isAutoRun()) {
@@ -51,6 +55,7 @@ public class ContentPaneController extends Controller{
 						int ms = panel.getMilliseconds();
 						DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "User setted " + ms + "ms as the execution delay");
 						try {
+							panel.setExecuteButtonUsable(false);
 							DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Setting timer to " + ms + "ms");
 							super.getTimer().set(ms, panel.isAutoRun());
 							AlgorithmComponent c = super.getMemory().getStartComponent();
@@ -74,10 +79,15 @@ public class ContentPaneController extends Controller{
 				super.getTimer().nextButtonGotClicked = true;
 				break;
 			case "END":
+				
+				algorithmExecuter.stop();
+				panel.setExecuteButtonUsable(true);
+				panel.toggleExecuteSelected();
+				
 				break;
 		}
 	}
-
+	
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		// TODO Auto-generated method stub
