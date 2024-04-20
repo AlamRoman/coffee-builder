@@ -7,6 +7,7 @@ import model.Memory.VariableType;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.util.HashMap;
@@ -24,8 +25,8 @@ public class EditDeclaration extends EditComponent{
 	private JComboBox<String> comboBoxType;
 	private HashMap<String, VariableType> varTypes;
 	
-	public EditDeclaration(ComponentDeclaration componentDeclaration) {
-		super("Declaration");
+	public EditDeclaration(ComponentDeclaration componentDeclaration, JFrame frame) {
+		super("Declaration", frame);
 		panel = new JPanel();
 		this.setContentPane(panel);
 		panel.setLayout(null);

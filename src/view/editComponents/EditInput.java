@@ -6,6 +6,8 @@ import model.Components.ComponentInput;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
@@ -19,8 +21,8 @@ public class EditInput extends EditComponent{
 	
 	private String inputVarName;
 	
-	public EditInput(ComponentInput componentInput) {
-		super("Input");
+	public EditInput(ComponentInput componentInput, JFrame frame) {
+		super("Input", frame);
 		panel = new JPanel();
 		this.setContentPane(panel);
 		this.componentInput = componentInput;

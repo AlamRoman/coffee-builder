@@ -7,6 +7,7 @@ import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 
 public class EditOutput extends EditComponent{
 	
@@ -15,8 +16,8 @@ public class EditOutput extends EditComponent{
 	
 	private JTextArea textArea;
 
-	public EditOutput(ComponentOutput componentOutput) {
-		super("Output");
+	public EditOutput(ComponentOutput componentOutput, JFrame frame) {
+		super("Output", frame);
 		this.setContentPane(panel);
 		this.componentOutput = componentOutput;
 		

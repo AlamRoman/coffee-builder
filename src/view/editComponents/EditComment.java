@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import model.Components.ComponentComment;
 import java.awt.BorderLayout;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
@@ -14,8 +15,8 @@ public class EditComment extends EditComponent{
 	private JPanel panel;
 	private JTextArea textArea;
 
-	public EditComment(ComponentComment componentComment) {
-		super("Comment");
+	public EditComment(ComponentComment componentComment, JFrame frame) {
+		super("Comment", frame);
 		panel = new JPanel();
 		this.setContentPane(panel);
 		panel.setLayout(new BorderLayout(0, 0));
