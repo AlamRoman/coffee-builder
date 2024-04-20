@@ -17,19 +17,23 @@ public class Exceptions extends Exception{
 	public static final String CONDITION_TERMS_NOT_NUMBER = "One or more term is not a number (invalid for '<', '>', '<=', '>=')";
 
 	public Exceptions(String s) {
-		super("[" + getClassThrowingException() + ", " + getLineNumber() + "] " + s);
+		super(((Debug.SHOW_EXTRA_INFO_IN_EXCEPTIONS)?getExtraInfo():"") + s);
 	}
 	
 	public Exceptions(String s, Component c) {
-		super("[" + getClassThrowingException() + ", " + getLineNumber() + "] " + s + " (in: " + c.getClass().getSimpleName() +")");
+		super(((Debug.SHOW_EXTRA_INFO_IN_EXCEPTIONS)?getExtraInfo():"") + s + " (in: " + c.getClass().getSimpleName() +")");
 	}
 
 	public Exceptions(String s, Component c, String customMsg) {
-		super("[" + getClassThrowingException() + ", " + getLineNumber() + "] " + s + " (" + c.getClass().getSimpleName() +", " + customMsg + ")");
+		super(((Debug.SHOW_EXTRA_INFO_IN_EXCEPTIONS)?getExtraInfo():"") + s + " (" + c.getClass().getSimpleName() +", " + customMsg + ")");
 	}
 	
 	public Exceptions(String s, String customMsg) {
-		super("[" + getClassThrowingException() + ", " + getLineNumber() + "] " + s + " " +  customMsg);
+		super(((Debug.SHOW_EXTRA_INFO_IN_EXCEPTIONS)?getExtraInfo():"") + s + " " +  customMsg);
+	}
+	
+	private static String getExtraInfo() {
+		return "[" + getClassThrowingException() + ", " + getLineNumber() + "] ";
 	}
 	
 	private static int getLineNumber() {

@@ -23,4 +23,6 @@ public class Debug {
 	
 	public final static boolean SHOW_CALLERS = true;
 	
+	public final static boolean SHOW_EXTRA_INFO_IN_EXCEPTIONS = false;
+	
 }
