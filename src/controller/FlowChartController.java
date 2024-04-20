@@ -4,6 +4,8 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,6 +19,7 @@ import model.Components.AlgorithmComponent;
 import model.Components.ComponentAssign;
 import model.Components.ComponentComment;
 import model.Components.ComponentDeclaration;
+import model.Components.ComponentEnd;
 import model.Components.ComponentIf;
 import model.Components.ComponentInput;
 import model.Components.ComponentOperation;
@@ -25,13 +28,21 @@ import model.Components.ComponentWhile;
 import model.Memory.MemoryStorage;
 import view.FlowChartContentPanel;
 import view.editComponents.AddComponent;
+import view.editComponents.EditAssign;
+import view.editComponents.EditComment;
+import view.editComponents.EditDeclaration;
+import view.editComponents.EditIf;
+import view.editComponents.EditInput;
+import view.editComponents.EditOperation;
+import view.editComponents.EditOutput;
+import view.editComponents.EditWhile;
 import view.flowChartComponents.FlowChartPanel;
 import view.flowChartComponents.OvalPanel;
 import view.flowChartComponents.ParallelogramPanel;
 import view.flowChartComponents.RectanglePanel;
 import view.flowChartComponents.RhombusPanel;
 
-public class FlowChartController extends Controller{
+public class FlowChartController extends Controller {
 	
 	private static final String referenceType = "FC-CONTROLLER";
 	private FlowChartContentPanel panel;
@@ -119,6 +130,75 @@ public class FlowChartController extends Controller{
 	public void itemStateChanged(ItemEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		System.out.println(e);
+		Object source = e.getSource();
+		if(e.getButton() == MouseEvent.BUTTON1) {
+			if(source instanceof OvalPanel || source instanceof ParallelogramPanel || source instanceof RectanglePanel || source instanceof RhombusPanel) {
+				FlowChartPanel panel = (FlowChartPanel) source;
+				AlgorithmComponent ac = panel.associatedComponent;
+				JFrame frame = (JFrame) panel.getParent().getParent().getParent().getParent().getParent().getParent();
+				if(ac instanceof ComponentAssign) {
+					EditAssign edit = new EditAssign((ComponentAssign) ac);
+					edit.setVisible(true);
+				}
+				else if(ac instanceof ComponentComment) {
+					EditComment edit = new EditComment((ComponentComment) ac);
+					edit.setVisible(true);
+				}
+				else if(ac instanceof ComponentDeclaration) {
+					EditDeclaration edit = new EditDeclaration((ComponentDeclaration) ac);
+					edit.setVisible(true);
+				}
+				else if(ac instanceof ComponentIf) {
+					EditIf edit = new EditIf((ComponentIf) ac);
+					edit.setVisible(true);
+				}
+				else if(ac instanceof ComponentInput) {
+					EditInput edit = new EditInput((ComponentInput) ac);
+					edit.setVisible(true);
+				}
+				else if(ac instanceof ComponentOperation) {
+					EditOperation edit = new EditOperation((ComponentOperation) ac);
+					edit.setVisible(true);
+				}
+				else if(ac instanceof ComponentOutput) {
+					EditOutput edit = new EditOutput((ComponentOutput) ac);
+					edit.setVisible(true);
+				}
+				else if(ac instanceof ComponentWhile) {
+					EditWhile edit = new EditWhile((ComponentWhile) ac);
+					edit.setVisible(true);
+				}
+			}
+//			System.out.println(panel.getParent().getParent().getParent().getParent().getParent().getParent());
+			
+			
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
 	}
 
 }
