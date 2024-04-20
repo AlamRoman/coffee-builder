@@ -3,14 +3,14 @@ package model;
 import java.util.concurrent.Semaphore;
 
 import controller.ContentPaneController;
-import model.Components.Component;
+import model.Components.AlgorithmComponent;
 import model.Components.ComponentEnd;
 import model.Memory.MemoryStorage;
 
 public class AlgorithmExecuter implements Runnable{
 	
 	private static final String referenceType = "EXECUTER";
-	private Component component;
+	private AlgorithmComponent algorithmComponent;
 	private Semaphore exec;
 	private Semaphore wait;
 	private Thread T;
@@ -27,10 +27,10 @@ public class AlgorithmExecuter implements Runnable{
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType, "Created.");
 	}
 
-	public void start(Component start) throws Exceptions {
+	public void start(AlgorithmComponent start) throws Exceptions {
 		
 		result=null;
-		component = start;
+		algorithmComponent = start;
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Got ComponentStart from " + Thread.currentThread().getStackTrace()[2].getClassName());
 		T.start();
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType+"-THREAD", "Started thread: " + T.getName());
@@ -41,7 +41,7 @@ public class AlgorithmExecuter implements Runnable{
 		// TODO Auto-generated method stub
 		//Finche il componente non è nullo (arrivati alla fine)
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceType+"-THREAD", "Thread initialized. Running until 'component != null'");
-				while (component!=null) {
+				while (algorithmComponent!=null) {
 					DebuggerConsole.getInstance().printDefaultInfoLog(referenceType+"-THREAD", "Waiting wait Semaphore");
 					try {
 						wait.acquire();
@@ -54,11 +54,14 @@ public class AlgorithmExecuter implements Runnable{
 					try {
 						result=null;
 						callControllerUpdateTable();
-						result = (String) component.execute();
-					} catch (Exception e) {
+						result = (String) algorithmComponent.execute();
+					} catch (Exceptions e) {
 						// TODO Auto-generated catch block
 //						*HANDLE EXCEPTION*
-						e.printStackTrace();
+//						e.printStackTrace();
+						controller.showErrorDialog(e.getMessage());
+					} catch (Exception e) {
+						System.err.println(e.getMessage());
 					}
 					
 					//Controllo se c'è stato un output dal componente
@@ -68,12 +71,12 @@ public class AlgorithmExecuter implements Runnable{
 					}
 					
 					//Se il prossimo componente è la fine del programma mostra la tabella della memoria in debug
-					if(component.getNextComponent() instanceof ComponentEnd) MemoryStorage.getInstance().print();
+					if(algorithmComponent.getNextComponent() instanceof ComponentEnd) MemoryStorage.getInstance().print();
 					
-					component=component.getNextComponent(); //Passo all'esecutore il componente successivo
+					algorithmComponent=algorithmComponent.getNextComponent(); //Passo all'esecutore il componente successivo
 					
 					//Mostro in fase di debug il passaggio del componente
-					if(component != null)DebuggerConsole.getInstance().printCustomMSGColorLog(referenceType, Color.RED_UNDERLINED, "PASSING EXECUTION TO COMPONENT: " + component.getClass().getSimpleName());
+					if(algorithmComponent != null)DebuggerConsole.getInstance().printCustomMSGColorLog(referenceType, Color.RED_UNDERLINED, "PASSING EXECUTION TO COMPONENT: " + algorithmComponent.getClass().getSimpleName());
 					exec.release();
 					DebuggerConsole.getInstance().printDefaultInfoLog(referenceType+"-THREAD", "Semaphore execute acquired. ");
 				}
