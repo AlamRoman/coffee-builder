@@ -76,6 +76,15 @@ public class EditIf extends EditComponent{
 			comboBoxOperator.addItem(symbol);
 		}
 		
+		comboBoxOperator.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				controlOperator();
+			}
+		});
+		
 		textFieldTerm2 = new JTextField();
 		textFieldTerm2.setColumns(10);
 		textFieldTerm2.setBounds(198, 42, 86, 17);
@@ -163,6 +172,5 @@ public class EditIf extends EditComponent{
 		}
 		
 	}
-	
 	
 }
