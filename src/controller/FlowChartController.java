@@ -188,10 +188,10 @@ public class FlowChartController extends Controller {
 					//edit operation
 					
 					ComponentOperation comp = (ComponentOperation) ac;
-					ValuesOperationCommponent values = new ValuesOperationCommponent(comp.getVariableName(),comp.getVariableFirstOperandName(), comp.getVariableSecondOperandName(), comp.getOperation());
+					ValuesOperationComponent values = new ValuesOperationComponent(comp.getVariableName(),comp.getVariableFirstOperandName(), comp.getVariableSecondOperandName(), comp.getOperation());
 					EditOperation edit = new EditOperation(values, frame);
 					
-					ValuesOperationCommponent result = edit.showEditWindow();
+					ValuesOperationComponent result = edit.showEditWindow();
 					
 					if (result != null) {
 						comp.set(result.getFinalVar(), result.getVar1(), result.getVar2(), result.getOperation());
