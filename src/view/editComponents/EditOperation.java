@@ -9,16 +9,20 @@ import javax.swing.JButton;
 import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
 public class EditOperation extends EditComponent{
 	
-	private ComponentOperation componentOperation;
+	private ValuesOperationCommponent oldValues;
+	private ValuesOperationCommponent newValues;
 	private JPanel panel;
 	private JTextField textFieldFinalVar;
 	private JTextField textFieldVar1;
@@ -27,17 +31,31 @@ public class EditOperation extends EditComponent{
 	
 	private HashMap<String, OperationType> operators;
 
-	public EditOperation(ComponentOperation componentOperation) {
-		super("Operation");
+	public EditOperation(ValuesOperationCommponent oldValues, JFrame parent) {
+		super("Operation", parent);
 		panel = new JPanel();
 		this.setContentPane(panel);
-		this.componentOperation = componentOperation;
+		this.oldValues = oldValues;
+		
+		newValues = null;
+		
 		setSize(406, 156);
 		getContentPane().setLayout(null);
 		
 		JButton btnSave = new JButton("Save");
 		btnSave.setBounds(22, 94, 341, 19);
 		getContentPane().add(btnSave);
+		
+		btnSave.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//result
+				newValues = new ValuesOperationCommponent(getFinalVarName(), getVar1Name(), getVar2Name(), getOperazione());
+				
+				dispose();
+			}
+		});
 		
 		textFieldFinalVar = new JTextField();
 		textFieldFinalVar.setBounds(22, 41, 86, 17);
@@ -81,16 +99,22 @@ public class EditOperation extends EditComponent{
 	}
 	
 	private void setPreviousValues() {
-		textFieldFinalVar.setText(componentOperation.getVariableName());
-		textFieldVar1.setText(componentOperation.getVariableFirstOperandName());
-		textFieldVar2.setText(componentOperation.getVariableSecondOperandName());
+		textFieldFinalVar.setText(oldValues.getFinalVar());
+		textFieldVar1.setText(oldValues.getVar1());
+		textFieldVar2.setText(oldValues.getVar2());
 		
-		if (componentOperation.getOperation() != null) {
-			comboBoxOperator.setSelectedItem(componentOperation.getOperation().symbol);
+		if (oldValues.getOperation() != null) {
+			comboBoxOperator.setSelectedItem(oldValues.getOperation().symbol);
 		}else {
 			comboBoxOperator.setSelectedIndex(0);
 		}
 
+	}
+	
+	public ValuesOperationCommponent showEditWindow() {
+		setVisible(true);
+		
+		return this.newValues;
 	}
 	
 	public String getFinalVarName() {
@@ -110,4 +134,54 @@ public class EditOperation extends EditComponent{
 		
 		return operators.get(selected);
 	}
+	
+	public static class ValuesOperationCommponent{
+
+		public String finalVar;
+		public String var1;
+		public String var2;
+		public OperationType operation;
+		
+		public ValuesOperationCommponent(String finalVar, String var1, String var2, OperationType operation) {
+			this.finalVar = finalVar;
+			this.var1 = var1;
+			this.var2 = var2;
+			this.operation = operation;
+		}
+
+		public String getFinalVar() {
+			return finalVar;
+		}
+
+		public void setFinalVar(String finalVar) {
+			this.finalVar = finalVar;
+		}
+
+		public String getVar1() {
+			return var1;
+		}
+
+		public void setVar1(String var1) {
+			this.var1 = var1;
+		}
+
+		public String getVar2() {
+			return var2;
+		}
+
+		public void setVar2(String var2) {
+			this.var2 = var2;
+		}
+
+		public OperationType getOperation() {
+			return operation;
+		}
+
+		public void setOperation(OperationType operation) {
+			this.operation = operation;
+		}
+		
+	}
+	
+	
 }
