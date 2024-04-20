@@ -29,13 +29,17 @@ import model.Memory.MemoryStorage;
 import view.FlowChartContentPanel;
 import view.editComponents.AddComponent;
 import view.editComponents.EditAssign;
+import view.editComponents.EditAssign.ValuesAssignComponent;
 import view.editComponents.EditComment;
 import view.editComponents.EditDeclaration;
 import view.editComponents.EditIf;
+import view.editComponents.EditIf.ValuesIfComponent;
 import view.editComponents.EditInput;
 import view.editComponents.EditOperation;
+import view.editComponents.EditOperation.ValuesOperationCommponent;
 import view.editComponents.EditOutput;
 import view.editComponents.EditWhile;
+import view.editComponents.EditWhile.ValuesWhileComponent;
 import view.flowChartComponents.FlowChartPanel;
 import view.flowChartComponents.OvalPanel;
 import view.flowChartComponents.ParallelogramPanel;
@@ -141,39 +145,82 @@ public class FlowChartController extends Controller {
 			if(source instanceof OvalPanel || source instanceof ParallelogramPanel || source instanceof RectanglePanel || source instanceof RhombusPanel) {
 				FlowChartPanel panel = (FlowChartPanel) source;
 				AlgorithmComponent ac = panel.associatedComponent;
-				JFrame frame = (JFrame) panel.getParent().getParent().getParent().getParent().getParent().getParent();
+				JFrame frame = (JFrame) panel.getParent().getParent().getParent().getParent().getParent().getParent().getParent();
+				
 				if(ac instanceof ComponentAssign) {
-					EditAssign edit = new EditAssign((ComponentAssign) ac);
-					edit.setVisible(true);
+					//Edit assign
+					
+					ComponentAssign comp = (ComponentAssign) ac;
+					ValuesAssignComponent values = new ValuesAssignComponent(comp.getVariableName(), comp.getValueString());
+					EditAssign edit = new EditAssign(values, frame);
+					
+					ValuesAssignComponent result = edit.showEditWindow();
+					
+					if (result != null) {
+						comp.set(result.getValue(), result.getFinalVarName());
+					}
+					
 				}
 				else if(ac instanceof ComponentComment) {
-					EditComment edit = new EditComment((ComponentComment) ac);
-					edit.setVisible(true);
+					//edit comment
 				}
 				else if(ac instanceof ComponentDeclaration) {
-					EditDeclaration edit = new EditDeclaration((ComponentDeclaration) ac);
-					edit.setVisible(true);
+					//edit declaration
 				}
 				else if(ac instanceof ComponentIf) {
-					EditIf edit = new EditIf((ComponentIf) ac);
-					edit.setVisible(true);
+					//Edit if
+					
+					ComponentIf comp = (ComponentIf) ac;
+					ValuesIfComponent values = new ValuesIfComponent(comp.getTerm1(), comp.getTerm1(), comp.getOperator());
+					EditIf edit = new EditIf(values, frame);
+					
+					ValuesIfComponent result = edit.showEditWindow();
+					
+					if (result != null) {
+						comp.set(result.getTerm1(), result.getOperator(), result.getTerm2());
+					}
+					
 				}
 				else if(ac instanceof ComponentInput) {
-					EditInput edit = new EditInput((ComponentInput) ac);
-					edit.setVisible(true);
+					//edit input
 				}
 				else if(ac instanceof ComponentOperation) {
-					EditOperation edit = new EditOperation((ComponentOperation) ac);
-					edit.setVisible(true);
+					//edit operation
+					
+					ComponentOperation comp = (ComponentOperation) ac;
+					ValuesOperationCommponent values = new ValuesOperationCommponent(comp.getVariableName(),comp.getVariableFirstOperandName(), comp.getVariableSecondOperandName(), comp.getOperation());
+					EditOperation edit = new EditOperation(values, frame);
+					
+					ValuesOperationCommponent result = edit.showEditWindow();
+					
+					if (result != null) {
+						comp.set(result.getFinalVar(), result.getVar1(), result.getVar2(), result.getOperation());
+					}
+					
 				}
 				else if(ac instanceof ComponentOutput) {
-					EditOutput edit = new EditOutput((ComponentOutput) ac);
-					edit.setVisible(true);
+					//edit output
 				}
 				else if(ac instanceof ComponentWhile) {
-					EditWhile edit = new EditWhile((ComponentWhile) ac);
-					edit.setVisible(true);
+					//edit while
+					
+					ComponentWhile comp = (ComponentWhile) ac;
+					ValuesWhileComponent values = new ValuesWhileComponent(comp.getTerm1(), comp.getTerm2(), comp.getOperator());
+					EditWhile edit = new EditWhile(values, frame);
+					
+					ValuesWhileComponent result = edit.showEditWindow();
+					
+					if (result != null) {
+						comp.set(result.getTerm1(), result.getOperator(), result.getTerm2());
+					}
+					
 				}
+				
+				FlowChartPanel sourcePanel = (FlowChartPanel) source;
+				
+				sourcePanel.updatePrint();
+				frame.revalidate();
+				frame.repaint();
 			}
 //			System.out.println(panel.getParent().getParent().getParent().getParent().getParent().getParent());
 			
