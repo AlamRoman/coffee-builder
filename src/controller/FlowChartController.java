@@ -29,13 +29,17 @@ import model.Memory.MemoryStorage;
 import view.FlowChartContentPanel;
 import view.editComponents.AddComponent;
 import view.editComponents.EditAssign;
+import view.editComponents.EditAssign.ValuesAssignComponent;
 import view.editComponents.EditComment;
 import view.editComponents.EditDeclaration;
 import view.editComponents.EditIf;
+import view.editComponents.EditIf.ValuesIfComponent;
 import view.editComponents.EditInput;
 import view.editComponents.EditOperation;
+import view.editComponents.EditOperation.ValuesOperationComponent;
 import view.editComponents.EditOutput;
 import view.editComponents.EditWhile;
+import view.editComponents.EditWhile.ValuesWhileComponent;
 import view.flowChartComponents.FlowChartPanel;
 import view.flowChartComponents.OvalPanel;
 import view.flowChartComponents.ParallelogramPanel;
@@ -141,38 +145,111 @@ public class FlowChartController extends Controller {
 			if(source instanceof OvalPanel || source instanceof ParallelogramPanel || source instanceof RectanglePanel || source instanceof RhombusPanel) {
 				FlowChartPanel panel = (FlowChartPanel) source;
 				AlgorithmComponent ac = panel.associatedComponent;
-				JFrame frame = (JFrame) panel.getParent().getParent().getParent().getParent().getParent().getParent();
+//				System.out.println(panel.getParent().getParent().getParent().getParent().getParent().getParent().getParent());
+				JFrame frame = (JFrame) panel.getParent().getParent().getParent().getParent().getParent().getParent().getParent();
 				if(ac instanceof ComponentAssign) {
-					EditAssign edit = new EditAssign((ComponentAssign) ac);
-					edit.setVisible(true);
+					//CAST
+					ComponentAssign ac_ = (ComponentAssign) ac;
+					//CREATE VALUES INSTANCE
+					ValuesAssignComponent vc = new ValuesAssignComponent(ac_.getVariableName(), ac_.getValueString());
+					//CREATE EDIT DIALOG
+					EditAssign edit = new EditAssign(vc, frame);
+					//SHOW AND GET NEW VALUES INSTANCE
+					ValuesAssignComponent vc_ = edit.showEditWindow();
+					//SET COMPONENT WITH NEW VALUES
+					if(vc_ != null) {
+						ac_.set(vc_.value, vc_.finalVarName);
+						panel.updateInnerInfo();
+					}
 				}
 				else if(ac instanceof ComponentComment) {
-					EditComment edit = new EditComment((ComponentComment) ac);
-					edit.setVisible(true);
+					//CAST
+//					ComponentComment ac_ = (ComponentComment) ac;
+					//CREATE VALUES INSTANCE
+//					ValuesCommentComponent vc = new ValuesCommentComponent(ac_.getVariableName(), ac_.getValueString());
+					//CREATE EDIT DIALOG
+//					EditAssign edit = new EditAssign(vc, frame);
+//					ValuesComponent vc_ = edit.showEditWindow();
+					//SET COMPONENT WITH NEW VALUES
 				}
 				else if(ac instanceof ComponentDeclaration) {
-					EditDeclaration edit = new EditDeclaration((ComponentDeclaration) ac);
-					edit.setVisible(true);
+					//CAST
+//					ComponentDeclaration ac_ = (ComponentDeclaration) ac;
+					//CREATE VALUES INSTANCE
+//					ValuesDeclarationComponent vc = new ValuesDeclarationComponent(ac_.getVariableName(), ac_.getValueString());
+					//CREATE EDIT DIALOG
+//					EditAssign edit = new EditAssign(vc, frame);
+					//SHOW AND GET NEW VALUES INSTANCE
+//					ValuesComponent vc_ = edit.showEditWindow();
+					//SET COMPONENT WITH NEW VALUES
 				}
 				else if(ac instanceof ComponentIf) {
-					EditIf edit = new EditIf((ComponentIf) ac);
-					edit.setVisible(true);
+					//CAST
+					ComponentIf ac_ = (ComponentIf) ac;
+					//CREATE VALUES INSTANCE
+					ValuesIfComponent vc = new ValuesIfComponent(ac_.getTerm1(), ac_.getTerm2(), ac_.getOperator());
+					//CREATE EDIT DIALOG
+					EditIf edit = new EditIf(vc, frame);
+					//SHOW AND GET NEW VALUES INSTANCE
+					ValuesIfComponent vc_ = edit.showEditWindow();
+					System.out.println(vc_);
+					//SET COMPONENT WITH NEW VALUES
+					if(vc_ != null) {
+						ac_.set(vc_.term1, vc_.operator, vc_.term2);
+						panel.updateInnerInfo();
+					}
 				}
 				else if(ac instanceof ComponentInput) {
-					EditInput edit = new EditInput((ComponentInput) ac);
-					edit.setVisible(true);
+					//CAST
+//					ComponentInput ac_ = (ComponentInput) ac;
+					//CREATE VALUES INSTANCE
+//					ValuesInputComponent vc = new ValuesInputComponent(ac_.getVariableName(), ac_.getValueString());
+					//CREATE EDIT DIALOG
+//					EditAssign edit = new EditAssign(vc, frame);
+					//SHOW AND GET NEW VALUES INSTANCE
+//					ValuesComponent vc_ = edit.showEditWindow();
+					//SET COMPONENT WITH NEW VALUES
 				}
 				else if(ac instanceof ComponentOperation) {
-					EditOperation edit = new EditOperation((ComponentOperation) ac);
-					edit.setVisible(true);
+					//CAST
+					ComponentOperation ac_ = (ComponentOperation) ac;
+					//CREATE VALUES INSTANCE
+					ValuesOperationComponent vc = new ValuesOperationComponent(ac_.getVariableName(), ac_.getVariableFirstOperandName(), ac_.getVariableSecondOperandName(), ac_.getOperation());
+					//CREATE EDIT DIALOG
+					EditOperation edit = new EditOperation(vc, frame);
+					//SHOW AND GET NEW VALUES INSTANCE
+					ValuesOperationComponent vc_ = edit.showEditWindow();
+					//SET COMPONENT WITH NEW VALUES
+					if(vc_ != null) {
+						ac_.set(vc_.finalVar, vc_.var1, vc_.var2, vc_.operation);
+						panel.updateInnerInfo();
+					}
 				}
 				else if(ac instanceof ComponentOutput) {
-					EditOutput edit = new EditOutput((ComponentOutput) ac);
-					edit.setVisible(true);
+					//CAST
+//					ComponentOutput ac_ = (ComponentOutput) ac;
+					//CREATE VALUES INSTANCE
+//					ValuesOutputComponent vc = new ValuesOutputComponent(ac_.getVariableName(), ac_.getValueString());
+					//CREATE EDIT DIALOG
+//					EditAssign edit = new EditAssign(vc, frame);
+					//SHOW AND GET NEW VALUES INSTANCE
+//					ValuesComponent vc_ = edit.showEditWindow();
+					//SET COMPONENT WITH NEW VALUES
 				}
 				else if(ac instanceof ComponentWhile) {
-					EditWhile edit = new EditWhile((ComponentWhile) ac);
-					edit.setVisible(true);
+					//CAST
+					ComponentWhile ac_ = (ComponentWhile) ac;
+					//CREATE VALUES INSTANCE
+					ValuesWhileComponent vc = new ValuesWhileComponent(ac_.getTerm1(), ac_.getTerm2(), ac_.getOperator());
+					//CREATE EDIT DIALOG
+					EditWhile edit = new EditWhile(vc, frame);
+					//SHOW AND GET NEW VALUES INSTANCE
+					ValuesWhileComponent vc_ = edit.showEditWindow();
+					//SET COMPONENT WITH NEW VALUES
+					if(vc_ != null) {
+						ac_.set(vc_.term1, vc_.operator, vc_.term2);
+						panel.updateInnerInfo();
+					}
 				}
 			}
 //			System.out.println(panel.getParent().getParent().getParent().getParent().getParent().getParent());
