@@ -108,6 +108,16 @@ public class AlgorithmExecuter implements Runnable{
 		createThread();
 	}
 	
+//	public void checkSemaphoreIntialization() {
+//		// TODO Auto-generated method stub
+//		if(!exec.tryAcquire()) {
+//			exec.release();
+//		}
+//		if(wait.tryAcquire()) {
+//			wait.release();
+//		}
+//	}
+	
 	public void callControllerUpdateTable() {
 		controller.updateTable();
 	}

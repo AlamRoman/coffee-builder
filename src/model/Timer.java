@@ -9,7 +9,7 @@ public class Timer implements Runnable{
 	private Semaphore execute;
 	private Semaphore wait;
 	private int ms;
-	private boolean stop;
+	public boolean stop;
 	private boolean autoRun;
 	public boolean nextButtonGotClicked;
 	private boolean executeAcquired;
