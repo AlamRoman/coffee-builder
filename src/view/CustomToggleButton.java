@@ -30,5 +30,10 @@ public class CustomToggleButton extends JToggleButton {
 		super.paintComponent(g);
 	}
 	
+	public void toggleSelected() {
+		this.setSelected(!this.isSelected());
+//		super.revalidate();
+		super.repaint();
+	}
 	
 }

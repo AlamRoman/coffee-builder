@@ -23,12 +23,12 @@ public class AlgorithmExecuter implements Runnable{
 		this.timer = timer;
 		this.exec = exec;
 		this.wait = wait;
-		this.T = new Thread(this, "EXECUTER");
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType, "Created.");
 	}
 
 	public void start(AlgorithmComponent start) throws Exceptions {
 		
+		createThread();
 		result=null;
 		algorithmComponent = start;
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Got ComponentStart from " + Thread.currentThread().getStackTrace()[2].getClassName());
@@ -36,18 +36,24 @@ public class AlgorithmExecuter implements Runnable{
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType+"-THREAD", "Started thread: " + T.getName());
 	}
 
+	private void createThread() {
+		// TODO Auto-generated method stub
+		this.T = new Thread(this, "EXECUTER");
+	}
+
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 		//Finche il componente non è nullo (arrivati alla fine)
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceType+"-THREAD", "Thread initialized. Running until 'component != null'");
-				while (algorithmComponent!=null) {
+				while (algorithmComponent!=null && !T.isInterrupted()) {
 					DebuggerConsole.getInstance().printDefaultInfoLog(referenceType+"-THREAD", "Waiting wait Semaphore");
 					try {
 						wait.acquire();
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						DebuggerConsole.getInstance().printDefaultInfoLog(referenceType+"-THREAD", "Thread got interrupted. Ending the process...");
+						break;
 					}
 					DebuggerConsole.getInstance().printDefaultInfoLog(referenceType+"-THREAD", "Semaphore wait acquired. ");
 					//Eseguo il componente
@@ -96,6 +102,21 @@ public class AlgorithmExecuter implements Runnable{
 	public void setController(ContentPaneController controller) {
 		this.controller = controller;
 	}
+	
+	public void stop() {
+		this.T.interrupt();
+		createThread();
+	}
+	
+//	public void checkSemaphoreIntialization() {
+//		// TODO Auto-generated method stub
+//		if(!exec.tryAcquire()) {
+//			exec.release();
+//		}
+//		if(wait.tryAcquire()) {
+//			wait.release();
+//		}
+//	}
 	
 	public void callControllerUpdateTable() {
 		controller.updateTable();

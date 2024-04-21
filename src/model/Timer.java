@@ -9,7 +9,7 @@ public class Timer implements Runnable{
 	private Semaphore execute;
 	private Semaphore wait;
 	private int ms;
-	private boolean stop;
+	public boolean stop;
 	private boolean autoRun;
 	public boolean nextButtonGotClicked;
 	private boolean executeAcquired;
@@ -19,11 +19,11 @@ public class Timer implements Runnable{
 		executeAcquired = false;
 		this.execute = exec;
 		this.wait = wait;
-		T = new Thread(this, "TIMER");
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType, "Created.");
 	}
 	
 	public void set(int ms, boolean autoRun) {
+		T = new Thread(this, "TIMER");
 		this.ms = ms;
 		this.autoRun = autoRun;
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType, "Setted timer to " + ms + "ms");

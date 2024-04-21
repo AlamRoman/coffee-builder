@@ -249,6 +249,15 @@ public class Panel extends JPanel {
 		this.nextButton.setEnabled(value);
 	}
 	
+	public void setExecuteButtonUsable(boolean value) {
+		// TODO Auto-generated method stub
+		this.executeButton.setEnabled(value);
+	}
+	
+	public void toggleExecuteSelected(){
+		this.executeButton.toggleSelected();
+	}
+	
 	public void setMillisecondsUsable(boolean value) {
 		// TODO Auto-generated method stub
 		this.millisecondi.setEnabled(value);

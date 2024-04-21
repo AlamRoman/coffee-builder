@@ -20,11 +20,15 @@ public class ContentPaneController extends Controller{
 	
 	private static final String referenceType = "CP-CONTROLLER";
 	private Panel panel;
+	private Semaphore execute;
+	private Semaphore wait;
 
 	public ContentPaneController(AlgorithmExecuter ALGORITHM_EXECUTER, Timer TIMER, Semaphore execute, Semaphore wait, Panel panel) {
 		super(ALGORITHM_EXECUTER, TIMER, MemoryStorage.getInstance());
 		// TODO Auto-generated constructor stub
 		this.panel = panel;
+		this.execute = execute;
+		this.wait = wait;
 		panel.registerEvents(this);
 		ALGORITHM_EXECUTER.setController(this);
 		
@@ -43,7 +47,7 @@ public class ContentPaneController extends Controller{
 		// TODO Auto-generated method stub
 		switch(e.getActionCommand()) {
 			case "START":
-				
+				DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "EXECUTE BUTTON GOT CLICKED=================");
 				if(panel.getExecuteButtonStatus()) {
 					//SE IL PROGRAMMA NON E' IN ESECUZIONE---------------------------------------------------------------------------
 //					if(panel.isAutoRun()) {
@@ -51,11 +55,13 @@ public class ContentPaneController extends Controller{
 						int ms = panel.getMilliseconds();
 						DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "User setted " + ms + "ms as the execution delay");
 						try {
+							panel.setExecuteButtonUsable(false);
 							DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Setting timer to " + ms + "ms");
-							super.getTimer().set(ms, panel.isAutoRun());
+							resetSempahores();
+							super.timer.set(ms, panel.isAutoRun());
 							AlgorithmComponent c = super.getMemory().getStartComponent();
 							DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Running the executer with start component: " + c.getClass().getSimpleName());
-							super.getExecuter().start(super.getMemory().getStartComponent());
+							super.algorithmExecuter.start(super.getMemory().getStartComponent());
 						} catch (Exceptions customException) {
 							JOptionPane.showMessageDialog(panel, customException.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
 						} catch (Exception exception) {
@@ -71,9 +77,14 @@ public class ContentPaneController extends Controller{
 				break;
 			case "NEXT":
 				DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Next button got clicked. Sending info to the timer");
-				super.getTimer().nextButtonGotClicked = true;
+				super.timer.nextButtonGotClicked = true;
 				break;
 			case "END":
+				
+				algorithmExecuter.stop();
+				panel.setExecuteButtonUsable(true);
+				panel.toggleExecuteSelected();
+				
 				break;
 		}
 	}
@@ -105,6 +116,13 @@ public class ContentPaneController extends Controller{
 	public void showErrorDialog(String message) {
 		// TODO Auto-generated method stub
 		JOptionPane.showMessageDialog(panel, message, "Errore", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	private void resetSempahores() {
+	    // Ripristina i semafori allo stato iniziale
+	    execute.release(); // Rilascia il semaforo EXECUTE_S
+	    wait.drainPermits(); // Rimuove tutte le concessioni dal semaforo WAIT_S
+	    super.timer.stop = false;
 	}
 
 	@Override
@@ -139,7 +157,7 @@ public class ContentPaneController extends Controller{
 	
 //	public void nextButtonClicked() {
 //	    if (!panel.isAutoRun()) {
-//	        super.getTimer().next();
+//	        super.timer.next();
 //	    }
 //	}
 

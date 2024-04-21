@@ -14,7 +14,7 @@ public abstract class Controller implements ActionListener, ItemListener, MouseL
 	
 	protected AlgorithmExecuter algorithmExecuter;
 	protected MemoryStorage memory;
-	private Timer timer;
+	protected Timer timer;
 
 	public Controller(AlgorithmExecuter ALGORITHM_EXECUTER, Timer TIMER, MemoryStorage MEMORY) {
 		// TODO Auto-generated constructor stub
