@@ -26,6 +26,7 @@ public class EditAssign extends EditComponent{
 		this.previousValues = previousValues;
 		panel = new JPanel();
 		this.setContentPane(panel);
+		
 		panel.setLayout(null);
 		setSize(335, 131);
 		

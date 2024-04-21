@@ -15,8 +15,8 @@ public class EditComment extends EditComponent{
 	private JPanel panel;
 	private JTextArea textArea;
 
-	public EditComment(ComponentComment componentComment, JFrame frame) {
-		super("Comment", frame);
+	public EditComment(ComponentComment componentComment, JFrame parent) {
+		super("Comment", parent);
 		panel = new JPanel();
 		this.setContentPane(panel);
 		panel.setLayout(new BorderLayout(0, 0));

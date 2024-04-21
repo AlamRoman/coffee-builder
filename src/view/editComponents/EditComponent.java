@@ -12,6 +12,7 @@ public class EditComponent extends JDialog{
 	
 	public EditComponent(String componentName, JFrame parent) {
 		super(parent, componentName, true);
+		setLocationRelativeTo(parent);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle(componentName);
 	}
