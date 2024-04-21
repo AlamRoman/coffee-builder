@@ -1,6 +1,8 @@
 package controller;
 
+import java.awt.Component;
 import java.awt.Container;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -82,8 +84,13 @@ public class FlowChartController extends Controller {
 		switch (e.getActionCommand()) {
 		case "ADD_COMPONENT": {
 			AlgorithmComponent newComponent = null;
+			Component s = (Component) e.getSource();
+			Point buttonLocation = s.getLocationOnScreen();
+	        int buttonX = (int) buttonLocation.getX();
+	        int buttonY = (int) buttonLocation.getY();
 //			System.err.println(FCPanel.getParent().getParent().getParent().getParent().getParent().getParent().getParent());
 			AddComponent addComp = new AddComponent((JFrame)FCPanel.getParent().getParent().getParent().getParent().getParent().getParent().getParent());
+			addComp.setLocation(buttonX + 40, buttonY + 20);
 			String compName = addComp.showAddWindow();
 			if(compName != null) {
 				System.out.println(compName);
