@@ -10,6 +10,8 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -18,22 +20,38 @@ import javax.swing.JTextField;
 
 public class EditDeclaration extends EditComponent{
 	
-	private ComponentDeclaration componentDeclaration;
+	private ValuesDeclarationComponent oldValues;
+	private ValuesDeclarationComponent newValues;
 	private JPanel panel;
 	private JTextField textFieldVarName;
 	
 	private JComboBox<String> comboBoxType;
 	private HashMap<String, VariableType> varTypes;
 	
-	public EditDeclaration(ComponentDeclaration componentDeclaration, JFrame frame) {
+	public EditDeclaration(ValuesDeclarationComponent oldValues, JFrame frame) {
 		super("Declaration", frame);
 		panel = new JPanel();
+		this.oldValues = oldValues;
+		
+		newValues = null;
+		
 		this.setContentPane(panel);
 		panel.setLayout(null);
 		
 		JButton btnSave = new JButton("Save");
 		btnSave.setBounds(0, 70, 309, 19);
 		panel.add(btnSave);
+		
+		btnSave.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//result
+				newValues = new ValuesDeclarationComponent(getVarName(), getVarType());
+				
+				dispose();
+			}
+		});
 		
 		//comboBox
 		varTypes = new HashMap<>();
@@ -62,15 +80,27 @@ public class EditDeclaration extends EditComponent{
 		textFieldVarName.setBounds(157, 28, 86, 17);
 		panel.add(textFieldVarName);
 		textFieldVarName.setColumns(10);
-		this.componentDeclaration = componentDeclaration;
+		
 		setSize(323, 126);
 		
 		setPreviousValues();
 	}
 	
+	public ValuesDeclarationComponent showEditWindow() {
+		setVisible(true);
+		
+		return this.newValues;
+	}
+	
 	private void setPreviousValues() {
-		textFieldVarName.setText(componentDeclaration.getVariableName());
-		comboBoxType.setSelectedItem(componentDeclaration.getTypeString());
+		textFieldVarName.setText(oldValues.getVarName());
+		
+		if (oldValues.getVarTypeString() != null) {
+			comboBoxType.setSelectedItem(oldValues.getVarTypeString());
+		}else {
+			comboBoxType.setSelectedIndex(0);
+		}
+		
 	}
 	
 	public String getVarName() {
@@ -81,6 +111,42 @@ public class EditDeclaration extends EditComponent{
 		String selected = (String)comboBoxType.getSelectedItem();
 		
 		return varTypes.get(selected);
+	}
+	
+	public static class ValuesDeclarationComponent{
+		public String varName;
+		public VariableType varType;
+		
+		public ValuesDeclarationComponent(String varName, VariableType varType) {
+			this.varName = varName;
+			this.varType = varType;
+		}
+
+		public String getVarName() {
+			return varName;
+		}
+
+		public void setVarName(String varName) {
+			this.varName = varName;
+		}
+
+		public VariableType getVarType() {
+			return varType;
+		}
+
+		public void setVarType(VariableType varType) {
+			this.varType = varType;
+		}
+		
+		public String getVarTypeString() {
+			
+			if (varType != null) {
+				return varType.name;
+			}
+			
+			return null;
+		}
+		
 	}
 	
 }

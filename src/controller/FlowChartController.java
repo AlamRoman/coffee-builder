@@ -39,6 +39,7 @@ import view.editComponents.EditAssign;
 import view.editComponents.EditAssign.ValuesAssignComponent;
 import view.editComponents.EditComment;
 import view.editComponents.EditDeclaration;
+import view.editComponents.EditDeclaration.ValuesDeclarationComponent;
 import view.editComponents.EditIf;
 import view.editComponents.EditIf.ValuesIfComponent;
 import view.editComponents.EditInput;
@@ -196,7 +197,17 @@ public class FlowChartController extends Controller {
 					//edit comment
 				}
 				else if(ac instanceof ComponentDeclaration) {
-					//edit declaration
+					ComponentDeclaration comp = (ComponentDeclaration) ac;
+					ValuesDeclarationComponent values = new ValuesDeclarationComponent(comp.getVariableName(), comp.getVariableType());
+					
+					EditDeclaration edit = new EditDeclaration(values, frame);
+					
+					ValuesDeclarationComponent result = edit.showEditWindow();
+					
+					if (result != null) {
+						comp.set(result.getVarType(), result.getVarName());
+					}
+					
 				}
 				else if(ac instanceof ComponentIf) {
 					//Edit if
