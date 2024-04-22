@@ -19,6 +19,7 @@ import controller.Controller;
 import controller.FlowChartController;
 import model.ID;
 import model.Components.AlgorithmComponent;
+import model.Components.ComponentAdd;
 import model.Components.ComponentAssign;
 import model.Components.ComponentComment;
 import model.Components.ComponentDeclaration;
@@ -66,7 +67,11 @@ public class FlowChartPanel extends JPanel {
 //		}
 		if(bottom) {
 			buttons[2] = new JButton("ADD");
-			buttons[2].setBounds(70, 60, 40, 20);
+			if(associatedComponent instanceof ComponentAdd) {
+				buttons[2].setBounds(70, 30, 40, 20);								
+			}else {
+				buttons[2].setBounds(70, 60, 40, 20);				
+			}
 			buttons[2].setFocusable(false);
 		}
 //		if(left) {
