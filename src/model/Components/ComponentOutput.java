@@ -35,22 +35,25 @@ public class ComponentOutput extends AlgorithmComponent{
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage , "Executing...");
 		
 		outPutText = "";
-			
-			String[] words = rawOutPutString.split(" ");
-			
-			for (int i = 0; i < words.length; i++) {
+		
+			if(rawOutPutString!="") {
+				String[] words = rawOutPutString.split(" ");
 				
-				if (words[i].charAt(0) == '$') {
+				for (int i = 0; i < words.length; i++) {
 					
-					String varName = words[i].substring(1);
-					
-					Variable var = super.getMemory().getVariableByName(varName);
-					
-					words[i] = var.getValueString();
+					if (words[i].charAt(0) == '$') {
+						
+						String varName = words[i].substring(1);
+						
+						Variable var = super.getMemory().getVariableByName(varName);
+						
+						words[i] = var.getValueString();
+					}
 				}
+				
+				outPutText = String.join(" ", words);
 			}
 			
-			outPutText = String.join(" ", words);
 			
 			DebuggerConsole.getInstance().printCustomMSGColorLog(referenceTypeMessage, Color.WHITE, outPutText);
 			DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Executed.");
