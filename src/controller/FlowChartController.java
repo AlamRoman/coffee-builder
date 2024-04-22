@@ -59,7 +59,7 @@ public class FlowChartController extends Controller {
 		// TODO Auto-generated constructor stub
 		this.panel = panel;
 		this.panel.setControllerAttribute(this);
-		panel.updatePane(super.getMemory().getComponents());
+		panel.updatePane(super.getMemory().getComponents(), null);
 //		System.out.println(this.panel);
 //		System.out.println(this);
 	}
@@ -127,7 +127,7 @@ public class FlowChartController extends Controller {
 						break;
 					}
 					MemoryStorage.getInstance().addComponent(newComponent, index+1);
-					panel.updatePane(MemoryStorage.getInstance().getComponents());
+					panel.updatePane(MemoryStorage.getInstance().getComponents(), FCPanel);
 				}
 			}
 			

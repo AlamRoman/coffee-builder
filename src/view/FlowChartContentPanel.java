@@ -17,6 +17,7 @@ import model.Components.ComponentStart;
 import model.Components.ComponentWhile;
 import model.Memory.OperationType;
 import model.Memory.RelationalOperators;
+import view.flowChartComponents.FlowChartPanel;
 import view.flowChartComponents.OvalPanel;
 import view.flowChartComponents.ParallelogramPanel;
 import view.flowChartComponents.RectanglePanel;
@@ -107,7 +108,7 @@ public class FlowChartContentPanel extends JPanel {
         return new Dimension(maxX,maxY);
     }
 
-	public void updatePane(ArrayList<AlgorithmComponent> components) {
+	public void updatePane(ArrayList<AlgorithmComponent> components, FlowChartPanel FCPanel) {
 		// TODO Auto-generated method stub
 		for(AlgorithmComponent c : components) {
 			DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Adding " + c + " to the panel...");
