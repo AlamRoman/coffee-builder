@@ -15,6 +15,9 @@ public class Exceptions extends Exception{
 	public static final String TERM_IS_STRING = "Invalid String to Boolean conversion in NOT condition";
 	public static final String MISSING_ARGUMENTS = "Missing one or more term in a condition";
 	public static final String CONDITION_TERMS_NOT_NUMBER = "One or more term is not a number (invalid for '<', '>', '<=', '>=')";
+	public static final String COMPONENT_NOT_EMPTY = "This component is not empty, delete the inner components first";
+	public static final String NOT_DELETABLE = "This component cannot be deleted";
+	
 
 	public Exceptions(String s) {
 		super(((Debug.SHOW_EXTRA_INFO_IN_EXCEPTIONS)?getExtraInfo():"") + s);

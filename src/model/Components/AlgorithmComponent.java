@@ -1,10 +1,12 @@
 package model.Components;
 
+import model.DebuggerConsole;
 import model.Exceptions;
 import model.Memory.MemoryStorage;
 
 public class AlgorithmComponent {
 
+	private static final String referenceTypeMessage = "AC";
 	private AlgorithmComponent nextComponent1;
 	private AlgorithmComponent nextComponent2;
 	private MemoryStorage memory;
@@ -33,6 +35,7 @@ public class AlgorithmComponent {
 	}
 
 	public void setNextComponent1(AlgorithmComponent nextComponent1) {
+		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Changing next comp1: " + this.classSimpleName() + " > " + getNextComponent1() + " -> " + this.classSimpleName() + " > " + nextComponent1);
 		this.nextComponent1 = nextComponent1;
 	}
 
@@ -41,6 +44,7 @@ public class AlgorithmComponent {
 	}
 
 	public void setNextComponent2(AlgorithmComponent nextComponent2) {
+		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Changing next comp2: " + this.classSimpleName() + " > " + getNextComponent2() + " -> " + this.classSimpleName() + " > " + nextComponent2);
 		this.nextComponent2 = nextComponent2;
 	}
 

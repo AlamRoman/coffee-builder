@@ -11,8 +11,14 @@ import model.Debug;
 import model.DebuggerConsole;
 import model.Exceptions;
 import model.Components.AlgorithmComponent;
+import model.Components.ComponentAdd;
+import model.Components.ComponentElse;
 import model.Components.ComponentEnd;
+import model.Components.ComponentIf;
+import model.Components.ComponentInput;
 import model.Components.ComponentStart;
+import model.Components.ComponentWhile;
+import view.editComponents.EditWhile.ValuesWhileComponent;
 
 public class MemoryStorage {
 	
@@ -26,16 +32,6 @@ public class MemoryStorage {
 	 * 5. Dopo l'eliminazione, aggiornare la grafica
 	 * 
 	 * */
-	
-	//IDEE PER L'AGGIUNTA (C_A = comp. add, C = general component)
-	
-	//C, C_A, C, C_A, C PRIMA
-	//          /  |  \ RIMPIAZZA {C_A} con {C_A, C, C_A} ELIMINANDO IL C_A CLICCATO DALL'UTENTE
-//C, C_A, C, C_A, C,  C_A, C DOPO
-	
-	//C, C_A, C, C_A, C PRIMA
-	//            |  \ AGGIUNGE {C_A, C, C_A} DOPO IL C_A CLICCATO DALL'UTENTE
-//C, C_A, C, C_A, C,  C_A, C
 	
 	HashSet<Variable> memory;
 	ArrayList<AlgorithmComponent> algorithmComponents;
@@ -278,6 +274,75 @@ public class MemoryStorage {
 			
 		}
 		showComponents();
+	}
+
+	public void delete(AlgorithmComponent ac) throws Exceptions {
+		if(ac instanceof ComponentStart || ac instanceof ComponentAdd || ac instanceof ComponentEnd || ac instanceof ComponentElse) {
+			throw new Exceptions(Exceptions.NOT_DELETABLE);
+		}
+		//Controllo se il while e' vuoto
+		if(ac instanceof ComponentWhile) {
+			ac = (ComponentWhile) ac;
+//			DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Checking if " + ac.getNextComponent1() + " == " + ac + " && " + ac.getNextComponent2() + " instanceof ComponentAdd (" + (ac.getNextComponent1() == ac) + ", " + (ac.getNextComponent2() instanceof ComponentAdd) + ")");
+			if(ac.getNextComponent1() == ac && ac.getNextComponent2() instanceof ComponentAdd) {
+				DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Passed testing for while deletion");
+				//Il while e' vuoto, posso passare alla eliminazione
+				DebuggerConsole.getInstance().printDefaultErrorLog(referenceTypeMessage, "Deleting " + algorithmComponents.get(getIndexOf(ac)) + " and " + algorithmComponents.get(getIndexOf(ac)+1));
+				
+				//Aggiorna i collegamenti
+				algorithmComponents.get(getIndexOf(ac)-1).setNextComponent1(algorithmComponents.get(getIndexOf(ac)+2));
+				
+				//Elimina componenti
+				algorithmComponents.remove(getIndexOf(ac)+1);
+				algorithmComponents.remove(getIndexOf(ac));
+			}else {
+				DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Failed testing for while deletion");
+				throw new Exceptions(Exceptions.COMPONENT_NOT_EMPTY);
+			}
+		//Controllo se il if e' vuoto
+		}else if(ac instanceof ComponentIf) {
+			ac = (ComponentIf) ac;
+			if(ac.getNextComponent1() instanceof ComponentAdd && ac.getNextComponent2() instanceof ComponentElse && ac.getNextComponent2().getNextComponent1() instanceof ComponentAdd) {
+				DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Passed testing for while deletion");
+				//Il if e' vuoto, posso passare alla eliminazione
+				DebuggerConsole.getInstance().printDefaultErrorLog(referenceTypeMessage, "Deleting " + algorithmComponents.get(getIndexOf(ac)) + ", " + algorithmComponents.get(getIndexOf(ac)+1) + " and " + algorithmComponents.get(getIndexOf(ac)+2));
+				
+				//Aggiorna i collegamenti
+				algorithmComponents.get(getIndexOf(ac)-1).setNextComponent1(algorithmComponents.get(getIndexOf(ac)+3));
+				
+				//Elimina componenti
+				algorithmComponents.remove(getIndexOf(ac)+2);
+				algorithmComponents.remove(getIndexOf(ac)+1);
+				algorithmComponents.remove(getIndexOf(ac));
+			}else {
+				DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Failed testing for if deletion");
+				throw new Exceptions(Exceptions.COMPONENT_NOT_EMPTY);
+			}
+		}else {
+			AlgorithmComponent previousAC = algorithmComponents.get(getIndexOf(ac)-1);
+			AlgorithmComponent nextAC = algorithmComponents.get(getIndexOf(ac)+1);
+			
+			DebuggerConsole.getInstance().printDefaultErrorLog(referenceTypeMessage, "Deleting " + algorithmComponents.get(getIndexOf(ac)));
+			
+			if(previousAC instanceof ComponentIf) {
+				previousAC = (ComponentIf) previousAC;
+				previousAC.setNextComponent1(algorithmComponents.get(getIndexOf(ac)+2));
+			}else if(previousAC instanceof ComponentElse) {
+				previousAC = (ComponentElse) previousAC;
+				previousAC.setNextComponent1(algorithmComponents.get(getIndexOf(ac)+1));
+			}else if(previousAC instanceof ComponentWhile) {
+				previousAC = (ComponentWhile) previousAC;
+				previousAC.setNextComponent1(previousAC);
+			}else {
+				algorithmComponents.get(getIndexOf(ac)-1).setNextComponent1(algorithmComponents.get(getIndexOf(ac)+1));				
+			}
+		
+			
+			algorithmComponents.remove(getIndexOf(ac));
+			
+		}
+		showComponents();
+		
 	}
 	
 	
