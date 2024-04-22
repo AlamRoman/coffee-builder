@@ -344,6 +344,14 @@ public class MemoryStorage {
 		showComponents();
 		
 	}
+
+	public void resetExecutingStatusOfPanels() {
+		// TODO Auto-generated method stub
+		for(AlgorithmComponent a : algorithmComponents) {
+			a.getAssociatedPanel().executing = false;
+			a.getAssociatedPanel().repaint();
+		}
+	}
 	
 	
 	

@@ -84,6 +84,7 @@ public class ContentPaneController extends Controller{
 				algorithmExecuter.stop();
 				panel.setExecuteButtonUsable(true);
 				panel.toggleExecuteSelected();
+				super.memory.resetExecutingStatusOfPanels();
 				
 				break;
 		}

@@ -3,12 +3,14 @@ package model.Components;
 import model.DebuggerConsole;
 import model.Exceptions;
 import model.Memory.MemoryStorage;
+import view.flowChartComponents.FlowChartPanel;
 
 public class AlgorithmComponent {
 
 	private static final String referenceTypeMessage = "AC";
 	private AlgorithmComponent nextComponent1;
 	private AlgorithmComponent nextComponent2;
+	private FlowChartPanel associatedPanel;
 	private MemoryStorage memory;
 	
 	public AlgorithmComponent(AlgorithmComponent nextComponent1, AlgorithmComponent nextComponent2, MemoryStorage memory) {
@@ -61,8 +63,13 @@ public class AlgorithmComponent {
 		return getClass().getSimpleName();
 	}
 	
+	public FlowChartPanel getAssociatedPanel() {
+		return associatedPanel;
+	}
 	
-	
+	public void setAssociatedPanel(FlowChartPanel p) {
+		this.associatedPanel = p;
+	}
 	
 	
 }

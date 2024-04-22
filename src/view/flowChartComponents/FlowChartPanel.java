@@ -39,6 +39,7 @@ public class FlowChartPanel extends JPanel {
 	public JButton[] buttons;
 	private final FlowChartController controller;
 	private JLabel label;
+	public boolean executing;
 	
 	public FlowChartPanel(AlgorithmComponent associatedComponent, FlowChartController controller) {
 		setLayout(null);
@@ -47,6 +48,8 @@ public class FlowChartPanel extends JPanel {
 		addMouseListener(controller);
 		buttons = new JButton[4];
 		this.associatedComponent = associatedComponent;
+		executing = false;
+		associatedComponent.setAssociatedPanel(this);
 		if(associatedComponent instanceof AlgorithmComponent && !(associatedComponent instanceof ComponentEnd)) {
 			createButtons(false, false, true, false);
 		}
@@ -116,5 +119,10 @@ public class FlowChartPanel extends JPanel {
 	
 	public void updatePrint() {
 		label.setText(associatedComponent.print());
+	}
+
+	public void toggleExecuting() {
+		// TODO Auto-generated method stub
+		executing = !executing;
 	}
 }
