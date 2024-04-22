@@ -1,6 +1,7 @@
 package view;
 
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import controller.FlowChartController;
 import model.Components.ComponentAssign;
@@ -37,6 +38,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.Paint;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
@@ -147,12 +149,11 @@ public class FlowChartContentPanel extends JPanel {
 		
 		this.removeAll();
 		
-		
 		for(AlgorithmComponent c : components) {
 			
-			if(c.getNextComponent() != null) {
-				c.getNextComponent1().equals(MemoryStorage.getInstance().getIndexOf(c)+1);				
-			}
+			//if(c.getNextComponent() != null) {
+			//	c.getNextComponent1().equals(MemoryStorage.getInstance().getIndexOf(c)+1);				
+			//}
 			
 			
 			DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Adding " + c + " to the panel...");
@@ -161,6 +162,9 @@ public class FlowChartContentPanel extends JPanel {
 				
 				OvalPanel o_p = new OvalPanel(c, FC_Controller);
 				o_p.setBounds(posX, posY, 180, 80);
+				
+				
+				
 				posX+=X_INCREMENT; //180
 				posY+=Y_INCREMENT; //100
 				add(o_p);
