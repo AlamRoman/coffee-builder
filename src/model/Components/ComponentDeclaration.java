@@ -70,5 +70,9 @@ public class ComponentDeclaration extends AlgorithmComponent{
 		}
 		return null;
 	}
+
+	public VariableType getVariableType() {
+		return variableType;
+	}
 	
 }
