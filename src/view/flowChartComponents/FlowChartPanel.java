@@ -19,6 +19,7 @@ import controller.Controller;
 import controller.FlowChartController;
 import model.ID;
 import model.Components.AlgorithmComponent;
+import model.Components.ComponentAdd;
 import model.Components.ComponentAssign;
 import model.Components.ComponentComment;
 import model.Components.ComponentDeclaration;
@@ -38,6 +39,7 @@ public class FlowChartPanel extends JPanel {
 	public JButton[] buttons;
 	private final FlowChartController controller;
 	private JLabel label;
+	public boolean executing;
 	
 	public FlowChartPanel(AlgorithmComponent associatedComponent, FlowChartController controller) {
 		setLayout(null);
@@ -46,7 +48,9 @@ public class FlowChartPanel extends JPanel {
 		addMouseListener(controller);
 		buttons = new JButton[4];
 		this.associatedComponent = associatedComponent;
-		if(associatedComponent instanceof AlgorithmComponent) {
+		executing = false;
+		associatedComponent.setAssociatedPanel(this);
+		if(associatedComponent instanceof AlgorithmComponent && !(associatedComponent instanceof ComponentEnd)) {
 			createButtons(false, false, true, false);
 		}
 		addCenteredLabelWithComponentInfo();
@@ -64,9 +68,14 @@ public class FlowChartPanel extends JPanel {
 //			buttons[1].setBounds(0, 30, 40, 20);
 //			buttons[1].setFocusable(false);
 //		}
+		
 		if(bottom) {
 			buttons[2] = new JButton("ADD");
-			buttons[2].setBounds(70, 60, 40, 20);
+			if(associatedComponent instanceof ComponentAdd) {
+				buttons[2].setBounds(70, 30, 40, 20);								
+			}else {
+				buttons[2].setBounds(70, 60, 40, 20);				
+			}
 			buttons[2].setFocusable(false);
 		}
 //		if(left) {
@@ -110,5 +119,10 @@ public class FlowChartPanel extends JPanel {
 	
 	public void updatePrint() {
 		label.setText(associatedComponent.print());
+	}
+
+	public void toggleExecuting() {
+		// TODO Auto-generated method stub
+		executing = !executing;
 	}
 }

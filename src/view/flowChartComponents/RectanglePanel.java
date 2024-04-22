@@ -8,6 +8,7 @@ import controller.Controller;
 import controller.FlowChartController;
 import model.ID;
 import model.Components.AlgorithmComponent;
+import model.Components.ComponentAdd;
 
 public class RectanglePanel extends FlowChartPanel {
 	
@@ -23,7 +24,11 @@ public class RectanglePanel extends FlowChartPanel {
         
         // Disegna un rettangolo
         setBackground(new Color(255, 255, 255));
-        g2d.drawRect(1, 1, getWidth() - 2, getHeight() - 2);
+        if(associatedComponent instanceof ComponentAdd) {      	        	
+        	g2d.drawRect(60, 20, getWidth() - 120, getHeight() - 40);        	        	
+        }else {
+        	g2d.drawRect(1, 1, getWidth() - 2, getHeight() - 2);        	
+        }
     }
 
 }

@@ -21,6 +21,12 @@ public class OvalPanel extends FlowChartPanel {
         setBackground(new Color(255, 255, 255));
         Graphics2D g2d = (Graphics2D) g;
         
+        if (super.executing) {
+            g2d.setColor(Color.GREEN); // Se la booleana è vera, il bordo sarà verde
+        } else {
+            g2d.setColor(Color.BLACK); // Se la booleana è falsa, il bordo sarà nero
+        }
+        
         // Disegna un ovale
         
         g2d.drawOval(1, 1, getWidth() - 1, getHeight() - 1);

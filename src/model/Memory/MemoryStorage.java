@@ -11,8 +11,14 @@ import model.Debug;
 import model.DebuggerConsole;
 import model.Exceptions;
 import model.Components.AlgorithmComponent;
+import model.Components.ComponentAdd;
+import model.Components.ComponentElse;
 import model.Components.ComponentEnd;
+import model.Components.ComponentIf;
+import model.Components.ComponentInput;
 import model.Components.ComponentStart;
+import model.Components.ComponentWhile;
+import view.editComponents.EditWhile.ValuesWhileComponent;
 
 public class MemoryStorage {
 	
@@ -26,16 +32,6 @@ public class MemoryStorage {
 	 * 5. Dopo l'eliminazione, aggiornare la grafica
 	 * 
 	 * */
-	
-	//IDEE PER L'AGGIUNTA (C_A = comp. add, C = general component)
-	
-	//C, C_A, C, C_A, C PRIMA
-	//          /  |  \ RIMPIAZZA {C_A} con {C_A, C, C_A} ELIMINANDO IL C_A CLICCATO DALL'UTENTE
-//C, C_A, C, C_A, C,  C_A, C DOPO
-	
-	//C, C_A, C, C_A, C PRIMA
-	//            |  \ AGGIUNGE {C_A, C, C_A} DOPO IL C_A CLICCATO DALL'UTENTE
-//C, C_A, C, C_A, C,  C_A, C
 	
 	HashSet<Variable> memory;
 	ArrayList<AlgorithmComponent> algorithmComponents;
@@ -139,7 +135,7 @@ public class MemoryStorage {
 		StringBuilder sb = new StringBuilder();
 		sb.append(String.format("%-44s %s %-44s\n", "", "COMPONENTS TABLE", ""));
         sb.append("--------------------------------------------------------------------------------------------------------------\n");
-		sb.append(String.format("%-5s %-20s %-20s %-20s %-30s\n", "Index", "Class", "NComp1", "NComp2", "toString"));
+		sb.append(String.format("%-5s %-20s %-25s %-25s %-30s\n", "Index", "Class", "NComp1[index]", "NComp2[index]", "toString"));
         sb.append("--------------------------------------------------------------------------------------------------------------\n");
         
         for (int i = 0; i < algorithmComponents.size(); i++) {
@@ -148,11 +144,14 @@ public class MemoryStorage {
             AlgorithmComponent n1 = algorithmComponent.getNextComponent1();
             AlgorithmComponent n2 = algorithmComponent.getNextComponent2();
             String nComp1 = (n1==null)?null:algorithmComponent.getNextComponent1().getClass().getSimpleName();
-            String nComp2 = (n2==null)?null:algorithmComponent.getNextComponent1().getClass().getSimpleName();
+            String nComp2 = (n2==null)?null:algorithmComponent.getNextComponent2().getClass().getSimpleName();
+            int idx1 = getIndexOf(n1);
+            int idx2 = getIndexOf(n2);
             String ts = algorithmComponent.toString();
-            sb.append(String.format("%-5s %-20s %-20s %-20s %-30s\n", i, className, nComp1, nComp2, ts));
+            sb.append(String.format("%-5s %-20s %-25s %-25s %-30s\n", i, className, nComp1+"["+((idx1==-1)?"n/a":idx1)+"]", nComp2+"["+((idx2==-1)?"n/a":idx2)+"]", ts));
         }
         sb.append("=============================================================================================================\n");
+        sb.append(printComponentsList());
         return sb.toString();
     }
 	
@@ -227,6 +226,131 @@ public class MemoryStorage {
 	public ArrayList<AlgorithmComponent> getComponents() {
 		// TODO Auto-generated method stub
 		return algorithmComponents;
+	}
+	
+	public String printComponentsList() {
+		String s = "\n";
+		for (AlgorithmComponent comp : algorithmComponents) {
+			s += comp.toString() + ", ";
+		}
+		return s;
+	}
+
+	public void addComponent(AlgorithmComponent[] components, int index) {
+		// TODO Auto-generated method stub
+		showComponents();
+		if(components.length == 3) {
+			
+			final int INDEX_PREV = index-1;
+			final int INDEX_IF = index; 
+			final int INDEX_ELSE = index+1; 
+			final int INDEX_ADD = index+2; 
+			final int INDEX_NEXT = index+3; 
+			
+			algorithmComponents.add(INDEX_IF, components[0]);
+			algorithmComponents.add(INDEX_ELSE, components[1]);
+			algorithmComponents.add(INDEX_ADD, components[2]);
+			
+			algorithmComponents.get(INDEX_PREV).setNextComponent1(algorithmComponents.get(INDEX_IF));
+			algorithmComponents.get(INDEX_IF).setNextComponent1(algorithmComponents.get(INDEX_ADD));
+			algorithmComponents.get(INDEX_IF).setNextComponent2(algorithmComponents.get(INDEX_ELSE));
+			algorithmComponents.get(INDEX_ELSE).setNextComponent1(algorithmComponents.get(INDEX_ADD));
+			algorithmComponents.get(INDEX_ADD).setNextComponent1(algorithmComponents.get(INDEX_NEXT));
+			
+		}else if(components.length == 2) {
+			
+			final int INDEX_PREV = index-1;
+			final int INDEX_WHILE = index; 
+			final int INDEX_ADD = index+1; 
+			final int INDEX_NEXT = index+2; 
+			
+			algorithmComponents.add(INDEX_WHILE, components[0]);
+			algorithmComponents.add(INDEX_ADD, components[1]);
+			
+			algorithmComponents.get(INDEX_PREV).setNextComponent1(algorithmComponents.get(INDEX_WHILE));
+			algorithmComponents.get(INDEX_WHILE).setNextComponent1(algorithmComponents.get(INDEX_WHILE));
+			algorithmComponents.get(INDEX_WHILE).setNextComponent2(algorithmComponents.get(INDEX_ADD));
+			algorithmComponents.get(INDEX_ADD).setNextComponent1(algorithmComponents.get(INDEX_NEXT));
+			
+		}
+		showComponents();
+	}
+
+	public void delete(AlgorithmComponent ac) throws Exceptions {
+		if(ac instanceof ComponentStart || ac instanceof ComponentAdd || ac instanceof ComponentEnd || ac instanceof ComponentElse) {
+			throw new Exceptions(Exceptions.NOT_DELETABLE);
+		}
+		//Controllo se il while e' vuoto
+		if(ac instanceof ComponentWhile) {
+			ac = (ComponentWhile) ac;
+//			DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Checking if " + ac.getNextComponent1() + " == " + ac + " && " + ac.getNextComponent2() + " instanceof ComponentAdd (" + (ac.getNextComponent1() == ac) + ", " + (ac.getNextComponent2() instanceof ComponentAdd) + ")");
+			if(ac.getNextComponent1() == ac && ac.getNextComponent2() instanceof ComponentAdd) {
+				DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Passed testing for while deletion");
+				//Il while e' vuoto, posso passare alla eliminazione
+				DebuggerConsole.getInstance().printDefaultErrorLog(referenceTypeMessage, "Deleting " + algorithmComponents.get(getIndexOf(ac)) + " and " + algorithmComponents.get(getIndexOf(ac)+1));
+				
+				//Aggiorna i collegamenti
+				algorithmComponents.get(getIndexOf(ac)-1).setNextComponent1(algorithmComponents.get(getIndexOf(ac)+2));
+				
+				//Elimina componenti
+				algorithmComponents.remove(getIndexOf(ac)+1);
+				algorithmComponents.remove(getIndexOf(ac));
+			}else {
+				DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Failed testing for while deletion");
+				throw new Exceptions(Exceptions.COMPONENT_NOT_EMPTY);
+			}
+		//Controllo se il if e' vuoto
+		}else if(ac instanceof ComponentIf) {
+			ac = (ComponentIf) ac;
+			if(ac.getNextComponent1() instanceof ComponentAdd && ac.getNextComponent2() instanceof ComponentElse && ac.getNextComponent2().getNextComponent1() instanceof ComponentAdd) {
+				DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Passed testing for while deletion");
+				//Il if e' vuoto, posso passare alla eliminazione
+				DebuggerConsole.getInstance().printDefaultErrorLog(referenceTypeMessage, "Deleting " + algorithmComponents.get(getIndexOf(ac)) + ", " + algorithmComponents.get(getIndexOf(ac)+1) + " and " + algorithmComponents.get(getIndexOf(ac)+2));
+				
+				//Aggiorna i collegamenti
+				algorithmComponents.get(getIndexOf(ac)-1).setNextComponent1(algorithmComponents.get(getIndexOf(ac)+3));
+				
+				//Elimina componenti
+				algorithmComponents.remove(getIndexOf(ac)+2);
+				algorithmComponents.remove(getIndexOf(ac)+1);
+				algorithmComponents.remove(getIndexOf(ac));
+			}else {
+				DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Failed testing for if deletion");
+				throw new Exceptions(Exceptions.COMPONENT_NOT_EMPTY);
+			}
+		}else {
+			AlgorithmComponent previousAC = algorithmComponents.get(getIndexOf(ac)-1);
+			AlgorithmComponent nextAC = algorithmComponents.get(getIndexOf(ac)+1);
+			
+			DebuggerConsole.getInstance().printDefaultErrorLog(referenceTypeMessage, "Deleting " + algorithmComponents.get(getIndexOf(ac)));
+			
+			if(previousAC instanceof ComponentIf) {
+				previousAC = (ComponentIf) previousAC;
+				previousAC.setNextComponent1(algorithmComponents.get(getIndexOf(ac)+2));
+			}else if(previousAC instanceof ComponentElse) {
+				previousAC = (ComponentElse) previousAC;
+				previousAC.setNextComponent1(algorithmComponents.get(getIndexOf(ac)+1));
+			}else if(previousAC instanceof ComponentWhile) {
+				previousAC = (ComponentWhile) previousAC;
+				previousAC.setNextComponent1(previousAC);
+			}else {
+				algorithmComponents.get(getIndexOf(ac)-1).setNextComponent1(algorithmComponents.get(getIndexOf(ac)+1));				
+			}
+		
+			
+			algorithmComponents.remove(getIndexOf(ac));
+			
+		}
+		showComponents();
+		
+	}
+
+	public void resetExecutingStatusOfPanels() {
+		// TODO Auto-generated method stub
+		for(AlgorithmComponent a : algorithmComponents) {
+			a.getAssociatedPanel().executing = false;
+			a.getAssociatedPanel().repaint();
+		}
 	}
 	
 	

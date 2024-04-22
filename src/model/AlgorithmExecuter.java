@@ -6,6 +6,7 @@ import controller.ContentPaneController;
 import model.Components.AlgorithmComponent;
 import model.Components.ComponentEnd;
 import model.Memory.MemoryStorage;
+import view.flowChartComponents.FlowChartPanel;
 
 public class AlgorithmExecuter implements Runnable{
 	
@@ -60,7 +61,15 @@ public class AlgorithmExecuter implements Runnable{
 					try {
 						result=null;
 						callControllerUpdateTable();
+						
+						FlowChartPanel fcp = algorithmComponent.getAssociatedPanel();
+						
+						fcp.toggleExecuting();
+						fcp.repaint();
+						
 						result = (String) algorithmComponent.execute();
+						
+						
 					} catch (Exceptions e) {
 						// TODO Auto-generated catch block
 //						*HANDLE EXCEPTION*

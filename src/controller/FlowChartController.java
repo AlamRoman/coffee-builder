@@ -13,14 +13,18 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import model.AlgorithmExecuter;
 import model.DebuggerConsole;
+import model.Exceptions;
 import model.Timer;
 import model.Components.AlgorithmComponent;
+import model.Components.ComponentAdd;
 import model.Components.ComponentAssign;
 import model.Components.ComponentComment;
 import model.Components.ComponentDeclaration;
+import model.Components.ComponentElse;
 import model.Components.ComponentEnd;
 import model.Components.ComponentIf;
 import model.Components.ComponentInput;
@@ -59,7 +63,7 @@ public class FlowChartController extends Controller {
 		// TODO Auto-generated constructor stub
 		this.panel = panel;
 		this.panel.setControllerAttribute(this);
-		panel.updatePane(super.getMemory().getComponents(), null);
+		panel.updatePane(super.getMemory().getComponents());
 //		System.out.println(this.panel);
 //		System.out.println(this);
 	}
@@ -126,8 +130,26 @@ public class FlowChartController extends Controller {
 						newComponent = new ComponentComment(null, null, null);
 						break;
 					}
-					MemoryStorage.getInstance().addComponent(newComponent, index+1);
-					panel.updatePane(MemoryStorage.getInstance().getComponents(), FCPanel);
+					switch (compName) {
+					case "If": {
+						MemoryStorage.getInstance().addComponent(new AlgorithmComponent[]{
+								newComponent, 
+								new ComponentElse(null, null, null), 
+								new ComponentAdd(null, null, null)
+						}, index+1);
+						break;
+					}
+					case "While": {
+						MemoryStorage.getInstance().addComponent(new AlgorithmComponent[]{
+								newComponent,
+								new ComponentAdd(null, null, null)
+						}, index+1);
+						break;
+					}
+					default:
+						MemoryStorage.getInstance().addComponent(newComponent, index+1);
+					}
+					panel.updatePane(MemoryStorage.getInstance().getComponents());
 				}
 			}
 			
@@ -149,6 +171,7 @@ public class FlowChartController extends Controller {
 		System.out.println(e);
 		Object source = e.getSource();
 		if(e.getButton() == MouseEvent.BUTTON1) {
+			DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Left mouse button got clicked");
 			if(source instanceof OvalPanel || source instanceof ParallelogramPanel || source instanceof RectanglePanel || source instanceof RhombusPanel) {
 				FlowChartPanel panel = (FlowChartPanel) source;
 				AlgorithmComponent ac = panel.associatedComponent;
@@ -240,6 +263,22 @@ public class FlowChartController extends Controller {
 //			System.out.println(panel.getParent().getParent().getParent().getParent().getParent().getParent());
 			
 			
+		}else if(e.getButton() == MouseEvent.BUTTON3) {
+			DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Right mouse button got clicked");
+			if(source instanceof OvalPanel || source instanceof ParallelogramPanel || source instanceof RectanglePanel || source instanceof RhombusPanel) {
+				FlowChartPanel panel = (FlowChartPanel) source;
+				FlowChartContentPanel contentPane = (FlowChartContentPanel) panel.getParent();
+				AlgorithmComponent ac = panel.associatedComponent;
+				try {
+					DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Passing " + ac + " for deletion");
+					super.memory.delete(ac);
+					contentPane.updatePane(MemoryStorage.getInstance().getComponents());
+				} catch (Exceptions e1) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(panel, e1.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+					DebuggerConsole.getInstance().printDefaultErrorLog(referenceType, e1.getMessage());
+				}
+			}
 		}
 	}
 
