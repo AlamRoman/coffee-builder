@@ -14,16 +14,22 @@ public class AlgorithmExecuter implements Runnable{
 	private AlgorithmComponent algorithmComponent;
 	private Semaphore exec;
 	private Semaphore wait;
+	private Semaphore read;
+	private Semaphore write;
 	private Thread T;
 	private Timer timer;
+	private Buffer buffer;
 	private String result;
 	private ContentPaneController controller;
 
-	public AlgorithmExecuter(Semaphore exec, Semaphore wait, Timer timer) {
+	public AlgorithmExecuter(Semaphore exec, Semaphore wait, Semaphore read, Semaphore write, Timer timer, Buffer buffer) {
 		super();
 		this.timer = timer;
+		this.buffer = buffer;
 		this.exec = exec;
 		this.wait = wait;
+		this.read = read;
+		this.write = write;
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType, "Created.");
 	}
 
@@ -79,11 +85,24 @@ public class AlgorithmExecuter implements Runnable{
 						System.err.println(e.getMessage());
 					}
 					
+					try {
+						DebuggerConsole.getInstance().printDefaultInfoLog(referenceType+"-THREAD_BUFFER", "Waiting for read semaphore...");
+						read.acquire();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					DebuggerConsole.getInstance().printDefaultInfoLog(referenceType+"-THREAD_BUFFER", "Got read semaphore.");
 					//Controllo se c'è stato un output dal componente
 					if(result!=null) {
+						DebuggerConsole.getInstance().printDefaultInfoLog(referenceType+"-THREAD", "Writing '" + result + "' in buffer.");
+						buffer.write(result);
 						System.out.println(result);
 						result = null;
 					}
+					
+					DebuggerConsole.getInstance().printDefaultInfoLog(referenceType+"-THREAD_BUFFER", "Write semaphore released");
+					write.release();
 					
 					//Se il prossimo componente è la fine del programma mostra la tabella della memoria in debug
 					if(algorithmComponent.getNextComponent() instanceof ComponentEnd) MemoryStorage.getInstance().print();

@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import model.AlgorithmExecuter;
+import model.Buffer;
 import model.DebuggerConsole;
 import model.Exceptions;
 import model.Timer;
@@ -16,21 +17,28 @@ import model.Components.AlgorithmComponent;
 import model.Memory.MemoryStorage;
 import view.Panel;
 
-public class ContentPaneController extends Controller{
+public class ContentPaneController extends Controller implements Runnable{
 	
 	private static final String referenceType = "CP-CONTROLLER";
 	private Panel panel;
 	private Semaphore execute;
 	private Semaphore wait;
+	private Semaphore read;
+	private Semaphore write;
+	private Thread T;
 
-	public ContentPaneController(AlgorithmExecuter ALGORITHM_EXECUTER, Timer TIMER, Semaphore execute, Semaphore wait, Panel panel) {
-		super(ALGORITHM_EXECUTER, TIMER, MemoryStorage.getInstance());
+	public ContentPaneController(AlgorithmExecuter ALGORITHM_EXECUTER, Timer TIMER, Buffer BUFFER, Semaphore execute, Semaphore wait, Semaphore read, Semaphore write, Panel panel) {
+		super(ALGORITHM_EXECUTER, TIMER, BUFFER, MemoryStorage.getInstance());
 		// TODO Auto-generated constructor stub
 		this.panel = panel;
 		this.execute = execute;
 		this.wait = wait;
+		this.read = read;
+		this.write = write;
 		panel.registerEvents(this);
 		ALGORITHM_EXECUTER.setController(this);
+		T = new Thread(this, "BUFFER_THREAD");
+		T.start();
 		
 		//REMOVE THIS TRY-CATCH BLOCK WHEN NOT TESTING~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //		try {
@@ -40,6 +48,25 @@ public class ContentPaneController extends Controller{
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
+	}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		while(true) {
+			try {
+				DebuggerConsole.getInstance().printDefaultInfoLog(referenceType+"-THREAD_BUFFER", "Waiting for write semaphore...");
+				write.acquire();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			DebuggerConsole.getInstance().printDefaultInfoLog(referenceType+"-THREAD_BUFFER", "Got semaphore write.");
+			panel.setOutputArea(super.buffer.read());
+			read.release();
+			DebuggerConsole.getInstance().printDefaultInfoLog(referenceType+"-THREAD_BUFFER", "Read semaphore released");
+		}
+		
 	}
 
 	@Override
@@ -155,6 +182,7 @@ public class ContentPaneController extends Controller{
 		// TODO Auto-generated method stub
 		
 	}
+
 	
 //	public void nextButtonClicked() {
 //	    if (!panel.isAutoRun()) {

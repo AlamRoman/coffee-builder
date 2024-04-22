@@ -6,6 +6,7 @@ import controller.ContentPaneController;
 import controller.Controller;
 import controller.FlowChartController;
 import model.AlgorithmExecuter;
+import model.Buffer;
 import model.Timer;
 import model.Memory.MemoryStorage;
 import model.Memory.RelationalOperators;
@@ -19,10 +20,13 @@ public class Main {
 		final Frame MAIN_FRAME = new Frame();
 		final Semaphore EXECUTE_S = new Semaphore(1);
 		final Semaphore WAIT_S = new Semaphore(0);
+		final Semaphore READ_S = new Semaphore(1);
+		final Semaphore WRITE_S = new Semaphore(0);
 		final Timer TIMER = new Timer(EXECUTE_S, WAIT_S);
-		final AlgorithmExecuter ALGORITHM_EXECUTER = new AlgorithmExecuter(EXECUTE_S, WAIT_S, TIMER);
-		final ContentPaneController CONTROLLER = new ContentPaneController(ALGORITHM_EXECUTER, TIMER, EXECUTE_S, WAIT_S, MAIN_FRAME.getContentPanel());
-		final FlowChartController CONTROLLER_FLOWCHART = new FlowChartController(ALGORITHM_EXECUTER, TIMER, MAIN_FRAME.getContentPanel().getFlowChartPanel());
+		final Buffer BUFFER = new Buffer();
+		final AlgorithmExecuter ALGORITHM_EXECUTER = new AlgorithmExecuter(EXECUTE_S, WAIT_S, READ_S, WRITE_S, TIMER, BUFFER);
+		final ContentPaneController CONTROLLER = new ContentPaneController(ALGORITHM_EXECUTER, TIMER, BUFFER, EXECUTE_S, WAIT_S, READ_S, WRITE_S, MAIN_FRAME.getContentPanel());
+		final FlowChartController CONTROLLER_FLOWCHART = new FlowChartController(ALGORITHM_EXECUTER, TIMER, BUFFER, MAIN_FRAME.getContentPanel().getFlowChartPanel());
 		MAIN_FRAME.setVisible(true);
 	}
 	

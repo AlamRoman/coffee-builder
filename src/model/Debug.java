@@ -2,7 +2,7 @@ package model;
 
 public class Debug {
 
-	public final static boolean FORCE_DEBUG = true;
+	public final static boolean FORCE_DEBUG = false;
 	public final static boolean COMPONENT_ADD_DEBUG = false;
 	public final static boolean COMPONENT_ASSIGN_DEBUG = false;
 	public final static boolean COMPONENT_COMMENT_DEBUG = false;
@@ -14,9 +14,9 @@ public class Debug {
 	public final static boolean COMPONENT_WHILE_DEBUG = false;
 	public final static boolean MEMORY_DEBUG = false;
 	public final static boolean VARIABLE_DEBUG = false;
-	public final static boolean SEMAPHORE_DEBUG = false;
+	public final static boolean SEMAPHORE_DEBUG = true;
 	public final static boolean TIMER_DEBUG = false;
-	public final static boolean EXECUTER_DEBUG = false;
+	public final static boolean EXECUTER_DEBUG = true;
 	public static final boolean CONDITION_DEBUG = false;
 	public static final boolean CONTROLLER_DEBUG = true;
 	

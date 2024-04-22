@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import model.AlgorithmExecuter;
+import model.Buffer;
 import model.DebuggerConsole;
 import model.Exceptions;
 import model.Timer;
@@ -58,8 +59,8 @@ public class FlowChartController extends Controller {
 	private FlowChartContentPanel panel;
 	private FlowChartPanel FCPanel;
 	
-	public FlowChartController(AlgorithmExecuter ALGORITHM_EXECUTER, Timer TIMER, FlowChartContentPanel panel) {
-		super(ALGORITHM_EXECUTER, TIMER, MemoryStorage.getInstance());
+	public FlowChartController(AlgorithmExecuter ALGORITHM_EXECUTER, Timer TIMER, Buffer BUFFER, FlowChartContentPanel panel) {
+		super(ALGORITHM_EXECUTER, TIMER, BUFFER, MemoryStorage.getInstance());
 		// TODO Auto-generated constructor stub
 		this.panel = panel;
 		this.panel.setControllerAttribute(this);

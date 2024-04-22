@@ -97,9 +97,9 @@ public class AlgorithmTester {
 		
 		try {
 			Timer timer = new Timer(exec, wait);
-			AlgorithmExecuter EXECUTER = new AlgorithmExecuter(exec, wait, timer);
+//			AlgorithmExecuter EXECUTER = new AlgorithmExecuter(exec, wait, timer);
 			timer.set(1000, true);
-			EXECUTER.start(start);
+//			EXECUTER.start(start);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.err.println(e.getMessage());

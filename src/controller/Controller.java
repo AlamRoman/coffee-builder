@@ -7,6 +7,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseListener;
 
 import model.AlgorithmExecuter;
+import model.Buffer;
 import model.Timer;
 import model.Memory.MemoryStorage;
 
@@ -15,12 +16,14 @@ public abstract class Controller implements ActionListener, ItemListener, MouseL
 	protected AlgorithmExecuter algorithmExecuter;
 	protected MemoryStorage memory;
 	protected Timer timer;
+	protected Buffer buffer;
 
-	public Controller(AlgorithmExecuter ALGORITHM_EXECUTER, Timer TIMER, MemoryStorage MEMORY) {
+	public Controller(AlgorithmExecuter ALGORITHM_EXECUTER, Timer TIMER, Buffer buffer, MemoryStorage MEMORY) {
 		// TODO Auto-generated constructor stub
 		this.algorithmExecuter = ALGORITHM_EXECUTER;
 		this.timer = TIMER;
 		this.memory = MEMORY;
+		this.buffer = buffer;
 	}
 	
 	public AlgorithmExecuter getExecuter() {
