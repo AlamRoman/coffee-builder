@@ -142,7 +142,7 @@ public class FlowChartContentPanel extends JPanel {
         return new Dimension(maxX,maxY);
     }
 
-	public void updatePane(ArrayList<AlgorithmComponent> components, FlowChartPanel FCPanel) {
+	public void updatePane(ArrayList<AlgorithmComponent> components) {
 		// TODO Auto-generated method stub
 		
 		int posX=OFFSET_X, posY=OFFSET_Y;
