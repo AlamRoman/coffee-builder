@@ -25,9 +25,31 @@ import view.flowChartComponents.RhombusPanel;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Composite;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GraphicsConfiguration;
+import java.awt.Image;
+import java.awt.Paint;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import java.awt.Shape;
+import java.awt.Stroke;
+import java.awt.RenderingHints.Key;
+import java.awt.font.FontRenderContext;
+import java.awt.font.GlyphVector;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
+import java.awt.image.ImageObserver;
+import java.awt.image.RenderedImage;
+import java.awt.image.renderable.RenderableImage;
+import java.text.AttributedCharacterIterator;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class FlowChartContentPanel extends JPanel {
 	
@@ -110,30 +132,60 @@ public class FlowChartContentPanel extends JPanel {
 
 	public void updatePane(ArrayList<AlgorithmComponent> components, FlowChartPanel FCPanel) {
 		// TODO Auto-generated method stub
+		
+		int posX=20, posY=20;
+		
+		this.removeAll();
+		
+		ArrayList<Graphics2D> linee = new ArrayList<Graphics2D>();
+		
+		
 		for(AlgorithmComponent c : components) {
+			
 			DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Adding " + c + " to the panel...");
-			if(c instanceof ComponentStart || c instanceof ComponentEnd) {
+			
+			if(c instanceof ComponentStart) {
+				
 				OvalPanel o_p = new OvalPanel(c, FC_Controller);
-				o_p.setBounds(20, 20, 180, 80);
+				o_p.setBounds(posX, posY, 180, 80);
+				posX+=180;
+				posY+=100;
+				add(o_p);
+				
+			}else if (c instanceof ComponentEnd) {
+				
+				OvalPanel o_p = new OvalPanel(c, FC_Controller);
+				o_p.setBounds(20, posY, 180, 80);
 				add(o_p);
 				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType, "Added.");
+				
 			}else if(c instanceof ComponentAssign || c instanceof ComponentOperation || c instanceof ComponentComment || c instanceof ComponentDeclaration) {
+				
 				RectanglePanel r_p = new RectanglePanel(c, FC_Controller);
-				r_p.setBounds(200, 230, 180, 80);
+				r_p.setBounds(posX, posY, 180, 80);
 				add(r_p);
+				
+				posY+=100;
+				
 				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType, "Added.");
+			
 			}else if(c instanceof ComponentWhile || c instanceof ComponentIf) {
 				RhombusPanel rh_p = new RhombusPanel(c, FC_Controller);
 				rh_p.setBounds(100, 500, 180, 80);
 				add(rh_p);
 				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType, "Added.");
 			}else if(c instanceof ComponentInput || c instanceof ComponentOutput) {
+				
 				ParallelogramPanel par_p = new ParallelogramPanel(c, FC_Controller);
-				par_p.setBounds(200, 130, 180, 80);
+				par_p.setBounds(posX, posY, 180, 80);
 				add(par_p);
+				
+				posY+=100;
+				
 				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType, "Added.");
 			}
 		}
+		
 		revalidate();
 		repaint();
 		
