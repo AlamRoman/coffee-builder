@@ -139,7 +139,7 @@ public class MemoryStorage {
 		StringBuilder sb = new StringBuilder();
 		sb.append(String.format("%-44s %s %-44s\n", "", "COMPONENTS TABLE", ""));
         sb.append("--------------------------------------------------------------------------------------------------------------\n");
-		sb.append(String.format("%-5s %-20s %-20s %-20s %-30s\n", "Index", "Class", "NComp1", "NComp2", "toString"));
+		sb.append(String.format("%-5s %-20s %-25s %-25s %-30s\n", "Index", "Class", "NComp1[index]", "NComp2[index]", "toString"));
         sb.append("--------------------------------------------------------------------------------------------------------------\n");
         
         for (int i = 0; i < algorithmComponents.size(); i++) {
@@ -148,9 +148,11 @@ public class MemoryStorage {
             AlgorithmComponent n1 = algorithmComponent.getNextComponent1();
             AlgorithmComponent n2 = algorithmComponent.getNextComponent2();
             String nComp1 = (n1==null)?null:algorithmComponent.getNextComponent1().getClass().getSimpleName();
-            String nComp2 = (n2==null)?null:algorithmComponent.getNextComponent1().getClass().getSimpleName();
+            String nComp2 = (n2==null)?null:algorithmComponent.getNextComponent2().getClass().getSimpleName();
+            int idx1 = getIndexOf(n1);
+            int idx2 = getIndexOf(n2);
             String ts = algorithmComponent.toString();
-            sb.append(String.format("%-5s %-20s %-20s %-20s %-30s\n", i, className, nComp1, nComp2, ts));
+            sb.append(String.format("%-5s %-20s %-25s %-25s %-30s\n", i, className, nComp1+"["+((idx1==-1)?"n/a":idx1)+"]", nComp2+"["+((idx2==-1)?"n/a":idx2)+"]", ts));
         }
         sb.append("=============================================================================================================\n");
         sb.append(printComponentsList());
@@ -236,6 +238,46 @@ public class MemoryStorage {
 			s += comp.toString() + ", ";
 		}
 		return s;
+	}
+
+	public void addComponent(AlgorithmComponent[] components, int index) {
+		// TODO Auto-generated method stub
+		showComponents();
+		if(components.length == 3) {
+			
+			final int INDEX_PREV = index-1;
+			final int INDEX_IF = index; 
+			final int INDEX_ELSE = index+1; 
+			final int INDEX_ADD = index+2; 
+			final int INDEX_NEXT = index+3; 
+			
+			algorithmComponents.add(INDEX_IF, components[0]);
+			algorithmComponents.add(INDEX_ELSE, components[1]);
+			algorithmComponents.add(INDEX_ADD, components[2]);
+			
+			algorithmComponents.get(INDEX_PREV).setNextComponent1(algorithmComponents.get(INDEX_IF));
+			algorithmComponents.get(INDEX_IF).setNextComponent1(algorithmComponents.get(INDEX_ADD));
+			algorithmComponents.get(INDEX_IF).setNextComponent2(algorithmComponents.get(INDEX_ELSE));
+			algorithmComponents.get(INDEX_ELSE).setNextComponent1(algorithmComponents.get(INDEX_ADD));
+			algorithmComponents.get(INDEX_ADD).setNextComponent1(algorithmComponents.get(INDEX_NEXT));
+			
+		}else if(components.length == 2) {
+			
+			final int INDEX_PREV = index-1;
+			final int INDEX_WHILE = index; 
+			final int INDEX_ADD = index+1; 
+			final int INDEX_NEXT = index+2; 
+			
+			algorithmComponents.add(INDEX_WHILE, components[0]);
+			algorithmComponents.add(INDEX_ADD, components[1]);
+			
+			algorithmComponents.get(INDEX_PREV).setNextComponent1(algorithmComponents.get(INDEX_WHILE));
+			algorithmComponents.get(INDEX_WHILE).setNextComponent1(algorithmComponents.get(INDEX_WHILE));
+			algorithmComponents.get(INDEX_WHILE).setNextComponent2(algorithmComponents.get(INDEX_ADD));
+			algorithmComponents.get(INDEX_ADD).setNextComponent1(algorithmComponents.get(INDEX_NEXT));
+			
+		}
+		showComponents();
 	}
 	
 	

@@ -18,9 +18,11 @@ import model.AlgorithmExecuter;
 import model.DebuggerConsole;
 import model.Timer;
 import model.Components.AlgorithmComponent;
+import model.Components.ComponentAdd;
 import model.Components.ComponentAssign;
 import model.Components.ComponentComment;
 import model.Components.ComponentDeclaration;
+import model.Components.ComponentElse;
 import model.Components.ComponentEnd;
 import model.Components.ComponentIf;
 import model.Components.ComponentInput;
@@ -126,7 +128,25 @@ public class FlowChartController extends Controller {
 						newComponent = new ComponentComment(null, null, null);
 						break;
 					}
-					MemoryStorage.getInstance().addComponent(newComponent, index+1);
+					switch (compName) {
+					case "If": {
+						MemoryStorage.getInstance().addComponent(new AlgorithmComponent[]{
+								newComponent, 
+								new ComponentElse(null, null, null), 
+								new ComponentAdd(null, null, null)
+						}, index+1);
+						break;
+					}
+					case "While": {
+						MemoryStorage.getInstance().addComponent(new AlgorithmComponent[]{
+								newComponent,
+								new ComponentAdd(null, null, null)
+						}, index+1);
+						break;
+					}
+					default:
+						MemoryStorage.getInstance().addComponent(newComponent, index+1);
+					}
 					panel.updatePane(MemoryStorage.getInstance().getComponents(), FCPanel);
 				}
 			}

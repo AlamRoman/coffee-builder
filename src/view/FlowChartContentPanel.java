@@ -189,7 +189,7 @@ public class FlowChartContentPanel extends JPanel {
 				
 				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType, "Added.");
 				
-			}else if( c instanceof ComponentIf) {
+			}else if(c instanceof ComponentIf) {
 				
 				RhombusPanel rh_p = new RhombusPanel(c, FC_Controller);
 				rh_p.setBounds(posX, posY, 180, 80);

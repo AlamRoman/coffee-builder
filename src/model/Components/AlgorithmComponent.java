@@ -52,8 +52,7 @@ public class AlgorithmComponent {
 		this.memory = memory;
 	}
 	
-	@Override
-	public String toString() {
+	public String classSimpleName() {
 		// TODO Auto-generated method stub
 		return getClass().getSimpleName();
 	}
