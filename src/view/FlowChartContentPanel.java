@@ -15,6 +15,7 @@ import model.Components.ComponentOperation;
 import model.Components.ComponentOutput;
 import model.Components.ComponentStart;
 import model.Components.ComponentWhile;
+import model.Memory.MemoryStorage;
 import model.Memory.OperationType;
 import model.Memory.RelationalOperators;
 import view.flowChartComponents.FlowChartPanel;
@@ -137,10 +138,11 @@ public class FlowChartContentPanel extends JPanel {
 		
 		this.removeAll();
 		
-		ArrayList<Graphics2D> linee = new ArrayList<Graphics2D>();
-		
 		
 		for(AlgorithmComponent c : components) {
+			
+			c.getNextComponent1().equals(MemoryStorage.getInstance().getIndexOf(c)+1);
+			
 			
 			DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Adding " + c + " to the panel...");
 			
@@ -169,11 +171,26 @@ public class FlowChartContentPanel extends JPanel {
 				
 				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType, "Added.");
 			
-			}else if(c instanceof ComponentWhile || c instanceof ComponentIf) {
+			}else if(c instanceof ComponentWhile) {
+				
 				RhombusPanel rh_p = new RhombusPanel(c, FC_Controller);
-				rh_p.setBounds(100, 500, 180, 80);
+				rh_p.setBounds(posX, posY, 180, 80);
 				add(rh_p);
+				
+				posY+=100;
+				
 				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType, "Added.");
+				
+			}else if( c instanceof ComponentIf) {
+				
+				RhombusPanel rh_p = new RhombusPanel(c, FC_Controller);
+				rh_p.setBounds(posX, posY, 180, 80);
+				add(rh_p);
+				
+				posY+=100;
+				
+				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType, "Added.");
+				
 			}else if(c instanceof ComponentInput || c instanceof ComponentOutput) {
 				
 				ParallelogramPanel par_p = new ParallelogramPanel(c, FC_Controller);
