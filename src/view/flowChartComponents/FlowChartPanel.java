@@ -47,7 +47,7 @@ public class FlowChartPanel extends JPanel {
 		addMouseListener(controller);
 		buttons = new JButton[4];
 		this.associatedComponent = associatedComponent;
-		if(associatedComponent instanceof AlgorithmComponent) {
+		if(associatedComponent instanceof AlgorithmComponent && !(associatedComponent instanceof ComponentEnd)) {
 			createButtons(false, false, true, false);
 		}
 		addCenteredLabelWithComponentInfo();
@@ -65,6 +65,7 @@ public class FlowChartPanel extends JPanel {
 //			buttons[1].setBounds(0, 30, 40, 20);
 //			buttons[1].setFocusable(false);
 //		}
+		
 		if(bottom) {
 			buttons[2] = new JButton("ADD");
 			if(associatedComponent instanceof ComponentAdd) {

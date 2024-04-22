@@ -6,9 +6,12 @@ import controller.FlowChartController;
 import model.Components.ComponentAssign;
 import model.DebuggerConsole;
 import model.Components.AlgorithmComponent;
+import model.Components.ComponentAdd;
 import model.Components.ComponentComment;
 import model.Components.ComponentDeclaration;
+import model.Components.ComponentElse;
 import model.Components.ComponentEnd;
+import model.Components.ComponentEndWhile;
 import model.Components.ComponentIf;
 import model.Components.ComponentInput;
 import model.Components.ComponentOperation;
@@ -185,15 +188,55 @@ public class FlowChartContentPanel extends JPanel {
 				rh_p.setBounds(posX, posY, 180, 80);
 				add(rh_p);
 				
+			/*	if( components.get(MemoryStorage.getInstance().getIndexOf(c)+1) instanceof ComponentEndWhile){
+					
+				}else {
+					posX+=X_INCREMENT;
+				}*/
+				
+				posX+=X_INCREMENT;
+				
 				posY+=Y_INCREMENT; //100
 				
 				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType, "Added.");
+				
+			}else if(c instanceof ComponentAdd) {
+				
+				posX-=X_INCREMENT;
+				
+				
+				RectanglePanel o_p = new RectanglePanel(c, FC_Controller);
+				o_p.setBounds(posX, posY, 180, 80);
+				add(o_p);
+				
+				posY+=Y_INCREMENT; //100
+				
+				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType, "Added.");
+				
+				
+			}else if(c instanceof ComponentElse) {
+				
+				posX-=X_INCREMENT;
+				
+				
+				RhombusPanel o_p = new RhombusPanel(c, FC_Controller);
+				o_p.setBounds(posX, posY, 180, 80);
+				add(o_p);
+				
+				posX+=X_INCREMENT;
+				
+				posY+=Y_INCREMENT; //100
+				
+				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType, "Added.");
+				
 				
 			}else if(c instanceof ComponentIf) {
 				
 				RhombusPanel rh_p = new RhombusPanel(c, FC_Controller);
 				rh_p.setBounds(posX, posY, 180, 80);
 				add(rh_p);
+				
+				posX+=X_INCREMENT;
 				
 				posY+=Y_INCREMENT; //100
 				
