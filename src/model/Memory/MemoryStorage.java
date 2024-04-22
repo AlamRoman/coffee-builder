@@ -153,6 +153,7 @@ public class MemoryStorage {
             sb.append(String.format("%-5s %-20s %-20s %-20s %-30s\n", i, className, nComp1, nComp2, ts));
         }
         sb.append("=============================================================================================================\n");
+        sb.append(printComponentsList());
         return sb.toString();
     }
 	
@@ -227,6 +228,14 @@ public class MemoryStorage {
 	public ArrayList<AlgorithmComponent> getComponents() {
 		// TODO Auto-generated method stub
 		return algorithmComponents;
+	}
+	
+	public String printComponentsList() {
+		String s = "\n";
+		for (AlgorithmComponent comp : algorithmComponents) {
+			s += comp.toString() + ", ";
+		}
+		return s;
 	}
 	
 	
