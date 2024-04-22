@@ -56,6 +56,12 @@ public class FlowChartContentPanel extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 	private static final String referenceType = "FC-COMP-CONTAINER";
+	private static final int OFFSET_X = 20;
+	private static final int OFFSET_Y = 20;
+	private static final int PANEL_WIDTH = 180;
+	private static final int PANEL_HEIGHT = 80;
+	private static final int X_INCREMENT = PANEL_WIDTH;
+	private static final int Y_INCREMENT = PANEL_HEIGHT + OFFSET_Y;
 	private FlowChartController FC_Controller;
 
 	public FlowChartContentPanel() {
@@ -134,14 +140,16 @@ public class FlowChartContentPanel extends JPanel {
 	public void updatePane(ArrayList<AlgorithmComponent> components, FlowChartPanel FCPanel) {
 		// TODO Auto-generated method stub
 		
-		int posX=20, posY=20;
+		int posX=OFFSET_X, posY=OFFSET_Y;
 		
 		this.removeAll();
 		
 		
 		for(AlgorithmComponent c : components) {
 			
-			c.getNextComponent1().equals(MemoryStorage.getInstance().getIndexOf(c)+1);
+			if(c.getNextComponent() != null) {
+				c.getNextComponent1().equals(MemoryStorage.getInstance().getIndexOf(c)+1);				
+			}
 			
 			
 			DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Adding " + c + " to the panel...");
@@ -150,8 +158,8 @@ public class FlowChartContentPanel extends JPanel {
 				
 				OvalPanel o_p = new OvalPanel(c, FC_Controller);
 				o_p.setBounds(posX, posY, 180, 80);
-				posX+=180;
-				posY+=100;
+				posX+=X_INCREMENT; //180
+				posY+=Y_INCREMENT; //100
 				add(o_p);
 				
 			}else if (c instanceof ComponentEnd) {
@@ -167,7 +175,7 @@ public class FlowChartContentPanel extends JPanel {
 				r_p.setBounds(posX, posY, 180, 80);
 				add(r_p);
 				
-				posY+=100;
+				posY+=Y_INCREMENT; //100
 				
 				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType, "Added.");
 			
@@ -177,7 +185,7 @@ public class FlowChartContentPanel extends JPanel {
 				rh_p.setBounds(posX, posY, 180, 80);
 				add(rh_p);
 				
-				posY+=100;
+				posY+=Y_INCREMENT; //100
 				
 				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType, "Added.");
 				
@@ -187,7 +195,7 @@ public class FlowChartContentPanel extends JPanel {
 				rh_p.setBounds(posX, posY, 180, 80);
 				add(rh_p);
 				
-				posY+=100;
+				posY+=Y_INCREMENT; //100
 				
 				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType, "Added.");
 				
@@ -197,7 +205,7 @@ public class FlowChartContentPanel extends JPanel {
 				par_p.setBounds(posX, posY, 180, 80);
 				add(par_p);
 				
-				posY+=100;
+				posY+=Y_INCREMENT; //100
 				
 				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType, "Added.");
 			}
