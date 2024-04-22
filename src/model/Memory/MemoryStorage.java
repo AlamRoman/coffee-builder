@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 
+import javax.script.Compilable;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -295,11 +296,22 @@ public class MemoryStorage {
 				DebuggerConsole.getInstance().printDefaultErrorLog(referenceTypeMessage, "Deleting " + algorithmComponents.get(getIndexOf(ac)) + " and " + algorithmComponents.get(getIndexOf(ac)+1));
 				
 				//Aggiorna i collegamenti
-				algorithmComponents.get(getIndexOf(ac)-1).setNextComponent1(algorithmComponents.get(getIndexOf(ac)+2));
-				
-				//Elimina componenti
-				algorithmComponents.remove(getIndexOf(ac)+1);
-				algorithmComponents.remove(getIndexOf(ac));
+				if(previousAC instanceof ComponentWhile) {
+					previousAC.setNextComponent1(previousAC);
+					algorithmComponents.remove(getIndexOf(ac.getNextComponent2()));
+					algorithmComponents.remove(getIndexOf(ac));
+				}else if(previousAC instanceof ComponentIf) {
+					ComponentAdd add = recursiveSearchRelatedAdd(previousAC, true);
+					previousAC.setNextComponent1(add);
+					algorithmComponents.remove(getIndexOf(ac)+1);
+					algorithmComponents.remove(getIndexOf(ac));
+				}else {
+					algorithmComponents.get(getIndexOf(ac)-1).setNextComponent1(algorithmComponents.get(getIndexOf(ac)+2));
+					
+					//Elimina componenti
+					algorithmComponents.remove(getIndexOf(ac)+1);
+					algorithmComponents.remove(getIndexOf(ac));					
+				}
 			}else {
 				DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Failed testing for while deletion");
 				throw new Exceptions(Exceptions.COMPONENT_NOT_EMPTY);
@@ -312,8 +324,13 @@ public class MemoryStorage {
 				//Il if e' vuoto, posso passare alla eliminazione
 				DebuggerConsole.getInstance().printDefaultErrorLog(referenceTypeMessage, "Deleting " + algorithmComponents.get(getIndexOf(ac)) + ", " + algorithmComponents.get(getIndexOf(ac)+1) + " and " + algorithmComponents.get(getIndexOf(ac)+2));
 				
-				//Aggiorna i collegamenti
-				algorithmComponents.get(getIndexOf(ac)-1).setNextComponent1(algorithmComponents.get(getIndexOf(ac)+3));
+				if(previousAC instanceof ComponentWhile) {
+					previousAC.setNextComponent1(previousAC);
+					
+				}else {
+					//Aggiorna i collegamenti
+					algorithmComponents.get(getIndexOf(ac)-1).setNextComponent1(algorithmComponents.get(getIndexOf(ac)+3));					
+				}
 				
 				//Elimina componenti
 				algorithmComponents.remove(getIndexOf(ac)+2);
@@ -334,7 +351,7 @@ public class MemoryStorage {
 				if(!(nextAC instanceof ComponentElse)) {
 					algorithmComponents.get(getIndexOf(ac)-1).setNextComponent1(algorithmComponents.get(getIndexOf(ac)+1));	
 				}else {
-					ComponentAdd add = recursiveSearchRelatedAdd(previousAC);
+					ComponentAdd add = recursiveSearchRelatedAdd(previousAC, false);
 					previousAC.setNextComponent1(add);
 				}
 			}else if(previousAC instanceof ComponentElse) {
@@ -355,18 +372,34 @@ public class MemoryStorage {
 		
 	}
 
-	private ComponentAdd recursiveSearchRelatedAdd(AlgorithmComponent previousAC) {
+	private ComponentAdd recursiveSearchRelatedAdd(AlgorithmComponent previousAC, boolean special) {
 		int counter = 0;
 		AlgorithmComponent aus = previousAC;
-		while(counter < 1) {
-			aus = algorithmComponents.get(getIndexOf(aus)+1);
-			if(aus instanceof ComponentIf || aus instanceof ComponentWhile) {
-				counter--;
-			}else if(aus instanceof ComponentAdd) {
-				counter++;
+		if(special) {
+			aus = aus.getNextComponent2();
+			while(counter < 1) {
+				aus = algorithmComponents.get(getIndexOf(aus)+1);
+				System.out.println(aus);
+				if(aus instanceof ComponentIf || aus instanceof ComponentWhile) {
+					counter--;
+					if(aus instanceof ComponentWhile) {
+						aus = aus.getNextComponent2();
+					}
+				}else if(aus instanceof ComponentAdd) {
+					counter++;
+				}
+			}
+		}else {
+			while(counter < 1) {
+				aus = algorithmComponents.get(getIndexOf(aus)+1);
+				if(aus instanceof ComponentIf || aus instanceof ComponentWhile) {
+					counter--;
+				}else if(aus instanceof ComponentAdd) {
+					counter++;
+				}
 			}
 		}
-		return (ComponentAdd)aus;
+		return (ComponentAdd)aus;			
 	}
 
 	public void resetExecutingStatusOfPanels() {
