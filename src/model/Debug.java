@@ -2,7 +2,7 @@ package model;
 
 public class Debug {
 
-	public final static boolean FORCE_DEBUG = false;
+	public final static boolean FORCE_DEBUG = true;
 	public final static boolean COMPONENT_ADD_DEBUG = false;
 	public final static boolean COMPONENT_ASSIGN_DEBUG = false;
 	public final static boolean COMPONENT_COMMENT_DEBUG = false;

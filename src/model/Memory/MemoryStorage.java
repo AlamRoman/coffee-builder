@@ -18,6 +18,7 @@ import model.Components.ComponentIf;
 import model.Components.ComponentInput;
 import model.Components.ComponentStart;
 import model.Components.ComponentWhile;
+import view.editComponents.AddComponent;
 import view.editComponents.EditWhile.ValuesWhileComponent;
 
 public class MemoryStorage {
@@ -280,6 +281,10 @@ public class MemoryStorage {
 		if(ac instanceof ComponentStart || ac instanceof ComponentAdd || ac instanceof ComponentEnd || ac instanceof ComponentElse) {
 			throw new Exceptions(Exceptions.NOT_DELETABLE);
 		}
+		
+		AlgorithmComponent previousAC = algorithmComponents.get(getIndexOf(ac)-1);
+		AlgorithmComponent nextAC = algorithmComponents.get(getIndexOf(ac)+1);
+		
 		//Controllo se il while e' vuoto
 		if(ac instanceof ComponentWhile) {
 			ac = (ComponentWhile) ac;
@@ -318,15 +323,20 @@ public class MemoryStorage {
 				DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Failed testing for if deletion");
 				throw new Exceptions(Exceptions.COMPONENT_NOT_EMPTY);
 			}
+			//model.Components.ComponentAdd@340a82ef
 		}else {
-			AlgorithmComponent previousAC = algorithmComponents.get(getIndexOf(ac)-1);
-			AlgorithmComponent nextAC = algorithmComponents.get(getIndexOf(ac)+1);
 			
 			DebuggerConsole.getInstance().printDefaultErrorLog(referenceTypeMessage, "Deleting " + algorithmComponents.get(getIndexOf(ac)));
 			
 			if(previousAC instanceof ComponentIf) {
 				previousAC = (ComponentIf) previousAC;
-				previousAC.setNextComponent1(algorithmComponents.get(getIndexOf(ac)+2));
+//				previousAC.setNextComponent1(algorithmComponents.get(getIndexOf(ac)+2));
+				if(!(nextAC instanceof ComponentElse)) {
+					algorithmComponents.get(getIndexOf(ac)-1).setNextComponent1(algorithmComponents.get(getIndexOf(ac)+1));	
+				}else {
+					ComponentAdd add = recursiveSearchRelatedAdd(previousAC);
+					previousAC.setNextComponent1(add);
+				}
 			}else if(previousAC instanceof ComponentElse) {
 				previousAC = (ComponentElse) previousAC;
 				previousAC.setNextComponent1(algorithmComponents.get(getIndexOf(ac)+1));
@@ -343,6 +353,20 @@ public class MemoryStorage {
 		}
 		showComponents();
 		
+	}
+
+	private ComponentAdd recursiveSearchRelatedAdd(AlgorithmComponent previousAC) {
+		int counter = 0;
+		AlgorithmComponent aus = previousAC;
+		while(counter < 1) {
+			aus = algorithmComponents.get(getIndexOf(aus)+1);
+			if(aus instanceof ComponentIf || aus instanceof ComponentWhile) {
+				counter--;
+			}else if(aus instanceof ComponentAdd) {
+				counter++;
+			}
+		}
+		return (ComponentAdd)aus;
 	}
 
 	public void resetExecutingStatusOfPanels() {
