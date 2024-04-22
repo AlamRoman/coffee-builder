@@ -164,7 +164,6 @@ public class FlowChartContentPanel extends JPanel {
 				o_p.setBounds(posX, posY, 180, 80);
 				
 				
-				
 				posX+=X_INCREMENT; //180
 				posY+=Y_INCREMENT; //100
 				add(o_p);

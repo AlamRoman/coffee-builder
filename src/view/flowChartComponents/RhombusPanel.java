@@ -21,6 +21,12 @@ public class RhombusPanel extends FlowChartPanel {
         Graphics2D g2d = (Graphics2D) g;
         setBackground(new Color(255, 255, 255));
         
+        if (super.executing) {
+            g2d.setColor(Color.GREEN); // Se la booleana è vera, il bordo sarà verde
+        } else {
+            g2d.setColor(Color.BLACK); // Se la booleana è falsa, il bordo sarà nero
+        }
+        
         // Disegna un rombo
         int x[] = {getWidth() / 2, 0, getWidth() / 2, getWidth()};
         int y[] = {0, getHeight() / 2, getHeight(), getHeight() / 2};

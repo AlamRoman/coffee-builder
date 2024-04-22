@@ -39,6 +39,7 @@ public class ParallelogramPanel extends FlowChartPanel {
 		
 		setBackground(new Color(255, 255, 255));
 		
+		
 	    super.paintComponent(g);
 	    Graphics2D g2d = (Graphics2D) g;
 	    
@@ -54,6 +55,12 @@ public class ParallelogramPanel extends FlowChartPanel {
 	    int y_A = height-1;//...e questo sempre = 1.0 per garantire lo stesso offset da sotto e da sopra
 	    int y_B = y_A;
 	    int y_C = y_D;
+	    
+	    if (super.executing) {
+	    	g2d.setColor(Color.GREEN); // Se la booleana è vera, il bordo sarà verde
+	    } else {
+	    	g2d.setColor(Color.BLACK); // Se la booleana è falsa, il bordo sarà nero
+	    }
 	    
 	    // Disegna il parallelogramma
 	    int[] xPoints = {x_D, x_A, x_B, x_C};

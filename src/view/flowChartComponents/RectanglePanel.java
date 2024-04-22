@@ -22,6 +22,12 @@ public class RectanglePanel extends FlowChartPanel {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         
+        if (super.executing) {
+            g2d.setColor(Color.GREEN); // Se la booleana è vera, il bordo sarà verde
+        } else {
+            g2d.setColor(Color.BLACK); // Se la booleana è falsa, il bordo sarà nero
+        }
+        
         // Disegna un rettangolo
         setBackground(new Color(255, 255, 255));
         if(associatedComponent instanceof ComponentAdd) {      	        	
