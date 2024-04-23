@@ -61,7 +61,7 @@ public class ComponentAssign extends AlgorithmComponent{
 	}
 	
 	public String print() {
-		String out = variableName;
+		String out = "$" + variableName;
 		
 		out+=" = ";
 		

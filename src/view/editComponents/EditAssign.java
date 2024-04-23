@@ -38,7 +38,7 @@ public class EditAssign extends EditComponent{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String varName = "$" + textFieldFinalVar.getText();
+				String varName = textFieldFinalVar.getText();
 				String varValue = textFieldValue.getText();
 				
 				//result
@@ -121,4 +121,11 @@ public class EditAssign extends EditComponent{
 		
 		System.out.println(s.getFinalVarName() + " = " + s.getValue());
 	}
+
+	@Override
+	public String toString() {
+		return "EditAssign [previousValues=" + previousValues + ", newValues=" + newValues + ", panel=" + panel
+				+ ", textFieldFinalVar=" + textFieldFinalVar + ", textFieldValue=" + textFieldValue + "]";
+	}
+	
 }
