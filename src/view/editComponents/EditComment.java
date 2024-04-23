@@ -2,40 +2,74 @@ package view.editComponents;
 
 import javax.swing.JPanel;
 
-import model.Components.ComponentComment;
 import java.awt.BorderLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 
 public class EditComment extends EditComponent{
 	
-	private ComponentComment componentComment;
+	private String oldComment;
+	private String newComment;
 	private JPanel panel;
+	
 	private JTextArea textArea;
 
-	public EditComment(ComponentComment componentComment, JFrame parent) {
-		super("Comment", parent);
+	public EditComment(String oldOutputText, JFrame frame) {
+		super("Comment", frame);
 		panel = new JPanel();
 		this.setContentPane(panel);
-		panel.setLayout(new BorderLayout(0, 0));
+		this.oldComment = oldOutputText;
 		
-		JButton btnSave = new JButton("Save");
-		panel.add(btnSave, BorderLayout.SOUTH);
+		newComment = null;
+		
+		setSize(329, 142);
+		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		JScrollPane scrollPane = new JScrollPane();
-		panel.add(scrollPane, BorderLayout.CENTER);
+		getContentPane().add(scrollPane, BorderLayout.CENTER);
 		
 		textArea = new JTextArea();
 		scrollPane.setViewportView(textArea);
-		this.componentComment = componentComment;
+	
+		JButton btnSave = new JButton("Save");
+		getContentPane().add(btnSave, BorderLayout.SOUTH);
 		
-		textArea.setText(componentComment.getCommentString());
+		btnSave.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//result
+				newComment = getOutputText();
+				
+				dispose();
+			}
+		});
+		
+		setPreviousValues();
+	}
+	
+	public String showEditWindow() {
+		setVisible(true);
+		
+		return this.newComment;
+	}
+	
+	private void setPreviousValues() {
+		textArea.setText(oldComment);
 	}
 
-	public String getCommentString() {
+	public void setText(String s) {
+		textArea.setText(s);
+	}
+	
+	public String getOutputText() {
 		return textArea.getText();
 	}
-
 }
+

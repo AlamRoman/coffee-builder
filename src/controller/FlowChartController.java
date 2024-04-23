@@ -216,6 +216,14 @@ public class FlowChartController extends Controller {
 					}
 					else if(ac instanceof ComponentComment) {
 						//edit comment
+						ComponentComment comp = (ComponentComment) ac;
+						EditOutput edit = new EditOutput(comp.getCommentString(), frame);
+						
+						String newOutputText = edit.showEditWindow();
+						
+						if (newOutputText != null) {
+							comp.set(newOutputText);
+						}
 					}
 					else if(ac instanceof ComponentDeclaration) {
 						ComponentDeclaration comp = (ComponentDeclaration) ac;
