@@ -303,7 +303,7 @@ public class MemoryStorage {
 					algorithmComponents.remove(getIndexOf(ac.getNextComponent2()));
 					algorithmComponents.remove(getIndexOf(ac));
 				}else if(previousAC instanceof ComponentIf) {
-					ComponentAdd add = recursiveSearchRelatedAdd(previousAC, true);
+					ComponentAdd add = recursiveSearchRelatedAdd(previousAC);
 					previousAC.setNextComponent1(add);
 					algorithmComponents.remove(getIndexOf(ac)+1);
 					algorithmComponents.remove(getIndexOf(ac));
@@ -353,7 +353,7 @@ public class MemoryStorage {
 				if(!(nextAC instanceof ComponentElse)) {
 					algorithmComponents.get(getIndexOf(ac)-1).setNextComponent1(algorithmComponents.get(getIndexOf(ac)+1));	
 				}else {
-					ComponentAdd add = recursiveSearchRelatedAdd(previousAC, false);
+					ComponentAdd add = recursiveSearchRelatedAdd(previousAC);
 					previousAC.setNextComponent1(add);
 				}
 			}else if(previousAC instanceof ComponentElse) {
@@ -374,31 +374,17 @@ public class MemoryStorage {
 		
 	}
 
-	private ComponentAdd recursiveSearchRelatedAdd(AlgorithmComponent previousAC, boolean special) {
+	private ComponentAdd recursiveSearchRelatedAdd(AlgorithmComponent previousAC) {
 		int counter = 0;
 		AlgorithmComponent aus = previousAC;
-		if(special) {
-			aus = aus.getNextComponent2();
-			while(counter < 1) {
-				aus = algorithmComponents.get(getIndexOf(aus)+1);
-				System.out.println(aus);
-				if(aus instanceof ComponentIf || aus instanceof ComponentWhile) {
-					counter--;
-					if(aus instanceof ComponentWhile) {
-						aus = aus.getNextComponent2();
-					}
-				}else if(aus instanceof ComponentAdd) {
-					counter++;
-				}
-			}
-		}else {
-			while(counter < 1) {
-				aus = algorithmComponents.get(getIndexOf(aus)+1);
-				if(aus instanceof ComponentIf || aus instanceof ComponentWhile) {
-					counter--;
-				}else if(aus instanceof ComponentAdd) {
-					counter++;
-				}
+		aus = aus.getNextComponent2();
+		while(counter < 1) {
+			aus = algorithmComponents.get(getIndexOf(aus)+1);
+			System.out.println(aus);
+			if(aus instanceof ComponentIf || aus instanceof ComponentWhile) {
+				counter--;
+			}else if(aus instanceof ComponentAdd) {
+				counter++;
 			}
 		}
 		return (ComponentAdd)aus;			

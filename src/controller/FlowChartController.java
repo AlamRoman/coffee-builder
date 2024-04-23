@@ -290,12 +290,12 @@ public class FlowChartController extends Controller {
 					try {
 						DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Passing " + ac + " for deletion");
 						super.memory.delete(ac);
-						contentPane.updatePane(MemoryStorage.getInstance().getComponents());
 					} catch (Exceptions e1) {
 						// TODO Auto-generated catch block
 						JOptionPane.showMessageDialog(panel, e1.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
 						DebuggerConsole.getInstance().printDefaultErrorLog(referenceType, e1.getMessage());
 					}
+					contentPane.updatePane(MemoryStorage.getInstance().getComponents());
 				}
 				
 			}
