@@ -39,11 +39,13 @@ public class MemoryStorage {
 	ArrayList<AlgorithmComponent> algorithmComponents;
 	private static MemoryStorage instance;
 	private static final String referenceTypeMessage = "MEMORY";
+	private boolean onGoing;
 
 	public MemoryStorage() {
 		super();
 		this.memory = new HashSet<Variable>();
 		this.algorithmComponents = new ArrayList<AlgorithmComponent>();
+		onGoing=false;
 		initializeComponents();
 	}
 	
@@ -409,6 +411,16 @@ public class MemoryStorage {
 			a.getAssociatedPanel().repaint();
 		}
 	}
+
+	public boolean isOnGoing() {
+		return onGoing;
+	}
+
+	public void setOnGoing(boolean onGoing) {
+		this.onGoing = onGoing;
+	}
+	
+	
 	
 	
 	

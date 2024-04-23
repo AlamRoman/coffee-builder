@@ -87,77 +87,81 @@ public class FlowChartController extends Controller {
 //MOSTRA IL PANNELLO CHE CONTIENE IL BOTTONE PREMUTO-------
 		System.out.println(FCPanel);
 		
-		switch (e.getActionCommand()) {
-		case "ADD_COMPONENT": {
-			AlgorithmComponent newComponent = null;
-			Component s = (Component) e.getSource();
-			Point buttonLocation = s.getLocationOnScreen();
-	        int buttonX = (int) buttonLocation.getX();
-	        int buttonY = (int) buttonLocation.getY();
-//			System.err.println(FCPanel.getParent().getParent().getParent().getParent().getParent().getParent().getParent());
-			AddComponent addComp = new AddComponent((JFrame)FCPanel.getParent().getParent().getParent().getParent().getParent().getParent().getParent());
-			addComp.setLocation(buttonX + 40, buttonY + 20);
-			String compName = addComp.showAddWindow();
-			if(compName != null) {
-				System.out.println(compName);
-				AlgorithmComponent c = FCPanel.associatedComponent;
-				int index = MemoryStorage.getInstance().getIndexOf(c);
-				
-				if(index==-1) {
-					DebuggerConsole.getInstance().printDefaultErrorLog(referenceType, "The component (" + c + ") is not in the array of components");
-				}else {
-					switch(compName) {
-					case "Assign":
-						newComponent = new ComponentAssign(null, null, null);
-						break;
-					case "Declaration":
-						newComponent = new ComponentDeclaration(null, null, null);
-						break;
-					case "Operation":
-						newComponent = new ComponentOperation(null, null, null);
-						break;
-					case "Input":
-						newComponent = new ComponentInput(null, null, null);
-						break;
-					case "Output":
-						newComponent = new ComponentOutput(null, null, null);
-						break;
-					case "If":
-						newComponent = new ComponentIf(null, null, null);
-						break;
-					case "While":
-						newComponent = new ComponentWhile(null, null);
-						break;
-					case "Comment":
-						newComponent = new ComponentComment(null, null, null);
-						break;
-					}
-					switch (compName) {
-					case "If": {
-						MemoryStorage.getInstance().addComponent(new AlgorithmComponent[]{
-								newComponent, 
-								new ComponentElse(null, null, null), 
-								new ComponentAdd(null, null, null)
-						}, index+1);
-						break;
-					}
-					case "While": {
-						MemoryStorage.getInstance().addComponent(new AlgorithmComponent[]{
-								newComponent,
-								new ComponentAdd(null, null, null)
-						}, index+1);
-						break;
-					}
-					default:
-						MemoryStorage.getInstance().addComponent(newComponent, index+1);
-					}
-					panel.updatePane(MemoryStorage.getInstance().getComponents());
-				}
-			}
+		if(MemoryStorage.getInstance().isOnGoing()==false) {
 			
-		break;
+			switch (e.getActionCommand()) {
+			case "ADD_COMPONENT": {
+				AlgorithmComponent newComponent = null;
+				Component s = (Component) e.getSource();
+				Point buttonLocation = s.getLocationOnScreen();
+				int buttonX = (int) buttonLocation.getX();
+				int buttonY = (int) buttonLocation.getY();
+//			System.err.println(FCPanel.getParent().getParent().getParent().getParent().getParent().getParent().getParent());
+				AddComponent addComp = new AddComponent((JFrame)FCPanel.getParent().getParent().getParent().getParent().getParent().getParent().getParent());
+				addComp.setLocation(buttonX + 40, buttonY + 20);
+				String compName = addComp.showAddWindow();
+				if(compName != null) {
+					System.out.println(compName);
+					AlgorithmComponent c = FCPanel.associatedComponent;
+					int index = MemoryStorage.getInstance().getIndexOf(c);
+					
+					if(index==-1) {
+						DebuggerConsole.getInstance().printDefaultErrorLog(referenceType, "The component (" + c + ") is not in the array of components");
+					}else {
+						switch(compName) {
+						case "Assign":
+							newComponent = new ComponentAssign(null, null, null);
+							break;
+						case "Declaration":
+							newComponent = new ComponentDeclaration(null, null, null);
+							break;
+						case "Operation":
+							newComponent = new ComponentOperation(null, null, null);
+							break;
+						case "Input":
+							newComponent = new ComponentInput(null, null, null);
+							break;
+						case "Output":
+							newComponent = new ComponentOutput(null, null, null);
+							break;
+						case "If":
+							newComponent = new ComponentIf(null, null, null);
+							break;
+						case "While":
+							newComponent = new ComponentWhile(null, null);
+							break;
+						case "Comment":
+							newComponent = new ComponentComment(null, null, null);
+							break;
+						}
+						switch (compName) {
+						case "If": {
+							MemoryStorage.getInstance().addComponent(new AlgorithmComponent[]{
+									newComponent, 
+									new ComponentElse(null, null, null), 
+									new ComponentAdd(null, null, null)
+							}, index+1);
+							break;
+						}
+						case "While": {
+							MemoryStorage.getInstance().addComponent(new AlgorithmComponent[]{
+									newComponent,
+									new ComponentAdd(null, null, null)
+							}, index+1);
+							break;
+						}
+						default:
+							MemoryStorage.getInstance().addComponent(newComponent, index+1);
+						}
+						panel.updatePane(MemoryStorage.getInstance().getComponents());
+					}
+				}
+				
+				break;
+			}
 			}
 		}
+		
 		
 	}
 
@@ -170,127 +174,132 @@ public class FlowChartController extends Controller {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println(e);
-		Object source = e.getSource();
-		if(e.getButton() == MouseEvent.BUTTON1) {
-			DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Left mouse button got clicked");
-			if(source instanceof OvalPanel || source instanceof ParallelogramPanel || source instanceof RectanglePanel || source instanceof RhombusPanel) {
-				FlowChartPanel panel = (FlowChartPanel) source;
-				AlgorithmComponent ac = panel.associatedComponent;
-				JFrame frame = (JFrame) panel.getParent().getParent().getParent().getParent().getParent().getParent().getParent();
-				
-				if(ac instanceof ComponentAssign) {
-					//Edit assign
+		if(MemoryStorage.getInstance().isOnGoing()==false) {
+			System.out.println(e);
+			Object source = e.getSource();
+			if(e.getButton() == MouseEvent.BUTTON1) {
+				DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Left mouse button got clicked");
+				if(source instanceof OvalPanel || source instanceof ParallelogramPanel || source instanceof RectanglePanel || source instanceof RhombusPanel) {
+					FlowChartPanel panel = (FlowChartPanel) source;
+					AlgorithmComponent ac = panel.associatedComponent;
+					JFrame frame = (JFrame) panel.getParent().getParent().getParent().getParent().getParent().getParent().getParent();
 					
-					ComponentAssign comp = (ComponentAssign) ac;
-					ValuesAssignComponent values = new ValuesAssignComponent(comp.getVariableName(), comp.getValueString());
-					EditAssign edit = new EditAssign(values, frame);
-					
-					ValuesAssignComponent result = edit.showEditWindow();
-					
-					if (result != null) {
-						comp.set(result.getValue(), result.getFinalVarName());
+					if(ac instanceof ComponentAssign) {
+						//Edit assign
+						
+						ComponentAssign comp = (ComponentAssign) ac;
+						ValuesAssignComponent values = new ValuesAssignComponent(comp.getVariableName(), comp.getValueString());
+						EditAssign edit = new EditAssign(values, frame);
+						
+						ValuesAssignComponent result = edit.showEditWindow();
+						
+						if (result != null) {
+							comp.set(result.getValue(), result.getFinalVarName());
+						}
+						
+					}
+					else if(ac instanceof ComponentComment) {
+						//edit comment
+					}
+					else if(ac instanceof ComponentDeclaration) {
+						ComponentDeclaration comp = (ComponentDeclaration) ac;
+						ValuesDeclarationComponent values = new ValuesDeclarationComponent(comp.getVariableName(), comp.getVariableType());
+						
+						EditDeclaration edit = new EditDeclaration(values, frame);
+						
+						ValuesDeclarationComponent result = edit.showEditWindow();
+						
+						if (result != null) {
+							comp.set(result.getVarType(), result.getVarName());
+						}
+						
+					}
+					else if(ac instanceof ComponentIf) {
+						//Edit if
+						
+						ComponentIf comp = (ComponentIf) ac;
+						ValuesIfComponent values = new ValuesIfComponent(comp.getTerm1(), comp.getTerm1(), comp.getOperator());
+						EditIf edit = new EditIf(values, frame);
+						
+						ValuesIfComponent result = edit.showEditWindow();
+						
+						if (result != null) {
+							comp.set(result.getTerm1(), result.getOperator(), result.getTerm2());
+						}
+						
+					}
+					else if(ac instanceof ComponentInput) {
+						//edit input
+					}
+					else if(ac instanceof ComponentOperation) {
+						//edit operation
+						
+						ComponentOperation comp = (ComponentOperation) ac;
+						ValuesOperationComponent values = new ValuesOperationComponent(comp.getVariableName(),comp.getVariableFirstOperandName(), comp.getVariableSecondOperandName(), comp.getOperation());
+						EditOperation edit = new EditOperation(values, frame);
+						
+						ValuesOperationComponent result = edit.showEditWindow();
+						
+						if (result != null) {
+							comp.set(result.getFinalVar(), result.getVar1(), result.getVar2(), result.getOperation());
+						}
+						
+					}
+					else if(ac instanceof ComponentOutput) {
+						//edit comment
+						ComponentOutput comp = (ComponentOutput) ac;
+						EditOutput edit = new EditOutput(comp.getRawOutputString(), frame);
+						
+						String newOutputText = edit.showEditWindow();
+						
+						if (newOutputText != null) {
+							comp.setRawOutPutString(newOutputText);
+						}
+					}
+					else if(ac instanceof ComponentWhile) {
+						//edit while
+						
+						ComponentWhile comp = (ComponentWhile) ac;
+						ValuesWhileComponent values = new ValuesWhileComponent(comp.getTerm1(), comp.getTerm2(), comp.getOperator());
+						EditWhile edit = new EditWhile(values, frame);
+						
+						ValuesWhileComponent result = edit.showEditWindow();
+						
+						if (result != null) {
+							comp.set(result.getTerm1(), result.getOperator(), result.getTerm2());
+						}
+						
 					}
 					
+					FlowChartPanel sourcePanel = (FlowChartPanel) source;
+					
+					sourcePanel.updatePrint();
+					//frame.revalidate();
+					frame.repaint();
 				}
-				else if(ac instanceof ComponentComment) {
-					//edit comment
-				}
-				else if(ac instanceof ComponentDeclaration) {
-					ComponentDeclaration comp = (ComponentDeclaration) ac;
-					ValuesDeclarationComponent values = new ValuesDeclarationComponent(comp.getVariableName(), comp.getVariableType());
-					
-					EditDeclaration edit = new EditDeclaration(values, frame);
-					
-					ValuesDeclarationComponent result = edit.showEditWindow();
-					
-					if (result != null) {
-						comp.set(result.getVarType(), result.getVarName());
-					}
-					
-				}
-				else if(ac instanceof ComponentIf) {
-					//Edit if
-					
-					ComponentIf comp = (ComponentIf) ac;
-					ValuesIfComponent values = new ValuesIfComponent(comp.getTerm1(), comp.getTerm1(), comp.getOperator());
-					EditIf edit = new EditIf(values, frame);
-					
-					ValuesIfComponent result = edit.showEditWindow();
-					
-					if (result != null) {
-						comp.set(result.getTerm1(), result.getOperator(), result.getTerm2());
-					}
-					
-				}
-				else if(ac instanceof ComponentInput) {
-					//edit input
-				}
-				else if(ac instanceof ComponentOperation) {
-					//edit operation
-					
-					ComponentOperation comp = (ComponentOperation) ac;
-					ValuesOperationComponent values = new ValuesOperationComponent(comp.getVariableName(),comp.getVariableFirstOperandName(), comp.getVariableSecondOperandName(), comp.getOperation());
-					EditOperation edit = new EditOperation(values, frame);
-					
-					ValuesOperationComponent result = edit.showEditWindow();
-					
-					if (result != null) {
-						comp.set(result.getFinalVar(), result.getVar1(), result.getVar2(), result.getOperation());
-					}
-					
-				}
-				else if(ac instanceof ComponentOutput) {
-					//edit comment
-					ComponentOutput comp = (ComponentOutput) ac;
-					EditOutput edit = new EditOutput(comp.getRawOutputString(), frame);
-					
-					String newOutputText = edit.showEditWindow();
-					
-					if (newOutputText != null) {
-						comp.setRawOutPutString(newOutputText);
-					}
-				}
-				else if(ac instanceof ComponentWhile) {
-					//edit while
-					
-					ComponentWhile comp = (ComponentWhile) ac;
-					ValuesWhileComponent values = new ValuesWhileComponent(comp.getTerm1(), comp.getTerm2(), comp.getOperator());
-					EditWhile edit = new EditWhile(values, frame);
-					
-					ValuesWhileComponent result = edit.showEditWindow();
-					
-					if (result != null) {
-						comp.set(result.getTerm1(), result.getOperator(), result.getTerm2());
-					}
-					
-				}
-				
-				FlowChartPanel sourcePanel = (FlowChartPanel) source;
-				
-				sourcePanel.updatePrint();
-				frame.revalidate();
-				frame.repaint();
-			}
 //			System.out.println(panel.getParent().getParent().getParent().getParent().getParent().getParent());
-			
-			
-		}else if(e.getButton() == MouseEvent.BUTTON3) {
-			DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Right mouse button got clicked");
-			if(source instanceof OvalPanel || source instanceof ParallelogramPanel || source instanceof RectanglePanel || source instanceof RhombusPanel) {
-				FlowChartPanel panel = (FlowChartPanel) source;
-				FlowChartContentPanel contentPane = (FlowChartContentPanel) panel.getParent();
-				AlgorithmComponent ac = panel.associatedComponent;
-				try {
-					DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Passing " + ac + " for deletion");
-					super.memory.delete(ac);
-					contentPane.updatePane(MemoryStorage.getInstance().getComponents());
-				} catch (Exceptions e1) {
-					// TODO Auto-generated catch block
-					JOptionPane.showMessageDialog(panel, e1.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
-					DebuggerConsole.getInstance().printDefaultErrorLog(referenceType, e1.getMessage());
+				
+				
+			}else if(e.getButton() == MouseEvent.BUTTON3) {
+				
+				DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Right mouse button got clicked");
+				if(source instanceof OvalPanel || source instanceof ParallelogramPanel || source instanceof RectanglePanel || source instanceof RhombusPanel) {
+					FlowChartPanel panel = (FlowChartPanel) source;
+					FlowChartContentPanel contentPane = (FlowChartContentPanel) panel.getParent();
+					AlgorithmComponent ac = panel.associatedComponent;
+					try {
+						DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Passing " + ac + " for deletion");
+						super.memory.delete(ac);
+						contentPane.updatePane(MemoryStorage.getInstance().getComponents());
+					} catch (Exceptions e1) {
+						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(panel, e1.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+						DebuggerConsole.getInstance().printDefaultErrorLog(referenceType, e1.getMessage());
+					}
 				}
+				
 			}
+			
 		}
 	}
 
