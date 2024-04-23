@@ -1,5 +1,6 @@
 package view.flowChartComponents;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -48,10 +49,10 @@ public class ParallelogramPanel extends FlowChartPanel {
 	    
 	    // Calcola le coordinate dei vertici
 	    int x_D = 40;
-	    int x_A = 0; // da 0.01 a 0.99
+	    int x_A = 2; // da 0.01 a 0.99
 	    int x_B = width - 40;
 	    int x_C = width;
-	    int y_D = 0; //somma di questo...
+	    int y_D = 2; //somma di questo...
 	    int y_A = height-1;//...e questo sempre = 1.0 per garantire lo stesso offset da sotto e da sopra
 	    int y_B = y_A;
 	    int y_C = y_D;
@@ -65,6 +66,8 @@ public class ParallelogramPanel extends FlowChartPanel {
 	    // Disegna il parallelogramma
 	    int[] xPoints = {x_D, x_A, x_B, x_C};
 	    int[] yPoints = {y_D, y_A, y_B, y_C};
+	    
+	    g2d.setStroke(new BasicStroke(2));
 	    g2d.drawPolygon(xPoints, yPoints, 4);
 	}
 
