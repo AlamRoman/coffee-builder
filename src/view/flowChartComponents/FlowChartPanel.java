@@ -90,7 +90,8 @@ public class FlowChartPanel extends JPanel {
 		buttons[2].setForeground(Color.BLACK);
 		buttons[2].setBorder(BorderFactory.createCompoundBorder(
 				
-				BorderFactory.createLineBorder(Color.BLACK),
+				BorderFactory.createLineBorder(Color.BLACK, 2),
+				//BorderFactory.createLineBorder(Color.BLACK),
 				BorderFactory.createLineBorder(Color.WHITE, 4)
 				
 				));

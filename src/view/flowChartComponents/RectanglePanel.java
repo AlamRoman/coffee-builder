@@ -1,5 +1,6 @@
 package view.flowChartComponents;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -22,6 +23,8 @@ public class RectanglePanel extends FlowChartPanel {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         
+        g2d.setStroke(new BasicStroke(2));
+        
         if (super.executing) {
             g2d.setColor(Color.GREEN); // Se la booleana è vera, il bordo sarà verde
         } else {
@@ -33,7 +36,7 @@ public class RectanglePanel extends FlowChartPanel {
         if(associatedComponent instanceof ComponentAdd) {      	        	
         	g2d.drawRect(60, 20, getWidth() - 120, getHeight() - 40);        	        	
         }else {
-        	g2d.drawRect(1, 1, getWidth() - 2, getHeight() - 2);        	
+        	g2d.drawRect(2, 2, getWidth() - 3, getHeight() - 3);        	
         }
     }
 

@@ -1,8 +1,11 @@
 package view.flowChartComponents;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Shape;
+import java.awt.Stroke;
 
 import controller.Controller;
 import controller.FlowChartController;
@@ -29,7 +32,8 @@ public class OvalPanel extends FlowChartPanel {
         
         // Disegna un ovale
         
-        g2d.drawOval(1, 1, getWidth() - 1, getHeight() - 1);
+        g2d.setStroke(new BasicStroke(2));
+        g2d.drawOval(2, 2, getWidth() - 3, getHeight() - 3);
     }
 	
 }
