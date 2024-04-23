@@ -60,8 +60,8 @@ public class FlowChartController extends Controller {
 	private FlowChartContentPanel panel;
 	private FlowChartPanel FCPanel;
 	
-	public FlowChartController(AlgorithmExecuter ALGORITHM_EXECUTER, Timer TIMER, Buffer BUFFER, FlowChartContentPanel panel) {
-		super(ALGORITHM_EXECUTER, TIMER, BUFFER, MemoryStorage.getInstance());
+	public FlowChartController(AlgorithmExecuter ALGORITHM_EXECUTER, Timer TIMER, Buffer BUFFER, FlowChartContentPanel panel, MemoryStorage MEMORY) {
+		super(ALGORITHM_EXECUTER, TIMER, BUFFER, MEMORY);
 		// TODO Auto-generated constructor stub
 		this.panel = panel;
 		this.panel.setControllerAttribute(this);
@@ -110,28 +110,28 @@ public class FlowChartController extends Controller {
 					}else {
 						switch(compName) {
 						case "Assign":
-							newComponent = new ComponentAssign(null, null, null);
+							newComponent = new ComponentAssign(null, null, super.memory);
 							break;
 						case "Declaration":
-							newComponent = new ComponentDeclaration(null, null, null);
+							newComponent = new ComponentDeclaration(null, null, super.memory);
 							break;
 						case "Operation":
-							newComponent = new ComponentOperation(null, null, null);
+							newComponent = new ComponentOperation(null, null, super.memory);
 							break;
 						case "Input":
-							newComponent = new ComponentInput(null, null, null);
+							newComponent = new ComponentInput(null, null, super.memory);
 							break;
 						case "Output":
-							newComponent = new ComponentOutput(null, null, null);
+							newComponent = new ComponentOutput(null, null, super.memory);
 							break;
 						case "If":
-							newComponent = new ComponentIf(null, null, null);
+							newComponent = new ComponentIf(null, null, super.memory);
 							break;
 						case "While":
-							newComponent = new ComponentWhile(null, null);
+							newComponent = new ComponentWhile(null, super.memory);
 							break;
 						case "Comment":
-							newComponent = new ComponentComment(null, null, null);
+							newComponent = new ComponentComment(null, null, super.memory);
 							break;
 						}
 						switch (compName) {

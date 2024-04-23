@@ -74,7 +74,7 @@ public class AlgorithmExecuter implements Runnable{
 						fcp.repaint();
 						
 						result = (String) algorithmComponent.execute();
-						
+						MemoryStorage.getInstance().print();
 						
 					} catch (Exceptions e) {
 						// TODO Auto-generated catch block
@@ -107,9 +107,9 @@ public class AlgorithmExecuter implements Runnable{
 					write.release();
 					
 					//Se il prossimo componente è la fine del programma mostra la tabella della memoria in debug
-					if(algorithmComponent.getNextComponent() instanceof ComponentEnd) MemoryStorage.getInstance().print();
+					if(algorithmComponent.getNextComponent1() instanceof ComponentEnd) MemoryStorage.getInstance().print();
 					
-					algorithmComponent=algorithmComponent.getNextComponent(); //Passo all'esecutore il componente successivo
+					algorithmComponent=algorithmComponent.getNextComponent1(); //Passo all'esecutore il componente successivo
 					
 					//Mostro in fase di debug il passaggio del componente
 					if(algorithmComponent != null)DebuggerConsole.getInstance().printCustomMSGColorLog(referenceType, Color.RED_UNDERLINED, "PASSING EXECUTION TO COMPONENT: " + algorithmComponent.getClass().getSimpleName());

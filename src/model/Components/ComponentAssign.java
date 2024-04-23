@@ -40,7 +40,7 @@ public class ComponentAssign extends AlgorithmComponent{
 		
 //		System.out.println("Variable type: " + finalVariable.getType());
 //	    System.out.println("Value type: " + value.getClass().getSimpleName());
-		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage , "Assigning " + value.toString() + " to the variable '" + finalVariable + "'");
+		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage , "Assigning " + value.toString() + "(" + value.getClass().getSimpleName() + ") to the variable '" + finalVariable + "(" + finalVariable.getType() + ")'");
 		if(value instanceof String && finalVariable.getType()==VariableType.String) {
 			finalVariable.setValue(value);
 		}else if(value instanceof Integer && finalVariable.getType()==VariableType.Integer){

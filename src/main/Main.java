@@ -26,7 +26,7 @@ public class Main {
 		final Buffer BUFFER = new Buffer();
 		final AlgorithmExecuter ALGORITHM_EXECUTER = new AlgorithmExecuter(EXECUTE_S, WAIT_S, READ_S, WRITE_S, TIMER, BUFFER);
 		final ContentPaneController CONTROLLER = new ContentPaneController(ALGORITHM_EXECUTER, TIMER, BUFFER, EXECUTE_S, WAIT_S, READ_S, WRITE_S, MAIN_FRAME.getContentPanel());
-		final FlowChartController CONTROLLER_FLOWCHART = new FlowChartController(ALGORITHM_EXECUTER, TIMER, BUFFER, MAIN_FRAME.getContentPanel().getFlowChartPanel());
+		final FlowChartController CONTROLLER_FLOWCHART = new FlowChartController(ALGORITHM_EXECUTER, TIMER, BUFFER, MAIN_FRAME.getContentPanel().getFlowChartPanel(), MemoryStorage.getInstance());
 		MAIN_FRAME.setVisible(true);
 	}
 	
