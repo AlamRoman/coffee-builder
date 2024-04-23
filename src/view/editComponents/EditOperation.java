@@ -95,6 +95,11 @@ public class EditOperation extends EditComponent{
 		lblNewLabel.setBounds(103, 42, 50, 16);
 		getContentPane().add(lblNewLabel);	
 		
+		JLabel lblNewLabel_1 = new JLabel("$");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNewLabel_1.setBounds(8, 43, 13, 13);
+		panel.add(lblNewLabel_1);
+		
 		setPreviousValues();
 	}
 	
@@ -182,6 +187,4 @@ public class EditOperation extends EditComponent{
 		}
 		
 	}
-	
-	
 }

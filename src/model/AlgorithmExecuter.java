@@ -85,6 +85,8 @@ public class AlgorithmExecuter implements Runnable{
 						System.err.println(e.getMessage());
 					}
 					
+					MemoryStorage.getInstance().showMemory();
+					
 					try {
 						DebuggerConsole.getInstance().printDefaultInfoLog(referenceType+"-THREAD_BUFFER", "Waiting for read semaphore...");
 						read.acquire();

@@ -19,7 +19,7 @@ public class Condition {
 		this.firstTerm = firstTerm;
 		this.symbol = symbol;
 		this.secondTerm = secondTerm;
-		this.MS = MS;
+		this.MS = MemoryStorage.getInstance();
 	}
 	
 	public boolean resolve() throws Exceptions {

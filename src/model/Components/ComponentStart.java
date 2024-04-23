@@ -22,8 +22,8 @@ public class ComponentStart extends AlgorithmComponent{
 		MemoryStorage MS = MemoryStorage.getInstance();
 		MS.destroyVariables();
 		//DELETE WHEN NOT TESTING-----------------------------------------------
-		MS.addVariable(new Variable(VariableType.String, "Ciao", "ciao"));
-		MS.addVariable(new Variable(VariableType.String, "Ciao2", "ciao2"));
+//		MS.addVariable(new Variable(VariableType.String, "Ciao", "ciao"));
+//		MS.addVariable(new Variable(VariableType.String, "Ciao2", "ciao2"));
 		//----------------------------------------------------------------------
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Program starts. Memory has been created.");
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Executed.");

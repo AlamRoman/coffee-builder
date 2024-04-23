@@ -123,6 +123,6 @@ public class FlowChartPanel extends JPanel {
 
 	public void toggleExecuting() {
 		// TODO Auto-generated method stub
-		executing = !executing;
+		executing = true;
 	}
 }
