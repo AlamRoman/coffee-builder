@@ -9,11 +9,15 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.SwingConstants;
 
 public class EditInput extends EditComponent{
 
-	private ComponentInput componentInput;
+	private String oldVarName;
+	private String newVarName;
 	private JPanel panel;
 	private JTextField textFieldVarName;
 	private JLabel lblNewLabel;
@@ -21,25 +25,36 @@ public class EditInput extends EditComponent{
 	
 	private String inputVarName;
 	
-	public EditInput(ComponentInput componentInput, JFrame frame) {
+	public EditInput(String oldVarName, JFrame frame) {
 		super("Input", frame);
 		panel = new JPanel();
 		this.setContentPane(panel);
-		this.componentInput = componentInput;
+		this.oldVarName = oldVarName;
+		
+		newVarName = null;
+		
 		getContentPane().setLayout(null);
+		setSize(335, 130);
 		
 		JButton btnSave = new JButton("Save");
-		btnSave.setBounds(0, 107, 323, 19);
+		btnSave.setBounds(0, 75, 323, 19);
 		getContentPane().add(btnSave);
+		
+		btnSave.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//result
+				newVarName = textFieldVarName.getText();
+				
+				dispose();
+			}
+		});
 		
 		textFieldVarName = new JTextField();
 		textFieldVarName.setBounds(94, 51, 122, 17);
 		getContentPane().add(textFieldVarName);
 		textFieldVarName.setColumns(10);
-		
-		inputVarName = componentInput.getNomeVariabile();
-		
-		textFieldVarName.setText(inputVarName);
 		
 		lblNewLabel = new JLabel("$");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -49,8 +64,20 @@ public class EditInput extends EditComponent{
 		
 		lblNewLabel_1 = new JLabel("Inserisci il nome della variabile da prendere in input : ");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(19, 31, 277, 11);
+		lblNewLabel_1.setBounds(0, 31, 323, 11);
 		getContentPane().add(lblNewLabel_1);
+		
+		setPreviousValues();
+	}
+	
+	public String showEditWindow() {
+		setVisible(true);
+		
+		return this.newVarName;
+	}
+	
+	private void setPreviousValues() {
+		textFieldVarName.setText(oldVarName);
 	}
 
 	public String getInputVarName() {

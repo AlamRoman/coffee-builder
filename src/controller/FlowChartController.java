@@ -226,6 +226,7 @@ public class FlowChartController extends Controller {
 						}
 					}
 					else if(ac instanceof ComponentDeclaration) {
+						//edit declaration
 						ComponentDeclaration comp = (ComponentDeclaration) ac;
 						ValuesDeclarationComponent values = new ValuesDeclarationComponent(comp.getVariableName(), comp.getVariableType());
 						
@@ -253,7 +254,14 @@ public class FlowChartController extends Controller {
 						
 					}
 					else if(ac instanceof ComponentInput) {
-						//edit input
+						ComponentInput comp = (ComponentInput) ac;
+						EditInput edit = new EditInput(comp.getNomeVariabile(), frame);
+						
+						String result = edit.showEditWindow();
+						
+						if (result != null) {
+							comp.set(result);
+						}
 					}
 					else if(ac instanceof ComponentOperation) {
 						//edit operation
