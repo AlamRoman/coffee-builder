@@ -5,6 +5,7 @@ import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -15,6 +16,7 @@ import model.Components.ComponentDeclaration;
 import model.Components.ComponentEnd;
 import model.Components.ComponentIf;
 import model.Components.ComponentOutput;
+import model.File.ImageLoader;
 import model.Memory.RelationalOperators;
 import view.editComponents.AddComponent;
 import view.flowChartComponents.ParallelogramPanel;
@@ -23,19 +25,6 @@ public class Frame extends JFrame implements WindowListener{
 
 	private static final long serialVersionUID = 1L;
 	private Panel contentPane;
-
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					Frame frame = new Frame();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
 	public Frame() {
 		setTitle("Coffee builder");
@@ -46,12 +35,16 @@ public class Frame extends JFrame implements WindowListener{
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.addWindowListener(this);
 		setContentPane(contentPane);
-	}
-	
-	public static void main1(String[] args) {
 		
-		Frame ciao = new Frame();
-		}
+		//icon
+		ImageIcon icon;
+		
+		ImageLoader imageLoader = new ImageLoader();
+		
+		icon = imageLoader.getImageFrom("resources/icon.png");
+		
+		setIconImage(icon.getImage());
+	}
 
 	public Panel getContentPanel() {
 		// TODO Auto-generated method stub
