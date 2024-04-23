@@ -74,6 +74,10 @@ public class ContentPaneController extends Controller implements Runnable{
 		// TODO Auto-generated method stub
 		switch(e.getActionCommand()) {
 			case "START":
+				
+				memory.setOnGoing(true);
+				buffer.clear();
+				
 				DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "EXECUTE BUTTON GOT CLICKED=================");
 				if(panel.getExecuteButtonStatus()) {
 					//SE IL PROGRAMMA NON E' IN ESECUZIONE---------------------------------------------------------------------------
@@ -107,6 +111,8 @@ public class ContentPaneController extends Controller implements Runnable{
 				super.timer.nextButtonGotClicked = true;
 				break;
 			case "END":
+				
+				memory.setOnGoing(false);
 				
 				algorithmExecuter.stop();
 				panel.setExecuteButtonUsable(true);

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 
+import javax.script.Compilable;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -38,11 +39,13 @@ public class MemoryStorage {
 	ArrayList<AlgorithmComponent> algorithmComponents;
 	private static MemoryStorage instance;
 	private static final String referenceTypeMessage = "MEMORY";
+	private boolean onGoing;
 
 	public MemoryStorage() {
 		super();
 		this.memory = new HashSet<Variable>();
 		this.algorithmComponents = new ArrayList<AlgorithmComponent>();
+		onGoing=false;
 		initializeComponents();
 	}
 	
@@ -295,11 +298,22 @@ public class MemoryStorage {
 				DebuggerConsole.getInstance().printDefaultErrorLog(referenceTypeMessage, "Deleting " + algorithmComponents.get(getIndexOf(ac)) + " and " + algorithmComponents.get(getIndexOf(ac)+1));
 				
 				//Aggiorna i collegamenti
-				algorithmComponents.get(getIndexOf(ac)-1).setNextComponent1(algorithmComponents.get(getIndexOf(ac)+2));
-				
-				//Elimina componenti
-				algorithmComponents.remove(getIndexOf(ac)+1);
-				algorithmComponents.remove(getIndexOf(ac));
+				if(previousAC instanceof ComponentWhile) {
+					previousAC.setNextComponent1(previousAC);
+					algorithmComponents.remove(getIndexOf(ac.getNextComponent2()));
+					algorithmComponents.remove(getIndexOf(ac));
+				}else if(previousAC instanceof ComponentIf) {
+					ComponentAdd add = recursiveSearchRelatedAdd(previousAC);
+					previousAC.setNextComponent1(add);
+					algorithmComponents.remove(getIndexOf(ac)+1);
+					algorithmComponents.remove(getIndexOf(ac));
+				}else {
+					algorithmComponents.get(getIndexOf(ac)-1).setNextComponent1(algorithmComponents.get(getIndexOf(ac)+2));
+					
+					//Elimina componenti
+					algorithmComponents.remove(getIndexOf(ac)+1);
+					algorithmComponents.remove(getIndexOf(ac));					
+				}
 			}else {
 				DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Failed testing for while deletion");
 				throw new Exceptions(Exceptions.COMPONENT_NOT_EMPTY);
@@ -312,8 +326,13 @@ public class MemoryStorage {
 				//Il if e' vuoto, posso passare alla eliminazione
 				DebuggerConsole.getInstance().printDefaultErrorLog(referenceTypeMessage, "Deleting " + algorithmComponents.get(getIndexOf(ac)) + ", " + algorithmComponents.get(getIndexOf(ac)+1) + " and " + algorithmComponents.get(getIndexOf(ac)+2));
 				
-				//Aggiorna i collegamenti
-				algorithmComponents.get(getIndexOf(ac)-1).setNextComponent1(algorithmComponents.get(getIndexOf(ac)+3));
+				if(previousAC instanceof ComponentWhile) {
+					previousAC.setNextComponent1(previousAC);
+					
+				}else {
+					//Aggiorna i collegamenti
+					algorithmComponents.get(getIndexOf(ac)-1).setNextComponent1(algorithmComponents.get(getIndexOf(ac)+3));					
+				}
 				
 				//Elimina componenti
 				algorithmComponents.remove(getIndexOf(ac)+2);
@@ -358,15 +377,17 @@ public class MemoryStorage {
 	private ComponentAdd recursiveSearchRelatedAdd(AlgorithmComponent previousAC) {
 		int counter = 0;
 		AlgorithmComponent aus = previousAC;
+		aus = aus.getNextComponent2();
 		while(counter < 1) {
 			aus = algorithmComponents.get(getIndexOf(aus)+1);
+			System.out.println(aus);
 			if(aus instanceof ComponentIf || aus instanceof ComponentWhile) {
 				counter--;
 			}else if(aus instanceof ComponentAdd) {
 				counter++;
 			}
 		}
-		return (ComponentAdd)aus;
+		return (ComponentAdd)aus;			
 	}
 
 	public void resetExecutingStatusOfPanels() {
@@ -376,6 +397,16 @@ public class MemoryStorage {
 			a.getAssociatedPanel().repaint();
 		}
 	}
+
+	public boolean isOnGoing() {
+		return onGoing;
+	}
+
+	public void setOnGoing(boolean onGoing) {
+		this.onGoing = onGoing;
+	}
+	
+	
 	
 	
 	

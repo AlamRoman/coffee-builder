@@ -15,5 +15,10 @@ public class Buffer {
 	public String read() {
 		return s;
 	}
+
+	public void clear() {
+		s="";
+		
+	}
 	
 }
