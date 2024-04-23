@@ -71,10 +71,10 @@ public class Condition {
 				throw new Exceptions(Exceptions.MISSING_ARGUMENTS);
 			}
 			if(firstVar.getType() == VariableType.Double && secondVar.getType() == VariableType.Double) {
-				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning " + ((Double)firstVar.getValue() > (Double)secondVar.getValue()));
+				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning (" + ((Double)firstVar.getValue()) + " > " + ((Double)secondVar.getValue()) + " = " +  ((Double)firstVar.getValue() > (Double)secondVar.getValue()));
 				return (Double)firstVar.getValue() > (Double)secondVar.getValue();
 			}else if(firstVar.getType() == VariableType.Integer && secondVar.getType() == VariableType.Integer) {
-				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning " + ((Integer)firstVar.getValue() > (Integer)secondVar.getValue()));
+				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning (" + ((Integer)firstVar.getValue()) + " > " + ((Integer)secondVar.getValue()) + " = " +  ((Integer)firstVar.getValue() > (Integer)secondVar.getValue()));
 				return (Integer)firstVar.getValue() > (Integer)secondVar.getValue();
 			}else {
 				throw new Exceptions(Exceptions.CONDITION_TERMS_NOT_NUMBER);
@@ -87,10 +87,10 @@ public class Condition {
 				throw new Exceptions(Exceptions.MISSING_ARGUMENTS);
 			}
 			if(firstVar.getType() == VariableType.Double && secondVar.getType() == VariableType.Double) {
-				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning " + ((Double)firstVar.getValue() >= (Double)secondVar.getValue()));
+				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning (" + ((Double)firstVar.getValue()) + " >= " + ((Double)secondVar.getValue()) + " = " +  ((Double)firstVar.getValue() >= (Double)secondVar.getValue()));
 				return (Double)firstVar.getValue() >= (Double)secondVar.getValue();
 			}else if(firstVar.getType() == VariableType.Integer && secondVar.getType() == VariableType.Integer) {
-				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning " + ((Integer)firstVar.getValue() >= (Integer)secondVar.getValue()));
+				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning (" + ((Integer)firstVar.getValue()) + " >= " + ((Integer)secondVar.getValue()) + " = " +  ((Integer)firstVar.getValue() >= (Integer)secondVar.getValue()));
 				return (Integer)firstVar.getValue() >= (Integer)secondVar.getValue();
 			}else {
 				throw new Exceptions(Exceptions.CONDITION_TERMS_NOT_NUMBER);
@@ -103,10 +103,10 @@ public class Condition {
 				throw new Exceptions(Exceptions.MISSING_ARGUMENTS);
 			}
 			if(firstVar.getType() == VariableType.Double && secondVar.getType() == VariableType.Double) {
-				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning " + ((Double)firstVar.getValue() <= (Double)secondVar.getValue()));
+				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning (" + ((Double)firstVar.getValue()) + " <= " + ((Double)secondVar.getValue()) + " = " +  ((Double)firstVar.getValue() <= (Double)secondVar.getValue()));
 				return (Double)firstVar.getValue() <= (Double)secondVar.getValue();
 			}else if(firstVar.getType() == VariableType.Integer && secondVar.getType() == VariableType.Integer) {
-				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning " + ((Integer)firstVar.getValue() <= (Integer)secondVar.getValue()));
+				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning (" + ((Integer)firstVar.getValue()) + " <= " + ((Integer)secondVar.getValue()) + " = " +  ((Integer)firstVar.getValue() <= (Integer)secondVar.getValue()));
 				return (Integer)firstVar.getValue() <= (Integer)secondVar.getValue();
 			}else {
 				throw new Exceptions(Exceptions.CONDITION_TERMS_NOT_NUMBER);
@@ -119,10 +119,10 @@ public class Condition {
 				throw new Exceptions(Exceptions.MISSING_ARGUMENTS);
 			}
 			if(firstVar.getType() == VariableType.Double && secondVar.getType() == VariableType.Double) {
-				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning " + ((Double)firstVar.getValue() < (Double)secondVar.getValue()));
+				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning (" + ((Double)firstVar.getValue()) + " < " + ((Double)secondVar.getValue()) + " = " +  ((Double)firstVar.getValue() < (Double)secondVar.getValue()));
 				return (Double)firstVar.getValue() < (Double)secondVar.getValue();
 			}else if(firstVar.getType() == VariableType.Integer && secondVar.getType() == VariableType.Integer) {
-				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning " + ((Integer)firstVar.getValue() < (Integer)secondVar.getValue()));
+				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning (" + ((Integer)firstVar.getValue()) + " < " + ((Integer)secondVar.getValue()) + " = " +  ((Integer)firstVar.getValue() < (Integer)secondVar.getValue()));
 				return (Integer)firstVar.getValue() < (Integer)secondVar.getValue();
 			}else {
 				throw new Exceptions(Exceptions.CONDITION_TERMS_NOT_NUMBER);
@@ -135,10 +135,10 @@ public class Condition {
 				throw new Exceptions(Exceptions.MISSING_ARGUMENTS);
 			}
 			if(firstVar.getType() == VariableType.Double && secondVar.getType() == VariableType.Double) {
-				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning " + ((Double)firstVar.getValue() == (Double)secondVar.getValue()));
+				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning (" + ((Double)firstVar.getValue()) + " == " + ((Double)secondVar.getValue()) + " = " +  ((Double)firstVar.getValue() == (Double)secondVar.getValue()));
 				return (Double)firstVar.getValue() == (Double)secondVar.getValue();
 			}else if(firstVar.getType() == VariableType.Integer && secondVar.getType() == VariableType.Integer) {
-				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning " + ((Integer)firstVar.getValue() == (Integer)secondVar.getValue()));
+				DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Returning (" + ((Integer)firstVar.getValue()) + " == " + ((Integer)secondVar.getValue()) + " = " +  ((Integer)firstVar.getValue() == (Integer)secondVar.getValue()));
 				return (Integer)firstVar.getValue() == (Integer)secondVar.getValue();
 			}else {
 				String s = firstVar.getValueString();

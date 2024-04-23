@@ -114,7 +114,7 @@ public class MemoryStorage {
 			
 		}
 		
-		throw new Exceptions(Exceptions.NON_EXISTING_VARIABLE);
+		throw new Exceptions(name + ": " + Exceptions.NON_EXISTING_VARIABLE);
 		
 	}
 	

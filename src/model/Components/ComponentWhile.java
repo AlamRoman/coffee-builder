@@ -37,7 +37,9 @@ public class ComponentWhile extends AlgorithmComponent{
 	public Object execute() throws Exceptions {
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage , "Executing...");
 		if(C != null) {
-			if(C.resolve()) {
+			boolean flag = C.resolve();
+			DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage , "Got " + flag + " from C.resolve()");
+			if(flag) {
 				nextComponent = getNextComponent1();
 			}else {
 				nextComponent = getNextComponent2();

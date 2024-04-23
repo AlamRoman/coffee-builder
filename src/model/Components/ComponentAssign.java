@@ -32,10 +32,13 @@ public class ComponentAssign extends AlgorithmComponent{
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage , "Executing...");
 		try {
 			finalVariable = super.getMemory().getVariableByName(variableName);
+			Variable v = getVariableFromTerm(finalVariable, value.toString());
+			this.value = v.getValue();
 		} catch (Exceptions e) {
 			//if the final variable doesnt exist, creates a new variable
-			VariableType variableType = Variable.getTypeFromValue(value);
-			finalVariable = super.getMemory().addVariable(new Variable(variableType, variableName, null));
+//			VariableType variableType = Variable.getTypeFromValue(value);
+//			finalVariable = super.getMemory().addVariable(new Variable(variableType, variableName, null));
+			throw new Exceptions(variableName + ": " + Exceptions.NON_EXISTING_VARIABLE);
 		}
 		
 //		System.out.println("Variable type: " + finalVariable.getType());
@@ -89,4 +92,36 @@ public class ComponentAssign extends AlgorithmComponent{
 		return variableName;
 	}
 
+private Variable getVariableFromTerm(Variable variable, String term) {
+		
+		if(term == null) return null;
+		
+		Variable v = null;
+		String cleanedTerm = term.trim().toLowerCase();
+		
+		if(variable != null) {
+			if(variable.getType() == VariableType.String) {
+				v = new Variable(VariableType.String, term, term);
+				DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "returning variable from getVariableFromTerm("+ term +", " + variable + ") >> " + v);
+				return v;
+			}
+		}
+		if (cleanedTerm.matches(".*[a-z].*") && cleanedTerm.matches("[a-z0-9]+")) {
+			v =  new Variable(VariableType.String, term, term);
+		}
+		
+		if (cleanedTerm.matches("-?\\d*\\.\\d+")) {
+			double doubleValue = Double.parseDouble(term);
+			v =  new Variable(VariableType.Double, term, doubleValue);
+		}
+		
+		if (cleanedTerm.matches("\\d+")) {
+			int integerValue = Integer.parseInt(term);
+			v =  new Variable(VariableType.Integer, term, integerValue);
+		}	
+//		super.getMemory().showMemory();
+		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "returning variable from getVariableFromTerm("+ term +", " + variable + ") >> " + v);
+		return v;
+	}
+	
 }

@@ -5,6 +5,8 @@ import java.util.concurrent.Semaphore;
 import controller.ContentPaneController;
 import model.Components.AlgorithmComponent;
 import model.Components.ComponentEnd;
+import model.Components.ComponentIf;
+import model.Components.ComponentWhile;
 import model.Memory.MemoryStorage;
 import view.flowChartComponents.FlowChartPanel;
 
@@ -109,7 +111,11 @@ public class AlgorithmExecuter implements Runnable{
 					//Se il prossimo componente è la fine del programma mostra la tabella della memoria in debug
 					if(algorithmComponent.getNextComponent1() instanceof ComponentEnd) MemoryStorage.getInstance().print();
 					
-					algorithmComponent=algorithmComponent.getNextComponent1(); //Passo all'esecutore il componente successivo
+					if(algorithmComponent instanceof ComponentWhile || algorithmComponent instanceof ComponentIf) {
+						algorithmComponent=algorithmComponent.getNextComponent(); //Passo all'esecutore il componente successivo
+					}else {
+						algorithmComponent=algorithmComponent.getNextComponent1(); //Passo all'esecutore il componente successivo						
+					}
 					
 					//Mostro in fase di debug il passaggio del componente
 					if(algorithmComponent != null)DebuggerConsole.getInstance().printCustomMSGColorLog(referenceType, Color.RED_UNDERLINED, "PASSING EXECUTION TO COMPONENT: " + algorithmComponent.getClass().getSimpleName());

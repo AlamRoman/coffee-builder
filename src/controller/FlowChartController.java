@@ -33,6 +33,8 @@ import model.Components.ComponentOperation;
 import model.Components.ComponentOutput;
 import model.Components.ComponentWhile;
 import model.Memory.MemoryStorage;
+import model.Memory.Variable;
+import model.Memory.VariableType;
 import view.FlowChartContentPanel;
 import view.editComponents.AddComponent;
 import view.editComponents.EditAssign;
@@ -192,7 +194,7 @@ public class FlowChartController extends Controller {
 						EditAssign edit = new EditAssign(values, frame);
 						
 						ValuesAssignComponent result = edit.showEditWindow();
-						
+
 						if (result != null) {
 							comp.set(result.getValue(), result.getFinalVarName());
 						}
