@@ -55,7 +55,8 @@ public class AlgorithmExecuter implements Runnable{
 		// TODO Auto-generated method stub
 		//Finche il componente non è nullo (arrivati alla fine)
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceType+"-THREAD", "Thread initialized. Running until 'component != null'");
-				while (algorithmComponent!=null && !T.isInterrupted()) {
+			while (algorithmComponent!=null) {
+					if(checkThread()) break;
 					DebuggerConsole.getInstance().printDefaultInfoLog(referenceType+"-THREAD", "Waiting wait Semaphore");
 					try {
 						wait.acquire();
@@ -64,6 +65,7 @@ public class AlgorithmExecuter implements Runnable{
 						DebuggerConsole.getInstance().printDefaultInfoLog(referenceType+"-THREAD", "Thread got interrupted. Ending the process...");
 						break;
 					}
+					if(checkThread()) break;
 					DebuggerConsole.getInstance().printDefaultInfoLog(referenceType+"-THREAD", "Semaphore wait acquired. ");
 					//Eseguo il componente
 					try {
@@ -74,8 +76,9 @@ public class AlgorithmExecuter implements Runnable{
 						
 						fcp.toggleExecuting();
 						fcp.repaint();
-						
+						if(checkThread()) break;
 						result = (String) algorithmComponent.execute();
+						if(checkThread()) break;
 						MemoryStorage.getInstance().print();
 						
 					} catch (Exceptions e) {
@@ -88,7 +91,7 @@ public class AlgorithmExecuter implements Runnable{
 					}
 					
 					MemoryStorage.getInstance().showMemory();
-					
+					if(checkThread()) break;
 					try {
 						DebuggerConsole.getInstance().printDefaultInfoLog(referenceType+"-THREAD_BUFFER", "Waiting for read semaphore...");
 						read.acquire();
@@ -119,6 +122,7 @@ public class AlgorithmExecuter implements Runnable{
 					
 					//Mostro in fase di debug il passaggio del componente
 					if(algorithmComponent != null)DebuggerConsole.getInstance().printCustomMSGColorLog(referenceType, Color.RED_UNDERLINED, "PASSING EXECUTION TO COMPONENT: " + algorithmComponent.getClass().getSimpleName());
+					if(checkThread()) break;
 					exec.release();
 					DebuggerConsole.getInstance().printDefaultInfoLog(referenceType+"-THREAD", "Semaphore execute acquired. ");
 				}
@@ -129,6 +133,15 @@ public class AlgorithmExecuter implements Runnable{
 		
 	}
 	
+	private boolean checkThread() {
+		// TODO Auto-generated method stub
+		if(T.isInterrupted()) {
+			DebuggerConsole.getInstance().printDefaultInfoLog(referenceType+"-THREAD", "Thread got interrupted. Ending the process...");
+			return true;
+		}
+		return false;
+	}
+
 	private void callControllerDestroyVariables() {
 		// TODO Auto-generated method stub
 		this.controller.deleteVariablesFromMemoryStorage();
@@ -141,7 +154,7 @@ public class AlgorithmExecuter implements Runnable{
 	
 	public void stop() {
 		this.T.interrupt();
-		createThread();
+//		createThread();
 	}
 	
 //	public void checkSemaphoreIntialization() {

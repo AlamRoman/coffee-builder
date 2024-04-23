@@ -94,6 +94,7 @@ public class FlowChartController extends Controller {
 			switch (e.getActionCommand()) {
 			case "ADD_COMPONENT": {
 				AlgorithmComponent newComponent = null;
+				AlgorithmComponent previousAC = FCPanel.associatedComponent;
 				Component s = (Component) e.getSource();
 				Point buttonLocation = s.getLocationOnScreen();
 				int buttonX = (int) buttonLocation.getX();
@@ -138,18 +139,31 @@ public class FlowChartController extends Controller {
 						}
 						switch (compName) {
 						case "If": {
-							MemoryStorage.getInstance().addComponent(new AlgorithmComponent[]{
-									newComponent, 
-									new ComponentElse(null, null, null), 
-									new ComponentAdd(null, null, null)
-							}, index+1);
+							ComponentElse CE = new ComponentElse(null, null, null);
+							ComponentAdd ADD = new ComponentAdd(null, null, null);
+
+							if(previousAC instanceof ComponentWhile) {
+								previousAC = (ComponentWhile) previousAC;
+								ADD.setNextComponent1(previousAC);
+								MemoryStorage.getInstance().addComponent(new AlgorithmComponent[]{
+										newComponent, 
+										CE, 
+										ADD
+								}, index+1, true);
+							}else {
+								MemoryStorage.getInstance().addComponent(new AlgorithmComponent[]{
+										newComponent, 
+										CE, 
+										ADD
+								}, index+1, false);								
+							}
 							break;
 						}
 						case "While": {
 							MemoryStorage.getInstance().addComponent(new AlgorithmComponent[]{
 									newComponent,
 									new ComponentAdd(null, null, null)
-							}, index+1);
+							}, index+1, false);
 							break;
 						}
 						default:

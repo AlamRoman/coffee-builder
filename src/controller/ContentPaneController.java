@@ -84,6 +84,9 @@ public class ContentPaneController extends Controller implements Runnable{
 //					if(panel.isAutoRun()) {
 						//SE IL PROGRAMMA E' IN MODALITA' AUTORUN-------------------------------------------------------
 						int ms = panel.getMilliseconds();
+//						if(ms==0) {
+//							ms = 5;
+//						}
 						DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "User setted " + ms + "ms as the execution delay");
 						try {
 							panel.setExecuteButtonUsable(false);
@@ -113,7 +116,7 @@ public class ContentPaneController extends Controller implements Runnable{
 			case "END":
 				
 				memory.setOnGoing(false);
-				
+				memory.destroyVariables();
 				algorithmExecuter.stop();
 				panel.setExecuteButtonUsable(true);
 				panel.toggleExecuteSelected();

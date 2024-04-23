@@ -240,7 +240,7 @@ public class MemoryStorage {
 		return s;
 	}
 
-	public void addComponent(AlgorithmComponent[] components, int index) {
+	public void addComponent(AlgorithmComponent[] components, int index, boolean isSetAddNextComp1) {
 		// TODO Auto-generated method stub
 		showComponents();
 		if(components.length == 3) {
@@ -259,7 +259,9 @@ public class MemoryStorage {
 			algorithmComponents.get(INDEX_IF).setNextComponent1(algorithmComponents.get(INDEX_ADD));
 			algorithmComponents.get(INDEX_IF).setNextComponent2(algorithmComponents.get(INDEX_ELSE));
 			algorithmComponents.get(INDEX_ELSE).setNextComponent1(algorithmComponents.get(INDEX_ADD));
-			algorithmComponents.get(INDEX_ADD).setNextComponent1(algorithmComponents.get(INDEX_NEXT));
+			if(!isSetAddNextComp1) {
+				algorithmComponents.get(INDEX_ADD).setNextComponent1(algorithmComponents.get(INDEX_NEXT));				
+			}
 			
 		}else if(components.length == 2) {
 			
