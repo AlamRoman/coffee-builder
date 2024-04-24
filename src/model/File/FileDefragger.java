@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import model.Memory.MemoryStorage;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -23,8 +25,8 @@ public class FileDefragger {
     private static final String AES_KEY_STRING = "3js9db5uf0sgud4j";
     private static final String FILE_EXTENSION = ".cbalg";
     private static JFrame frame;
-
-    public static void openFile(JFrame parentFrame) {
+    
+    public static void openFile(MemoryStorage memory, JFrame parentFrame) {
     	
     	frame = parentFrame;
     	
@@ -50,6 +52,7 @@ public class FileDefragger {
             	JOptionPane.showMessageDialog(frame, "There has been an error during the file opening.", "Error", JOptionPane.ERROR_MESSAGE);
             	return;
             }else {
+            	
             	ArrayList<String[]> arrayList = new ArrayList<>();
 
                 try (BufferedReader br = new BufferedReader(new FileReader(decryptedFile))) {

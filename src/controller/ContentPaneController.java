@@ -151,7 +151,7 @@ public class ContentPaneController extends Controller implements Runnable{
                 openMenuItem.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                    	FileDefragger.openFile((JFrame)panel.getParent().getParent().getParent());
+                    	FileDefragger.openFile(memory, (JFrame)panel.getParent().getParent().getParent());
                     }
                 });
 
