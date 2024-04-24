@@ -2,10 +2,16 @@ package model.Components;
 
 import java.util.Scanner;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import model.DebuggerConsole;
 import model.Exceptions;
 import model.Memory.MemoryStorage;
 import model.Memory.Variable;
+import model.Memory.VariableType;
+import view.GetInputWindow;
+import model.Memory.VariableType;
 
 public class ComponentInput extends AlgorithmComponent{
 
@@ -23,15 +29,37 @@ public class ComponentInput extends AlgorithmComponent{
 	}
 	
 	public Object execute() throws Exceptions {
+		JFrame frame = (JFrame) getAssociatedPanel().getParent().getParent().getParent().getParent().getParent().getParent().getParent();
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage , "Executing...");
 		finalVar = super.getMemory().getVariableByName(nomeVariabile);
-		requestInput();
-		finalVar.setValue(inputValue);
+		String input = requestInput(frame);
+		
+		try {
+			switch(finalVar.getType()) {
+			case Integer:
+				finalVar.setValue(Integer.parseInt(input));				
+				break;
+			case String:
+				finalVar.setValue(input);				
+				break;
+			case Double:
+				finalVar.setValue(Double.parseDouble(input));				
+				break;
+			default:
+				break;
+			}			
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exceptions(Exceptions.INVALID_CAST);
+		}
+		
+
 		
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Executed.");
 		return null;
 	}
-	
+
+
 	public void set(String nomeVariabile) {
 		this.nomeVariabile = nomeVariabile;
 	}
@@ -40,10 +68,10 @@ public class ComponentInput extends AlgorithmComponent{
 		inputValue = o;
 	}
 	
-	public void requestInput() {
-		Scanner s = new Scanner(System.in);
-		System.out.print("Insert a number: ");
-		setInputValue(s.nextInt());
+	public String requestInput(JFrame frame) {
+		GetInputWindow GIW = new GetInputWindow(nomeVariabile, frame);
+		String res = GIW.showInputRequestWindow();
+		return res;
 	}
 
 	@Override
