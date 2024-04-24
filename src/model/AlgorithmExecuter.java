@@ -86,8 +86,10 @@ public class AlgorithmExecuter implements Runnable{
 //						*HANDLE EXCEPTION*
 //						e.printStackTrace();
 						controller.showErrorDialog(e.getMessage());
+						break;
 					} catch (Exception e) {
 						System.err.println(e.getMessage());
+						break;
 					}
 					
 					MemoryStorage.getInstance().showMemory();
