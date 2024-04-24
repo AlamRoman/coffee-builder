@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 
+import javax.management.modelmbean.ModelMBean;
 import javax.script.Compilable;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -49,6 +50,14 @@ public class MemoryStorage {
 		initializeComponents();
 	}
 	
+	/**
+	* This method intializes the base components, needed for the correct 
+	* execution of the algorithm created by the user
+	* <p>
+	* Creates <code>ComponentStart</code> and <code>ComponentEnd</code> and adds them to the MemoryStorage via the {@link java.util.ArrayList#add(E e)}
+	* method
+	* @return      nothing
+	*/
 	private void initializeComponents() {
 		// TODO Auto-generated method stub
 		algorithmComponents.add(new ComponentStart(null));
@@ -58,6 +67,15 @@ public class MemoryStorage {
 		
 	}
 	
+	/**
+	* This method adds a component to the {@link ArrayList} of components in MemoryStorage in a specific index
+	* <p>
+	* Creates <code>ComponentStart</code> and <code>ComponentEnd</code> and adds them to the MemoryStorage via the {@link ArrayList#add(E e)}
+	* method
+	* @param c the component that needs to be added
+	* @param index the position we want the component to be in
+	* @return      nothing
+	*/
 	public void addComponent(AlgorithmComponent c, int index) {
 		showComponents();
 		algorithmComponents.add(index, c);
@@ -65,12 +83,15 @@ public class MemoryStorage {
 		updateComponentConnections(index);
 		
 	}
-	// E = C
-	// F = C_ADD
-	// A > B > C | + E, F | > D components.get(index-1).setNextComponent1(components.get(index));
-	//A > B > C > E | + F| > D components.get(index).setNextComponent1(components.get(index));
-	//A > B > C > E > F > D
 	
+	/**
+	* This method updates the component connections after the method {@link MemoryStorage#addComponent(AlgorithmComponent, int)} is called
+	* <p>
+	* Updates the link of the previous and next components
+	* method
+	* @param index the position we put the new component in
+	* @return      nothing
+	*/
 	private void updateComponentConnections(int index) {
 		algorithmComponents.get(index).setNextComponent1(algorithmComponents.get(index-1).getNextComponent1());
 		algorithmComponents.get(index-1).setNextComponent1(algorithmComponents.get(index));
