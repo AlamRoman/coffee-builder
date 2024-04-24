@@ -81,7 +81,7 @@ public class EditIf extends EditComponent{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				controlOperator();
+				checkOperator();
 			}
 		});
 		
@@ -111,7 +111,7 @@ public class EditIf extends EditComponent{
 		}	
 	}
 	
-	public void controlOperator() {
+	public void checkOperator() {
 		if (comboBoxOperator.getSelectedItem().equals("!")) {
 			oldValues.setTerm2(textFieldTerm2.getText());
 			textFieldTerm2.setText("");

@@ -42,9 +42,11 @@ public class EditAssign extends EditComponent{
 				String varValue = textFieldValue.getText();
 				
 				//result
-				newValues = new ValuesAssignComponent(varName, varValue);
-				
-				dispose();
+				if (!varName.equals("") && !varValue.equals("")) {
+					newValues = new ValuesAssignComponent(varName, varValue);
+					
+					dispose();
+				}
 			}
 		});
 		
@@ -111,15 +113,6 @@ public class EditAssign extends EditComponent{
 		public void setValue(String value) {
 			this.value = value;
 		}
-	}
-	
-	public static void main(String[] args) {
-		ValuesAssignComponent va = new ValuesAssignComponent(null , null);
-		EditAssign ea = new EditAssign(va, null);
-		
-		ValuesAssignComponent s = ea.showEditWindow();
-		
-		System.out.println(s.getFinalVarName() + " = " + s.getValue());
 	}
 
 	@Override

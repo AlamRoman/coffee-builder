@@ -65,11 +65,17 @@ public class ComponentAssign extends AlgorithmComponent{
 	}
 	
 	public String print() {
-		String out = "$" + variableName;
+		String out = "ASSIGN";
 		
-		out+=" = ";
+		if (!variableName.equals("")) {
+			out = "$" + variableName;
+			
+			out += " = ";
+		}
 		
-		out+= getValueString();
+		if (value != null) {
+			out += getValueString();
+		}
 		
 		return out;
 		

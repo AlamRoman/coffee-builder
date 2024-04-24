@@ -97,14 +97,6 @@ public class AddComponent extends JDialog{
 		return result;
 	}
 	
-	public static void main(String[] args) {
-		AddComponent ac = new AddComponent(null);
-		
-		String r = ac.showAddWindow();
-		
-		System.out.println(r);
-	}
-	
 	private class MyListCellRenderer extends DefaultListCellRenderer {
         private static final long serialVersionUID = 1L;
 
