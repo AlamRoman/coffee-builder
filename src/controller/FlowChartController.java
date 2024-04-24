@@ -150,7 +150,20 @@ public class FlowChartController extends Controller {
 										CE, 
 										ADD
 								}, index+1, true);
-							}else {
+								
+							}else if(previousAC instanceof ComponentIf){
+								
+								
+								ComponentAdd aus = recursiveSearchRelatedAdd(previousAC);
+								
+								ADD.setNextComponent1(aus);
+								
+								MemoryStorage.getInstance().addComponent(new AlgorithmComponent[]{
+										newComponent, 
+										CE, 
+										ADD
+								}, index+1, true);								
+							} else {
 								MemoryStorage.getInstance().addComponent(new AlgorithmComponent[]{
 										newComponent, 
 										CE, 
@@ -353,6 +366,22 @@ public class FlowChartController extends Controller {
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
+	}
+	
+	private ComponentAdd recursiveSearchRelatedAdd(AlgorithmComponent previousAC) {
+		int counter = 0;
+		AlgorithmComponent aus = previousAC;
+		aus = aus.getNextComponent2();
+		while(counter < 1) {
+			aus = memory.getComponents().get(memory.getIndexOf(aus)+1);
+			System.out.println(aus);
+			if(aus instanceof ComponentIf || aus instanceof ComponentWhile) {
+				counter--;
+			}else if(aus instanceof ComponentAdd) {
+				counter++;
+			}
+		}
+		return (ComponentAdd)aus;			
 	}
 
 }

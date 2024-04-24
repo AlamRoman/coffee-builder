@@ -270,6 +270,7 @@ public class MemoryStorage {
 			final int INDEX_IF = index; 
 			final int INDEX_ELSE = index+1; 
 			final int INDEX_ADD = index+2; 
+			
 			final int INDEX_NEXT = index+3; 
 			
 			algorithmComponents.add(INDEX_IF, components[0]);
