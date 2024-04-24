@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -22,6 +23,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
+import model.File.ImageLoader;
 
 public class AddComponent extends JDialog{
 
@@ -72,6 +75,13 @@ public class AddComponent extends JDialog{
 				
 			}
 		});
+		
+		ImageLoader imageLoader = new ImageLoader();
+		ImageIcon icon;
+		
+		icon = imageLoader.getImageFrom("resources/add.png");
+		
+		setIconImage(icon.getImage());
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setViewportView(list);
