@@ -1,12 +1,17 @@
 package controller;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.concurrent.Semaphore;
 
+import javax.swing.JButton;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 
 import model.AlgorithmExecuter;
 import model.Buffer;
@@ -14,6 +19,9 @@ import model.DebuggerConsole;
 import model.Exceptions;
 import model.Timer;
 import model.Components.AlgorithmComponent;
+import model.File.FileDefragger;
+import model.File.FileSaver;
+import model.File.OpenHTMLFile;
 import model.Memory.MemoryStorage;
 import view.Panel;
 
@@ -122,6 +130,42 @@ public class ContentPaneController extends Controller implements Runnable{
 				panel.toggleExecuteSelected();
 				super.memory.resetExecutingStatusOfPanels();
 				
+				break;
+			case "SHOW_MENU":
+				JButton optionsButton = (JButton)e.getSource();
+				// Crea e mostra il menu a discesa quando si clicca sul pulsante
+                JPopupMenu popupMenu = new JPopupMenu();
+                JMenuItem saveMenuItem = new JMenuItem("Save...");
+                JMenuItem openMenuItem = new JMenuItem("Open...");
+                JMenuItem helpMenuItem = new JMenuItem("Help");
+                
+                // Aggiungi gli action listener per le voci di menu
+                saveMenuItem.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                    	FileSaver.saveToFile(memory.getComponents());
+                    }
+                });
+
+                openMenuItem.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                    	FileDefragger.openFile();
+                    }
+                });
+
+                helpMenuItem.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        OpenHTMLFile HTMLopener = new OpenHTMLFile("doc" + File.separator + "index.html");
+                    }
+                });
+                
+                popupMenu.add(saveMenuItem);
+                popupMenu.add(openMenuItem);
+                popupMenu.add(helpMenuItem);
+
+                popupMenu.show(optionsButton, 0, optionsButton.getHeight());
 				break;
 		}
 	}
