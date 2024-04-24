@@ -4,7 +4,12 @@ import java.util.Objects;
 
 import model.DebuggerConsole;
 import model.Exceptions;
+import model.Components.AlgorithmComponent;
 
+/**<p>
+* This class is used to create logic Variables that contain the type of the value, the variable name and the value of the variable
+* </p>
+*/
 public class Variable{
 	
 	private static final String referenceTypeMessage = "VAR";

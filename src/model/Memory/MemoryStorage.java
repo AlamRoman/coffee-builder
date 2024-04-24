@@ -3,6 +3,7 @@ package model.Memory;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 import javax.management.modelmbean.ModelMBean;
 import javax.script.Compilable;
@@ -13,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import model.Debug;
 import model.DebuggerConsole;
 import model.Exceptions;
+import model.Line;
 import model.Components.AlgorithmComponent;
 import model.Components.ComponentAdd;
 import model.Components.ComponentElse;
@@ -21,9 +23,16 @@ import model.Components.ComponentIf;
 import model.Components.ComponentInput;
 import model.Components.ComponentStart;
 import model.Components.ComponentWhile;
+import model.Components.Condition;
 import view.editComponents.AddComponent;
 import view.editComponents.EditWhile.ValuesWhileComponent;
 
+/**<p>
+* This class is used to keep saved all the {@link Variable}s and all the {@link AlgorithmComponent}s used and initalized during the 
+* execution of the algorithm created by the user, also manages the connections of the single components when one/more components are being
+* added or deleted from the memory
+* </p>
+*/
 public class MemoryStorage {
 	
 	/* IDEA PER L'ELIMINAZIONE
@@ -43,6 +52,10 @@ public class MemoryStorage {
 	private static final String referenceTypeMessage = "MEMORY";
 	private boolean onGoing;
 
+	/**<p>
+	* The constructor of the class {@link MemoryStorage}
+	* </p>
+	*/
 	public MemoryStorage() {
 		super();
 		this.memory = new HashSet<Variable>();
@@ -51,13 +64,14 @@ public class MemoryStorage {
 		initializeComponents();
 	}
 	
-	/**
+	/**<p>
 	* This method intializes the base components, needed for the correct 
 	* execution of the algorithm created by the user
+	* </p>
 	* <p>
 	* Creates <code>ComponentStart</code> and <code>ComponentEnd</code> and adds them to the MemoryStorage via the {@link java.util.ArrayList#add(E e)}
 	* method
-	* @return      nothing
+	* </p>
 	*/
 	private void initializeComponents() {
 		// TODO Auto-generated method stub
@@ -68,14 +82,15 @@ public class MemoryStorage {
 		
 	}
 	
-	/**
+	/**<p>
 	* This method adds a component to the {@link ArrayList} of components in MemoryStorage in a specific index
+	* </p>
 	* <p>
 	* Creates <code>ComponentStart</code> and <code>ComponentEnd</code> and adds them to the MemoryStorage via the {@link ArrayList#add(E e)}
 	* method
+	* </p>
 	* @param c the component that needs to be added
 	* @param index the position we want the component to be in
-	* @return      nothing
 	*/
 	public void addComponent(AlgorithmComponent c, int index) {
 		showComponents();
@@ -85,11 +100,15 @@ public class MemoryStorage {
 		
 	}
 	
-	/**
-	* This method updates the component connections after the method {@link MemoryStorage#addComponent(AlgorithmComponent, int)} is called
+	/**<p>
+	* This method updates the component connections after adding a new component
+	* </p>
 	* <p>
-	* Updates the link of the previous and next components
-	* method
+	* Updates the link of the previous and next components after the method {@link MemoryStorage#addComponent(AlgorithmComponent, int)} is called.
+	* It calls two different methods, {@link AlgorithmComponent#setNextComponent1(AlgorithmComponent)} and {@link AlgorithmComponent#setNextComponent2(AlgorithmComponent)} to set
+	* the new connection to the previous component [<code>index-1</code>] and the added one[<code>index</code>] 
+	* </p>
+	* 
 	* @param index the position we put the new component in
 	* @return      nothing
 	*/
@@ -100,20 +119,62 @@ public class MemoryStorage {
 		showComponents();
 	}
 
+
+	/**<p>
+	 * This method returns the instance of {@link MemoryStorage}
+	 * </p>
+	 * <p>
+	 * This method creates the instance of {@link MemoryStorage} if it doesn't exist and returns it
+	 * If its already created it returns the instance
+	 * </p>
+	 * 
+	 * @return {@link MemoryStorage} The instance of the memory
+	 */
 	public static MemoryStorage getInstance() {
 		instance = (instance==null) ? (new MemoryStorage()) : instance;
 		return instance;
 	}
 	
+
+	/**<p>
+	 * This method destroys all the variables inside the memory
+	 * </p>
+	 * <p>
+	 * This method clears the {@link ArrayList} containing the variables stored in the memory
+	 * by calling {@link ArrayList#clear()}
+	 * </p>
+	 * 
+	 * @see ArrayList
+	 */
 	public void destroyVariables() {
 		memory.clear();
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Memory deleted.");
 	}
 	
+	/**<p>
+	 * This method destroys the memory instance
+	 * </p>
+	 * <p>
+	 * This method deletes the {@link MemoryStorage} instance by setting it to <code>null</code>
+	 * </p> 
+	 */
 	public static void destroyInstance() {
 		instance = null;
 	}
 	
+	/**<p>
+	 * This method adds a variable to the memory
+	 * </p>
+	 * <p>
+	 * This methods adds the variable <code>var</code> to the memory by calling the {@link ArrayList#add(E e)}
+	 * method to the {@link MemoryStorage#memory}, the {@link ArrayList} containg all the variables
+	 * </p>
+	 * 
+	 * @return {@link Variable} the variable added to the memory
+	 * @param var the variable that will be added in the memory
+	 * @throws Exceptions EXISTING_VARIABLE: If the variable already exists in the memory
+	 * @see ArrayList
+	 */
 	public Variable addVariable(Variable var) throws Exceptions{
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Adding variable " + var + " to the memory");
 		if(!memory.add(var)) {
@@ -124,6 +185,19 @@ public class MemoryStorage {
 //		showMemory();
 	}
 	
+	/**<p>
+	 * This method returns a variable obtained with the provided <code>name</code>.
+	 * </p>
+	 * <p>
+	 * This methods searches the variable with the <code>name</code> provided to the method by looping through all the variables in the
+	 * {@link ArrayList} in the {@link MemoryStorage}, that contains all the variables, if a variable name matches the <code>name</code> provided, it returns the variable
+	 * </p>
+	 * 
+	 * @return {@link Variable} the variable found in the memory
+	 * @param name The name of the requested variable
+	 * @throws Exceptions NON_EXISTING_VARIABLE: If the variable doesn't exists in the memory
+	 * @see ArrayList
+	 */
 	public Variable getVariableByName(String name) throws Exceptions{
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Getting variable with name: " + name + " from the memory table");
 //		showMemory();
@@ -140,6 +214,18 @@ public class MemoryStorage {
 		
 	}
 	
+	/**<p>
+	 * This method returns a {@link String} containing a table with all the {@link Variable}s informations.
+	 * </p>
+	 * <p>
+	 * This method builds a string with {@link StringBuilder} containing all the {@link Variable}s informations and returns
+	 * the final built string by calling the method {@link StringBuilder#toString()}
+	 * </p>
+	 * 
+	 * @return {@link String} The string containing the table with the {@link Variable}s informations.
+	 * @see StringBuilder
+	 * @see Variable
+	 */
     public String printMemory() {
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("%-31s %s %-31s\n", "", "MEMORY TABLE", ""));
@@ -153,10 +239,26 @@ public class MemoryStorage {
         return sb.toString();
     }
 	
+    /**<p>
+	 * This method prints via <code>System.out.println()</code> the return from {@link MemoryStorage#showMemory()}.
+	 * </p>
+	 * @see MemoryStorage#showMemory()
+	 */
 	public void showMemory() {
 		System.out.println("\n" + this.printMemory() + "\n");
 	}
 	
+	/**<p>
+	 * This method returns a {@link String} containing a table with all the {@link AlgorithmComponent}s informations.
+	 * </p>
+	 * <p>
+	 * This method builds a string with {@link StringBuilder} containing all the {@link AlgorithmComponent}s informations and returns
+	 * the final built string by calling the method {@link StringBuilder#toString()}
+	 * </p>
+	 * @return {@link String} The string containing the table with the {@link AlgorithmComponent}s informations.
+	 * @see StringBuilder
+	 * @see AlgorithmComponent
+	 */
 	public String printComponents() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(String.format("%-44s %s %-44s\n", "", "COMPONENTS TABLE", ""));
@@ -181,6 +283,16 @@ public class MemoryStorage {
         return sb.toString();
     }
 	
+	/**
+	 * This method returns a {@link JTable} containing a table with all the {@link Variable}s informations.
+	 * <p>
+	 * This method builds a {@link JTable} with a {@link DefaultTableModel} containing all the {@link Variable}s informations and returns
+	 * the final built {@link JTable}
+	 * 
+	 * @return {@link JTable} The table containing the table with the {@link Variable}s informations.
+	 * @see JTable
+	 * @see Variable
+	 */
 	public JTable createMemoryTable() {
         // Creazione del modello della tabella
         DefaultTableModel model = new DefaultTableModel() {
@@ -206,21 +318,43 @@ public class MemoryStorage {
         return table;
     }
 	
+	/**<p>
+	 * This method prints via <code>System.out.println()</code> the return from {@link MemoryStorage#printComponents()}.
+	 * </p>
+	 * @see MemoryStorage#printComponents()
+	 */
 	public void showComponents() {
 		System.out.println("\n" + this.printComponents() + "\n");
 	}
 	
+	/**
+	 * This method returns a string with all the {@link MemoryStorage} informations.
+	 * <p>
+	 * This method returns a {@link String} with all the {@link MemoryStorage} informations <code>System.out.println()</code> returned from {@link MemoryStorage#printComponents()}
+	 * and {@link MemoryStorage#printMemory()}
+	 * @see MemoryStorage#printComponents()
+	 */
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
 		return "\nMEMORY:\n" + printMemory() + "\n" + printComponents() + "\n";
 	}
 
+	/**<p>
+	 * This method returns the {@link ComponentStart} positioned on the first position of the {@link MemoryStorage#algorithmComponents} arrayList
+	 * </p>
+	 * @return {@link ComponentStart}
+	 */
 	public AlgorithmComponent getStartComponent() {
 		// TODO Auto-generated method stub
 		return algorithmComponents.get(0);
 	}
 	
+	/**<p>
+	 * This method returns the {@link ComponentEnd} positioned at the end of the {@link MemoryStorage#algorithmComponents} arrayList
+	 * </p>
+	 * @return {@link ComponentEnd}
+	 */
 	public AlgorithmComponent getEndComponent() {
 		// TODO Auto-generated method stub
 		return algorithmComponents.get(algorithmComponents.size()-1);
@@ -233,10 +367,22 @@ public class MemoryStorage {
 //		
 //	}
 	
+	/**
+	 * This method calls the {@link MemoryStorage#toString()} method.
+	 * @see MemoryStorage#toString()
+	 */
+	
 	public void print() {
 		System.out.println(this.toString());
 	}
 
+	/**
+	 * This method returns the index of the provided {@link AlgorithmComponent} <code>c</code> in the {@link ArrayList} of components.
+	 * 
+	 * @return int The index of the provided {@link AlgorithmComponent} <code>c</code> in the {@link ArrayList}, returns -1 if not found.
+	 * @param c The algorithmComponent that's going to be searched in the array
+	 * @see Variable
+	 */
 	public int getIndexOf(AlgorithmComponent c) {
 		// TODO Auto-generated method stub
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Searching for " + c + " in the memory...");
@@ -249,11 +395,21 @@ public class MemoryStorage {
 		return idx;
 	}
 
+	/**
+	 * This method returns the {@link ArrayList} of components.
+	 * 
+	 * @return {@link ArrayList} of {@link AlgorithmComponent} The ArrayList of components.
+	 */
 	public ArrayList<AlgorithmComponent> getComponents() {
 		// TODO Auto-generated method stub
 		return algorithmComponents;
 	}
 	
+	/**
+	 * This method returns a {@link String} containing all the components contained in {@link ArrayList} <code>algorithmComponents</code>.
+	 * 
+	 * @return {@link String} The string containing all the components
+	 */
 	public String printComponentsList() {
 		String s = "\n";
 		for (AlgorithmComponent comp : algorithmComponents) {
@@ -262,6 +418,35 @@ public class MemoryStorage {
 		return s;
 	}
 
+	/**<p>
+	 * This method adds {@link AlgorithmComponent}s to the memory based on the array of {@link AlgorithmComponent} provided as a parameter
+	 * </p>
+	 * <p>
+	 * This methods adds the components contained in the <code>components</code> Array to the memory by calling the {@link ArrayList#add(E e)}
+	 * method to the {@link MemoryStorage#algorithmComponents}, the {@link ArrayList} containg all the {@link AlgorithmComponent}s
+	 * </p>
+	 * <p>
+	 * If the size <code>components</code> is 3, it means that a <code>ComponentIf</code> is being added, so it also adds a <code>ComponentElse</code> and a <code>ComponentAdd</code>.
+	 * The <code>ComponentElse</code> and its inner AlgorithmComponents will be the executed if the Condition in the <code>ComponentIf</code> is false.
+	 * If the Condition it's true, the components following the <code>ComponentIf</code> will be executed.
+	 * Both the <code>ComponentElse</code> and the <code>ComponentIf</code> last components point to the final component <code>ComponentAdd</code>
+	 * </p>
+	 * <p>
+	 * If the size <code>components</code> is 2, it means that a <code>ComponentWhile</code> is being added, so it also adds a <code>ComponentAdd</code>.
+	 * The <code>ComponentWhile</code> and its inner AlgorithmComponents will be the executed if the Condition in the <code>ComponentIf</code> is true.
+	 * The last component in the ComponentWhile will point to the final component ComponentAdd
+	 * </p>
+	 * 
+	 * @param components The Array of algorithm components that needs to be added
+	 * @param index The position in which the <code>ComponentIf</code> or <code>ComponentElse</code> is being added
+	 * @param isSetAddNextComp1 The boolean flag that will change the way the <code>nextComponent1</code> of the <code>ComponentIf</code>'s <code>ComponentAdd</code> is setted
+	 * @see ArrayList
+	 * @see AlgorithmComponent
+	 * @see ComponentIf
+	 * @see ComponentElse
+	 * @see ComponentWhile
+	 * @see ComponentAdd
+	 */
 	public void addComponent(AlgorithmComponent[] components, int index, boolean isSetAddNextComp1) {
 		// TODO Auto-generated method stub
 		showComponents();
@@ -305,6 +490,18 @@ public class MemoryStorage {
 		showComponents();
 	}
 
+	/**<p>
+	 * This method deletes a provided {@link AlgorithmComponent} <code>c</code> from the memory and updates the connections of the previous and the next component
+	 * </p>
+	 * <p>
+	 * This method deletes a provided {@link AlgorithmComponent} <code>c</code> from the memory by calling the method {@link ArrayList#remove(int)} and updates the connections of the previous and the next component with the methods
+	 * {@link AlgorithmComponent#setNextComponent1(AlgorithmComponent)} and {@link AlgorithmComponent#setNextComponent2(AlgorithmComponent)}
+	 * </p>
+	 * 
+	 * @param ac The algorithmComponent that will be deleted
+	 * @throws Exceptions NOT_DELETABLE: If the algorithmComponent <code>ac</code> cannot be deleted
+	 * @throws Exceptions COMPONENT_NOT_EMPTY: If the algorithmComponent contains inner components
+	 */
 	public void delete(AlgorithmComponent ac) throws Exceptions {
 		if(ac instanceof ComponentStart || ac instanceof ComponentAdd || ac instanceof ComponentEnd || ac instanceof ComponentElse) {
 			throw new Exceptions(Exceptions.NOT_DELETABLE);
@@ -403,6 +600,18 @@ public class MemoryStorage {
 		
 	}
 
+	/**<p>
+	 * This method returns the related ComponentAdd of a provided {@link AlgorithmComponent} <code>previousAC</code>
+	 * </p>
+	 * <p>
+	 * This method returns the related <code>ComponentAdd</code> of a provided <code>AlgorithmComponent</code> <code>previousAC</code> found by using a 
+	 * counter that decrements itself if a <code>ComponentIf</code> or a <code>ComponentWhile</code> is found during the recursion, it increments if a 
+	 * <code>ComponentAdd</code> is found.
+	 * When the counter equals to 1 it means that the related <code>ComponentAdd</code> is found and the method returns it
+	 * </p>
+	 * @param previousAC The algorithmComponent that will be used to start the recursive search
+	 * @return {@link ComponentAdd} The ComponentAdd related to the provided algorithm component <code>ac</code>
+	 */
 	private ComponentAdd recursiveSearchRelatedAdd(AlgorithmComponent previousAC) {
 		int counter = 0;
 		AlgorithmComponent aus = previousAC;
@@ -419,6 +628,10 @@ public class MemoryStorage {
 		return (ComponentAdd)aus;			
 	}
 
+	/**<p>
+	 * This method loops through all the associated panels of the {@link AlgorithmComponent} and sets their executing status to false
+	 * </p>
+	 */
 	public void resetExecutingStatusOfPanels() {
 		// TODO Auto-generated method stub
 		for(AlgorithmComponent a : algorithmComponents) {
@@ -426,11 +639,21 @@ public class MemoryStorage {
 			a.getAssociatedPanel().repaint();
 		}
 	}
-
+	
+	/**<p>
+	 * This method returns the boolean value of the {@link MemoryStorage#onGoing} attribute
+	 * </p>
+	 * @return boolean the value of the attribute
+	 */
 	public boolean isOnGoing() {
 		return onGoing;
 	}
 
+	/**<p>
+	 * This sets the boolean value of the {@link MemoryStorage#onGoing} attribute
+	 * </p>
+	 * @param onGoing the new boolean value
+	 */ 
 	public void setOnGoing(boolean onGoing) {
 		this.onGoing = onGoing;
 	}
