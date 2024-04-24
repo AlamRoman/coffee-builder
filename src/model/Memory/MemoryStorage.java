@@ -6,6 +6,7 @@ import java.util.HashSet;
 
 import javax.management.modelmbean.ModelMBean;
 import javax.script.Compilable;
+import javax.sound.midi.Instrument;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -353,7 +354,11 @@ public class MemoryStorage {
 				if(previousAC instanceof ComponentWhile) {
 					previousAC.setNextComponent1(previousAC);
 					
-				}else {
+				}else if(previousAC instanceof ComponentIf){
+					ComponentAdd addTemp = recursiveSearchRelatedAdd(previousAC);
+					algorithmComponents.get(getIndexOf(ac)-1).setNextComponent1(algorithmComponents.get(getIndexOf(ac)+3));	
+					previousAC.setNextComponent1(addTemp);
+				}else{
 					//Aggiorna i collegamenti
 					algorithmComponents.get(getIndexOf(ac)-1).setNextComponent1(algorithmComponents.get(getIndexOf(ac)+3));					
 				}
