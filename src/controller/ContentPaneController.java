@@ -8,6 +8,7 @@ import java.io.File;
 import java.util.concurrent.Semaphore;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -143,14 +144,14 @@ public class ContentPaneController extends Controller implements Runnable{
                 saveMenuItem.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                    	FileSaver.saveToFile(memory.getComponents());
+                    	FileSaver.saveToFile(memory.getComponents(), (JFrame)panel.getParent().getParent().getParent());
                     }
                 });
 
                 openMenuItem.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                    	FileDefragger.openFile();
+                    	FileDefragger.openFile((JFrame)panel.getParent().getParent().getParent());
                     }
                 });
 
