@@ -17,8 +17,12 @@ import java.util.ArrayList;
 public class FileSaver {
 
 	private static final byte[] AES_KEY = "3js9db5uf0sgud4j".getBytes(StandardCharsets.UTF_8);
+	private static JFrame frame;
 	
-    public static void saveToFile(ArrayList<AlgorithmComponent> algorithmComponents) {
+    public static void saveToFile(ArrayList<AlgorithmComponent> algorithmComponents, JFrame parentFrame) {
+    	
+    	frame = parentFrame;
+    	
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Save Algorithm Components");
         
@@ -26,14 +30,14 @@ public class FileSaver {
         FileNameExtensionFilter filter = new FileNameExtensionFilter("CoffeeBuilderAlgorithm", "cbalg");
         fileChooser.setFileFilter(filter);
         
-        int userSelection = fileChooser.showSaveDialog(null);
+        int userSelection = fileChooser.showSaveDialog(frame);
 
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             
             // Controlla se il percorso selezionato è all'interno del volume C
             if (isOnCVolume(selectedFile)) {
-                JOptionPane.showMessageDialog(null, "Please select a directory outside of the C volume.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "Please select a directory outside of the C volume.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             
