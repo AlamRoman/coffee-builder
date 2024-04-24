@@ -35,6 +35,7 @@ public class EditComment extends EditComponent{
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
 		
 		textArea = new JTextArea();
+		textArea.setMargin(new Insets(10, 10, 10, 10));
 		scrollPane.setViewportView(textArea);
 	
 		JButton btnSave = new JButton("Save");

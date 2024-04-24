@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 
 import model.Components.ComponentOutput;
 import java.awt.BorderLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -35,6 +36,7 @@ public class EditOutput extends EditComponent{
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
 		
 		textArea = new JTextArea();
+		textArea.setMargin(new Insets(10, 10, 10, 10));
 		scrollPane.setViewportView(textArea);
 	
 		JButton btnSave = new JButton("Save");
