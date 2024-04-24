@@ -5,6 +5,7 @@ import model.Exceptions;
 import model.Memory.MemoryStorage;
 import model.Memory.VariableType;
 import model.Memory.Variable;
+import model.Memory.VariableType;
 
 public class ComponentAssign extends AlgorithmComponent{
 
@@ -105,6 +106,22 @@ private Variable getVariableFromTerm(Variable variable, String term) {
 				DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "returning variable from getVariableFromTerm("+ term +", " + variable + ") >> " + v);
 				return v;
 			}
+		}
+		try {
+			switch (variable.getType()) {
+			case Integer: 
+				v = new Variable(VariableType.Integer, term, Integer.parseInt(cleanedTerm));
+				break;
+			case Double:
+				v = new Variable(VariableType.Double, term, Double.parseDouble(cleanedTerm));
+				break;
+			case String:
+				v = new Variable(VariableType.String, term, cleanedTerm);
+				break;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			v = new Variable(variable.getType(), variable.getName(), null);
 		}
 		if (cleanedTerm.matches(".*[a-z].*") && cleanedTerm.matches("[a-z0-9]+")) {
 			v =  new Variable(VariableType.String, term, term);
