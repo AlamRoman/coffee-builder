@@ -56,6 +56,10 @@ public class ComponentDeclaration extends AlgorithmComponent{
 			out += variableName;			
 		}
 		
+		if (out.equals("")) {
+			out = "DECLARATION";
+		}
+		
 		return out;
 		
 	}

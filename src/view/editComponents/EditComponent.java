@@ -1,8 +1,11 @@
 package view.editComponents;
 
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import model.File.ImageLoader;
 
 public class EditComponent extends JDialog{
 
@@ -15,6 +18,14 @@ public class EditComponent extends JDialog{
 		setLocationRelativeTo(parent);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle(componentName);
+		
+		ImageLoader imageLoader = new ImageLoader();
+		
+		ImageIcon icon;
+		
+		icon = imageLoader.getImageFrom("resources/edit.png");
+		
+		setIconImage(icon.getImage());
 	}
 
 	public String getComponentName() {
