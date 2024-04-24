@@ -19,7 +19,7 @@ public class ComponentComment extends AlgorithmComponent{
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage , "Executing...");
 		DebuggerConsole.getInstance().printCustomMSGColorLog(referenceTypeMessage, Color.GREEN, comment);
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Executed.");
-		return comment;
+		return null;
 	}
 
 	public void set(String comment) {
