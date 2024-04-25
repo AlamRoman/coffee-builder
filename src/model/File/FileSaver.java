@@ -19,7 +19,7 @@ public class FileSaver {
 	private static final byte[] AES_KEY = "3js9db5uf0sgud4j".getBytes(StandardCharsets.UTF_8);
 	private static JFrame frame;
 	
-    public static void saveToFile(ArrayList<AlgorithmComponent> algorithmComponents, JFrame parentFrame) {
+    public static void saveToFile(JFrame parentFrame) {
     	
     	frame = parentFrame;
     	
@@ -48,7 +48,7 @@ public class FileSaver {
             
             // Salva i dati in un file temporaneo
             File tempFile = new File(selectedFile.getParent(), "tempCBALG_not_crypted.txt");
-            saveToFile(algorithmComponents, tempFile);
+            saveToFile(MemoryStorage.getInstance().getComponents(), tempFile);
 
             // Cripta i dati nel file temporaneo e scrivi i dati criptati nel file finale
             try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(tempFile));
@@ -73,9 +73,11 @@ public class FileSaver {
                 String componentType = translateComponentType(component);
                 // Traduzione dei componenti successivi
                 String nextComponent1 = translateComponentType(component.getNextComponent1());
+                int nextComponent1idx = MemoryStorage.getInstance().getIndexOf(component.getNextComponent1());
                 String nextComponent2 = translateComponentType(component.getNextComponent2());
+                int nextComponent2idx = MemoryStorage.getInstance().getIndexOf(component.getNextComponent2());
                 // Scrivi la riga nel file utilizzando la virgola come delimitatore
-                finalString += componentType + "," + nextComponent1 + "," + nextComponent2; 
+                finalString += componentType + "," + nextComponent1 + "," + nextComponent1idx + "," + nextComponent2 + "," + nextComponent2idx; 
                 
                 if 		  (component instanceof ComponentAssign) {
                 	ComponentAssign aus = (ComponentAssign) component;
@@ -85,7 +87,7 @@ public class FileSaver {
                 	finalString += "," + aus.getVariableType() + "," + aus.getVariableName();
                 } else if (component instanceof ComponentOperation) {
                 	ComponentOperation aus = (ComponentOperation) component;
-                	finalString += "," + aus.getVariableName() + "," + aus.getVariableFirstOperandName() + "," + aus.getVariableSecondOperandName();
+                	finalString += "," + aus.getVariableName() + "," + aus.getVariableFirstOperandName() + "," + aus.getVariableSecondOperandName() + "," + aus.getOperation();
                 } else if (component instanceof ComponentIf) {
                 	ComponentIf aus = (ComponentIf) component;
                 	finalString += "," + aus.getTerm1() + "," + aus.getTerm2() + "," + aus.getOperator();
