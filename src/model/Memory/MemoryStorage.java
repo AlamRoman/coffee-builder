@@ -657,6 +657,11 @@ public class MemoryStorage {
 	public void setOnGoing(boolean onGoing) {
 		this.onGoing = onGoing;
 	}
+
+	public void setComponents(ArrayList<AlgorithmComponent> newArrayComponents) {
+		// TODO Auto-generated method stub
+		this.algorithmComponents = newArrayComponents;
+	}
 	
 	
 	
