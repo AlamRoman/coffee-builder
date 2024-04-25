@@ -24,6 +24,7 @@ import model.File.FileDefragger;
 import model.File.FileSaver;
 import model.File.OpenHTMLFile;
 import model.Memory.MemoryStorage;
+import view.FlowChartContentPanel;
 import view.Panel;
 
 public class ContentPaneController extends Controller implements Runnable{
@@ -144,14 +145,16 @@ public class ContentPaneController extends Controller implements Runnable{
                 saveMenuItem.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                    	FileSaver.saveToFile(memory.getComponents(), (JFrame)panel.getParent().getParent().getParent());
+                    	FileSaver.saveToFile((JFrame)panel.getParent().getParent().getParent());
                     }
                 });
 
                 openMenuItem.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                    	FileDefragger.openFile(memory, (JFrame)panel.getParent().getParent().getParent());
+                    	FileDefragger.openFile((JFrame)panel.getParent().getParent().getParent());
+                    	memory.print();
+                    	panel.getFlowChartPanel().updatePane(memory.getComponents());
                     }
                 });
 
