@@ -12,7 +12,6 @@ import model.Components.ComponentComment;
 import model.Components.ComponentDeclaration;
 import model.Components.ComponentElse;
 import model.Components.ComponentEnd;
-import model.Components.ComponentEndWhile;
 import model.Components.ComponentIf;
 import model.Components.ComponentInput;
 import model.Components.ComponentOperation;
