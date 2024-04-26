@@ -9,6 +9,7 @@ import java.util.concurrent.Semaphore;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -23,6 +24,7 @@ import model.Components.AlgorithmComponent;
 import model.File.FileDefragger;
 import model.File.FileSaver;
 import model.File.OpenHTMLFile;
+import model.File.SaveFileWithCode;
 import model.Memory.MemoryStorage;
 import view.FlowChartContentPanel;
 import view.Panel;
@@ -138,8 +140,19 @@ public class ContentPaneController extends Controller implements Runnable{
 				// Crea e mostra il menu a discesa quando si clicca sul pulsante
                 JPopupMenu popupMenu = new JPopupMenu();
                 JMenuItem saveMenuItem = new JMenuItem("Save...");
+                JMenuItem clearAllMenuItem = new JMenuItem("Clear algorithm");
                 JMenuItem openMenuItem = new JMenuItem("Open...");
                 JMenuItem helpMenuItem = new JMenuItem("Help");
+                
+                clearAllMenuItem.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						memory.reloadComponents();
+						panel.getFlowChartPanel().updatePane(memory.getComponents());
+						
+						
+					}
+				});
                 
                 // Aggiungi gli action listener per le voci di menu
                 saveMenuItem.addActionListener(new ActionListener() {
@@ -165,8 +178,53 @@ public class ContentPaneController extends Controller implements Runnable{
                     }
                 });
                 
+             // Aggiungi un sottomenu "Convert to code..."
+                JMenu convertMenu = new JMenu("Convert to code...");
+                JMenuItem javaMenuItem = new JMenuItem("Java");
+                JMenuItem pythonMenuItem = new JMenuItem("Python");
+                JMenuItem cMenuItem = new JMenuItem("C");
+                JMenuItem pseudoCodeMenuItem = new JMenuItem("PseudoCode");
+                
+                javaMenuItem.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                    	SaveFileWithCode.translateAndSaveCode((JFrame)panel.getParent().getParent().getParent(), "java");
+                    }
+                });
+
+                pythonMenuItem.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                    	SaveFileWithCode.translateAndSaveCode((JFrame)panel.getParent().getParent().getParent(), "python");
+                    }
+                });
+
+                cMenuItem.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                    	SaveFileWithCode.translateAndSaveCode((JFrame)panel.getParent().getParent().getParent(), "c");
+                    }
+                });
+
+                pseudoCodeMenuItem.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                    	SaveFileWithCode.translateAndSaveCode((JFrame)panel.getParent().getParent().getParent(), "pseudocode");
+                    }
+                });
+
+                convertMenu.add(javaMenuItem);
+                convertMenu.add(pythonMenuItem);
+                convertMenu.add(cMenuItem);
+                convertMenu.add(pseudoCodeMenuItem);
+
+                popupMenu.add(clearAllMenuItem);
+                popupMenu.addSeparator();
                 popupMenu.add(saveMenuItem);
                 popupMenu.add(openMenuItem);
+                popupMenu.addSeparator(); // Aggiungi un separatore tra gli elementi principali e il sottomenu
+                popupMenu.add(convertMenu); // Aggiungi il sottomenu "Convert to code..."
+                popupMenu.addSeparator();
                 popupMenu.add(helpMenuItem);
 
                 popupMenu.show(optionsButton, 0, optionsButton.getHeight());
