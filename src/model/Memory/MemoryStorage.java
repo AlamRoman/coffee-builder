@@ -200,7 +200,6 @@ public class MemoryStorage {
 	 */
 	public Variable getVariableByName(String name) throws Exceptions{
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Getting variable with name: " + name + " from the memory table");
-//		showMemory();
 		for (Variable temp : memory) {
 			DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Checking if " + temp.getName() + " == " + name);
 			if(temp.getName().equals(name)) {
@@ -209,7 +208,6 @@ public class MemoryStorage {
 			}
 			
 		}
-		
 		throw new Exceptions(name + ": " + Exceptions.NON_EXISTING_VARIABLE);
 		
 	}
