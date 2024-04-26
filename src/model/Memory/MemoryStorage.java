@@ -631,6 +631,20 @@ public class MemoryStorage {
 		}
 		return (ComponentAdd)aus;			
 	}
+	
+	public AlgorithmComponent recursiveSearchRelatedComponentFromAdd(ComponentAdd compAdd) {
+	    int counter = 0;
+	    AlgorithmComponent aus = compAdd;
+	    while (counter >= 0) {
+	        aus = algorithmComponents.get(getIndexOf(aus) - 1);
+	        if (aus instanceof ComponentIf || aus instanceof ComponentWhile) {
+	            counter--;
+	        } else if (aus instanceof ComponentAdd) {
+	            counter++;
+	        }
+	    }
+	    return aus;
+	}
 
 	/**<p>
 	 * This method loops through all the associated panels of the {@link AlgorithmComponent} and sets their executing status to false
@@ -674,6 +688,13 @@ public class MemoryStorage {
 			}
 		}
 		return false;
+	}
+
+	public void reloadComponents() {
+		// TODO Auto-generated method stub
+		algorithmComponents.clear();
+		initializeComponents();
+		
 	}
 	
 	
