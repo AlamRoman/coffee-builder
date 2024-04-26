@@ -70,6 +70,9 @@ public class ComponentDeclaration extends AlgorithmComponent{
 			case "java":
 				lines.add(new Line(((variableType==null)?"%VariableType% ":variableType.name+" ") + ((variableName==null)?"%VariableName%":variableName) + ";"));
 				break;
+			case "pseudocode":
+				lines.add(new Line(print()));
+				break;
 		}
 		return lines;
 		

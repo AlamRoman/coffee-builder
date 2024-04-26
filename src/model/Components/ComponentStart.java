@@ -52,6 +52,9 @@ public class ComponentStart extends AlgorithmComponent{
 				lines.add(new Line("public class Main {"));
 				lines.add(new Line("    public static void main(String[] args) {"));
 				break;
+			case "pseudocode":
+				lines.add(new Line(print()));
+				break;
 		}
 		return lines;
 		

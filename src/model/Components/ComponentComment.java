@@ -50,6 +50,9 @@ public class ComponentComment extends AlgorithmComponent{
 			case "java":
 				lines.add(new Line("// " + comment));
 				break;
+			case "pseudocode":
+				lines.add(new Line(print()));
+				break;
 		}
 		return lines;
 		

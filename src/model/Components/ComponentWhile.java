@@ -76,6 +76,9 @@ public class ComponentWhile extends AlgorithmComponent{
 			case "java":
 				lines.add(new Line("while (" + ((C==null)?"true":C.toString()) + "){"));
 				break;
+			case "pseudocode":
+				lines.add(new Line(print()));
+				break;
 		}
 		return lines;
 		

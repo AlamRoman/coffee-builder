@@ -40,6 +40,9 @@ public class ComponentEndWhile extends AlgorithmComponent {
 			case "java":
 				lines.add(new Line("}"));
 				break;
+			case "pseudocode":
+				lines.add(new Line(print()));
+				break;
 		}
 		return lines;
 		

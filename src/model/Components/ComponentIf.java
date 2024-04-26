@@ -70,6 +70,9 @@ public class ComponentIf extends AlgorithmComponent{
 			case "java":
 				lines.add(new Line("if (" + ((C==null)?"true":C.toString()) + "){"));
 				break;
+			case "pseudocode":
+				lines.add(new Line(print()));
+				break;
 		}
 		return lines;
 		

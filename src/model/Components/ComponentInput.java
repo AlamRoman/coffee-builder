@@ -99,7 +99,7 @@ public class ComponentInput extends AlgorithmComponent{
 			case "java":
 				switch(finalVar.getType()) {
 					case String:
-						lines.add(new Line(finalVar.getName() + " = " + "scanner.nextLine()"));
+						lines.add(new Line(((nomeVariabile != null && !nomeVariabile.equals("")?nomeVariabile:"%VariableName%")) + " = " + "scanner.nextLine()"));
 						break;
 					case Double:
 						lines.add(new Line(finalVar.getName() + " = " + "scanner.nextDouble()"));
@@ -108,6 +108,9 @@ public class ComponentInput extends AlgorithmComponent{
 						lines.add(new Line(finalVar.getName() + " = " + "scanner.nextInt()"));
 						break;
 				}
+				break;
+			case "pseudocode":
+				lines.add(new Line(print()));
 				break;
 		}
 		return lines;

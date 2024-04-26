@@ -39,6 +39,9 @@ public class ComponentElse extends AlgorithmComponent {
 			case "java":
 				lines.add(new Line("} else {"));
 				break;
+			case "pseudocode":
+				lines.add(new Line(print()));
+				break;
 		}
 		return lines;
 		

@@ -38,6 +38,9 @@ public class ComponentEnd extends AlgorithmComponent{
 				lines.add(new Line("    }"));
 				lines.add(new Line("}"));
 				break;
+			case "pseudocode":
+				lines.add(new Line(print()));
+				break;
 		}
 		return lines;
 		
