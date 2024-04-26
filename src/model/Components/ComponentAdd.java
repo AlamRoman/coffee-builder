@@ -51,6 +51,8 @@ public class ComponentAdd extends AlgorithmComponent {
 				}
 				lines.add(new Line(aus));
 				break;
+			case "python":
+				break;
 		}
 		return lines;
 		

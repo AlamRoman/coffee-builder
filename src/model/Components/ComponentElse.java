@@ -42,6 +42,9 @@ public class ComponentElse extends AlgorithmComponent {
 			case "pseudocode":
 				lines.add(new Line(print()));
 				break;
+			case "python":
+				lines.add(new Line("else:"));
+				break;
 		}
 		return lines;
 		

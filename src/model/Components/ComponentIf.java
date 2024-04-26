@@ -73,6 +73,14 @@ public class ComponentIf extends AlgorithmComponent{
 			case "pseudocode":
 				lines.add(new Line(print()));
 				break;
+			case "python":
+				String result = ((C==null)?"true":C.toString());
+				if(result.startsWith("!")) {
+					result = result.replace("!", "not");
+					
+				}
+				lines.add(new Line("if " + result + ":"));
+				break;
 		}
 		return lines;
 		

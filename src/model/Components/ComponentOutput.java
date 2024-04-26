@@ -86,6 +86,9 @@ public class ComponentOutput extends AlgorithmComponent{
 			case "pseudocode":
 				lines.add(new Line(print()));
 				break;
+			case "python":
+				lines.add(new Line("print(" + rawOutPutString + ")"));
+				break;
 		}
 		return lines;
 		

@@ -53,6 +53,9 @@ public class ComponentComment extends AlgorithmComponent{
 			case "pseudocode":
 				lines.add(new Line(print()));
 				break;
+			case "python":
+				lines.add(new Line("# " + comment));
+				break;
 		}
 		return lines;
 		

@@ -260,6 +260,9 @@ public class ComponentOperation extends AlgorithmComponent{
 			case "pseudocode":
 				lines.add(new Line(print()));
 				break;
+			case "python":
+				lines.add(new Line(variableName + " = " + variableFirstOperandName + operator + variableSecondOperandName));
+				break;
 		}
 		return lines;
 		

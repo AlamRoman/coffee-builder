@@ -97,20 +97,41 @@ public class ComponentInput extends AlgorithmComponent{
 		ArrayList<Line> lines = new ArrayList<Line>();
 		switch(language) {
 			case "java":
-				switch(finalVar.getType()) {
-					case String:
-						lines.add(new Line(((nomeVariabile != null && !nomeVariabile.equals("")?nomeVariabile:"%VariableName%")) + " = " + "scanner.nextLine()"));
-						break;
-					case Double:
-						lines.add(new Line(finalVar.getName() + " = " + "scanner.nextDouble()"));
-						break;
-					case Integer:
-						lines.add(new Line(finalVar.getName() + " = " + "scanner.nextInt()"));
-						break;
+				if(finalVar != null) {
+					switch(finalVar.getType()) {
+						case String:
+							lines.add(new Line(((nomeVariabile != null && !nomeVariabile.equals("")?nomeVariabile:"%VariableName%")) + " = " + "scanner.nextLine()"));
+							break;
+						case Double:
+							lines.add(new Line(((nomeVariabile != null && !nomeVariabile.equals("")?nomeVariabile:"%VariableName%")) + " = " + "scanner.nextDouble()"));
+							break;
+						case Integer:
+							lines.add(new Line(((nomeVariabile != null && !nomeVariabile.equals("")?nomeVariabile:"%VariableName%")) + " = " + "scanner.nextInt()"));
+							break;
+					}
+				} else {
+					lines.add(new Line(((nomeVariabile != null && !nomeVariabile.equals("")?nomeVariabile:"%VariableName%")) + " = " + "scanner.nextLine()"));
 				}
 				break;
 			case "pseudocode":
 				lines.add(new Line(print()));
+				break;
+			case "python":
+				if(finalVar != null) {
+					switch(finalVar.getType()) {
+					case String:
+						lines.add(new Line(((nomeVariabile != null && !nomeVariabile.equals("")?nomeVariabile:"%VariableName%")) + " = " + "input()"));
+						break;
+					case Double:
+						lines.add(new Line(((nomeVariabile != null && !nomeVariabile.equals("")?nomeVariabile:"%VariableName%")) + " = " + "float(input())"));
+						break;
+					case Integer:
+						lines.add(new Line(((nomeVariabile != null && !nomeVariabile.equals("")?nomeVariabile:"%VariableName%")) + " = " + "int(input())"));
+						break;	
+					}
+				} else {
+					lines.add(new Line(((nomeVariabile != null && !nomeVariabile.equals("")?nomeVariabile:"%VariableName%")) + " = " + "input()"));
+				}
 				break;
 		}
 		return lines;

@@ -73,6 +73,9 @@ public class ComponentDeclaration extends AlgorithmComponent{
 			case "pseudocode":
 				lines.add(new Line(print()));
 				break;
+			case "python":
+				lines.add(new Line(((variableName==null)?"%VariableName%":variableName)));
+				break;
 		}
 		return lines;
 		

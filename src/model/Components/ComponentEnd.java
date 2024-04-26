@@ -41,6 +41,8 @@ public class ComponentEnd extends AlgorithmComponent{
 			case "pseudocode":
 				lines.add(new Line(print()));
 				break;
+			case "python":
+				break;
 		}
 		return lines;
 		

@@ -88,6 +88,9 @@ public class ComponentAssign extends AlgorithmComponent{
 			case "pseudocode":
 				lines.add(new Line(print()));
 				break;
+			case "python":
+				lines.add(new Line(variableName + " = " + value));
+				break;
 		}
 		return lines;
 		
