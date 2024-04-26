@@ -1,7 +1,10 @@
 package model.Components;
 
+import java.util.ArrayList;
+
 import model.DebuggerConsole;
 import model.Exceptions;
+import model.Line;
 import model.Memory.MemoryStorage;
 import model.Memory.Variable;
 import model.Memory.VariableType;
@@ -37,6 +40,21 @@ public class ComponentStart extends AlgorithmComponent{
 	@Override
 	public String print() {
 		return "START";
+	}
+	
+	@Override
+	public ArrayList<Line> printCode(String language) {
+		ArrayList<Line> lines = new ArrayList<Line>();
+		switch(language) {
+			case "java":
+				lines.add(new Line("package main;"));
+				lines.add(new Line((MemoryStorage.getInstance().containsInput())?"import java.util.Scanner;":""));
+				lines.add(new Line("public class Main {"));
+				lines.add(new Line("    public static void main(String[] args) {"));
+				break;
+		}
+		return lines;
+		
 	}
 	
 	

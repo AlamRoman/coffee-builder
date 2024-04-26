@@ -1,7 +1,10 @@
 package model.Components;
 
+import java.util.ArrayList;
+
 import model.Color;
 import model.DebuggerConsole;
+import model.Line;
 import model.Memory.MemoryStorage;
 
 public class ComponentComment extends AlgorithmComponent{
@@ -38,6 +41,18 @@ public class ComponentComment extends AlgorithmComponent{
 		out += comment;
 		
 		return out;
+	}
+	
+	@Override
+	public ArrayList<Line> printCode(String language) {
+		ArrayList<Line> lines = new ArrayList<Line>();
+		switch(language) {
+			case "java":
+				lines.add(new Line("// " + comment));
+				break;
+		}
+		return lines;
+		
 	}
 	
 	public String getCommentString() {

@@ -195,6 +195,12 @@ public class Condition {
 		return out;
 	}
 	
+	public String printCode() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("    }");
+		sb.append("}");
+		return sb.toString();
+	}
 	
 	
 }

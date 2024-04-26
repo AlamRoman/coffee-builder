@@ -1,8 +1,11 @@
 package model.Components;
 
+import java.util.ArrayList;
+
 import model.Color;
 import model.DebuggerConsole;
 import model.Exceptions;
+import model.Line;
 import model.Memory.MemoryStorage;
 
 public class ComponentEndWhile extends AlgorithmComponent {
@@ -28,6 +31,18 @@ public class ComponentEndWhile extends AlgorithmComponent {
 	
 	public String print() {
 		return "";
+	}
+	
+	@Override
+	public ArrayList<Line> printCode(String language) {
+		ArrayList<Line> lines = new ArrayList<Line>();
+		switch(language) {
+			case "java":
+				lines.add(new Line("}"));
+				break;
+		}
+		return lines;
+		
 	}
 
 }

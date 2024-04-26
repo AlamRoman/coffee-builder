@@ -666,6 +666,15 @@ public class MemoryStorage {
 		// TODO Auto-generated method stub
 		this.algorithmComponents = newArrayComponents;
 	}
+
+	public boolean containsInput() {
+		for (AlgorithmComponent algorithmComponent : algorithmComponents) {
+			if(algorithmComponent instanceof ComponentInput) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	
 	

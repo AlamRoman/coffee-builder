@@ -1,11 +1,14 @@
 package model.Components;
 
+import java.util.ArrayList;
+
 import model.DebuggerConsole;
 import model.Exceptions;
+import model.Line;
 import model.Memory.MemoryStorage;
 import model.Memory.VariableType;
 import model.Memory.Variable;
-import model.Memory.VariableType;
+import model.Memory.VariableType.*;
 
 public class ComponentAssign extends AlgorithmComponent{
 
@@ -72,6 +75,18 @@ public class ComponentAssign extends AlgorithmComponent{
 		out+= getValueString();
 		
 		return out;
+		
+	}
+	
+	@Override
+	public ArrayList<Line> printCode(String language) {
+		ArrayList<Line> lines = new ArrayList<Line>();
+		switch(language) {
+			case "java":
+				lines.add(new Line(variableName + " = " + value + ";"));
+				break;
+		}
+		return lines;
 		
 	}
 

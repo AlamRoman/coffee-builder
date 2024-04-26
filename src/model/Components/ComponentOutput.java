@@ -1,8 +1,11 @@
 package model.Components;
 
+import java.util.ArrayList;
+
 import model.Color;
 import model.DebuggerConsole;
 import model.Exceptions;
+import model.Line;
 import model.Memory.MemoryStorage;
 import model.Memory.Variable;
 
@@ -71,6 +74,18 @@ public class ComponentOutput extends AlgorithmComponent{
 		out += rawOutPutString + "\"";
 		
 		return out;
+	}
+	
+	@Override
+	public ArrayList<Line> printCode(String language) {
+		ArrayList<Line> lines = new ArrayList<Line>();
+		switch(language) {
+			case "java":
+				lines.add(new Line("System.out.println(" + rawOutPutString + ")"));
+				break;
+		}
+		return lines;
+		
 	}
 
 	public String getRawOutputString() {

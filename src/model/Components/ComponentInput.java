@@ -1,5 +1,6 @@
 package model.Components;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
@@ -7,6 +8,7 @@ import javax.swing.JOptionPane;
 
 import model.DebuggerConsole;
 import model.Exceptions;
+import model.Line;
 import model.Memory.MemoryStorage;
 import model.Memory.Variable;
 import model.Memory.VariableType;
@@ -88,6 +90,28 @@ public class ComponentInput extends AlgorithmComponent{
 		}
 		
 		return out;
+	}
+	
+	@Override
+	public ArrayList<Line> printCode(String language) {
+		ArrayList<Line> lines = new ArrayList<Line>();
+		switch(language) {
+			case "java":
+				switch(finalVar.getType()) {
+					case String:
+						lines.add(new Line(finalVar.getName() + " = " + "scanner.nextLine()"));
+						break;
+					case Double:
+						lines.add(new Line(finalVar.getName() + " = " + "scanner.nextDouble()"));
+						break;
+					case Integer:
+						lines.add(new Line(finalVar.getName() + " = " + "scanner.nextInt()"));
+						break;
+				}
+				break;
+		}
+		return lines;
+		
 	}
 
 	public String getNomeVariabile() {

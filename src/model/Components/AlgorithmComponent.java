@@ -1,7 +1,10 @@
 package model.Components;
 
+import java.util.ArrayList;
+
 import model.DebuggerConsole;
 import model.Exceptions;
+import model.Line;
 import model.Memory.MemoryStorage;
 import view.flowChartComponents.FlowChartPanel;
 
@@ -29,6 +32,10 @@ public class AlgorithmComponent {
 	}
 	
 	public String print() {
+		return null;
+	}
+	
+	public ArrayList<Line> printCode(String language) {
 		return null;
 	}
 
