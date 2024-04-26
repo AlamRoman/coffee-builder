@@ -666,7 +666,7 @@ public class MemoryStorage {
 	}
 
 	/**<p>
-	 * This sets the boolean value of the {@link MemoryStorage#onGoing} attribute
+	 * This method sets the boolean value of the {@link MemoryStorage#onGoing} attribute
 	 * </p>
 	 * @param onGoing the new boolean value
 	 */ 
@@ -674,11 +674,28 @@ public class MemoryStorage {
 		this.onGoing = onGoing;
 	}
 
+	/**<p>
+	 * This method the sets the components array
+	 * </p>
+	 * @param newArrayComponents the new array
+	 */ 
 	public void setComponents(ArrayList<AlgorithmComponent> newArrayComponents) {
 		// TODO Auto-generated method stub
 		this.algorithmComponents = newArrayComponents;
 	}
 
+	/**<p>
+	 * This method checks if at least one of the components in the array of components its an instanceof ComponentInput
+	 * </p>
+	 * <p>
+	 * This method loops through the array of components and checks for each one if its an instance of the {@link ComponentInput} class
+	 * if the condition is met it returns <code>true</code>, if not it returns <code>false</code>
+	 * </p>
+	 * @return {@link Boolean} the result of the search
+	 * @see AlgorithmComponent
+	 * @see ComponentInput
+	 * @see ArrayList
+	 */ 
 	public boolean containsInput() {
 		for (AlgorithmComponent algorithmComponent : algorithmComponents) {
 			if(algorithmComponent instanceof ComponentInput) {
@@ -688,6 +705,17 @@ public class MemoryStorage {
 		return false;
 	}
 
+	/**<p>
+	 * This method sets the array of components with only the 2 initial components, {@link ComponentStart} and {@link ComponentEnd}
+	 * </p>
+	 * <p>
+	 * This methods clears the array of components with the method {@link ArrayList#clear()} and after that sets the initial components
+	 * by calling the method {@link MemoryStorage#initializeComponents()}
+	 * </p>
+	 * @see ComponentStart
+	 * @see ComponentEnd
+	 * @see ArrayList
+	 */ 
 	public void reloadComponents() {
 		// TODO Auto-generated method stub
 		algorithmComponents.clear();
