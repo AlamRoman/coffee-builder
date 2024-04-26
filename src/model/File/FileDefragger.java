@@ -178,8 +178,8 @@ public class FileDefragger {
 				aus = new ComponentEnd();
 				break;
     	}
-    	if(!arrayList.get(i)[0].equals("CEND")) {
-    		if(aus.getNextComponent1() == null && i != N1_idx) {
+    	if(!arrayList.get(i)[0].equals("CEND") && aus != null) {
+    		if(aus.getNextComponent1() == null  && i != N1_idx) {
     			newArrayComponents.set(N1_idx, new ComponentWhile(null, null));
     			aus.setNextComponent1(newArrayComponents.get(N1_idx));
     		}else if(aus.getNextComponent1() == null && i == N1_idx) {

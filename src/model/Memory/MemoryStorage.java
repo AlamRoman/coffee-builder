@@ -484,7 +484,9 @@ public class MemoryStorage {
 			algorithmComponents.get(INDEX_PREV).setNextComponent1(algorithmComponents.get(INDEX_WHILE));
 			algorithmComponents.get(INDEX_WHILE).setNextComponent1(algorithmComponents.get(INDEX_WHILE));
 			algorithmComponents.get(INDEX_WHILE).setNextComponent2(algorithmComponents.get(INDEX_ADD));
-			algorithmComponents.get(INDEX_ADD).setNextComponent1(algorithmComponents.get(INDEX_NEXT));
+			if(!isSetAddNextComp1) {
+				algorithmComponents.get(INDEX_ADD).setNextComponent1(algorithmComponents.get(INDEX_NEXT));				
+			}
 			
 		}
 		showComponents();
@@ -588,6 +590,8 @@ public class MemoryStorage {
 			}else if(previousAC instanceof ComponentWhile) {
 				previousAC = (ComponentWhile) previousAC;
 				previousAC.setNextComponent1(previousAC);
+			}else if(previousAC instanceof ComponentAdd) {
+				previousAC.setNextComponent1(ac.getNextComponent1());
 			}else {
 				algorithmComponents.get(getIndexOf(ac)-1).setNextComponent1(algorithmComponents.get(getIndexOf(ac)+1));				
 			}

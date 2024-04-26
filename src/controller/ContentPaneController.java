@@ -107,7 +107,7 @@ public class ContentPaneController extends Controller implements Runnable{
 							DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Running the executer with start component: " + c.getClass().getSimpleName());
 							super.algorithmExecuter.start(super.getMemory().getStartComponent());
 						} catch (Exceptions customException) {
-							JOptionPane.showMessageDialog(panel, customException.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(panel, customException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 						} catch (Exception exception) {
 							System.err.println(exception.getMessage());
 						}
@@ -200,7 +200,7 @@ public class ContentPaneController extends Controller implements Runnable{
 
 	public void showErrorDialog(String message) {
 		// TODO Auto-generated method stub
-		JOptionPane.showMessageDialog(panel, message, "Errore", JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(panel, message, "Error", JOptionPane.ERROR_MESSAGE);
 	}
 	
 	private void resetSempahores() {
