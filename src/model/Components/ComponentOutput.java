@@ -1,6 +1,7 @@
 package model.Components;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import model.Color;
 import model.DebuggerConsole;
@@ -66,6 +67,34 @@ public class ComponentOutput extends AlgorithmComponent{
 	public AlgorithmComponent getNextComponent() {
 		return super.getNextComponent1();
 	}
+	
+	public String getCodeString(){
+		
+		outPutText = "";
+		
+			if(rawOutPutString!="") {
+				String[] words = rawOutPutString.split(" ");
+				
+				for (int i = 0; i < words.length; i++) {
+					
+					int count = words[i].split(Pattern.quote(String.valueOf('$'))).length - 1;
+					
+					if (words[i].charAt(0) == '$' && count == 1) {
+						
+						words[i] = words[i].substring(1);
+						
+					}else {
+						words[i] = "\"" + words[i] + "\"";
+					}
+				}
+				
+				outPutText = String.join(" + ", words);
+				outPutText = outPutText.replace("\" + \"", " ");
+				outPutText = outPutText.replace(" + \"",  " + \" ");
+				outPutText = outPutText.replace("\" + ",  " \" + ");
+			}
+			return outPutText;
+	}
 
 	@Override
 	public String print() {
@@ -81,13 +110,13 @@ public class ComponentOutput extends AlgorithmComponent{
 		ArrayList<Line> lines = new ArrayList<Line>();
 		switch(language) {
 			case "java":
-				lines.add(new Line("System.out.println(" + rawOutPutString + ")"));
+				lines.add(new Line("System.out.println(" + getCodeString() + ");"));
 				break;
 			case "pseudocode":
 				lines.add(new Line(print()));
 				break;
 			case "python":
-				lines.add(new Line("print(" + rawOutPutString + ")"));
+				lines.add(new Line("print(" + getCodeString() + ")"));
 				break;
 		}
 		return lines;
