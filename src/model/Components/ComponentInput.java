@@ -94,23 +94,29 @@ public class ComponentInput extends AlgorithmComponent{
 	
 	@Override
 	public ArrayList<Line> printCode(String language) {
+		try {
+			finalVar = super.getMemory().getVariableByName(nomeVariabile);
+		} catch (Exceptions e) {
+			// TODO Auto-generated catch block
+			finalVar = null;
+		}
 		ArrayList<Line> lines = new ArrayList<Line>();
 		switch(language) {
 			case "java":
 				if(finalVar != null) {
 					switch(finalVar.getType()) {
 						case String:
-							lines.add(new Line(((nomeVariabile != null && !nomeVariabile.equals("")?nomeVariabile:"%VariableName%")) + " = " + "scanner.nextLine()"));
+							lines.add(new Line(((nomeVariabile != null && !nomeVariabile.equals("")?nomeVariabile:"%VariableName%")) + " = " + "scanner.nextLine();"));
 							break;
 						case Double:
-							lines.add(new Line(((nomeVariabile != null && !nomeVariabile.equals("")?nomeVariabile:"%VariableName%")) + " = " + "scanner.nextDouble()"));
+							lines.add(new Line(((nomeVariabile != null && !nomeVariabile.equals("")?nomeVariabile:"%VariableName%")) + " = " + "scanner.nextDouble();"));
 							break;
 						case Integer:
-							lines.add(new Line(((nomeVariabile != null && !nomeVariabile.equals("")?nomeVariabile:"%VariableName%")) + " = " + "scanner.nextInt()"));
+							lines.add(new Line(((nomeVariabile != null && !nomeVariabile.equals("")?nomeVariabile:"%VariableName%")) + " = " + "scanner.nextInt();"));
 							break;
 					}
 				} else {
-					lines.add(new Line(((nomeVariabile != null && !nomeVariabile.equals("")?nomeVariabile:"%VariableName%")) + " = " + "scanner.nextLine()"));
+					lines.add(new Line(((nomeVariabile != null && !nomeVariabile.equals("")?nomeVariabile:"%VariableName%")) + " = " + "scanner.nextLine();"));
 				}
 				break;
 			case "pseudocode":
