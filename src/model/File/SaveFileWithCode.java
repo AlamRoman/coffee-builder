@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import model.Exceptions;
 import model.Line;
 import model.Components.AlgorithmComponent;
 import model.Components.ComponentAdd;
@@ -72,6 +73,15 @@ public class SaveFileWithCode {
     	int indentation = 0;
     	try (PrintWriter writer = new PrintWriter(selectedFile)) {
             for (AlgorithmComponent component : components) {
+            	if(component instanceof ComponentDeclaration) {
+            		ComponentDeclaration aus = (ComponentDeclaration) component;
+					try {
+						aus.execute();
+					} catch (Exceptions e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+            	}
             	if(component instanceof ComponentAdd || component instanceof ComponentElse) indentation--;
             	if(component instanceof ComponentEnd) indentation=0;
             	ArrayList<Line> lines = component.printCode(language);
@@ -99,6 +109,7 @@ public class SaveFileWithCode {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    	MemoryStorage.getInstance().destroyVariables();
 	}
 
 	private static String getIndentationString(int indentation) {
