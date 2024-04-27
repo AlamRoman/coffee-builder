@@ -25,6 +25,7 @@ import model.File.FileDefragger;
 import model.File.FileSaver;
 import model.File.OpenHTMLFile;
 import model.File.SaveFileWithCode;
+import model.File.SoundPlayer;
 import model.Memory.MemoryStorage;
 import view.FlowChartContentPanel;
 import view.Panel;
@@ -149,8 +150,7 @@ public class ContentPaneController extends Controller implements Runnable{
 					public void actionPerformed(ActionEvent e) {
 						memory.reloadComponents();
 						panel.getFlowChartPanel().updatePane(memory.getComponents());
-						
-						
+						updateTable();
 					}
 				});
                 
@@ -257,7 +257,11 @@ public class ContentPaneController extends Controller implements Runnable{
 	}
 
 	public void showErrorDialog(String message) {
-		// TODO Auto-generated method stub
+		//play sound
+		SoundPlayer soundPlayer = new SoundPlayer();
+		
+		soundPlayer.playErrorSound();
+		
 		JOptionPane.showMessageDialog(panel, message, "Error", JOptionPane.ERROR_MESSAGE);
 	}
 	
