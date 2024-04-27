@@ -51,6 +51,7 @@ public class ComponentStart extends AlgorithmComponent{
 				lines.add(new Line((MemoryStorage.getInstance().containsInput())?"import java.util.Scanner;":""));
 				lines.add(new Line("public class Main {"));
 				lines.add(new Line("    public static void main(String[] args) {"));
+				lines.add(new Line((MemoryStorage.getInstance().containsInput())?"        Scanner scanner = new Scanner(System.in);":""));
 				break;
 			case "pseudocode":
 				lines.add(new Line(print()));
