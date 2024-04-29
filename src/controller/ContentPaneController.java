@@ -7,8 +7,10 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.concurrent.Semaphore;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -23,6 +25,7 @@ import model.Timer;
 import model.Components.AlgorithmComponent;
 import model.File.FileDefragger;
 import model.File.FileSaver;
+import model.File.ImageLoader;
 import model.File.OpenHTMLFile;
 import model.File.SaveFileWithCode;
 import model.File.SoundPlayer;
@@ -139,8 +142,14 @@ public class ContentPaneController extends Controller implements Runnable{
 			case "SHOW_MENU":
 				JButton optionsButton = (JButton)e.getSource();
 				// Crea e mostra il menu a discesa quando si clicca sul pulsante
+				
+				ImageLoader imageLoader = new ImageLoader();
+				
+				ImageIcon saveIcon = imageLoader.getImageFrom("resources/save.png");
+				saveIcon = imageLoader.scaleImage(saveIcon, 14, 14);
+				
                 JPopupMenu popupMenu = new JPopupMenu();
-                JMenuItem saveMenuItem = new JMenuItem("Save...");
+                JMenuItem saveMenuItem = new JMenuItem("Save...", saveIcon);
                 JMenuItem clearAllMenuItem = new JMenuItem("Clear algorithm");
                 JMenuItem openMenuItem = new JMenuItem("Open...");
                 JMenuItem helpMenuItem = new JMenuItem("Help");
