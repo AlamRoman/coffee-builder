@@ -146,13 +146,22 @@ public class ContentPaneController extends Controller implements Runnable{
 				ImageLoader imageLoader = new ImageLoader();
 				
 				ImageIcon saveIcon = imageLoader.getImageFrom("resources/save.png");
-				saveIcon = imageLoader.scaleImage(saveIcon, 14, 14);
+				saveIcon = imageLoader.scaleImage(saveIcon, 17, 17);
+				
+				ImageIcon clearIcon = imageLoader.getImageFrom("resources/clear.png");
+				clearIcon = imageLoader.scaleImage(clearIcon, 17, 17);
+				
+				ImageIcon openIcon = imageLoader.getImageFrom("resources/open.png");
+				openIcon = imageLoader.scaleImage(openIcon, 17, 17);
+				
+				ImageIcon helpIcon = imageLoader.getImageFrom("resources/help.png");
+				helpIcon = imageLoader.scaleImage(helpIcon, 17, 17);
 				
                 JPopupMenu popupMenu = new JPopupMenu();
                 JMenuItem saveMenuItem = new JMenuItem("Save...", saveIcon);
-                JMenuItem clearAllMenuItem = new JMenuItem("Clear algorithm");
-                JMenuItem openMenuItem = new JMenuItem("Open...");
-                JMenuItem helpMenuItem = new JMenuItem("Help");
+                JMenuItem clearAllMenuItem = new JMenuItem("Clear algorithm", clearIcon);
+                JMenuItem openMenuItem = new JMenuItem("Open...", openIcon);
+                JMenuItem helpMenuItem = new JMenuItem("Help", helpIcon);
                 
                 clearAllMenuItem.addActionListener(new ActionListener() {
 					@Override
@@ -188,10 +197,17 @@ public class ContentPaneController extends Controller implements Runnable{
                 });
                 
              // Aggiungi un sottomenu "Convert to code..."
+                
+                ImageIcon codeIcon = imageLoader.getImageFrom("resources/code.png");
+                codeIcon = imageLoader.scaleImage(codeIcon, 17, 17);
+                
                 JMenu convertMenu = new JMenu("Convert to code...");
                 JMenuItem javaMenuItem = new JMenuItem("Java");
                 JMenuItem pythonMenuItem = new JMenuItem("Python");
                 JMenuItem pseudoCodeMenuItem = new JMenuItem("PseudoCode");
+                
+                JMenuItem convertMenuItem = convertMenu;
+                convertMenuItem.setIcon(codeIcon);
                 
                 javaMenuItem.addActionListener(new ActionListener() {
                     @Override
@@ -223,7 +239,7 @@ public class ContentPaneController extends Controller implements Runnable{
                 popupMenu.add(saveMenuItem);
                 popupMenu.add(openMenuItem);
                 popupMenu.addSeparator(); // Aggiungi un separatore tra gli elementi principali e il sottomenu
-                popupMenu.add(convertMenu); // Aggiungi il sottomenu "Convert to code..."
+                popupMenu.add(convertMenuItem); // Aggiungi il sottomenu "Convert to code..."
                 popupMenu.addSeparator();
                 popupMenu.add(helpMenuItem);
 
