@@ -199,6 +199,9 @@ public class Panel extends JPanel {
 		
 		outputArea = new JTextArea();
 		outputArea.setEditable(false);
+		outputArea.setLineWrap(false);
+		outputArea.setWrapStyleWord(false);
+
 		scrollPane_1.setViewportView(outputArea);
 		
 //		updateAutoRunState();

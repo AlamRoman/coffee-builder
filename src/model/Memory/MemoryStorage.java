@@ -313,6 +313,7 @@ public class MemoryStorage {
 
         // Creazione della JTable con il modello creato
         JTable table = new JTable(model);
+        table.getTableHeader().setReorderingAllowed(false);
         return table;
     }
 	
