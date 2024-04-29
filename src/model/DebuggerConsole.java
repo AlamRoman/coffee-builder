@@ -42,13 +42,13 @@ public class DebuggerConsole {
 	* 	[MESSAGE-TYPE] : MESSAGE
 	* </code>
 	* </p>
-	* @param messsageTypeColor The color of the message type
+	* @param messageTypeColor The color of the message type
 	* @param messageType The message type
 	* @param messageColor The color of the message
 	* @param message The message
 	*/
-	public void printLog(String messsageTypeColor, String messageType, String messageColor, String message) {
-		String s = "[" + messsageTypeColor + messageType + Color.WHITE + "]" + Color.RESET + " : " + messageColor + message + Color.RESET;
+	public void printLog(String messageTypeColor, String messageType, String messageColor, String message) {
+		String s = "[" + messageTypeColor + messageType + Color.WHITE + "]" + Color.RESET + " : " + messageColor + message + Color.RESET;
 		System.out.println(s);
 		addLine(s);
 		addLineToFinalLog(s);
@@ -62,7 +62,7 @@ public class DebuggerConsole {
 	* 	STACK_TRACE_INFO [MESSAGE-TYPE] : MESSAGE
 	* </code>
 	* </p>
-	* @param messsageTypeColor The color of the message type
+	* @param messageTypeColor The color of the message type
 	* @param messageType The message type
 	* @param messageColor The color of the message
 	* @param message The message

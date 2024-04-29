@@ -1,1 +1,9 @@
+controller
+main
+model
+model.Components
+model.File
+model.Memory
 view
+view.editComponents
+view.flowChartComponents

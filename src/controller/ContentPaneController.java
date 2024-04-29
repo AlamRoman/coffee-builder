@@ -57,8 +57,7 @@ public class ContentPaneController extends Controller implements Runnable{
 	* </p>
 	* @param ALGORITHM_EXECUTER The {@link AlgorithmExecuter} instance that executes all the different components
 	* @param TIMER The {@link Timer} instance that will coordinate the execution and handles the delay between all the exections
-	* @param buffer The {@link Buffer} instance that handles all the outputs from the execution process
-	* @param MEMORY The {@link MemoryStorage} that handles all the variables and components informations
+	* @param BUFFER The {@link Buffer} instance that handles all the outputs from the execution process
 	* @param execute The {@link Semaphore} that handles the correct execution of the algorithm
 	* @param wait The {@link Semaphore} that synchronizes the execution of the algorithm with the {@link Timer}
 	* @param panel The {@link Panel} handled by this controller
