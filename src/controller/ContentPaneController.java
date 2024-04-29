@@ -182,7 +182,6 @@ public class ContentPaneController extends Controller implements Runnable{
                 JMenu convertMenu = new JMenu("Convert to code...");
                 JMenuItem javaMenuItem = new JMenuItem("Java");
                 JMenuItem pythonMenuItem = new JMenuItem("Python");
-                JMenuItem cMenuItem = new JMenuItem("C");
                 JMenuItem pseudoCodeMenuItem = new JMenuItem("PseudoCode");
                 
                 javaMenuItem.addActionListener(new ActionListener() {
@@ -199,13 +198,6 @@ public class ContentPaneController extends Controller implements Runnable{
                     }
                 });
 
-                cMenuItem.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                    	SaveFileWithCode.translateAndSaveCode((JFrame)panel.getParent().getParent().getParent(), "c");
-                    }
-                });
-
                 pseudoCodeMenuItem.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -215,7 +207,6 @@ public class ContentPaneController extends Controller implements Runnable{
 
                 convertMenu.add(javaMenuItem);
                 convertMenu.add(pythonMenuItem);
-                convertMenu.add(cMenuItem);
                 convertMenu.add(pseudoCodeMenuItem);
 
                 popupMenu.add(clearAllMenuItem);
