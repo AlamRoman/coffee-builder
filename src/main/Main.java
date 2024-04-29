@@ -14,6 +14,8 @@ import model.Memory.RelationalOperators;
 import view.FlowChartContentPanel;
 import view.Frame;
 
+/** The Main Class of this program
+ * */
 public class Main {
 	
 	public static void main(String[] args) {

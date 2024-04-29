@@ -1,8 +1,10 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 
 import controller.ContentPaneController;
+import controller.Controller;
 import model.Components.AlgorithmComponent;
 import model.Components.ComponentEnd;
 import model.Components.ComponentIf;
@@ -10,6 +12,8 @@ import model.Components.ComponentWhile;
 import model.Memory.MemoryStorage;
 import view.flowChartComponents.FlowChartPanel;
 
+/**The class that handles all the component executions, outputs and exceptions that has been thrown during the execution of the single components
+ * */
 public class AlgorithmExecuter implements Runnable{
 	
 	private static final String referenceType = "EXECUTER";
@@ -24,6 +28,20 @@ public class AlgorithmExecuter implements Runnable{
 	private String result;
 	private ContentPaneController controller;
 
+	
+	/**<p>
+	 * The constructor method of the {@link AlgorithmExecuter} class
+	 * </p>
+	 * <p>
+	 * It creates a new instance of the algorithm executer class with the provided parameters
+	 * </p>
+	 * @param exec The {@link Semaphore} that guarantees the correct execution of the algorithm
+	 * @param wait The {@link Semaphore} that guarantees the synchronization with the Timer and handles the delays between the single components
+	 * @param read The {@link Semaphore} that handles the mutual exclusion for reading buffer
+	 * @param write The {@link Semaphore} that handles the mutual exclusion for writing in the buffer
+	 * @param timer The {@link Timer} that sets the delays between each components
+	 * @param buffer The {@link Buffer} containing all the output text 
+	 * */
 	public AlgorithmExecuter(Semaphore exec, Semaphore wait, Semaphore read, Semaphore write, Timer timer, Buffer buffer) {
 		super();
 		this.timer = timer;
@@ -35,6 +53,14 @@ public class AlgorithmExecuter implements Runnable{
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType, "Created.");
 	}
 
+	/**<p>
+	* This method its called to start the execution of the algorithm 
+	* </p>
+	* <p>
+	* Starts the Thread of the executer after setting the Start component, provided as a parameter and executes its followings
+	* </p>
+	* @param start The {@link AlgorithmComponent} that represents the start of the algorithm
+	*/
 	public void start(AlgorithmComponent start) throws Exceptions {
 		
 		createThread();
@@ -45,6 +71,10 @@ public class AlgorithmExecuter implements Runnable{
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType+"-THREAD", "Started thread: " + T.getName());
 	}
 
+	/**<p>
+	* This method resets the executer Thread after it has been interrupted
+	* </p>
+	*/
 	private void createThread() {
 		// TODO Auto-generated method stub
 		this.T = new Thread(this, "EXECUTER");
@@ -135,6 +165,15 @@ public class AlgorithmExecuter implements Runnable{
 		
 	}
 	
+	/**<p>
+	* This method checks the status of the Thread
+	* </p>
+	* <p>
+	* This method checks if the thread has been interrupted via the {@link Thread#interrupt()} method
+	* </p>
+	* @return true if the thread has been interrupted
+	* @return false if the thread has not been interrupted
+	*/
 	private boolean checkThread() {
 		// TODO Auto-generated method stub
 		if(T.isInterrupted()) {
@@ -144,16 +183,31 @@ public class AlgorithmExecuter implements Runnable{
 		return false;
 	}
 
+	/**<p>
+	* This method calls the method {@link ContentPaneController#deleteVariablesFromMemoryStorage()} from the Content pane controller
+	* </p>
+	* @see ContentPaneController
+	* @see Controller
+	*/
 	private void callControllerDestroyVariables() {
 		// TODO Auto-generated method stub
 		this.controller.deleteVariablesFromMemoryStorage();
 		
 	}
 
+	/**<p>
+	* This method sets a {@link ContentPaneController} as the associated controller of the {@link AlgorithmExecuter}
+	* </p>
+	* @param controller the controller that has to be associated
+	*/
 	public void setController(ContentPaneController controller) {
 		this.controller = controller;
 	}
 	
+	/**<p>
+	* This method interrupts the executer Thread with the {@link Thread#interrupt()} method
+	* </p>
+	*/
 	public void stop() {
 		this.T.interrupt();
 //		createThread();
@@ -169,6 +223,12 @@ public class AlgorithmExecuter implements Runnable{
 //		}
 //	}
 	
+	/**<p>
+	* This method calls the method {@link ContentPaneController#updateTable()} from the Content pane controller
+	* </p>
+	* @see ContentPaneController
+	* @see Controller
+	*/
 	public void callControllerUpdateTable() {
 		controller.updateTable();
 	}

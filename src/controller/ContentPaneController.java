@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 
 import javax.swing.ImageIcon;
@@ -16,6 +17,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JTable;
 
 import model.AlgorithmExecuter;
 import model.Buffer;
@@ -30,9 +32,15 @@ import model.File.OpenHTMLFile;
 import model.File.SaveFileWithCode;
 import model.File.SoundPlayer;
 import model.Memory.MemoryStorage;
+import model.Memory.Variable;
 import view.FlowChartContentPanel;
 import view.Panel;
 
+/**<p>
+* This class is used to control the content pane ({@link Panel}) contained in the main {@link JFrame}, it controls all the actions
+* and events from the user
+* </p>
+*/
 public class ContentPaneController extends Controller implements Runnable{
 	
 	private static final String referenceType = "CP-CONTROLLER";
@@ -43,6 +51,18 @@ public class ContentPaneController extends Controller implements Runnable{
 	private Semaphore write;
 	private Thread T;
 
+	
+	/**<p>
+	* This method creates a new instance of the {@link ContentPaneController}
+	* </p>
+	* @param ALGORITHM_EXECUTER The {@link AlgorithmExecuter} instance that executes all the different components
+	* @param TIMER The {@link Timer} instance that will coordinate the execution and handles the delay between all the exections
+	* @param buffer The {@link Buffer} instance that handles all the outputs from the execution process
+	* @param MEMORY The {@link MemoryStorage} that handles all the variables and components informations
+	* @param execute The {@link Semaphore} that handles the correct execution of the algorithm
+	* @param wait The {@link Semaphore} that synchronizes the execution of the algorithm with the {@link Timer}
+	* @param panel The {@link Panel} handled by this controller
+	*/
 	public ContentPaneController(AlgorithmExecuter ALGORITHM_EXECUTER, Timer TIMER, Buffer BUFFER, Semaphore execute, Semaphore wait, Semaphore read, Semaphore write, Panel panel) {
 		super(ALGORITHM_EXECUTER, TIMER, BUFFER, MemoryStorage.getInstance());
 		// TODO Auto-generated constructor stub
@@ -54,8 +74,7 @@ public class ContentPaneController extends Controller implements Runnable{
 		panel.registerEvents(this);
 		ALGORITHM_EXECUTER.setController(this);
 		T = new Thread(this, "BUFFER_THREAD");
-		T.start();
-		
+		T.start();	
 		//REMOVE THIS TRY-CATCH BLOCK WHEN NOT TESTING~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //		try {
 //			super.getMemory().initializeDefaultComponents();
@@ -261,6 +280,13 @@ public class ContentPaneController extends Controller implements Runnable{
 		
 	}
 
+	/**<p>
+	* This method updates the table containing all the variables informations in the associated {@link Panel}
+	* </p>
+	* <p>
+	* It creates a new {@link JTable} and updates the debug panel
+	* </p>
+	*/
 	public void updateTable() {
 		// TODO Auto-generated method stub
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Updating table...");
@@ -268,10 +294,23 @@ public class ContentPaneController extends Controller implements Runnable{
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Table updated.");
 	}
 	
+	/**<p>
+	* This method calls the {@link MemoryStorage#destroyVariables()} from the memory
+	* </p>
+	* @see MemoryStorage
+	*/
 	public void deleteVariablesFromMemoryStorage() {
 		MemoryStorage.getInstance().destroyVariables();
 	}
 
+	/**<p>
+	* This method shows an error dialog with {@link JOptionPane} in the associated panel
+	* </p>
+	* <p>
+	* Creates a {@link JOptionPane} containing an error message provided as a parameter and shows it in the panel
+	* </p>
+	* @param message The message that has to be shown
+	*/
 	public void showErrorDialog(String message) {
 		//play sound
 		SoundPlayer soundPlayer = new SoundPlayer();
@@ -281,6 +320,14 @@ public class ContentPaneController extends Controller implements Runnable{
 		JOptionPane.showMessageDialog(panel, message, "Error", JOptionPane.ERROR_MESSAGE);
 	}
 	
+	/**<p>
+	* This method resets the {@link Semaphore}s to their initial status
+	* </p>
+	* <p>
+	* This method resets the wait and execute semaphores to their initial status to guarantee the correct
+	* execution of the algorithm after a first execution
+	* </p>
+	*/
 	private void resetSempahores() {
 	    // Ripristina i semafori allo stato iniziale
 	    execute.release(); // Rilascia il semaforo EXECUTE_S
