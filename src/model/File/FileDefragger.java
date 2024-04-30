@@ -23,7 +23,9 @@ import model.Components.ComponentOutput;
 import model.Components.ComponentStart;
 import model.Components.ComponentWhile;
 import model.Memory.MemoryStorage;
+import model.Memory.OperationType;
 import model.Memory.RelationalOperators;
+import model.Memory.VariableType;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -127,27 +129,35 @@ public class FileDefragger {
 			case "CA":
 				ComponentAssign temp_assign = (ComponentAssign) aus;
 				temp_assign = new ComponentAssign(newArrayComponents.get(N1_idx), newArrayComponents.get(N2_idx), instance);
-				temp_assign.set(arrayList.get(i)[5], arrayList.get(i)[6]);
+				temp_assign.set(arrayList.get(i)[6], arrayList.get(i)[5]);
+				aus = temp_assign;
 				break;
 			case "CD":
 				ComponentDeclaration temp_declaration = (ComponentDeclaration) aus;
-				aus = new ComponentDeclaration(newArrayComponents.get(N1_idx), newArrayComponents.get(N2_idx), instance);
+				temp_declaration = new ComponentDeclaration(newArrayComponents.get(N1_idx), newArrayComponents.get(N2_idx), instance);
+				temp_declaration.set(getVariableType(arrayList.get(i)[5]), arrayList.get(i)[6]);
+				aus = temp_declaration;
 				break;
 			case "CO":
 				ComponentOperation temp_operation = (ComponentOperation) aus;
-				aus = new ComponentOperation(newArrayComponents.get(N1_idx), newArrayComponents.get(N2_idx), instance);
+				temp_operation = new ComponentOperation(newArrayComponents.get(N1_idx), newArrayComponents.get(N2_idx), instance);
+				temp_operation.set(arrayList.get(i)[5], arrayList.get(i)[6], arrayList.get(i)[7], getOperationType(arrayList.get(i)[8]));
+				aus = temp_operation;
 				break;
 			case "CIF":
 				ComponentIf temp_if = (ComponentIf) aus;
-				aus = new ComponentIf(newArrayComponents.get(N1_idx), newArrayComponents.get(N2_idx), instance);
+				temp_if = new ComponentIf(newArrayComponents.get(N1_idx), newArrayComponents.get(N2_idx), instance);
+				temp_if.set(arrayList.get(i)[5], getRelationalOperator(arrayList.get(i)[6]), arrayList.get(i)[7]);
+				aus = temp_if;
 				break;
 			case "CW":
 				ComponentWhile temp_while = (ComponentWhile) aus;
 				if(newArrayComponents.get(i) == null){
 					temp_while = new ComponentWhile(newArrayComponents.get(N2_idx), instance);
 				}else {
+					temp_while = new ComponentWhile(newArrayComponents.get(N1_idx), instance);
 					temp_while.set(arrayList.get(i)[5], getRelationalOperator(arrayList.get(i)[7]), arrayList.get(i)[6]);
-					temp_while.setNextComponent1(newArrayComponents.get(N1_idx));
+//					temp_while.setNextComponent1(newArrayComponents.get(N1_idx));
 					temp_while.setNextComponent2(newArrayComponents.get(N2_idx));
 				}
 				aus = temp_while;
@@ -155,27 +165,36 @@ public class FileDefragger {
 				break;
 			case "CE":
 				ComponentElse temp_else = (ComponentElse) aus;
-				aus = new ComponentElse(newArrayComponents.get(N1_idx), newArrayComponents.get(N2_idx), instance);
+				temp_else = new ComponentElse(newArrayComponents.get(N1_idx), newArrayComponents.get(N2_idx), instance);
+				aus = temp_else;
 				break;
 			case "CADD":
 				ComponentAdd temp_add = (ComponentAdd) aus;
-				aus = new ComponentAdd(newArrayComponents.get(N1_idx), newArrayComponents.get(N2_idx), instance);
+				temp_add = new ComponentAdd(newArrayComponents.get(N1_idx), newArrayComponents.get(N2_idx), instance);
+				aus = temp_add;
 				break;
 			case "CCOM":
 				ComponentComment temp_comment = (ComponentComment) aus;
-				aus = new ComponentComment(newArrayComponents.get(N1_idx), newArrayComponents.get(N2_idx), instance);
+				temp_comment = new ComponentComment(newArrayComponents.get(N1_idx), newArrayComponents.get(N2_idx), instance);
+				temp_comment.set(arrayList.get(i)[5]);
+				aus = temp_comment;
 				break;
 			case "CI":
 				ComponentInput temp_input = (ComponentInput) aus;
-				aus = new ComponentInput(newArrayComponents.get(N1_idx), newArrayComponents.get(N2_idx), instance);
+				temp_input = new ComponentInput(newArrayComponents.get(N1_idx), newArrayComponents.get(N2_idx), instance);
+				temp_input.set(arrayList.get(i)[5]);
+				aus = temp_input;
 				break;
 			case "COUT":
 				ComponentOutput temp_output = (ComponentOutput) aus;
-				aus = new ComponentOutput(newArrayComponents.get(N1_idx), newArrayComponents.get(N2_idx), instance);
+				temp_output = new ComponentOutput(newArrayComponents.get(N1_idx), newArrayComponents.get(N2_idx), instance);
+				temp_output.set(arrayList.get(i)[5]);
+				aus = temp_output;
 				break;
 			case "CEND":
 				ComponentEnd temp_end = (ComponentEnd) aus;
-				aus = new ComponentEnd();
+				temp_end = new ComponentEnd();
+				aus = temp_end;
 				break;
     	}
     	if(!arrayList.get(i)[0].equals("CEND") && aus != null) {
@@ -189,6 +208,35 @@ public class FileDefragger {
     	
     	newArrayComponents.set(i, aus);
 		
+	}
+
+	private static OperationType getOperationType(String string) {
+		switch (string) {
+		case "ADD": 
+			return OperationType.ADD;
+		case "SUB": 
+			return OperationType.SUB;
+		case "MUL": 
+			return OperationType.MUL;
+		case "DIV": 
+			return OperationType.DIV;
+		case "MOD": 
+			return OperationType.MOD;
+		}
+		return null;
+	}
+
+	private static VariableType getVariableType(String string) {
+		switch (string) {
+		case "String": 
+			return VariableType.String;
+		case "Double": 
+			return VariableType.Double;
+		case "Integer": 
+			return VariableType.Integer;
+		default:
+			return VariableType.String;
+		}
 	}
 
 	private static RelationalOperators getRelationalOperator(String string) {
