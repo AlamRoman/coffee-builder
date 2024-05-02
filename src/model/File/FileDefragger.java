@@ -151,15 +151,23 @@ public class FileDefragger {
 				aus = temp_if;
 				break;
 			case "CW":
-				ComponentWhile temp_while = (ComponentWhile) aus;
+				ComponentWhile temp_while = null;
 				if(newArrayComponents.get(i) == null){
+					temp_while = (ComponentWhile) aus;
 					temp_while = new ComponentWhile(newArrayComponents.get(N2_idx), instance);
 				}else {
-					temp_while = new ComponentWhile(newArrayComponents.get(N1_idx), instance);
+					temp_while = (ComponentWhile) newArrayComponents.get(i);
 					temp_while.set(arrayList.get(i)[5], getRelationalOperator(arrayList.get(i)[7]), arrayList.get(i)[6]);
 //					temp_while.setNextComponent1(newArrayComponents.get(N1_idx));
 					temp_while.setNextComponent2(newArrayComponents.get(N2_idx));
 				}
+				
+				if(newArrayComponents.get(i+1) instanceof ComponentAdd) {
+					temp_while.setNextComponent1(temp_while);
+				}else {
+					temp_while.setNextComponent1(newArrayComponents.get(i+1));
+				}
+				
 				aus = temp_while;
 //				aus = new ComponentWhile(newArrayComponents.get(N1_idx), instance);
 				break;
@@ -199,7 +207,8 @@ public class FileDefragger {
     	}
     	if(!arrayList.get(i)[0].equals("CEND") && aus != null) {
     		if(aus.getNextComponent1() == null  && i != N1_idx) {
-    			newArrayComponents.set(N1_idx, new ComponentWhile(null, null));
+    			ComponentWhile temp = new ComponentWhile(null, null);
+    			newArrayComponents.set(N1_idx, temp);
     			aus.setNextComponent1(newArrayComponents.get(N1_idx));
     		}else if(aus.getNextComponent1() == null && i == N1_idx) {
     			aus.setNextComponent1(aus);
