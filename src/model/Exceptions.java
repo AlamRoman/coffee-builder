@@ -2,6 +2,9 @@ package model;
 
 import java.awt.Component;
 
+
+/**This class contains all the possible exceptions that can be thrown during the execution of the algorithm
+ * */
 public class Exceptions extends Exception{
 	
 	public static final String COMPONENT_NOT_SET = "Set the component before executing the algorithm";

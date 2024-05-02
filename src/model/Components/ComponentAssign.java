@@ -1,11 +1,14 @@
 package model.Components;
 
+import java.util.ArrayList;
+
 import model.DebuggerConsole;
 import model.Exceptions;
+import model.Line;
 import model.Memory.MemoryStorage;
 import model.Memory.VariableType;
 import model.Memory.Variable;
-import model.Memory.VariableType;
+import model.Memory.VariableType.*;
 
 public class ComponentAssign extends AlgorithmComponent{
 
@@ -13,6 +16,7 @@ public class ComponentAssign extends AlgorithmComponent{
 	private Object value;
 	private String variableName;
 	private Variable finalVariable;
+	private Variable secondValueVariable;
 	
 	public ComponentAssign(AlgorithmComponent nextComponent1, AlgorithmComponent nextComponent2, MemoryStorage memory) {
 		
@@ -42,8 +46,6 @@ public class ComponentAssign extends AlgorithmComponent{
 			throw new Exceptions(variableName + ": " + Exceptions.NON_EXISTING_VARIABLE);
 		}
 		
-//		System.out.println("Variable type: " + finalVariable.getType());
-//	    System.out.println("Value type: " + value.getClass().getSimpleName());
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage , "Assigning " + value.toString() + "(" + value.getClass().getSimpleName() + ") to the variable '" + finalVariable + "(" + finalVariable.getType() + ")'");
 		if(value instanceof String && finalVariable.getType()==VariableType.String) {
 			finalVariable.setValue(value);
@@ -80,6 +82,24 @@ public class ComponentAssign extends AlgorithmComponent{
 		return out;
 		
 	}
+	
+	@Override
+	public ArrayList<Line> printCode(String language) {
+		ArrayList<Line> lines = new ArrayList<Line>();
+		switch(language) {
+			case "java":
+				lines.add(new Line(variableName + " = " + value + ";"));
+				break;
+			case "pseudocode":
+				lines.add(new Line(print()));
+				break;
+			case "python":
+				lines.add(new Line(variableName + " = " + value));
+				break;
+		}
+		return lines;
+		
+	}
 
 	public String getValueString() {
 	    if (value != null) {
@@ -107,6 +127,14 @@ private Variable getVariableFromTerm(Variable variable, String term) {
 		String cleanedTerm = term.trim().toLowerCase();
 		
 		if(variable != null) {
+			if(term.startsWith("$")) {
+				try {
+					v = super.getMemory().getVariableByName(term.substring(1));
+					return v;
+				} catch (Exceptions e) {
+					e.printStackTrace();
+				}
+			}
 			if(variable.getType() == VariableType.String) {
 				v = new Variable(VariableType.String, term, term);
 				DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "returning variable from getVariableFromTerm("+ term +", " + variable + ") >> " + v);
@@ -127,6 +155,7 @@ private Variable getVariableFromTerm(Variable variable, String term) {
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 			v = new Variable(variable.getType(), variable.getName(), null);
 		}
 		if (cleanedTerm.matches(".*[a-z].*") && cleanedTerm.matches("[a-z0-9]+")) {

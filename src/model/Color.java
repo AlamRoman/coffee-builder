@@ -1,5 +1,7 @@
 package model;
 
+/**This class contains all the possible color that can be used for debugging messages
+ * */
 public class Color {
     // Reset
     public static final String RESET = "\033[0m";  // Text Reset

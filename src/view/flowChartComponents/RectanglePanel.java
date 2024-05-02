@@ -7,7 +7,6 @@ import java.awt.Graphics2D;
 
 import controller.Controller;
 import controller.FlowChartController;
-import model.ID;
 import model.Components.AlgorithmComponent;
 import model.Components.ComponentAdd;
 

@@ -45,6 +45,7 @@ public class Panel extends JPanel {
 	private JButton endButton;
 	private JScrollPane scrollPane_2;
 	private FlowChartContentPanel flowChartContenPane;
+	private JButton optionsButton;
 
 	public Panel() {
 
@@ -55,6 +56,17 @@ public class Panel extends JPanel {
 		gridBagLayout.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
+		
+        optionsButton = new JButton("...");
+        optionsButton.setFocusable(false);
+        optionsButton.setActionCommand("SHOW_MENU");
+
+        GridBagConstraints gbc_optionsButton = new GridBagConstraints();
+        gbc_optionsButton.anchor = GridBagConstraints.NORTHWEST;
+        gbc_optionsButton.insets = new Insets(0, 0, 5, 5);
+        gbc_optionsButton.gridx = 0;
+        gbc_optionsButton.gridy = 0;
+        add(optionsButton, gbc_optionsButton);
 		
 		JPanel panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
@@ -187,6 +199,9 @@ public class Panel extends JPanel {
 		
 		outputArea = new JTextArea();
 		outputArea.setEditable(false);
+		outputArea.setLineWrap(false);
+		outputArea.setWrapStyleWord(false);
+
 		scrollPane_1.setViewportView(outputArea);
 		
 //		updateAutoRunState();
@@ -241,6 +256,7 @@ public class Panel extends JPanel {
 		executeButton.addActionListener(controller);
 		endButton.addActionListener(controller);
 		nextButton.addActionListener(controller);
+		optionsButton.addActionListener(controller);
 		rdbtnAutoRun.addItemListener(controller);
 	}
 

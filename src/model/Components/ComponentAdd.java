@@ -1,8 +1,11 @@
 package model.Components;
 
+import java.util.ArrayList;
+
 import model.Color;
 import model.DebuggerConsole;
 import model.Exceptions;
+import model.Line;
 import model.Memory.MemoryStorage;
 
 public class ComponentAdd extends AlgorithmComponent {
@@ -27,6 +30,32 @@ public class ComponentAdd extends AlgorithmComponent {
 	
 	public String print() {
 		return "";
+	}
+	
+	@Override
+	public ArrayList<Line> printCode(String language) {
+		ArrayList<Line> lines = new ArrayList<Line>();
+		switch(language) {
+			case "java":
+				lines.add(new Line("}"));
+				break;
+			case "pseudocode":
+				AlgorithmComponent c = MemoryStorage.getInstance().recursiveSearchRelatedComponentFromAdd(this);
+				String aus = "";
+				if(c instanceof ComponentWhile) {
+					aus = "END-WHILE";
+				}else if(c instanceof ComponentIf){
+					aus = "END-IF";
+				}else {
+					aus = c.getClass().getSimpleName();
+				}
+				lines.add(new Line(aus));
+				break;
+			case "python":
+				break;
+		}
+		return lines;
+		
 	}
 
 }

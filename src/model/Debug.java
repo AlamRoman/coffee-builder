@@ -1,5 +1,7 @@
 package model;
 
+/**This class contains all the possible flags that can be changed for a cleaner debugging process
+ * */
 public class Debug {
 
 	public final static boolean FORCE_DEBUG = true;

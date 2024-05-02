@@ -1,7 +1,10 @@
 package model.Components;
 
+import java.util.ArrayList;
+
 import model.DebuggerConsole;
 import model.Exceptions;
+import model.Line;
 import model.Memory.MemoryStorage;
 import model.Memory.VariableType;
 import model.Memory.Variable;
@@ -61,6 +64,24 @@ public class ComponentDeclaration extends AlgorithmComponent{
 		}
 		
 		return out;
+		
+	}
+	
+	@Override
+	public ArrayList<Line> printCode(String language) {
+		ArrayList<Line> lines = new ArrayList<Line>();
+		switch(language) {
+			case "java":
+				lines.add(new Line(((variableType==null)?"%VariableType% ":variableType.name+" ") + ((variableName==null)?"%VariableName%":variableName) + ";"));
+				break;
+			case "pseudocode":
+				lines.add(new Line(print()));
+				break;
+			case "python":
+				lines.add(new Line(((variableName==null)?"%VariableName%":variableName)));
+				break;
+		}
+		return lines;
 		
 	}
 

@@ -200,7 +200,6 @@ public class MemoryStorage {
 	 */
 	public Variable getVariableByName(String name) throws Exceptions{
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Getting variable with name: " + name + " from the memory table");
-//		showMemory();
 		for (Variable temp : memory) {
 			DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Checking if " + temp.getName() + " == " + name);
 			if(temp.getName().equals(name)) {
@@ -209,7 +208,6 @@ public class MemoryStorage {
 			}
 			
 		}
-		
 		throw new Exceptions(name + ": " + Exceptions.NON_EXISTING_VARIABLE);
 		
 	}
@@ -315,6 +313,7 @@ public class MemoryStorage {
 
         // Creazione della JTable con il modello creato
         JTable table = new JTable(model);
+        table.getTableHeader().setReorderingAllowed(false);
         return table;
     }
 	
@@ -484,7 +483,9 @@ public class MemoryStorage {
 			algorithmComponents.get(INDEX_PREV).setNextComponent1(algorithmComponents.get(INDEX_WHILE));
 			algorithmComponents.get(INDEX_WHILE).setNextComponent1(algorithmComponents.get(INDEX_WHILE));
 			algorithmComponents.get(INDEX_WHILE).setNextComponent2(algorithmComponents.get(INDEX_ADD));
-			algorithmComponents.get(INDEX_ADD).setNextComponent1(algorithmComponents.get(INDEX_NEXT));
+			if(!isSetAddNextComp1) {
+				algorithmComponents.get(INDEX_ADD).setNextComponent1(algorithmComponents.get(INDEX_NEXT));				
+			}
 			
 		}
 		showComponents();
@@ -588,6 +589,8 @@ public class MemoryStorage {
 			}else if(previousAC instanceof ComponentWhile) {
 				previousAC = (ComponentWhile) previousAC;
 				previousAC.setNextComponent1(previousAC);
+			}else if(previousAC instanceof ComponentAdd) {
+				previousAC.setNextComponent1(ac.getNextComponent1());
 			}else {
 				algorithmComponents.get(getIndexOf(ac)-1).setNextComponent1(algorithmComponents.get(getIndexOf(ac)+1));				
 			}
@@ -627,6 +630,20 @@ public class MemoryStorage {
 		}
 		return (ComponentAdd)aus;			
 	}
+	
+	public AlgorithmComponent recursiveSearchRelatedComponentFromAdd(ComponentAdd compAdd) {
+	    int counter = 0;
+	    AlgorithmComponent aus = compAdd;
+	    while (counter >= 0) {
+	        aus = algorithmComponents.get(getIndexOf(aus) - 1);
+	        if (aus instanceof ComponentIf || aus instanceof ComponentWhile) {
+	            counter--;
+	        } else if (aus instanceof ComponentAdd) {
+	            counter++;
+	        }
+	    }
+	    return aus;
+	}
 
 	/**<p>
 	 * This method loops through all the associated panels of the {@link AlgorithmComponent} and sets their executing status to false
@@ -650,12 +667,61 @@ public class MemoryStorage {
 	}
 
 	/**<p>
-	 * This sets the boolean value of the {@link MemoryStorage#onGoing} attribute
+	 * This method sets the boolean value of the {@link MemoryStorage#onGoing} attribute
 	 * </p>
 	 * @param onGoing the new boolean value
 	 */ 
 	public void setOnGoing(boolean onGoing) {
 		this.onGoing = onGoing;
+	}
+
+	/**<p>
+	 * This method the sets the components array
+	 * </p>
+	 * @param newArrayComponents the new array
+	 */ 
+	public void setComponents(ArrayList<AlgorithmComponent> newArrayComponents) {
+		// TODO Auto-generated method stub
+		this.algorithmComponents = newArrayComponents;
+	}
+
+	/**<p>
+	 * This method checks if at least one of the components in the array of components its an instanceof ComponentInput
+	 * </p>
+	 * <p>
+	 * This method loops through the array of components and checks for each one if its an instance of the {@link ComponentInput} class
+	 * if the condition is met it returns <code>true</code>, if not it returns <code>false</code>
+	 * </p>
+	 * @return {@link Boolean} the result of the search
+	 * @see AlgorithmComponent
+	 * @see ComponentInput
+	 * @see ArrayList
+	 */ 
+	public boolean containsInput() {
+		for (AlgorithmComponent algorithmComponent : algorithmComponents) {
+			if(algorithmComponent instanceof ComponentInput) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**<p>
+	 * This method sets the array of components with only the 2 initial components, {@link ComponentStart} and {@link ComponentEnd}
+	 * </p>
+	 * <p>
+	 * This methods clears the array of components with the method {@link ArrayList#clear()} and after that sets the initial components
+	 * by calling the method {@link MemoryStorage#initializeComponents()}
+	 * </p>
+	 * @see ComponentStart
+	 * @see ComponentEnd
+	 * @see ArrayList
+	 */ 
+	public void reloadComponents() {
+		// TODO Auto-generated method stub
+		algorithmComponents.clear();
+		initializeComponents();
+		
 	}
 	
 	

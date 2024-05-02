@@ -8,11 +8,14 @@ import controller.FlowChartController;
 import model.AlgorithmExecuter;
 import model.Buffer;
 import model.Timer;
+import model.File.SoundPlayer;
 import model.Memory.MemoryStorage;
 import model.Memory.RelationalOperators;
 import view.FlowChartContentPanel;
 import view.Frame;
 
+/** The Main Class of this program
+ * */
 public class Main {
 	
 	public static void main(String[] args) {
@@ -28,6 +31,7 @@ public class Main {
 		final ContentPaneController CONTROLLER = new ContentPaneController(ALGORITHM_EXECUTER, TIMER, BUFFER, EXECUTE_S, WAIT_S, READ_S, WRITE_S, MAIN_FRAME.getContentPanel());
 		final FlowChartController CONTROLLER_FLOWCHART = new FlowChartController(ALGORITHM_EXECUTER, TIMER, BUFFER, MAIN_FRAME.getContentPanel().getFlowChartPanel(), MemoryStorage.getInstance());
 		MAIN_FRAME.setVisible(true);
+
 	}
 	
 }

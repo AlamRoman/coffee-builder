@@ -1,5 +1,6 @@
 package model.Components;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
@@ -7,6 +8,7 @@ import javax.swing.JOptionPane;
 
 import model.DebuggerConsole;
 import model.Exceptions;
+import model.Line;
 import model.Memory.MemoryStorage;
 import model.Memory.Variable;
 import model.Memory.VariableType;
@@ -88,6 +90,58 @@ public class ComponentInput extends AlgorithmComponent{
 		}
 		
 		return out;
+	}
+	
+	@Override
+	public ArrayList<Line> printCode(String language) {
+		try {
+			finalVar = super.getMemory().getVariableByName(nomeVariabile);
+		} catch (Exceptions e) {
+			// TODO Auto-generated catch block
+			finalVar = null;
+		}
+		ArrayList<Line> lines = new ArrayList<Line>();
+		switch(language) {
+			case "java":
+				if(finalVar != null) {
+					switch(finalVar.getType()) {
+						case String:
+							lines.add(new Line(((nomeVariabile != null && !nomeVariabile.equals("")?nomeVariabile:"%VariableName%")) + " = " + "scanner.nextLine();"));
+							break;
+						case Double:
+							lines.add(new Line(((nomeVariabile != null && !nomeVariabile.equals("")?nomeVariabile:"%VariableName%")) + " = " + "scanner.nextDouble();"));
+							break;
+						case Integer:
+							lines.add(new Line(((nomeVariabile != null && !nomeVariabile.equals("")?nomeVariabile:"%VariableName%")) + " = " + "scanner.nextInt();"));
+							break;
+					}
+				} else {
+					lines.add(new Line(((nomeVariabile != null && !nomeVariabile.equals("")?nomeVariabile:"%VariableName%")) + " = " + "scanner.nextLine();"));
+				}
+				break;
+			case "pseudocode":
+				lines.add(new Line(print()));
+				break;
+			case "python":
+				if(finalVar != null) {
+					switch(finalVar.getType()) {
+					case String:
+						lines.add(new Line(((nomeVariabile != null && !nomeVariabile.equals("")?nomeVariabile:"%VariableName%")) + " = " + "input()"));
+						break;
+					case Double:
+						lines.add(new Line(((nomeVariabile != null && !nomeVariabile.equals("")?nomeVariabile:"%VariableName%")) + " = " + "float(input())"));
+						break;
+					case Integer:
+						lines.add(new Line(((nomeVariabile != null && !nomeVariabile.equals("")?nomeVariabile:"%VariableName%")) + " = " + "int(input())"));
+						break;	
+					}
+				} else {
+					lines.add(new Line(((nomeVariabile != null && !nomeVariabile.equals("")?nomeVariabile:"%VariableName%")) + " = " + "input()"));
+				}
+				break;
+		}
+		return lines;
+		
 	}
 
 	public String getNomeVariabile() {

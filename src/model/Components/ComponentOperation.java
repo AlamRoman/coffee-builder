@@ -1,9 +1,13 @@
 package model.Components;
 
 import model.Debug;
+
+import java.util.ArrayList;
+
 import model.Color;
 import model.DebuggerConsole;
 import model.Exceptions;
+import model.Line;
 import model.Memory.MemoryStorage;
 import model.Memory.OperationType;
 import model.Memory.VariableType;
@@ -220,6 +224,48 @@ public class ComponentOperation extends AlgorithmComponent{
 		
 		DebuggerConsole.getInstance().printCustomMSGColorLog(referenceTypeMessage + "-PRINT-OUTPUT", Color.PURPLE, "Showing: '" + out + "' to the panel");
 		return out;
+	}
+	
+	@Override
+	public ArrayList<Line> printCode(String language) {
+		ArrayList<Line> lines = new ArrayList<Line>();
+		String operator = "";
+		switch (operation) {
+		case  ADD: {
+			operator = "+";
+			break;
+			}
+		case  SUB: {
+			operator = "-";
+			break;
+			}
+		case  DIV: {
+			operator = "/";
+			break;
+			}
+		case  MOD: {
+			operator = "%";
+			break;
+			}
+		case  MUL: {
+			operator = "*";
+			break;
+			}
+		}
+		
+		switch(language) {
+			case "java":
+				lines.add(new Line(variableName + " = " + variableFirstOperandName + operator + variableSecondOperandName + ";"));
+				break;
+			case "pseudocode":
+				lines.add(new Line(print()));
+				break;
+			case "python":
+				lines.add(new Line(variableName + " = " + variableFirstOperandName + operator + variableSecondOperandName));
+				break;
+		}
+		return lines;
+		
 	}
 	
 	private Variable getVariableFromTerm(Variable variable, String term) {

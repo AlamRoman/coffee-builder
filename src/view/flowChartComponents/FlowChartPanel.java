@@ -17,7 +17,6 @@ import javax.swing.plaf.FontUIResource;
 
 import controller.Controller;
 import controller.FlowChartController;
-import model.ID;
 import model.Components.AlgorithmComponent;
 import model.Components.ComponentAdd;
 import model.Components.ComponentAssign;
@@ -35,7 +34,6 @@ public class FlowChartPanel extends JPanel {
 
 	private static final String ACTION_COMMAND_ADD_BUTTON = "ADD_COMPONENT";
 	public AlgorithmComponent associatedComponent;
-	private final ID id = new ID();
 	public JButton[] buttons;
 	private final FlowChartController controller;
 	private JLabel label;

@@ -173,10 +173,19 @@ public class FlowChartController extends Controller {
 							break;
 						}
 						case "While": {
-							MemoryStorage.getInstance().addComponent(new AlgorithmComponent[]{
-									newComponent,
-									new ComponentAdd(null, null, null)
-							}, index+1, false);
+							ComponentAdd ADD = new ComponentAdd(null, null, null);
+							if(previousAC instanceof ComponentWhile) {
+								ADD.setNextComponent1(previousAC);
+								MemoryStorage.getInstance().addComponent(new AlgorithmComponent[]{
+										newComponent,
+										ADD
+								}, index+1, true);
+							}else {
+								MemoryStorage.getInstance().addComponent(new AlgorithmComponent[]{
+										newComponent,
+										ADD
+								}, index+1, false);								
+							}
 							break;
 						}
 						default:
@@ -337,7 +346,7 @@ public class FlowChartController extends Controller {
 						super.memory.delete(ac);
 					} catch (Exceptions e1) {
 						// TODO Auto-generated catch block
-						JOptionPane.showMessageDialog(panel, e1.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(panel, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 						DebuggerConsole.getInstance().printDefaultErrorLog(referenceType, e1.getMessage());
 					}
 					contentPane.updatePane(MemoryStorage.getInstance().getComponents());

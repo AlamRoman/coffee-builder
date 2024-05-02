@@ -1,5 +1,7 @@
 package model.Components;
 
+import java.util.regex.Pattern;
+
 import model.Color;
 import model.DebuggerConsole;
 import model.Exceptions;
@@ -186,7 +188,7 @@ public class Condition {
 	@Override
 	public String toString() {
 		String out = "";
-		if(firstTerm != null && secondTerm == null && symbol != null) {
+		if(firstTerm != null && symbol.equals("!")) {
 			out = symbol + firstTerm;
 		}else {
 			out = firstTerm + " " + symbol + " " + secondTerm;
@@ -195,6 +197,66 @@ public class Condition {
 		return out;
 	}
 	
+	public String getCodeString(String s){
+		
+		String outPutText = "";
+		
+			if(s!="") {
+				String[] words = s.split(" ");
+				
+				for (int i = 0; i < words.length; i++) {
+					
+					int count = words[i].split(Pattern.quote(String.valueOf('$'))).length - 1;
+					
+					if(!words[i].equals("")) {
+						if (words[i].charAt(0) == '$' && count == 1) {
+							
+							words[i] = words[i].substring(1);
+							
+						}else {
+							words[i] = getStringFromTerm(words[i]);
+						}
+					}else {
+						words[i] = "\"\"";
+					}
+				}
+				
+				outPutText = String.join(" + ", words);
+				outPutText = outPutText.replace("\" + \"", " ");
+				outPutText = outPutText.replace(" + \"",  " + \" ");
+				outPutText = outPutText.replace("\" + ",  " \" + ");
+			}
+			return outPutText;
+	}
+	
+    private static String getStringFromTerm(String string) {
+        // Check if the string contains only digits\
+    	if(string.equals("") || string == null) return "\"\"";
+        if (string.matches("\\d+")) {
+            // Convert the string to integer
+            return Integer.parseInt(string) + "";
+        }
+
+        // Check if the string contains only digits and a dot
+        if (string.matches("\\d+\\.\\d+")) {
+            // Convert the string to double
+            return Double.parseDouble(string) + "";
+        }
+
+        // Otherwise, return the original string
+        return string;
+    }
+
+	public String printCode() {
+		String op1 = getCodeString(firstTerm);
+		String op2 = getCodeString(secondTerm);
+		String operand = symbol;
+		if(firstTerm != null && symbol.equals("!")) {
+			return operand + op1;
+		}else {
+			return op1 + " " + operand + " " + op2;
+		}
+	}
 	
 	
 }

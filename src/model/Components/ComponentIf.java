@@ -1,8 +1,11 @@
 package model.Components;
 
+import java.util.ArrayList;
+
 import model.Color;
 import model.DebuggerConsole;
 import model.Exceptions;
+import model.Line;
 import model.Memory.MemoryStorage;
 import model.Memory.RelationalOperators;
 
@@ -58,6 +61,29 @@ public class ComponentIf extends AlgorithmComponent{
 		}
 		DebuggerConsole.getInstance().printCustomMSGColorLog(referenceTypeMessage + "-PRINT-OUTPUT", Color.PURPLE, "Showing: '" + out + "' to the panel");
 		return out;
+	}
+	
+	@Override
+	public ArrayList<Line> printCode(String language) {
+		ArrayList<Line> lines = new ArrayList<Line>();
+		switch(language) {
+			case "java":
+				lines.add(new Line("if (" + ((C==null)?"true":C.printCode()) + "){"));
+				break;
+			case "pseudocode":
+				lines.add(new Line(print()));
+				break;
+			case "python":
+				String result = ((C==null)?"true":C.printCode());
+				if(result.startsWith("!")) {
+					result = result.replace("!", "not");
+					
+				}
+				lines.add(new Line("if " + result + ":"));
+				break;
+		}
+		return lines;
+		
 	}
 
 	public String getTerm1() {

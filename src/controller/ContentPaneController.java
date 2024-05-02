@@ -1,12 +1,23 @@
 package controller;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JTable;
 
 import model.AlgorithmExecuter;
 import model.Buffer;
@@ -14,9 +25,22 @@ import model.DebuggerConsole;
 import model.Exceptions;
 import model.Timer;
 import model.Components.AlgorithmComponent;
+import model.File.FileDefragger;
+import model.File.FileSaver;
+import model.File.ImageLoader;
+import model.File.OpenHTMLFile;
+import model.File.SaveFileWithCode;
+import model.File.SoundPlayer;
 import model.Memory.MemoryStorage;
+import model.Memory.Variable;
+import view.FlowChartContentPanel;
 import view.Panel;
 
+/**<p>
+* This class is used to control the content pane ({@link Panel}) contained in the main {@link JFrame}, it controls all the actions
+* and events from the user
+* </p>
+*/
 public class ContentPaneController extends Controller implements Runnable{
 	
 	private static final String referenceType = "CP-CONTROLLER";
@@ -27,6 +51,17 @@ public class ContentPaneController extends Controller implements Runnable{
 	private Semaphore write;
 	private Thread T;
 
+	
+	/**<p>
+	* This method creates a new instance of the {@link ContentPaneController}
+	* </p>
+	* @param ALGORITHM_EXECUTER The {@link AlgorithmExecuter} instance that executes all the different components
+	* @param TIMER The {@link Timer} instance that will coordinate the execution and handles the delay between all the exections
+	* @param BUFFER The {@link Buffer} instance that handles all the outputs from the execution process
+	* @param execute The {@link Semaphore} that handles the correct execution of the algorithm
+	* @param wait The {@link Semaphore} that synchronizes the execution of the algorithm with the {@link Timer}
+	* @param panel The {@link Panel} handled by this controller
+	*/
 	public ContentPaneController(AlgorithmExecuter ALGORITHM_EXECUTER, Timer TIMER, Buffer BUFFER, Semaphore execute, Semaphore wait, Semaphore read, Semaphore write, Panel panel) {
 		super(ALGORITHM_EXECUTER, TIMER, BUFFER, MemoryStorage.getInstance());
 		// TODO Auto-generated constructor stub
@@ -38,8 +73,7 @@ public class ContentPaneController extends Controller implements Runnable{
 		panel.registerEvents(this);
 		ALGORITHM_EXECUTER.setController(this);
 		T = new Thread(this, "BUFFER_THREAD");
-		T.start();
-		
+		T.start();	
 		//REMOVE THIS TRY-CATCH BLOCK WHEN NOT TESTING~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //		try {
 //			super.getMemory().initializeDefaultComponents();
@@ -97,7 +131,7 @@ public class ContentPaneController extends Controller implements Runnable{
 							DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Running the executer with start component: " + c.getClass().getSimpleName());
 							super.algorithmExecuter.start(super.getMemory().getStartComponent());
 						} catch (Exceptions customException) {
-							JOptionPane.showMessageDialog(panel, customException.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(panel, customException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 						} catch (Exception exception) {
 							System.err.println(exception.getMessage());
 						}
@@ -123,6 +157,112 @@ public class ContentPaneController extends Controller implements Runnable{
 				super.memory.resetExecutingStatusOfPanels();
 				
 				break;
+			case "SHOW_MENU":
+				JButton optionsButton = (JButton)e.getSource();
+				// Crea e mostra il menu a discesa quando si clicca sul pulsante
+				
+				ImageLoader imageLoader = new ImageLoader();
+				
+				ImageIcon saveIcon = imageLoader.getImageFrom("resources/save.png");
+				saveIcon = imageLoader.scaleImage(saveIcon, 17, 17);
+				
+				ImageIcon clearIcon = imageLoader.getImageFrom("resources/clear.png");
+				clearIcon = imageLoader.scaleImage(clearIcon, 17, 17);
+				
+				ImageIcon openIcon = imageLoader.getImageFrom("resources/open.png");
+				openIcon = imageLoader.scaleImage(openIcon, 17, 17);
+				
+				ImageIcon helpIcon = imageLoader.getImageFrom("resources/help.png");
+				helpIcon = imageLoader.scaleImage(helpIcon, 17, 17);
+				
+                JPopupMenu popupMenu = new JPopupMenu();
+                JMenuItem saveMenuItem = new JMenuItem("Save...", saveIcon);
+                JMenuItem clearAllMenuItem = new JMenuItem("Clear algorithm", clearIcon);
+                JMenuItem openMenuItem = new JMenuItem("Open...", openIcon);
+                JMenuItem helpMenuItem = new JMenuItem("Help", helpIcon);
+                
+                clearAllMenuItem.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						memory.reloadComponents();
+						panel.getFlowChartPanel().updatePane(memory.getComponents());
+						updateTable();
+					}
+				});
+                
+                // Aggiungi gli action listener per le voci di menu
+                saveMenuItem.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                    	FileSaver.saveToFile((JFrame)panel.getParent().getParent().getParent());
+                    }
+                });
+
+                openMenuItem.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                    	FileDefragger.openFile((JFrame)panel.getParent().getParent().getParent());
+                    	memory.print();
+                    	panel.getFlowChartPanel().updatePane(memory.getComponents());
+                    }
+                });
+
+                helpMenuItem.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        OpenHTMLFile HTMLopener = new OpenHTMLFile("doc" + File.separator + "index.html");
+                    }
+                });
+                
+             // Aggiungi un sottomenu "Convert to code..."
+                
+                ImageIcon codeIcon = imageLoader.getImageFrom("resources/code.png");
+                codeIcon = imageLoader.scaleImage(codeIcon, 17, 17);
+                
+                JMenu convertMenu = new JMenu("Convert to code...");
+                JMenuItem javaMenuItem = new JMenuItem("Java");
+                JMenuItem pythonMenuItem = new JMenuItem("Python");
+                JMenuItem pseudoCodeMenuItem = new JMenuItem("PseudoCode");
+                
+                JMenuItem convertMenuItem = convertMenu;
+                convertMenuItem.setIcon(codeIcon);
+                
+                javaMenuItem.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                    	SaveFileWithCode.translateAndSaveCode((JFrame)panel.getParent().getParent().getParent(), "java");
+                    }
+                });
+
+                pythonMenuItem.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                    	SaveFileWithCode.translateAndSaveCode((JFrame)panel.getParent().getParent().getParent(), "python");
+                    }
+                });
+
+                pseudoCodeMenuItem.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                    	SaveFileWithCode.translateAndSaveCode((JFrame)panel.getParent().getParent().getParent(), "pseudocode");
+                    }
+                });
+
+                convertMenu.add(javaMenuItem);
+                convertMenu.add(pythonMenuItem);
+                convertMenu.add(pseudoCodeMenuItem);
+
+                popupMenu.add(clearAllMenuItem);
+                popupMenu.addSeparator();
+                popupMenu.add(saveMenuItem);
+                popupMenu.add(openMenuItem);
+                popupMenu.addSeparator(); // Aggiungi un separatore tra gli elementi principali e il sottomenu
+                popupMenu.add(convertMenuItem); // Aggiungi il sottomenu "Convert to code..."
+                popupMenu.addSeparator();
+                popupMenu.add(helpMenuItem);
+
+                popupMenu.show(optionsButton, 0, optionsButton.getHeight());
+				break;
 		}
 	}
 
@@ -139,6 +279,13 @@ public class ContentPaneController extends Controller implements Runnable{
 		
 	}
 
+	/**<p>
+	* This method updates the table containing all the variables informations in the associated {@link Panel}
+	* </p>
+	* <p>
+	* It creates a new {@link JTable} and updates the debug panel
+	* </p>
+	*/
 	public void updateTable() {
 		// TODO Auto-generated method stub
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Updating table...");
@@ -146,15 +293,40 @@ public class ContentPaneController extends Controller implements Runnable{
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Table updated.");
 	}
 	
+	/**<p>
+	* This method calls the {@link MemoryStorage#destroyVariables()} from the memory
+	* </p>
+	* @see MemoryStorage
+	*/
 	public void deleteVariablesFromMemoryStorage() {
 		MemoryStorage.getInstance().destroyVariables();
 	}
 
+	/**<p>
+	* This method shows an error dialog with {@link JOptionPane} in the associated panel
+	* </p>
+	* <p>
+	* Creates a {@link JOptionPane} containing an error message provided as a parameter and shows it in the panel
+	* </p>
+	* @param message The message that has to be shown
+	*/
 	public void showErrorDialog(String message) {
-		// TODO Auto-generated method stub
-		JOptionPane.showMessageDialog(panel, message, "Errore", JOptionPane.ERROR_MESSAGE);
+		//play sound
+		SoundPlayer soundPlayer = new SoundPlayer();
+		
+		soundPlayer.playErrorSound();
+		
+		JOptionPane.showMessageDialog(panel, message, "Error", JOptionPane.ERROR_MESSAGE);
 	}
 	
+	/**<p>
+	* This method resets the {@link Semaphore}s to their initial status
+	* </p>
+	* <p>
+	* This method resets the wait and execute semaphores to their initial status to guarantee the correct
+	* execution of the algorithm after a first execution
+	* </p>
+	*/
 	private void resetSempahores() {
 	    // Ripristina i semafori allo stato iniziale
 	    execute.release(); // Rilascia il semaforo EXECUTE_S
