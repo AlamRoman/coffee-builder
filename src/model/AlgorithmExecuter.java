@@ -27,6 +27,7 @@ public class AlgorithmExecuter implements Runnable{
 	private Buffer buffer;
 	private String result;
 	private ContentPaneController controller;
+	private boolean running;
 
 	
 	/**<p>
@@ -50,6 +51,7 @@ public class AlgorithmExecuter implements Runnable{
 		this.wait = wait;
 		this.read = read;
 		this.write = write;
+		this.running = false;
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType, "Created.");
 	}
 
@@ -67,6 +69,7 @@ public class AlgorithmExecuter implements Runnable{
 		createThread();
 		result=null;
 		algorithmComponent = start;
+		running = true;
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceType, "Got ComponentStart from " + Thread.currentThread().getStackTrace()[2].getClassName());
 		T.start();
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceType+"-THREAD", "Started thread: " + T.getName());
@@ -211,6 +214,7 @@ public class AlgorithmExecuter implements Runnable{
 	*/
 	public void stop() {
 		this.T.interrupt();
+		running = false;
 //		createThread();
 	}
 	
@@ -234,4 +238,7 @@ public class AlgorithmExecuter implements Runnable{
 		controller.updateTable();
 	}
 
+	public Boolean isRunning() {
+		return this.running;
+	}
 }
