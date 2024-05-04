@@ -28,6 +28,14 @@ public class Condition {
 	private String symbol;
 	private String secondTerm;
 
+	/**<p>
+	* The constructor of the class {@link Condition}
+	* </p>
+	* @param MS The memory instance shared in the program
+	* @param firstTerm The first term of the condition
+	* @param symbol The symbol of the condition
+	* @param secondTerm The second term of the condition
+	*/
 	public Condition(MemoryStorage MS, String firstTerm, String symbol, String secondTerm) {
 		this.firstTerm = firstTerm;
 		this.symbol = symbol;
@@ -45,7 +53,7 @@ public class Condition {
 	* @throws Exceptions MISSING_ARGUMENTS : If there are missing arguments
 	* @throws Exceptions TERM_IS_STRING : If there's an invalid conversion where one of the terms is a String
 	* @throws Exceptions INVALID_CONDITION_SYMBOL : If there's an invalid conditional operator
-	* @throws Exceptions CONDITION_TERMS_NOT_NUMBER : If one or both terms are Strings and the operator is (>, <, >= or >=)
+	* @throws Exceptions CONDITION_TERMS_NOT_NUMBER : If one or both terms are Strings and the operator is (&gt;, &lt;, &gt;= or &gt;=)
 	*/
 	public boolean resolve() throws Exceptions {
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage , "Resolving the condition: " + this.toString());

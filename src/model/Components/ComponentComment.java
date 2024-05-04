@@ -44,6 +44,11 @@ public class ComponentComment extends AlgorithmComponent{
 		return null;
 	}
 
+	/**<p>
+	 * This method sets the required attributes for a correct execution of the {@link ComponentComment} component
+	 * </p>
+	 * @param comment The string of comment
+	 * */
 	public void set(String comment) {
 		this.comment = comment;
 	}

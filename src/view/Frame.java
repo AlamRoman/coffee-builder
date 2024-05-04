@@ -61,13 +61,13 @@ public class Frame extends JFrame implements WindowListener{
 	public void windowClosing(WindowEvent e) {
 		
 		
-//		int scelta= JOptionPane.showConfirmDialog(this, "Are you sure?", "Exit", JOptionPane.OK_CANCEL_OPTION);
-//		
-//		if(scelta==JOptionPane.OK_OPTION) {
-//			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		}else {
-//			setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-//		}
+		int result = JOptionPane.showConfirmDialog(this, "Are you sure?", "Exit", JOptionPane.OK_CANCEL_OPTION);
+		
+		if(result==JOptionPane.OK_OPTION) {
+			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		}else {
+			setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		}
 		
 	}
 

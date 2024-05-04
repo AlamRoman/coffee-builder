@@ -36,12 +36,36 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
 
+/**
+ * <p>
+ * This class provides methods for decrypting and reading algorithm components from a .cbalg file. It includes functionality for decrypting the file content, parsing the decrypted data,
+ * and reconstructing the algorithm components for further processing.
+ * </p>
+ * <p>
+ * The main method {@link FileDefragger#openFile(JFrame)} presents a file chooser dialog for the user to select a .cbalg file to decrypt. It checks if the selected file is on the C volume to prevent potential security risks.
+ * If the file location is valid, it decrypts the file content, parses the decrypted data, and reconstructs the algorithm components from the parsed information.
+ * </p>
+ * <p>
+ * The {@link FileDefragger#decryptAndSave(File)} method takes an encrypted .cbalg file as input, decrypts its content using the AES encryption algorithm, and saves the decrypted content to a temporary file.
+ * It reads the encrypted data from the input file, separates the Initialization Vector (IV) and the encrypted content, decrypts the content using the provided secret key and IV,
+ * and then saves the decrypted content to a temporary file. This method returns the temporary file containing the decrypted content.
+ * </p>
+ * <p>
+ * The class also includes helper methods for processing and reconstructing the algorithm components from the decrypted data, as well as checking if a file is located on the C volume.
+ * </p>
+ */
 public class FileDefragger {
 
     private static final String AES_KEY_STRING = "3js9db5uf0sgud4j";
     private static final String FILE_EXTENSION = ".cbalg";
     private static JFrame frame;
     
+    /**
+     * <p>
+     * Opens a file chooser dialog for the user to select a .cbalg file to decrypt.
+     * </p>
+     * @param parentFrame The parent JFrame to which the file chooser dialog is attached to.
+     */
     public static void openFile(JFrame parentFrame) {
     	
     	frame = parentFrame;
@@ -98,7 +122,17 @@ public class FileDefragger {
     }
 
     // C, N1, NIDX1, N2, NIDX2, ATTR1, ATTR2, ATTR3, ATTR4
-    private static void elaborateComponentInfoAndAdd(ArrayList<String[]> arrayList, int i, ArrayList<AlgorithmComponent> newArrayComponents, MemoryStorage instance) {
+    /**
+     * <p>
+     * Elaborates the information of each component and adds it to the new array.
+     * </p>
+     * 
+     * @param arrayList The array list containing all the component informations.
+     * @param i The index of the current component being processed.
+     * @param newArrayComponents The new array to store elaborated components.
+     * @param instance The MemoryStorage instance shared in the program.
+     */
+    public static void elaborateComponentInfoAndAdd(ArrayList<String[]> arrayList, int i, ArrayList<AlgorithmComponent> newArrayComponents, MemoryStorage instance) {
 		// TODO Auto-generated method stub
     	Integer N1_idx = null;
     	Integer N2_idx = 0;
@@ -219,7 +253,15 @@ public class FileDefragger {
 		
 	}
 
-	private static OperationType getOperationType(String string) {
+    /**
+     * <p>
+     * Gets the operation type from the string representation.
+     * </p>
+     * 
+     * @param string The string representation of the operation type.
+     * @return {@link OperationType} The corresponding OperationType enum value.
+     */
+    public static OperationType getOperationType(String string) {
 		switch (string) {
 		case "ADD": 
 			return OperationType.ADD;
@@ -234,8 +276,16 @@ public class FileDefragger {
 		}
 		return null;
 	}
-
-	private static VariableType getVariableType(String string) {
+	
+	/**
+	 * <p>
+	 * Gets the variable type from the string representation.
+	 * </p>
+	 * 
+	 * @param string The string representation of the variable type.
+	 * @return {@link VariableType} The corresponding VariableType enum value.
+	 */
+    public static VariableType getVariableType(String string) {
 		switch (string) {
 		case "String": 
 			return VariableType.String;
@@ -247,8 +297,15 @@ public class FileDefragger {
 			return VariableType.String;
 		}
 	}
-
-	private static RelationalOperators getRelationalOperator(String string) {
+	/**
+	 * <p>
+	 * Gets the relational operator from the string representation.
+	 * </p>
+	 * 
+	 * @param string The string representation of the relational operator.
+	 * @return {@link RelationalOperators} The corresponding RelationalOperators enum value.
+	 */
+    public static RelationalOperators getRelationalOperator(String string) {
 		// TODO Auto-generated method stub
 		switch (string) {
 			case "EQUAL_TO": {
@@ -277,14 +334,35 @@ public class FileDefragger {
 		}
 	}
 
-	private static boolean isOnCVolume(File directory) {
+	/**
+	 * <p>
+	 * Checks if the selected file is located on the C volume (the system volume).
+	 * </p>
+	 * 
+	 * @param directory The selected file.
+	 * @return {@link Boolean} True if the file is on the C volume, false otherwise.
+	 */
+    public static boolean isOnCVolume(File directory) {
         // Gets the path of System volume
         String cVolumePath = System.getenv("SystemDrive") + "\\";
         // Returns true if the selected file is in the system volume, false if its not
         return directory.getAbsolutePath().startsWith(cVolumePath);
     }
 
-	private static File decryptAndSave(File inputFile) {
+	/**
+	 * <p>
+	 * Decrypts the content of a .cbalg file and saves it to a temporary file.
+	 * </p>
+	 * <p>
+	 * This method takes an encrypted .cbalg file as input, decrypts its content using AES (Advanced Encryption Standard) encryption algorithm, and saves the decrypted content to a temporary file 
+	 * It reads the encrypted data from the input file, separates the initialization vector (IV) and the encrypted content, decrypts the content using the provided secret key and IV, 
+	 * and then saves the decrypted content to a temporary file. This method returns the temporary file containing the decrypted content.
+	 * </p>
+	 * @implNote The <b>IV</b> is an "extra key" used together with the secret key during encryption and it ensures that even equal or similar data produces different encrypted results, enhancing security.
+	 * @param inputFile The encrypted .cbalg file to decrypt.
+	 * @return {@link File} The decrypted temporary file.
+	 */
+    public static File decryptAndSave(File inputFile) {
         try {
         	
             // Read the encrypted data from file
@@ -313,7 +391,23 @@ public class FileDefragger {
         return null;
     }
 
-	private static byte[] decrypt(byte[] encryptedData, byte[] key, byte[] iv) {
+	/**
+	 * <p>
+	 * Decrypts the provided encrypted data using AES (Advanced Encryption Standard) encryption algorithm.
+	 * </p>
+	 * <p>
+	 * This method takes encrypted data, a secret key, and an initialization vector (IV) as input parameters. 
+	 * It initializes a Cipher object with the AES encryption algorithm and mode of operation (CBC) using the provided key and IV. 
+	 * Then, it decrypts the encrypted data using the initialized Cipher object and returns the decrypted data.
+	 * </p>
+	 * @param encryptedData The encrypted data to decrypt.
+	 * @param key The secret key used for decryption.
+	 * @param iv The initialization vector used for decryption.
+	 * @implNote The <b>IV</b> is an "extra key" used together with the secret key during encryption and it ensures that even equal or similar data produces different encrypted results, enhancing security.
+	 * @implNote <b>CBC</b> (Cipher Block Chaining) mode encrypts each block of plaintext data separately and it combines the result with the previous block before encrypting the next one.
+	 * @return {@link Byte}[] The decrypted data.
+	 */
+    public static byte[] decrypt(byte[] encryptedData, byte[] key, byte[] iv) {
 	    try {
 	        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 	        SecretKeySpec secretKey = new SecretKeySpec(key, "AES");

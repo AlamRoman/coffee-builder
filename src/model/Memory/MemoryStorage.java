@@ -37,17 +37,6 @@ import view.editComponents.EditWhile.ValuesWhileComponent;
 */
 public class MemoryStorage {
 	
-	/* IDEA PER L'ELIMINAZIONE
-	 * 
-	 * 0. L'utente sceglie di elminare un componente, e gli viene chiesta la conferma con un JOptionPane
-	 * 1. Il controller capisce quale componente e' stato cliccato e scelto per l'eliminazione
-	 * 2. Il controller passa questo componente alla memoria con un metodo .delete(c)
-	 * 3. La memoria controlla dov'e' posizionato il c. e se non e' ne' START ne' END procede all'eliminazione
-	 * 4. Assegna come next c. il c. posizionato in posizione (indexDaEliminare + 1)
-	 * 5. Dopo l'eliminazione, aggiornare la grafica
-	 * 
-	 * */
-	
 	HashSet<Variable> memory;
 	ArrayList<AlgorithmComponent> algorithmComponents;
 	private static MemoryStorage instance;
@@ -641,6 +630,18 @@ public class MemoryStorage {
 		return (ComponentAdd)aus;			
 	}
 	
+	/**<p>
+	 * This method returns the related {@link AlgorithmComponent} (either {@link ComponentIf} or {@link ComponentWhile}) of a provided {@link ComponentAdd} <code>compAdd</code>
+	 * </p>
+	 * <p>
+	 * This method returns the related <code>AlgorithmComponent</code> of a provided <code>ComponentAdd</code> <code>compAdd</code> found by using a 
+	 * counter that decrements itself if a <code>ComponentIf</code> or a <code>ComponentWhile</code> is found during the recursion, it increments if a 
+	 * <code>ComponentAdd</code> is found.
+	 * When the counter is greater equals to 0 it means that the related <code>AlgorithmComponent</code> is found and the method returns it
+	 * </p>
+	 * @param compAdd The ComponentAdd that will be used to start the recursive search
+	 * @return {@link ComponentAdd} The AlgorithmComponent related to the provided ComponentAdd
+	 */
 	public AlgorithmComponent recursiveSearchRelatedComponentFromAdd(ComponentAdd compAdd) {
 	    int counter = 0;
 	    AlgorithmComponent aus = compAdd;

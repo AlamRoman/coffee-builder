@@ -42,10 +42,21 @@ public class ComponentDeclaration extends AlgorithmComponent{
 		this.MS = MS.getInstance();
 	}
 	
+	/**<p>
+	 * This method returns a {@link Variable} instance using the attributes set during the configuration
+	 * </p>
+	 * @return {@link Variable} The variable
+	 * */
 	public Variable getVariable() {
 		return new Variable(this.variableType, this.variableName, null);
 	}
 	
+	/**<p>
+	 * This method sets the required attributes for a correct execution of the {@link ComponentDeclaration} component
+	 * </p>
+	 * @param variableType The type of the variable that will be declared
+	 * @param variableName The name of the variable that will be declared
+	 * */
 	public void set(VariableType variableType, String variableName) {
 		this.variableType = variableType;
 		this.variableName = variableName;

@@ -5,6 +5,7 @@ import java.util.Objects;
 import model.DebuggerConsole;
 import model.Exceptions;
 import model.Components.AlgorithmComponent;
+import view.editComponents.EditInput;
 
 /**<p>
 * This class is used to create logic Variables that contain the type of the value, the variable name and the value of the variable
@@ -17,6 +18,13 @@ public class Variable{
 	private String name;
 	private Object value;
 	
+	/**<p>
+	* The constructor of the class {@link Variable}
+	* </p>
+	* @param variableType The type of the variable
+	* @param name The name of the variable
+	* @param value The value stored in the variable
+	*/
 	public Variable(VariableType variableType, String name, Object value) {
 		super();
 		this.variableType = variableType;
@@ -43,26 +51,62 @@ public class Variable{
 		
 	}
 
+	/**
+	 * <p>
+	 * This method returns the type of the variable
+	 * </p>
+	 * @return {@link VariableType} The variable type
+	 * */
 	public VariableType getType() {
 		return variableType;
 	}
-
+	
+	/**
+	 * <p>
+	 * This method sets the type of the variable
+	 * </p>
+	 * @param variableType The new type
+	 * */
 	public void setType(VariableType variableType) {
 		this.variableType = variableType;
 	}
 
+	/**
+	 * <p>
+	 * This method returns the name of the variable
+	 * </p>
+	 * @return {@link String} The variable name
+	 * */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * <p>
+	 * This method sets the name of the variable
+	 * </p>
+	 * @param name The new name
+	 * */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * <p>
+	 * This method returns the value of the variable
+	 * </p>
+	 * @return {@link Object} The value of the variable
+	 * */
 	public Object getValue() {
 		return value;
 	}
 
+	/**
+	 * <p>
+	 * This method sets the value of the variable
+	 * </p>
+	 * @param value The new value
+	 * */
 	public void setValue(Object value) {
 		
 		switch (variableType) {
@@ -99,6 +143,12 @@ public class Variable{
 		return Objects.equals(name, other.name);
 	}
 
+	/**
+	 * <p>
+	 * This method returns the value of the variable as a string
+	 * </p>
+	 * @return {@link String} The variable value
+	 * */
 	public String getValueString() {
 		return value.toString();
 	}
@@ -108,6 +158,13 @@ public class Variable{
 		return "V(" + variableType +", " + name + ", " + value +")";
 	}
 	
+	/**
+	 * <p>
+	 * This method returns the type of a value given as a parameter
+	 * </p>
+	 * @param value The value that has to be inspected
+	 * @return {@link VariableType} The type
+	 * */
 	public static VariableType getTypeFromValue(Object value) throws Exceptions{
 		if (value instanceof Integer) {
 			return VariableType.Integer;

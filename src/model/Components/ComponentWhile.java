@@ -39,7 +39,7 @@ public class ComponentWhile extends AlgorithmComponent{
 	* </p>
 	* @param nextComponent2 The component that is going to be pointed if a condition is false
 	* @param memory The memory that is shared in the program
-	* 
+	* @see Condition
 	*/
 	public ComponentWhile(AlgorithmComponent nextComponent2, MemoryStorage memory) {
 		super(null, nextComponent2, memory);
@@ -52,6 +52,14 @@ public class ComponentWhile extends AlgorithmComponent{
 		
 	}
 	
+	/**<p>
+	 * This method sets the required attributes for a correct execution of the {@link ComponentWhile} component
+	 * </p>
+	 * @param term1 The first term of the condition
+	 * @param operator The operator of the condition
+	 * @param term2 The second term of the condition
+	 * @see Condition
+	 * */
 	public void set(String term1, RelationalOperators operator, String term2) {
 		this.term1 = term1;
 		this.term2 = term2;

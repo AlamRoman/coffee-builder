@@ -1,5 +1,8 @@
 package model.Memory;
 
+/**
+ * This enum class contains all the valid relational operators
+ * */
 public enum RelationalOperators {
 	
 	NOT("!"),

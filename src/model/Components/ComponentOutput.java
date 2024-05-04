@@ -42,6 +42,12 @@ public class ComponentOutput extends AlgorithmComponent{
 		rawOutPutString="";
 	}
 	
+	/**<p>
+	 * This method sets the required attributes for a correct execution of the {@link ComponentOutput} component
+	 * </p>
+	 * @param outPut The string that will be shown in the output TextArea
+	 * @see Panel
+	 * */
 	public void set(String outPut){
 		//this function creates an output string with the values of the variables in it
 		//example: "The number is : $var" 
@@ -95,6 +101,7 @@ public class ComponentOutput extends AlgorithmComponent{
 	* <li>Python</li>
 	* <li>PseudoCode</li>
 	* </ul>
+	* @return {@link String} The result String
 	*/
 	public String getCodeString(){
 		

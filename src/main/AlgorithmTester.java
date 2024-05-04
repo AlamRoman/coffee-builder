@@ -26,6 +26,10 @@ import model.Memory.VariableType;
 
 public class AlgorithmTester {
 
+	/**
+	 * Main of the class used for testing
+	 * @param args The arguments
+	 * */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//EXECUTION TESTS--------------------------------------

@@ -62,11 +62,4 @@ public class ComponentEnd extends AlgorithmComponent{
 		
 	}
 	
-	public String printJavaCode() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("    }");
-		sb.append("}");
-		return sb.toString();
-	}
-	
 }

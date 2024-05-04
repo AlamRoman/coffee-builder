@@ -6,6 +6,12 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
+/**
+ * <p>
+ * This class provides functionality to play sound files. It implements a thread to support
+ * concurrent execution of sound playback. It includes methods to play a specific sound file and to play a default error sound.
+ * </p>
+ */
 public class SoundPlayer implements Runnable{
 	
 	private Clip clip;
@@ -13,10 +19,22 @@ public class SoundPlayer implements Runnable{
 	
 	private Thread t;
 	
+	/**
+     * <p>
+     * Constructor for the SoundPlayer class. Initializes a new thread for concurrent sound playback.
+     * </p>
+     */
 	public SoundPlayer() {
 		t = new Thread(this);
 	}
 
+	/**
+     * <p>
+     * Plays the specified sound file.
+     * </p>
+     *
+     * @param soundFilePath The path of the sound file to be played.
+     */
     public void playSound(String soundFilePath) {
         try { 
             
@@ -52,6 +70,11 @@ public class SoundPlayer implements Runnable{
 		}
 	}
 	
+	/**
+     * <p>
+     * Plays a default error sound. Uses a predefined sound file path.
+     * </p>
+     */
 	public void playErrorSound() {
     	try {
     		String currentPath = new java.io.File(".").getCanonicalPath();

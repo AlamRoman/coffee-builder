@@ -2,8 +2,12 @@ package view.editComponents;
 
 import javax.swing.JPanel;
 
+import model.Components.ComponentAssign;
 import model.Components.ComponentOperation;
+import model.Components.ComponentOutput;
 import model.Memory.OperationType;
+import view.editComponents.EditAssign.ValuesAssignComponent;
+import view.editComponents.EditIf.ValuesIfComponent;
 
 import javax.swing.JButton;
 import java.awt.BorderLayout;
@@ -19,6 +23,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
+/**
+ * <p>This class handles the configuration dialog of the component {@link ComponentOperation}</p>
+ * */
 public class EditOperation extends EditComponent{
 	
 	private ValuesOperationComponent oldValues;
@@ -31,6 +38,12 @@ public class EditOperation extends EditComponent{
 	
 	private HashMap<String, OperationType> operators;
 
+	/**<p>
+	* The constructor of the class {@link EditOperation}
+	* </p>
+	* @param oldValues The values already set in the component
+	* @param parent The parent frame
+	*/
 	public EditOperation(ValuesOperationComponent oldValues, JFrame parent) {
 		super("Operation", parent);
 		panel = new JPanel();
@@ -103,6 +116,12 @@ public class EditOperation extends EditComponent{
 		setPreviousValues();
 	}
 	
+	/**
+	 * <p>
+	 * This method gets the values already set in the {@link ComponentOperation} component and updates
+	 * the fields in the configuration dialog
+	 * </p>
+	 * */
 	private void setPreviousValues() {
 		textFieldFinalVar.setText(oldValues.getFinalVar());
 		textFieldVar1.setText(oldValues.getVar1());
@@ -116,30 +135,64 @@ public class EditOperation extends EditComponent{
 
 	}
 	
+	/**
+	 * <p>
+	 * This method shows the JDialog of the {@link ComponentOperation} configuration and returns the new values provided
+	 * by the user when closed
+	 * </p>
+	 * @return {@link ValuesOperationComponent} The new values
+	 * */
 	public ValuesOperationComponent showEditWindow() {
 		setVisible(true);
 		
 		return this.newValues;
 	}
 	
+	/**
+	 * <p>
+	 * This method returns the name of the variable that will store the final result
+	 * </p>
+	 * @return {@link String} The name of the variable
+	 * */
 	public String getFinalVarName() {
 		return textFieldFinalVar.getText();
 	}
 	
+	/**
+	 * <p>
+	 * This method returns the first operand of the condition
+	 * </p>
+	 * @return {@link String} The first operand
+	 * */
 	public String getVar1Name() {
 		return textFieldVar1.getText();
 	}
 	
+	/**
+	 * <p>
+	 * This method returns the second operand of the condition
+	 * </p>
+	 * @return {@link String} The second operand
+	 * */
 	public String getVar2Name() {
 		return textFieldVar2.getText();
 	}
 	
+	/**
+	 * <p>
+	 * This method returns the operator of the condition
+	 * </p>
+	 * @return {@link OperationType} The operator
+	 * */
 	public OperationType getOperazione() {
 		String selected = (String)comboBoxOperator.getSelectedItem();
 		
 		return operators.get(selected);
 	}
 	
+	/**
+	 * <p>This class handles the new values requested from the configuration dialog of the component {@link ComponentOperation}</p>
+	 * */
 	public static class ValuesOperationComponent{
 
 		public String finalVar;
@@ -147,6 +200,14 @@ public class EditOperation extends EditComponent{
 		public String var2;
 		public OperationType operation;
 		
+		/**<p>
+		* The constructor of the class {@link ValuesOperationComponent}
+		* </p>
+		* @param finalVar The variable that will store the final result
+		* @param var1 The first operand of the operation
+		* @param var2 The second operand of the operation
+		* @param operation The type of the operation that will be executed
+		*/
 		public ValuesOperationComponent(String finalVar, String var1, String var2, OperationType operation) {
 			this.finalVar = finalVar;
 			this.var1 = var1;
@@ -154,34 +215,82 @@ public class EditOperation extends EditComponent{
 			this.operation = operation;
 		}
 
+		/**
+		 * <p>
+		 * This method returns the name of the variable that will store the final result
+		 * </p>
+		 * @return {@link String} The variable name
+		 * */
 		public String getFinalVar() {
 			return finalVar;
 		}
 
+		/**
+		 * <p>
+		 * This method sets the name of the variable that will store the final result
+		 * </p>
+		 * @param finalVar The new variable name
+		 * */
 		public void setFinalVar(String finalVar) {
 			this.finalVar = finalVar;
 		}
 
+		/**
+		 * <p>
+		 * This method returns the first operand from the values class
+		 * </p>
+		 * @return {@link String} The first operand
+		 * */
 		public String getVar1() {
 			return var1;
 		}
 
+		/**
+		 * <p>
+		 * This method sets the first operand in the values class
+		 * </p>
+		 * @param var1 The new first operand
+		 * */
 		public void setVar1(String var1) {
 			this.var1 = var1;
 		}
 
+		/**
+		 * <p>
+		 * This method returns the second operand from the values class
+		 * </p>
+		 * @return {@link String} The second operand
+		 * */
 		public String getVar2() {
 			return var2;
 		}
 
+		/**
+		 * <p>
+		 * This method sets the second operand in the values class
+		 * </p>
+		 * @param var2 The new second operand
+		 * */
 		public void setVar2(String var2) {
 			this.var2 = var2;
 		}
 
+		/**
+		 * <p>
+		 * This method return the type of operation from the values class
+		 * </p>
+		 * @return {@link OperationType} The type of operation
+		 * */
 		public OperationType getOperation() {
 			return operation;
 		}
 
+		/**
+		 * <p>
+		 * This method sets the operator of the condition in the values class
+		 * </p>
+		 * @param operation The new operator
+		 * */
 		public void setOperation(OperationType operation) {
 			this.operation = operation;
 		}

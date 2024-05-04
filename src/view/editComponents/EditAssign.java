@@ -3,6 +3,8 @@ package view.editComponents;
 import javax.swing.JPanel;
 
 import model.Components.ComponentAssign;
+import model.Components.ComponentComment;
+
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,6 +15,9 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * <p>This class handles the configuration dialog of the component {@link ComponentAssign}</p>
+ * */
 public class EditAssign extends EditComponent{
 	
 	private ValuesAssignComponent previousValues;
@@ -21,6 +26,12 @@ public class EditAssign extends EditComponent{
 	private JTextField textFieldFinalVar;
 	private JTextField textFieldValue;
 	
+	/**<p>
+	* The constructor of the class {@link EditAssign}
+	* </p>
+	* @param previousValues The values already set in the component
+	* @param parent The parent frame
+	*/
 	public EditAssign(ValuesAssignComponent previousValues, JFrame parent) {
 		super("Assign", parent);
 		this.previousValues = previousValues;
@@ -75,41 +86,93 @@ public class EditAssign extends EditComponent{
 		setPreviousValues();
 	}
 	
+	/**
+	 * <p>
+	 * This method shows the JDialog of the {@link ComponentAssign} configuration and returns the new values provided
+	 * by the user when closed
+	 * </p>
+	 * @return {@link ValuesAssignComponent} The new values
+	 * */
 	public ValuesAssignComponent showEditWindow() {
 		setVisible(true);
 		return getNewValues();
 	}
 	
+	/**
+	 * <p>
+	 * This method gets the values already set in the {@link ComponentAssign} component and updates
+	 * the fields in the configuration dialog
+	 * </p>
+	 * */
 	private void setPreviousValues() {
 		textFieldFinalVar.setText(previousValues.getFinalVarName());
 		textFieldValue.setText(previousValues.getValue());
 	}
 	
+	/**
+	 * <p>
+	 * This method returns the new values set by the user
+	 * </p>
+	 * @return {@link ValuesAssignComponent} The new values
+	 * */
 	public ValuesAssignComponent getNewValues() {
 		return this.newValues;
 	}
 	
+	/**
+	 * <p>This class handles the new values requested from the configuration dialog of the component {@link ComponentAssign}</p>
+	 * */
 	public static class ValuesAssignComponent{
 		public String finalVarName;
 		public String value;
 		
+		/**<p>
+		* The constructor of the class {@link ValuesAssignComponent}
+		* </p>
+		* @param finalVarName The name of the variable that will be assigned
+		* @param value The value that is going to be assigned to the variable
+		*/
 		public ValuesAssignComponent(String finalVarName, String value) {
 			this.finalVarName = finalVarName;
 			this.value = value;
 		}
 
+		/**
+		 * <p>
+		 * This method returns the name of the variable that will be assigned
+		 * </p>
+		 * @return {@link String} The variable name
+		 * */
 		public String getFinalVarName() {
 			return finalVarName;
 		}
 
+		/**
+		 * <p>
+		 * This method sets the name of the variable that will be assigned
+		 * </p>
+		 * @param finalVarName The new name
+		 * */
 		public void setFinalVarName(String finalVarName) {
 			this.finalVarName = finalVarName;
 		}
 
+		/**
+		 * <p>
+		 * This method returns the value that will be assigned to the variable
+		 * </p>
+		 * @return {@link String} The value
+		 * */
 		public String getValue() {
 			return value;
 		}
 
+		/**
+		 * <p>
+		 * This method sets the value that will be assigned to the variable
+		 * </p>
+		 * @param value The new value
+		 * */
 		public void setValue(String value) {
 			this.value = value;
 		}

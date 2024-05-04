@@ -59,6 +59,15 @@ public class ComponentOperation extends AlgorithmComponent{
 	
 	}
 
+	/**<p>
+	 * This method sets the required attributes for a correct execution of the {@link ComponentOperation} component
+	 * </p>
+	 * @param variableName The variable to which the input value will be assigned
+	 * @param variableFirstOperandName The first operand of the operation
+	 * @param variableSecondOperandName The second operand of the operation
+	 * @param operation The type of operation that will be executed
+	 * @see OperationType
+	 * */
 	public void set(String variableName, String variableFirstOperandName, String variableSecondOperandName, OperationType operation) {
 		
 		this.variableName = variableName;

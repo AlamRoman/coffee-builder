@@ -45,6 +45,12 @@ public class ComponentAssign extends AlgorithmComponent{
 		
 	}
 	
+	/**<p>
+	 * This method sets the required attributes for a correct execution of the {@link ComponentAssign} component
+	 * </p>
+	 * @param value The value that has to be assigned
+	 * @param variableName The name of the variable that will be assigned
+	 * */
 	public void set(Object value, String variableName) {
 		
 		this.value=value;

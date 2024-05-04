@@ -238,6 +238,15 @@ public class AlgorithmExecuter implements Runnable{
 		controller.updateTable();
 	}
 
+	/**<p>
+	* This method returns a flag that represents the current status of the execution
+	* </p>
+	* <ul>
+	* <li><code>True</code> if executing</li>
+	* <li><code>False</code> if not executing</li>
+	* </ul>
+	* @return {@link Boolean}
+	*/
 	public Boolean isRunning() {
 		return this.running;
 	}

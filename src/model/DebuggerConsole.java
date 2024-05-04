@@ -18,6 +18,7 @@ public class DebuggerConsole {
 	* It returns the existing instance of this class, if it doesn't exist yet, it creates the instance via the 
 	* {@link DebuggerConsole#DebuggerConsole()} constructor
 	* </p>
+	* @return {@link DebuggerConsole} The instance of this class
 	*/
 	public static DebuggerConsole getInstance() {
 		instance = (instance == null) ? (new DebuggerConsole()) : instance;
@@ -138,9 +139,9 @@ public class DebuggerConsole {
 	* <code>
 	* 	[MESSAGE-TYPE] : MESSAGE
 	* </code>
-	* @param messageType
-	* @param color
-	* @param message
+	* @param messageType The message type
+	* @param color The color of the message
+	* @param message The message
 	*/
 	public void printCustomMSGColorLog(String messageType, String color, String message) {
 		if(!checkIfOperational(Thread.currentThread().getStackTrace()[2].getClassName(), messageType)) return;
@@ -156,8 +157,8 @@ public class DebuggerConsole {
 	* <p>
 	* If a flag is true, it prints the message, if its false it doesn't
 	* </p>
-	* @param className
-	* @param messageType
+	* @param className The name of the class that is calling
+	* @param messageType The message type
 	*/
 	private boolean checkIfOperational(String className, String messageType) {
 		// TODO Auto-generated method stub

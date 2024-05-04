@@ -25,7 +25,13 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import model.File.ImageLoader;
+import model.Memory.MemoryStorage;
 
+/**<p>
+ * This class handles the insertion of new components in the algorithm. When the user clicks the add button in a component
+ * this class will show a JDialog that will let the user pick the new component to add
+ * </p>
+ * */
 public class AddComponent extends JDialog{
 
 	private JList list;
@@ -34,6 +40,11 @@ public class AddComponent extends JDialog{
 	
 	private String result=null;
 	
+	/**<p>
+	* The constructor of the class {@link MemoryStorage}
+	* </p>
+	* @param parent The parent frame
+	*/
 	public AddComponent(JFrame parent) {
 		super(parent, "Add new", true);
 		componentNames = new ArrayList<String>();
@@ -51,7 +62,7 @@ public class AddComponent extends JDialog{
 		model.clear();
 		model.addAll(componentNames);
 		list = new JList<>(model);
-		MyListCellRenderer cellRenderer = new MyListCellRenderer();
+		CellRenderer cellRenderer = new CellRenderer();
 		list.setCellRenderer(cellRenderer);
 		list.addMouseMotionListener(new MouseAdapter() {
             @Override
@@ -92,12 +103,23 @@ public class AddComponent extends JDialog{
 		pack();
 	}
 	
+	/**
+	 * <p>
+	 * This method will show the JDialog and return the user selection when closed
+	 * </p>
+	 * @return {@link String} The user selection
+	 * */
 	public String showAddWindow() {
 		setVisible(true);
 		return result;
 	}
 	
-	private class MyListCellRenderer extends DefaultListCellRenderer {
+	/**
+	 * <p>
+	 * This class handles the rendering of the selection menu
+	 * </p>
+	 * */
+	private class CellRenderer extends DefaultListCellRenderer {
         private static final long serialVersionUID = 1L;
 
         private int hoverIndex = -1; // Indice della cella sopra cui si trova il mouse
@@ -111,20 +133,18 @@ public class AddComponent extends JDialog{
                 boolean cellHasFocus) {
             Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
-            // Imposta il colore di sfondo delle celle
             if (index == hoverIndex) {
-                c.setBackground(new Color(230, 230, 255)); // Colore di sfondo quando il mouse è sopra la cella
+                c.setBackground(new Color(230, 230, 255)); //Colore di sfondo quando il mouse è sopra la cella
             } else if (index % 2 == 0) {
-                c.setBackground(new Color(240, 240, 240)); // Colore sfondo per le righe pari
+                c.setBackground(new Color(240, 240, 240)); //Colore sfondo per le righe pari
             } else {
-                c.setBackground(Color.WHITE); // Colore sfondo per le righe dispari
+                c.setBackground(Color.WHITE); //Colore sfondo per le righe dispari
             }
 
-            // Imposta il font e l'allineamento del testo
             setFont(new Font("Arial", Font.BOLD, 14));
             setHorizontalAlignment(SwingConstants.CENTER);
 
-            // Aggiungi bordo inferiore a tutte le celle tranne all'ultima
+            //Aggiungi bordo inferiore a tutte le celle tranne all'ultima
             MatteBorder border = BorderFactory.createMatteBorder(0, 0, index == list.getModel().getSize() - 1 ? 0 : 1, 0,
                     Color.LIGHT_GRAY);
             setBorder(BorderFactory.createCompoundBorder(getBorder(), border));

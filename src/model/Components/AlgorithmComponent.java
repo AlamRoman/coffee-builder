@@ -56,9 +56,10 @@ public class AlgorithmComponent {
 	* This method will be called from every instance of any class that extends this class
 	* </p>
 	* <p>
-	* This method needs to be overrided by the single child classes for proper functionality
+	* This method needs to be overridden by the single child classes for proper functionality
 	* </p>
 	* @throws Exceptions n/a
+	* @return {@link Object} The value returned by the execution
 	*/
 	public Object execute() throws Exceptions {
 		return null;
@@ -68,7 +69,7 @@ public class AlgorithmComponent {
 	* This method will be called from every instance of any class that extends this class
 	* </p>
 	* <p>
-	* This method needs to be overrided by the single child classes for proper functionality
+	* This method needs to be overridden by the single child classes for proper functionality
 	* </p>
 	* @return {@link AlgorithmComponent} The next component
 	*/
@@ -84,7 +85,7 @@ public class AlgorithmComponent {
 	* This method will be called from every instance of any class that extends this class
 	* </p>
 	* <p>
-	* This method needs to be overrided by the single child classes for proper functionality
+	* This method needs to be overridden by the single child classes for proper functionality
 	* </p>
 	* @return {@link String}
 	*/
@@ -96,7 +97,7 @@ public class AlgorithmComponent {
 	* This method will be called from every instance of any class that extends this class
 	* </p>
 	* <p>
-	* This method needs to be overrided by the single child classes for proper functionality and it will translate the 
+	* This method needs to be overridden by the single child classes for proper functionality and it will translate the 
 	* informations contained in the instances to different programming languages such as Python, Java and PseudoCode
 	* </p>
 	* @param language The language that it needs to be translated in
