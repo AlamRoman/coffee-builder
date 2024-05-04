@@ -6,6 +6,7 @@ import model.Color;
 import model.DebuggerConsole;
 import model.Line;
 import model.Memory.MemoryStorage;
+import model.Memory.VariableType;
 
 /**<p>
  * This class represents the comment component. 
@@ -79,6 +80,11 @@ public class ComponentComment extends AlgorithmComponent{
 		
 	}
 	
+	/**<p>
+	 * This method returns the final comment string
+	 * </p>
+	 * @return {@link String} The final comment
+	 * */
 	public String getCommentString() {
 		return comment;
 	}

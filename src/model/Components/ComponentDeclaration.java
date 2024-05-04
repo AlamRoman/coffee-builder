@@ -104,17 +104,32 @@ public class ComponentDeclaration extends AlgorithmComponent{
 		
 	}
 
+	/**<p>
+	 * This method returns the name of the variable that is going to declared
+	 * </p>
+	 * @return {@link String} The variable name
+	 * */
 	public String getVariableName() {
 		return variableName;
 	}
 	
+	/**<p>
+	 * This method returns the variable type ({@link VariableType}) of the variable that is going to declared, as a string
+	 * </p>
+	 * @return {@link String} The variable type as string
+	 * */
 	public String getTypeString() {
 		if (variableType != null) {
 			return variableType.name;
 		}
 		return null;
 	}
-
+	
+	/**<p>
+	 * This method returns the variable type of the variable that is going to declared
+	 * </p>
+	 * @return {@link VariableType} The variable type
+	 * */
 	public VariableType getVariableType() {
 		return variableType;
 	}

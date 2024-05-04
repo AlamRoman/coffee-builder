@@ -121,6 +121,11 @@ public class ComponentAssign extends AlgorithmComponent{
 		
 	}
 
+	/**<p>
+	 * This method returns the value to be assigned as a {@link String}
+	 * </p>
+	 * @return {@link String} The value to string
+	 * */
 	public String getValueString() {
 	    if (value != null) {
 	        if (value instanceof Integer || value instanceof Double) {
@@ -135,11 +140,29 @@ public class ComponentAssign extends AlgorithmComponent{
 	    }
 	}
 
+	/**<p>
+	 * This method returns the name of the variable that is going to assigned
+	 * </p>
+	 * @return {@link String} The variable name
+	 * */
 	public String getVariableName() {
 		return variableName;
 	}
 
-private Variable getVariableFromTerm(Variable variable, String term) {
+	/**<p>
+	* This method creates an auxiliary {@link Variable} from the given term
+	* </p>
+	* <p>
+	* It creates an auxiliary {@link Variable} with the correct value type, given by the RegEX controls and its
+	* casted value
+	* </p>
+	* <p>
+	* A variable is required for the correct casting method
+	* </p>
+	* @param term The term that has to be converted to a variable
+	* @param variable The variable that will finalize the variable type controls
+	*/
+	private Variable getVariableFromTerm(Variable variable, String term) {
 		
 		if(term == null) return null;
 		

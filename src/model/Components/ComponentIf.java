@@ -109,14 +109,29 @@ public class ComponentIf extends AlgorithmComponent{
 		
 	}
 
+	/**<p>
+	 * This method returns the first term from the condition
+	 * </p>
+	 * @return {@link String} The first term
+	 * */
 	public String getTerm1() {
 		return term1;
 	}
 
+	/**<p>
+	 * This method returns the second term from the condition
+	 * </p>
+	 * @return {@link String} The second term
+	 * */
 	public String getTerm2() {
 		return term2;
 	}
 
+	/**<p>
+	 * This method returns the operator from the condition
+	 * </p>
+	 * @return {@link RelationalOperators} The operator
+	 * */
 	public RelationalOperators getOperator() {
 		return operator;
 	}

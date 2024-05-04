@@ -115,14 +115,29 @@ public class ComponentWhile extends AlgorithmComponent{
 		
 	}
 
+	/**<p>
+	 * This method returns the first term of the condition
+	 * </p>
+	 * @return {@link String} The first term of the condition
+	 * */
 	public String getTerm1() {
 		return term1;
 	}
 
+	/**<p>
+	 * This method returns the second term of the condition
+	 * </p>
+	 * @return {@link String} The second term of the condition
+	 * */
 	public String getTerm2() {
 		return term2;
 	}
 
+	/**<p>
+	 * This method return the operator of the condition
+	 * </p>
+	 * @return {@link String} The operator of the condition
+	 * */
 	public RelationalOperators getOperator() {
 		return operator;
 	}

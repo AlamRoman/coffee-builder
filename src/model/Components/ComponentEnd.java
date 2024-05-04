@@ -26,6 +26,7 @@ public class ComponentEnd extends AlgorithmComponent{
 		super(null, null, null);
 	}
 	
+	@Override
 	public Object execute() {
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage , "Executing...");
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage , "Program ends.");
@@ -33,6 +34,7 @@ public class ComponentEnd extends AlgorithmComponent{
 		return null;
 	}
 	
+	@Override
 	public AlgorithmComponent getNextComponent() {
 		return null;
 	}

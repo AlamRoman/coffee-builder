@@ -198,6 +198,7 @@ public class ComponentOperation extends AlgorithmComponent{
 		
 	}
 	
+	@Override
 	public AlgorithmComponent getNextComponent() {
 		return super.getNextComponent1();
 	}
@@ -287,6 +288,15 @@ public class ComponentOperation extends AlgorithmComponent{
 		
 	}
 	
+	/**<p>
+	* This method creates an auxiliary {@link Variable} from the given term
+	* </p>
+	* <p>
+	* It creates an auxiliary {@link Variable} with the correct value type, given by the RegEX controls and its
+	* casted value
+	* </p>
+	* @param term The term that has to be converted to a variable
+	*/
 	private Variable getVariableFromTerm(Variable variable, String term) {
 		
 		if(term == null) return null;
@@ -318,19 +328,39 @@ public class ComponentOperation extends AlgorithmComponent{
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "returning variable from getVariableFromTerm("+ term +", " + variable + ") >> " + v);
 		return v;
 	}
-
+	
+	/**<p>
+	 * This method returns the name of the variable that is going to store the final result of the operation
+	 * </p>
+	 * @return {@link String} The variable name
+	 * */
 	public String getVariableName() {
 		return variableName;
 	}
 
+	/**<p>
+	 * This method returns the first operand name
+	 * </p>
+	 * @return {@link String} The first operand name
+	 * */
 	public String getVariableFirstOperandName() {
 		return variableFirstOperandName;
 	}
 
+	/**<p>
+	 * This method returns the second operand name
+	 * </p>
+	 * @return {@link String} The second operand name
+	 * */
 	public String getVariableSecondOperandName() {
 		return variableSecondOperandName;
 	}
 
+	/**<p>
+	 * This method returns the type of the operation
+	 * </p>
+	 * @return {@link OperationType} The type of the operation
+	 * */
 	public OperationType getOperation() {
 		return operation;
 	}

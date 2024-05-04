@@ -296,6 +296,10 @@ public class Condition {
         return string;
     }
 
+    /** <p>
+	* This method translates the informations contained in the condition to different programming languages such as Python, Java and PseudoCode
+	* </p>
+	**/
 	public String printCode() {
 		String op1 = getCodeString(firstTerm);
 		String op2 = getCodeString(secondTerm);

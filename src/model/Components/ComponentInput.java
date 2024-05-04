@@ -85,10 +85,23 @@ public class ComponentInput extends AlgorithmComponent{
 		this.nomeVariabile = nomeVariabile;
 	}
 	
+	/**<p>
+	 * This method sets the input value
+	 * </p>
+	 * @param o The new value
+	 * */
 	public void setInputValue(Object o) {
 		inputValue = o;
 	}
 	
+	/**<p>
+	* This method requests an input from the user and returns the value
+	* </p>
+	* <p>
+	* This methods shows a JDialog that requests the input from the user, and returns the value when it gets closed
+	* </p>
+	* @param frame The parent frame
+	*/
 	public String requestInput(JFrame frame) {
 		GetInputWindow GIW = new GetInputWindow(nomeVariabile, frame);
 		String res = GIW.showInputRequestWindow();
@@ -163,10 +176,20 @@ public class ComponentInput extends AlgorithmComponent{
 		
 	}
 
+	/**<p>
+	 * This method returns the name of the variable where the input value will be saved
+	 * </p>
+	 * @return {@link String} The variable name
+	 * */
 	public String getNomeVariabile() {
 		return nomeVariabile;
 	}
 
+	/**<p>
+	 * This method sets the name of the variable where the input value will be saved
+	 * </p>
+	 * @param nomeVariabile The new variable name
+	 * */
 	public void setNomeVariabile(String nomeVariabile) {
 		this.nomeVariabile = nomeVariabile;
 	}

@@ -87,6 +87,16 @@ public class ComponentOutput extends AlgorithmComponent{
 		return super.getNextComponent1();
 	}
 	
+	/**<p>
+	* This method returns the same info given by the {@link ComponentOutput#print()} but translated for the conversions to the different programming languages
+	* <ul>
+	* <li>Java</li>
+	* <li>Python</li>
+	* <li>PseudoCode</li>
+	* </ul>
+	* </p>
+	* @param s The term that has to be translated to code String
+	*/
 	public String getCodeString(){
 		
 		outPutText = "";
@@ -142,11 +152,21 @@ public class ComponentOutput extends AlgorithmComponent{
 		
 	}
 
+	/**<p>
+	 * This method returns the string set by the user as the output String
+	 * </p>
+	 * @return {@link String} The string of the output
+	 * */
 	public String getRawOutputString() {
 		return rawOutPutString;
 	}
 
-	public void setRawOutPutString(String rawOutPutString) {
+	/**<p>
+	 * This method sets the given string as the output String
+	 * </p>
+	 * @param rawOutPutString The string that is going to be set as the output String of this component
+	 * */
+	void setRawOutPutString(String rawOutPutString) {
 		this.rawOutPutString = rawOutPutString;
 	}
 }
