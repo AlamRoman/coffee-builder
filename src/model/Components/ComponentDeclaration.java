@@ -10,6 +10,13 @@ import model.Memory.VariableType;
 import model.Memory.Variable;
 import view.Panel;
 
+/**<p>
+ * This class represents the assign component. 
+ * </p>
+ * <p>
+ * This component is used whenever a variable has to be initialized and saved in the memory
+ * </p>
+ */
 public class ComponentDeclaration extends AlgorithmComponent{
 
 	private VariableType variableType;
@@ -17,6 +24,17 @@ public class ComponentDeclaration extends AlgorithmComponent{
 	private MemoryStorage MS;
 	private static final String referenceTypeMessage = "C-DECL";
 	
+	/**<p>
+	* The constructor of the class {@link ComponentDeclaration}
+	* </p>
+	* <p>
+	* It creates a new instance of the class
+	* </p>
+	* @param nextComponent1 The component that is going to be pointed by default by the component
+	* @param nextComponent2 The component that is going to be pointed if a condition is false
+	* @param memory The memory that is shared in the program
+	* 
+	*/
 	public ComponentDeclaration(AlgorithmComponent nextComponent1, AlgorithmComponent nextComponent2, MemoryStorage MS) {
 		super(nextComponent1, nextComponent2, MS);
 		this.variableType = null;
@@ -50,6 +68,7 @@ public class ComponentDeclaration extends AlgorithmComponent{
 		return super.getNextComponent1();
 	}
 
+	@Override
 	public String print() {
 		String out = "";
 		if(variableType != null) {
@@ -78,7 +97,7 @@ public class ComponentDeclaration extends AlgorithmComponent{
 				lines.add(new Line(print()));
 				break;
 			case "python":
-				lines.add(new Line(((variableName==null)?"%VariableName%":variableName)));
+//				lines.add(new Line(((variableName==null)?"%VariableName%":variableName)));
 				break;
 		}
 		return lines;

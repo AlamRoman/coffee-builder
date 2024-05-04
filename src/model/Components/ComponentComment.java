@@ -7,11 +7,29 @@ import model.DebuggerConsole;
 import model.Line;
 import model.Memory.MemoryStorage;
 
+/**<p>
+ * This class represents the comment component. 
+ * </p>
+ * <p>
+ * This component is used whenever the user has to create a comment
+ * </p>
+ */
 public class ComponentComment extends AlgorithmComponent{
 
 	private static final String referenceTypeMessage = "C-COMMENT";
 	private String comment;
 
+	/**<p>
+	* The constructor of the class {@link ComponentComment}
+	* </p>
+	* <p>
+	* It creates a new instance of the class
+	* </p>
+	* @param nextComponent1 The component that is going to be pointed by default by the component
+	* @param nextComponent2 The component that is going to be pointed if a condition is false
+	* @param memory The memory that is shared in the program
+	* 
+	*/
 	public ComponentComment(AlgorithmComponent nextComponent1, AlgorithmComponent nextComponent2, MemoryStorage memory) {
 		super(nextComponent1, nextComponent2, memory);
 		

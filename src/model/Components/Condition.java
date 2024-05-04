@@ -1,5 +1,6 @@
 package model.Components;
 
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import model.Color;
@@ -7,8 +8,20 @@ import model.DebuggerConsole;
 import model.Exceptions;
 import model.Memory.MemoryStorage;
 import model.Memory.VariableType;
+import view.FlowChartContentPanel;
 import model.Memory.Variable;
 
+/**<p>
+ * This class represents the condition component. 
+ * </p>
+ * <p>
+ * This component, contains a condition that is going to be either true or false, and will be used in the conditional components:
+ * <ul>
+ * <li>{@link ComponentWhile}</li>
+ * <li>{@link ComponentIf}</li>
+ * </ul>
+ * </p>
+ */
 public class Condition {
 	
 	private static final String referenceTypeMessage = "CONDITION";
@@ -24,6 +37,18 @@ public class Condition {
 		this.MS = MemoryStorage.getInstance();
 	}
 	
+	/**<p>
+	* This method resolves the condition and returns either true or false
+	* </p>
+	* <p>
+	* This method resolves the condition, by the parameters that were given by the user during the configuration, and returns either true or false
+	* </p>
+	* @return {@link Boolean} the result of the condition
+	* @throws Exceptions MISSING_ARGUMENTS : If there are missing arguments
+	* @throws Exceptions TERM_IS_STRING : If there's an invalid conversion where one of the terms is a String
+	* @throws Exceptions INVALID_CONDITION_SYMBOL : If there's an invalid conditional operator
+	* @throws Exceptions CONDITION_TERMS_NOT_NUMBER : If one or both terms are Strings and the operator is (>, < >= or >=)
+	*/
 	public boolean resolve() throws Exceptions {
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage , "Resolving the condition: " + this.toString());
 		Variable firstVar = null;
@@ -165,6 +190,15 @@ public class Condition {
 		}
 	}
 
+	/**<p>
+	* This method creates an auxiliary {@link Variable} from the given term
+	* </p>
+	* <p>
+	* It creates an auxiliary {@link Variable} with the correct value type, given by the RegEX controls and its
+	* casted value
+	* </p>
+	* @param term The term that has to be converted to a variable
+	*/
 	private Variable getVariableFromTerm(String term) {
 		if(term == null) return null;
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage , "Getting variable from term/value: '" + term + "'");
@@ -184,7 +218,7 @@ public class Condition {
 		DebuggerConsole.getInstance().printDefaultSuccessLog(referenceTypeMessage, "Returning variable: " + v);
 		return v;
 	}
-
+	
 	@Override
 	public String toString() {
 		String out = "";
@@ -197,6 +231,16 @@ public class Condition {
 		return out;
 	}
 	
+	/**<p>
+	* This method returns the same info given by the {@link Condition#toString()} but translated for the conversions to the different programming languages
+	* <ul>
+	* <li>Java</li>
+	* <li>Python</li>
+	* <li>PseudoCode</li>
+	* </ul>
+	* </p>
+	* @param s The term that has to be translated to code String
+	*/
 	public String getCodeString(String s){
 		
 		String outPutText = "";
@@ -229,6 +273,11 @@ public class Condition {
 			return outPutText;
 	}
 	
+	/**<p>
+	* Returns a conversion of the provided string
+	* </p>
+	* @return String The conversion result
+	*/
     private static String getStringFromTerm(String string) {
         // Check if the string contains only digits\
     	if(string.equals("") || string == null) return "\"\"";

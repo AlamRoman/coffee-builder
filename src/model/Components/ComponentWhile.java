@@ -10,6 +10,17 @@ import model.Memory.MemoryStorage;
 import model.Memory.OperationType;
 import model.Memory.RelationalOperators;
 
+/**<p>
+ * This class represents the while component. 
+ * </p>
+ * <p>
+ * This component, when created, points always to itself as the first component (that is going to be executed when the inner condition is true) and to a {@link ComponentAdd}
+ * as the second component (that is going to be executed when the inner condition is false)
+ * </p>
+ * <p>
+ * This component always ends with a {@link ComponentAdd}
+ * </p>
+ */
 public class ComponentWhile extends AlgorithmComponent{
 	
 	private static final String referenceTypeMessage = "C-WHILE";
@@ -19,6 +30,17 @@ public class ComponentWhile extends AlgorithmComponent{
 	private AlgorithmComponent nextComponent;
 	private Condition C;
 
+	/**<p>
+	* The constructor of the class {@link ComponentWhile}
+	* </p>
+	* <p>
+	* It creates a new instance of the class, it doesn't require the first component parameter because
+	* it'll always point at itself when created (empty while loop)
+	* </p>
+	* @param nextComponent2 The component that is going to be pointed if a condition is false
+	* @param memory The memory that is shared in the program
+	* 
+	*/
 	public ComponentWhile(AlgorithmComponent nextComponent2, MemoryStorage memory) {
 		super(null, nextComponent2, memory);
 		setNextComponent1(this);
@@ -61,6 +83,7 @@ public class ComponentWhile extends AlgorithmComponent{
 		return nextComponent;
 	}
 
+	@Override
 	public String print() {
 		String out = "WHILE ";
 		if(C != null) {

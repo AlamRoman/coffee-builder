@@ -13,6 +13,14 @@ import model.Memory.OperationType;
 import model.Memory.VariableType;
 import model.Memory.Variable;
 
+/**<p>
+ * This class represents the operation component. 
+ * </p>
+ * <p>
+ * This component is used whenever the user wants to make simple operations with both values and variables, the result of this operation
+ * will be assigned automatically to a variable, set by the user during the configuration of the component 
+ * </p>
+ */
 public class ComponentOperation extends AlgorithmComponent{
 
 	private String variableName;
@@ -25,6 +33,17 @@ public class ComponentOperation extends AlgorithmComponent{
 	private Variable variable2;
 	private static final String referenceTypeMessage = "C-OP";
 
+	/**<p>
+	* The constructor of the class {@link ComponentOperation}
+	* </p>
+	* <p>
+	* It creates a new instance of the class
+	* </p>
+	* @param nextComponent1 The component that is going to be pointed by default by the component
+	* @param nextComponent2 The component that is going to be pointed if a condition is false
+	* @param memory The memory that is shared in the program
+	* 
+	*/
 	public ComponentOperation(AlgorithmComponent nextComponent1, AlgorithmComponent nextComponent2, MemoryStorage memory) {
 		
 		super(nextComponent1, nextComponent2, memory);
@@ -183,7 +202,7 @@ public class ComponentOperation extends AlgorithmComponent{
 		return super.getNextComponent1();
 	}
 
-	
+	@Override
 	public String print() {
 		String out = "";
 		try {

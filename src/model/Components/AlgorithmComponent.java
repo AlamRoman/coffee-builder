@@ -10,6 +10,7 @@ import model.Exceptions;
 import model.Line;
 import model.Timer;
 import model.Memory.MemoryStorage;
+import view.FlowChartContentPanel;
 import view.flowChartComponents.FlowChartPanel;
 
 /**This is the parent class of all the components that can be used in this program
@@ -75,13 +76,16 @@ public class AlgorithmComponent {
 		return null;
 	}
 	
-	/**<p>
+	/**
+	* <p>
+	* This method returns the string containing the essential informations that should to be shown in the {@link FlowChartContentPanel}
+	* </p>
 	* This method will be called from every instance of any class that extends this class
 	* </p>
 	* <p>
 	* This method needs to be overrided by the single child classes for proper functionality
 	* </p>
-	* @throws Exceptions
+	* @return {@link String}
 	*/
 	public String print() {
 		return null;
@@ -108,41 +112,98 @@ public class AlgorithmComponent {
 		return null;
 	}
 
+	/**<p>
+	* This method returns the first pointed component
+	* </p>
+	* <p>
+	* This component is pointed by default, or when a {@link Condition} is true
+	* </p>
+	* @return {@link AlgorithmComponent} the pointed component
+	*/
 	public AlgorithmComponent getNextComponent1() {
 		return nextComponent1;
 	}
 
+	/**<p>
+	* This method sets the first pointed component
+	* </p>
+	* <p>
+	* This component is pointed by default, or when a {@link Condition} is true
+	* </p>
+	* @param nextComponent1 The component that has to be set as first component
+	*/
 	public void setNextComponent1(AlgorithmComponent nextComponent1) {
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Changing next comp1: " + this.classSimpleName() + " > " + getNextComponent1() + " -> " + this.classSimpleName() + " > " + nextComponent1);
 		this.nextComponent1 = nextComponent1;
 	}
 
+	/**<p>
+	* This method returns the second pointed component
+	* </p>
+	* <p>
+	* This component is pointed when a {@link Condition} is true
+	* </p>
+	* @return {@link AlgorithmComponent} the pointed component
+	*/
 	public AlgorithmComponent getNextComponent2() {
 		return nextComponent2;
 	}
 
+	/**<p>
+	* This method sets the second pointed component
+	* </p>
+	* <p>
+	* This component is pointed by default, or when a {@link Condition} is true
+	* </p>
+	* @param nextComponent1 The component that has to be set as second component
+	*/
 	public void setNextComponent2(AlgorithmComponent nextComponent2) {
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Changing next comp2: " + this.classSimpleName() + " > " + getNextComponent2() + " -> " + this.classSimpleName() + " > " + nextComponent2);
 		this.nextComponent2 = nextComponent2;
 	}
 
+	/**<p>
+	* This method returns the {@link MemoryStorage} associated with the component
+	* </p>
+	* @return {@link MemoryStorage}
+	*/
 	public MemoryStorage getMemory() {
 		return memory;
 	}
 
+	/**<p>
+	* This method sets the {@link MemoryStorage} associated with the component
+	* </p>
+	* @param memory The {@link MemoryStorage} instance that has to be associated
+	*/
 	public void setMemory(MemoryStorage memory) {
 		this.memory = memory;
 	}
 	
+	/**<p>
+	* This method returns a string that contains the simple name of the class
+	* </p>
+	* @return {@link String}
+	*/
 	public String classSimpleName() {
 		// TODO Auto-generated method stub
 		return getClass().getSimpleName();
 	}
 	
+	/**<p>
+	* This method returns the {@link FlowChartPanel} associated with the component
+	* </p>
+	* @return {@link FlowChartPanel} the Panel associated with the component
+	*/
 	public FlowChartPanel getAssociatedPanel() {
 		return associatedPanel;
 	}
 	
+	/**<p>
+	* This method sets the {@link FlowChartPanel} associated with the component
+	* </p>
+	* @param p the Panel that has to be associated with the component
+	*/
 	public void setAssociatedPanel(FlowChartPanel p) {
 		this.associatedPanel = p;
 	}

@@ -9,13 +9,32 @@ import model.Exceptions;
 import model.Line;
 import model.Memory.MemoryStorage;
 import model.Memory.Variable;
+import view.Panel;
 
+/**<p>
+ * This class represents the output component. 
+ * </p>
+ * <p>
+ * This component is used whenever the user wants the algorithm to print an output string in the Output textArea in the {@link Panel}
+ * </p>
+ */
 public class ComponentOutput extends AlgorithmComponent{
 
 	private static final String referenceTypeMessage = "C-OUTPUT";
 	private String rawOutPutString;
 	private String outPutText;
 
+	/**<p>
+	* The constructor of the class {@link ComponentOutput}
+	* </p>
+	* <p>
+	* It creates a new instance of the class
+	* </p>
+	* @param nextComponent1 The component that is going to be pointed by default by the component
+	* @param nextComponent2 The component that is going to be pointed if a condition is false
+	* @param memory The memory that is shared in the program
+	* 
+	*/
 	public ComponentOutput(AlgorithmComponent nextComponent1, AlgorithmComponent nextComponent2, MemoryStorage memory) {
 		super(nextComponent1, nextComponent2, memory);
 		

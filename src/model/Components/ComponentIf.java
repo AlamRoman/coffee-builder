@@ -9,6 +9,17 @@ import model.Line;
 import model.Memory.MemoryStorage;
 import model.Memory.RelationalOperators;
 
+/**<p>
+ * This class represents the if component. 
+ * </p>
+ * <p>
+ * This component, when created, points always to a {@link ComponentAdd} as the first component (that is going to be executed when the inner condition is true) and to a {@link ComponentElse}
+ * as the second component (that is going to be executed when the inner condition is false)
+ * </p>
+ * <p>
+ * This component always ends with a {@link ComponentAdd}
+ * </p>
+ */
 public class ComponentIf extends AlgorithmComponent{
 	
 	private static final String referenceTypeMessage = "C-IF";
@@ -18,6 +29,17 @@ public class ComponentIf extends AlgorithmComponent{
 	private AlgorithmComponent nextComponent;
 	private Condition C;
 
+	/**<p>
+	* The constructor of the class {@link ComponentIf}
+	* </p>
+	* <p>
+	* It creates a new instance of the class
+	* </p>
+	* @param nextComponent1 The component that is going to be pointed by default by the component
+	* @param nextComponent2 The component that is going to be pointed if a condition is false
+	* @param memory The memory that is shared in the program
+	* 
+	*/
 	public ComponentIf(AlgorithmComponent nextComponent1, AlgorithmComponent nextComponent2, MemoryStorage memory) {
 		super(nextComponent1, nextComponent2, memory);
 		//initial values
@@ -54,6 +76,7 @@ public class ComponentIf extends AlgorithmComponent{
 		return nextComponent;
 	}
 	
+	@Override
 	public String print() {
 		String out = "IF ";
 		if(C != null) {

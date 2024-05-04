@@ -9,11 +9,24 @@ import model.Memory.MemoryStorage;
 import model.Memory.Variable;
 import model.Memory.VariableType;
 
+/**<p>
+ * This class represents the start of the algorithm. 
+ * </p>
+ */
 public class ComponentStart extends AlgorithmComponent{
 
 	private static final String referenceTypeMessage = "C-START";
 	private AlgorithmComponent nextComponent;
 	
+	/**<p>
+	* The constructor of the class {@link ComponentStart}
+	* </p>
+	* <p>
+	* It creates a new instance of the class
+	* </p>
+	* @param nextComponent The component that is going to be pointed by default by the component
+	* 
+	*/
 	public ComponentStart(AlgorithmComponent nextComponent) {
 		super(nextComponent, null, null);
 	}

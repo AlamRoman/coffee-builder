@@ -6,10 +6,22 @@ import model.DebuggerConsole;
 import model.Line;
 import model.Memory.MemoryStorage;
 
+/**<p>
+ * This class represents the end of the algorithm. 
+ * </p>
+ */
 public class ComponentEnd extends AlgorithmComponent{
 
 	private static final String referenceTypeMessage = "C-END";
 
+	/**<p>
+	* The constructor of the class {@link ComponentEnd}
+	* </p>
+	* <p>
+	* It creates a new instance of the class
+	* </p>
+	* 
+	*/
 	public ComponentEnd() {
 		super(null, null, null);
 	}

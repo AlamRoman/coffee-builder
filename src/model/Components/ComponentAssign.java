@@ -9,7 +9,15 @@ import model.Memory.MemoryStorage;
 import model.Memory.VariableType;
 import model.Memory.Variable;
 import model.Memory.VariableType.*;
+import view.FlowChartContentPanel;
 
+/**<p>
+ * This class represents the assign component. 
+ * </p>
+ * <p>
+ * This component is used whenever a value has to be assigned to an existing variable, in the memory, provided by the user
+ * </p>
+ */
 public class ComponentAssign extends AlgorithmComponent{
 
 	private static final String referenceTypeMessage = "C-ASSIGN";
@@ -18,6 +26,17 @@ public class ComponentAssign extends AlgorithmComponent{
 	private Variable finalVariable;
 	private Variable secondValueVariable;
 	
+	/**<p>
+	* The constructor of the class {@link ComponentAssign}
+	* </p>
+	* <p>
+	* It creates a new instance of the class
+	* </p>
+	* @param nextComponent1 The component that is going to be pointed by default by the component
+	* @param nextComponent2 The component that is going to be pointed if a condition is false
+	* @param memory The memory that is shared in the program
+	* 
+	*/
 	public ComponentAssign(AlgorithmComponent nextComponent1, AlgorithmComponent nextComponent2, MemoryStorage memory) {
 		
 		super(nextComponent1, nextComponent2, memory);
@@ -66,6 +85,7 @@ public class ComponentAssign extends AlgorithmComponent{
 		return super.getNextComponent1();
 	}
 	
+	@Override
 	public String print() {
 		String out = "ASSIGN";
 		

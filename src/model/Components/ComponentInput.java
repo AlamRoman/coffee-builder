@@ -15,6 +15,14 @@ import model.Memory.VariableType;
 import view.GetInputWindow;
 import model.Memory.VariableType;
 
+/**<p>
+ * This class represents the input component. 
+ * </p>
+ * <p>
+ * This component is used whenever the user wants the algorithm to request an input, the given input will be automatically assigned to the
+ * variable, set by the user during the configuration of the component
+ * </p>
+ */
 public class ComponentInput extends AlgorithmComponent{
 
 	private static final String referenceTypeMessage = "C-INPUT";
@@ -22,6 +30,17 @@ public class ComponentInput extends AlgorithmComponent{
 	private String nomeVariabile;
 	private Object inputValue;
 	
+	/**<p>
+	* The constructor of the class {@link ComponentInput}
+	* </p>
+	* <p>
+	* It creates a new instance of the class
+	* </p>
+	* @param nextComponent1 The component that is going to be pointed by default by the component
+	* @param nextComponent2 The component that is going to be pointed if a condition is false
+	* @param memory The memory that is shared in the program
+	* 
+	*/
 	public ComponentInput(AlgorithmComponent nextComponent1, AlgorithmComponent nextComponent2, MemoryStorage memory) {
 		super(nextComponent1, nextComponent2, memory);
 		
