@@ -72,6 +72,7 @@ public class ContentPaneController extends Controller implements Runnable{
 		this.wait = wait;
 		this.read = read;
 		this.write = write;
+		updateTable();
 		panel.registerEvents(this);
 		ALGORITHM_EXECUTER.setController(this);
 		T = new Thread(this, "BUFFER_THREAD");

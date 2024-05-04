@@ -1,5 +1,6 @@
 package model.Memory;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -10,6 +11,7 @@ import javax.script.Compilable;
 import javax.sound.midi.Instrument;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 import model.Debug;
 import model.DebuggerConsole;
@@ -314,6 +316,14 @@ public class MemoryStorage {
         // Creazione della JTable con il modello creato
         JTable table = new JTable(model);
         table.getTableHeader().setReorderingAllowed(false);
+        
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            TableColumn column = table.getColumnModel().getColumn(i);
+            column.setPreferredWidth(30); // Set preferred width in pixels
+        }
+        
+        table.setPreferredScrollableViewportSize(new Dimension(100, 150));
+        
         return table;
     }
 	

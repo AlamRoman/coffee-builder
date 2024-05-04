@@ -203,7 +203,7 @@ public class Panel extends JPanel {
 		outputArea.setWrapStyleWord(false);
 
 		scrollPane_1.setViewportView(outputArea);
-		
+
 //		updateAutoRunState();
 	}
 	
