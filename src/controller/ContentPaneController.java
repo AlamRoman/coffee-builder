@@ -150,13 +150,16 @@ public class ContentPaneController extends Controller implements Runnable{
 				super.timer.nextButtonGotClicked = true;
 				break;
 			case "END":
-				
-				memory.setOnGoing(false);
-				memory.destroyVariables();
-				algorithmExecuter.stop();
-				panel.setExecuteButtonUsable(true);
-				panel.toggleExecuteSelected();
-				super.memory.resetExecutingStatusOfPanels();
+				//check if the program is running
+				if (super.algorithmExecuter.isRunning()) {
+					
+					memory.setOnGoing(false);
+					memory.destroyVariables();
+					algorithmExecuter.stop();
+					panel.setExecuteButtonUsable(true);
+					panel.toggleExecuteSelected();
+					super.memory.resetExecutingStatusOfPanels();
+				}
 				
 				break;
 			case "SHOW_MENU":
