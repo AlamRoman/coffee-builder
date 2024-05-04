@@ -166,7 +166,7 @@ public class ComponentOutput extends AlgorithmComponent{
 	 * </p>
 	 * @param rawOutPutString The string that is going to be set as the output String of this component
 	 * */
-	void setRawOutPutString(String rawOutPutString) {
+	public void setRawOutPutString(String rawOutPutString) {
 		this.rawOutPutString = rawOutPutString;
 	}
 }
