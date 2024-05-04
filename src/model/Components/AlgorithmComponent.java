@@ -58,7 +58,7 @@ public class AlgorithmComponent {
 	* <p>
 	* This method needs to be overrided by the single child classes for proper functionality
 	* </p>
-	* @throws Exceptions
+	* @throws Exceptions n/a
 	*/
 	public Object execute() throws Exceptions {
 		return null;
@@ -70,7 +70,7 @@ public class AlgorithmComponent {
 	* <p>
 	* This method needs to be overrided by the single child classes for proper functionality
 	* </p>
-	* @throws Exceptions
+	* @return {@link AlgorithmComponent} The next component
 	*/
 	public AlgorithmComponent getNextComponent() {
 		return null;
@@ -80,6 +80,7 @@ public class AlgorithmComponent {
 	* <p>
 	* This method returns the string containing the essential informations that should to be shown in the {@link FlowChartContentPanel}
 	* </p>
+	* <p>
 	* This method will be called from every instance of any class that extends this class
 	* </p>
 	* <p>
@@ -101,12 +102,13 @@ public class AlgorithmComponent {
 	* @param language The language that it needs to be translated in
 	* <p>
 	* Possible values:
+	* </p>
 	* <ul>
 	* <li>"Python"</li>
 	* <li>"Java"</li>
 	* <li>"PseudoCode"</li>
 	* </ul>
-	* </p>
+	* @return {@link ArrayList} of {@link Line}s, with all the lines of code generated for the language
 	*/
 	public ArrayList<Line> printCode(String language) {
 		return null;
@@ -153,9 +155,9 @@ public class AlgorithmComponent {
 	* This method sets the second pointed component
 	* </p>
 	* <p>
-	* This component is pointed by default, or when a {@link Condition} is true
+	* This component is pointed when a {@link Condition} is false
 	* </p>
-	* @param nextComponent1 The component that has to be set as second component
+	* @param nextComponent2 The component that has to be set as second component
 	*/
 	public void setNextComponent2(AlgorithmComponent nextComponent2) {
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage, "Changing next comp2: " + this.classSimpleName() + " > " + getNextComponent2() + " -> " + this.classSimpleName() + " > " + nextComponent2);

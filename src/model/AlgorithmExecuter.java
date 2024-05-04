@@ -60,6 +60,7 @@ public class AlgorithmExecuter implements Runnable{
 	* Starts the Thread of the executer after setting the Start component, provided as a parameter and executes its followings
 	* </p>
 	* @param start The {@link AlgorithmComponent} that represents the start of the algorithm
+	* @throws Exceptions n/a
 	*/
 	public void start(AlgorithmComponent start) throws Exceptions {
 		

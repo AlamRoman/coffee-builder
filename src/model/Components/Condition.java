@@ -14,13 +14,11 @@ import model.Memory.Variable;
 /**<p>
  * This class represents the condition component. 
  * </p>
- * <p>
  * This component, contains a condition that is going to be either true or false, and will be used in the conditional components:
  * <ul>
  * <li>{@link ComponentWhile}</li>
  * <li>{@link ComponentIf}</li>
  * </ul>
- * </p>
  */
 public class Condition {
 	
@@ -47,7 +45,7 @@ public class Condition {
 	* @throws Exceptions MISSING_ARGUMENTS : If there are missing arguments
 	* @throws Exceptions TERM_IS_STRING : If there's an invalid conversion where one of the terms is a String
 	* @throws Exceptions INVALID_CONDITION_SYMBOL : If there's an invalid conditional operator
-	* @throws Exceptions CONDITION_TERMS_NOT_NUMBER : If one or both terms are Strings and the operator is (>, < >= or >=)
+	* @throws Exceptions CONDITION_TERMS_NOT_NUMBER : If one or both terms are Strings and the operator is (>, <, >= or >=)
 	*/
 	public boolean resolve() throws Exceptions {
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage , "Resolving the condition: " + this.toString());
@@ -233,13 +231,14 @@ public class Condition {
 	
 	/**<p>
 	* This method returns the same info given by the {@link Condition#toString()} but translated for the conversions to the different programming languages
+	* </p>
 	* <ul>
 	* <li>Java</li>
 	* <li>Python</li>
 	* <li>PseudoCode</li>
 	* </ul>
-	* </p>
 	* @param s The term that has to be translated to code String
+	* @return {@link String} The result
 	*/
 	public String getCodeString(String s){
 		
@@ -299,6 +298,7 @@ public class Condition {
     /** <p>
 	* This method translates the informations contained in the condition to different programming languages such as Python, Java and PseudoCode
 	* </p>
+	* @return {@link String} The final translation
 	**/
 	public String printCode() {
 		String op1 = getCodeString(firstTerm);

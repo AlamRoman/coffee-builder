@@ -32,7 +32,7 @@ public class ComponentDeclaration extends AlgorithmComponent{
 	* </p>
 	* @param nextComponent1 The component that is going to be pointed by default by the component
 	* @param nextComponent2 The component that is going to be pointed if a condition is false
-	* @param memory The memory that is shared in the program
+	* @param MS The memory that is shared in the program
 	* 
 	*/
 	public ComponentDeclaration(AlgorithmComponent nextComponent1, AlgorithmComponent nextComponent2, MemoryStorage MS) {

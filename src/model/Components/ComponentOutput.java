@@ -89,13 +89,12 @@ public class ComponentOutput extends AlgorithmComponent{
 	
 	/**<p>
 	* This method returns the same info given by the {@link ComponentOutput#print()} but translated for the conversions to the different programming languages
+	* </p>
 	* <ul>
 	* <li>Java</li>
 	* <li>Python</li>
 	* <li>PseudoCode</li>
 	* </ul>
-	* </p>
-	* @param s The term that has to be translated to code String
 	*/
 	public String getCodeString(){
 		
