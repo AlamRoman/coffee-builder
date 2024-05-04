@@ -8,6 +8,7 @@ An algorithm creator and editor fully coded in Java that lets you use different 
 
 - Declaration
 - Assignment
+- Operation
 - If
 - While
 - Output
@@ -21,6 +22,8 @@ This program also gives you two different type of executions for your algorithm:
 
 The program also has two views, one is the debug view which shows all current variables generated step by step by the algorithm through all assignments, declarations and operations;
 the other one, Output, allows you to see all the program outputs via the OUTPUT component
+
+You can also convert the graphical program to pseudocode or in a programming language like Java or Python.
 
 ## Program made by:
 
