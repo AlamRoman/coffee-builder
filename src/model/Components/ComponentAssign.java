@@ -24,7 +24,8 @@ public class ComponentAssign extends AlgorithmComponent{
 	private Object value;
 	private String variableName;
 	private Variable finalVariable;
-	private Variable secondValueVariable;
+	private boolean isSecondValueVariable;
+	private String secondVarName;
 	
 	/**<p>
 	* The constructor of the class {@link ComponentAssign}
@@ -42,7 +43,8 @@ public class ComponentAssign extends AlgorithmComponent{
 		super(nextComponent1, nextComponent2, memory);
 		this.value=null;
 		this.variableName="";
-		
+		this.isSecondValueVariable = false;
+		this.secondVarName = null;
 	}
 	
 	/**<p>
@@ -56,14 +58,24 @@ public class ComponentAssign extends AlgorithmComponent{
 		this.value=value;
 		this.variableName=variableName;
 		
+		if (value instanceof String ) {
+			String varName = (String) value;
+			
+			if (varName.startsWith("$")) {
+				this.secondVarName = varName;
+				this.isSecondValueVariable = true;
+			}
+		}
+		
 	}
 	
 	public Object execute() throws Exceptions {
+		Object tempValue;
 		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage , "Executing...");
 		try {
 			finalVariable = super.getMemory().getVariableByName(variableName);
 			Variable v = getVariableFromTerm(finalVariable, value.toString());
-			this.value = v.getValue();
+			tempValue = v.getValue();
 		} catch (Exceptions e) {
 			//if the final variable doesnt exist, creates a new variable
 //			VariableType variableType = Variable.getTypeFromValue(value);
@@ -71,13 +83,13 @@ public class ComponentAssign extends AlgorithmComponent{
 			throw new Exceptions(variableName + ": " + Exceptions.NON_EXISTING_VARIABLE);
 		}
 		
-		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage , "Assigning " + value.toString() + "(" + value.getClass().getSimpleName() + ") to the variable '" + finalVariable + "(" + finalVariable.getType() + ")'");
-		if(value instanceof String && finalVariable.getType()==VariableType.String) {
-			finalVariable.setValue(value);
-		}else if(value instanceof Integer && finalVariable.getType()==VariableType.Integer){
-			finalVariable.setValue(value);
-		}else if(value instanceof Double && finalVariable.getType()==VariableType.Double){
-			finalVariable.setValue(value);
+		DebuggerConsole.getInstance().printDefaultInfoLog(referenceTypeMessage , "Assigning " + tempValue.toString() + "(" + tempValue.getClass().getSimpleName() + ") to the variable '" + finalVariable + "(" + finalVariable.getType() + ")'");
+		if(tempValue instanceof String && finalVariable.getType()==VariableType.String) {
+			finalVariable.setValue(tempValue);
+		}else if(tempValue instanceof Integer && finalVariable.getType()==VariableType.Integer){
+			finalVariable.setValue(tempValue);
+		}else if(tempValue instanceof Double && finalVariable.getType()==VariableType.Double){
+			finalVariable.setValue(tempValue);
 		}else {
 			throw new Exceptions(Exceptions.UNMATCH_TYPE, "| thrown in " + this.getClass().getSimpleName());
 		}
@@ -133,6 +145,11 @@ public class ComponentAssign extends AlgorithmComponent{
 	 * @return {@link String} The value to string
 	 * */
 	public String getValueString() {
+		
+		if (this.isSecondValueVariable) {
+			return secondVarName;
+		}
+		
 	    if (value != null) {
 	        if (value instanceof Integer || value instanceof Double) {
 	            return String.valueOf(value);
