@@ -282,15 +282,44 @@ public class ComponentOperation extends AlgorithmComponent{
 			}
 		}
 		
+		String op1;
+		String op2;
+		
 		switch(language) {
 			case "java":
-				lines.add(new Line(variableName + " = " + variableFirstOperandName + operator + variableSecondOperandName + ";"));
+				
+				if (variableFirstOperandName.startsWith("$")) {
+					op1 = variableFirstOperandName.substring(1);
+				}else {
+					op1 = variableFirstOperandName;
+				}
+				
+				if (variableSecondOperandName.startsWith("$")) {
+					op2 = variableSecondOperandName.substring(1);
+				}else {
+					op2 = variableSecondOperandName;
+				}
+				
+				lines.add(new Line(variableName + " = " + op1 + operator + op2 + ";"));
 				break;
 			case "pseudocode":
 				lines.add(new Line(print()));
 				break;
 			case "python":
-				lines.add(new Line(variableName + " = " + variableFirstOperandName + operator + variableSecondOperandName));
+				
+				if (variableFirstOperandName.startsWith("$")) {
+					op1 = variableFirstOperandName.substring(1);
+				}else {
+					op1 = variableFirstOperandName;
+				}
+				
+				if (variableSecondOperandName.startsWith("$")) {
+					op2 = variableSecondOperandName.substring(1);
+				}else {
+					op2 = variableSecondOperandName;
+				}
+				
+				lines.add(new Line(variableName + " = " + op1 + operator + op2));
 				break;
 		}
 		return lines;

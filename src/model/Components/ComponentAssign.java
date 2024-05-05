@@ -124,15 +124,32 @@ public class ComponentAssign extends AlgorithmComponent{
 	@Override
 	public ArrayList<Line> printCode(String language) {
 		ArrayList<Line> lines = new ArrayList<Line>();
+		
+		String valueString;
+		
 		switch(language) {
 			case "java":
-				lines.add(new Line(variableName + " = " + value + ";"));
+				
+				if (isSecondValueVariable) {
+					valueString = secondVarName.substring(1);
+				}else {
+					valueString = value.toString();
+				}
+				
+				lines.add(new Line(variableName + " = " + valueString + ";"));
 				break;
 			case "pseudocode":
 				lines.add(new Line(print()));
 				break;
 			case "python":
-				lines.add(new Line(variableName + " = " + value));
+				
+				if (isSecondValueVariable) {
+					valueString = secondVarName.substring(1);
+				}else {
+					valueString = value.toString();
+				}
+				
+				lines.add(new Line(variableName + " = " + valueString));
 				break;
 		}
 		return lines;
