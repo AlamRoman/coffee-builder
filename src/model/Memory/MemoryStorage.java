@@ -508,7 +508,7 @@ public class MemoryStorage {
 		}
 		
 		AlgorithmComponent previousAC = algorithmComponents.get(getIndexOf(ac)-1);
-		AlgorithmComponent nextAC = algorithmComponents.get(getIndexOf(ac)+1);
+		AlgorithmComponent nextAC = ac.getNextComponent1();
 		
 		//Controllo se il while e' vuoto
 		if(ac instanceof ComponentWhile) {
@@ -591,7 +591,7 @@ public class MemoryStorage {
 			}else if(previousAC instanceof ComponentAdd) {
 				previousAC.setNextComponent1(ac.getNextComponent1());
 			}else {
-				algorithmComponents.get(getIndexOf(ac)-1).setNextComponent1(algorithmComponents.get(getIndexOf(ac)+1));				
+				previousAC.setNextComponent1(nextAC);				
 			}
 		
 			
