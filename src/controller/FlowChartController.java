@@ -265,7 +265,7 @@ public class FlowChartController extends Controller {
 						//Edit if
 						
 						ComponentIf comp = (ComponentIf) ac;
-						ValuesIfComponent values = new ValuesIfComponent(comp.getTerm1(), comp.getTerm1(), comp.getOperator());
+						ValuesIfComponent values = new ValuesIfComponent(comp.getTerm1(), comp.getTerm2(), comp.getOperator());
 						EditIf edit = new EditIf(values, frame);
 						
 						ValuesIfComponent result = edit.showEditWindow();
