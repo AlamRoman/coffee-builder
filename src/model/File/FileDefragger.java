@@ -181,7 +181,7 @@ public class FileDefragger {
 			case "CIF":
 				ComponentIf temp_if = (ComponentIf) aus;
 				temp_if = new ComponentIf(newArrayComponents.get(N1_idx), newArrayComponents.get(N2_idx), instance);
-				temp_if.set(arrayList.get(i)[5], getRelationalOperator(arrayList.get(i)[6]), arrayList.get(i)[7]);
+				temp_if.set(arrayList.get(i)[5], getRelationalOperator(arrayList.get(i)[7]), arrayList.get(i)[6]);
 				aus = temp_if;
 				break;
 			case "CW":
